@@ -1,0 +1,95 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  type?: 'website' | 'profile' | 'article';
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  image = site.ogImage,
+  noindex = false,
+  type = 'website',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const imageUrl = new URL(image, site.url).href;
+
+const sameAs = [site.links.kuma, site.links.neurodisruptors, site.links.linkedin].filter(Boolean);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${site.url}/#person`,
+      name: site.name,
+      honorificPrefix: 'Dr.',
+      url: site.url,
+      image: imageUrl,
+      jobTitle: 'Executive Coach and Strategic Advisor',
+      description: site.description,
+      knowsLanguage: site.languages,
+      address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
+      worksFor: { '@id': `${site.url}/#kuma` },
+      knowsAbout: [
+        'Executive coaching',
+        'Leadership team alignment',
+        'Strategic offsites',
+        'Neurodivergent leadership',
+        'Scale-up leadership',
+      ],
+      sameAs,
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${site.url}/#kuma`,
+      name: 'Kuma Partners',
+      url: site.links.kuma,
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${site.url}/#advisory`,
+      name: 'Sven Mulfinger Executive Advisory',
+      url: site.url,
+      provider: { '@id': `${site.url}/#person` },
+      areaServed: 'Europe',
+      serviceType: ['Executive advisory', 'Executive coaching', 'CEO peer advisory'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      inLanguage: 'en-GB',
+      publisher: { '@id': `${site.url}/#person` },
+    },
+  ],
+};
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

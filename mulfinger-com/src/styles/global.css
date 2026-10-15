@@ -1,0 +1,59 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Fonts are self-hosted (Fontsource), so no calls to Google: better for GDPR and CSP */
+@import "@fontsource-variable/inter-tight/index.css";
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
+
+@theme {
+  --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader Variable", ui-serif, Georgia, serif;
+
+  --color-ink: #1c1d1f;        /* slate charcoal */
+  --color-graphite: #3a3c40;
+  --color-stone: #6b6a66;      /* secondary text */
+  --color-line: #d9d5cd;       /* hairlines */
+  --color-paper: #f5f2ec;      /* warm off-white */
+  --color-bone: #ebe6dc;       /* panels */
+  --color-bronze: #8a6a45;     /* accent */
+  --color-bronze-soft: #b9976d;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--color-bronze); color: var(--color-paper); }
+
+:focus-visible { outline: 2px solid var(--color-bronze); outline-offset: 3px; }
+
+@utility container-x {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) { padding-inline: 2.5rem; }
+}
+
+@utility eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-stone);
+}
+
+@utility rule {
+  border-top: 1px solid var(--color-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}

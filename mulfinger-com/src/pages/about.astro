@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const timeline = [
+  { label: 'Engineering', text: 'Trained as an engineer and completed a doctorate. Systems thinking is where I started, long before leadership teams.' },
+  { label: 'IESE Business School', text: 'Research and teaching relationship since a 2015 case study with Prof. Iñigo Gallo. Currently researching neurodivergent founders and CEOs with Prof. Tomas Kluetter.' },
+  { label: 'Founder', text: 'Spent four years building MaterFly, which became Dana, a venture in women\'s mental health. I know the founder seat from the inside, including the parts nobody posts about.' },
+  { label: 'Kuma Partners', text: 'Lead Partner at Kuma Partners, the Barcelona-based executive advisory and leadership alignment firm I launched three years ago with partners across Europe.' },
+];
+---
+<Base title="About | Sven Mulfinger" description="Engineer, founder and executive advisor. Sven Mulfinger's background, research with IESE Business School and approach to working with founders and CEOs.">
+  <section class="container-x pt-16 md:pt-28 pb-16">
+    <p class="eyebrow">About</p>
+    <h1 class="mt-6 max-w-4xl font-serif text-5xl md:text-7xl leading-[1.04] tracking-[-0.02em] text-balance">An engineer's eye for systems, applied to the people running them.</h1>
+  </section>
+
+  <section class="container-x pb-24 md:pb-32 grid md:grid-cols-12 gap-12">
+    <div class="md:col-span-4">
+      <!-- Replace with a portrait: put sven.jpg in /public and swap this block for <img src="/sven.jpg" alt="Sven Mulfinger" ...> -->
+      <div class="aspect-[4/5] bg-bone border border-line flex items-end p-6">
+        <p class="eyebrow">Portrait</p>
+      </div>
+      <dl class="mt-8 text-sm divide-y divide-line border-y border-line">
+        <div class="py-3 flex justify-between gap-4"><dt class="text-stone">Based in</dt><dd>Barcelona</dd></div>
+        <div class="py-3 flex justify-between gap-4"><dt class="text-stone">Works across</dt><dd>Europe</dd></div>
+        <div class="py-3 flex justify-between gap-4"><dt class="text-stone">Languages</dt><dd>EN · ES · DE · FR</dd></div>
+      </dl>
+    </div>
+
+    <div class="md:col-span-7 md:col-start-6">
+      <div class="prose prose-lg prose-neutral max-w-none prose-p:text-graphite prose-p:leading-relaxed">
+        <p>I grew up between languages and institutions. Both my parents worked for the European institutions and I went to the European School in Brussels. Long before I had words for it, I learned that most conflict between capable people comes from different operating assumptions rather than bad intent.</p>
+        <p>Engineering gave me the discipline to look for the structure underneath a symptom. Building a company gave me the humility to know how hard that is when you are inside it, tired and responsible for payroll.</p>
+        <p>Today I work with founders, CEOs and leadership teams in scale-ups and disruptive companies. My strongest work happens in the room with a whole team: preparing and facilitating C-suite offsites, untangling co-founder tension, redesigning how decisions get made once the company outgrows its founding habits.</p>
+        <p>I draw on neuroscience because it explains a lot of what happens under pressure, and on my research with non-linear leaders because many founders think that way. I keep the jargon out of the room. What matters is whether you decide better next week.</p>
+      </div>
+
+      <h2 class="mt-20 eyebrow">Track record</h2>
+      <ol class="mt-6 border-t border-line">
+        {timeline.map((t) => (
+          <li class="grid sm:grid-cols-[14rem_1fr] gap-2 sm:gap-8 py-6 border-b border-line">
+            <p class="font-serif text-xl">{t.label}</p>
+            <p class="text-graphite leading-relaxed">{t.text}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="mt-16 flex flex-col sm:flex-row gap-4">
+        <a href="/#contact" class="bg-ink text-paper px-7 py-4 text-sm hover:bg-bronze transition-colors text-center">Request a strategic diagnostic</a>
+        <a href={site.links.kuma} rel="noopener" class="px-1 py-4 text-sm underline underline-offset-4 decoration-line hover:text-bronze">Kuma Partners ↗</a>
+      </div>
+    </div>
+  </section>
+</Base>

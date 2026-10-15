@@ -1,0 +1,64 @@
+---
+// Netlify detects this form at deploy time from the static HTML (data-netlify="true").
+// Submissions appear in Netlify > Site > Forms. Set up an email notification there.
+const field = 'w-full bg-transparent border-0 border-b border-line focus:border-ink focus:ring-0 px-0 py-3 text-base placeholder:text-stone/70 outline-none transition-colors';
+const label = 'eyebrow block';
+---
+<form
+  name="diagnostic"
+  method="POST"
+  action="/thanks"
+  data-netlify="true"
+  netlify-honeypot="company_url"
+  class="grid gap-8 sm:grid-cols-2"
+>
+  <input type="hidden" name="form-name" value="diagnostic" />
+  <p class="hidden" aria-hidden="true">
+    <label>Leave this empty: <input name="company_url" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div>
+    <label for="name" class={label}>Name</label>
+    <input id="name" name="name" type="text" required autocomplete="name" class={field} />
+  </div>
+  <div>
+    <label for="email" class={label}>Work email</label>
+    <input id="email" name="email" type="email" required autocomplete="email" class={field} />
+  </div>
+  <div>
+    <label for="role" class={label}>Role</label>
+    <input id="role" name="role" type="text" required autocomplete="organization-title" placeholder="Founder, CEO, COO..." class={field} />
+  </div>
+  <div>
+    <label for="company" class={label}>Company</label>
+    <input id="company" name="company" type="text" required autocomplete="organization" class={field} />
+  </div>
+  <div>
+    <label for="stage" class={label}>Stage and headcount</label>
+    <select id="stage" name="stage" class={field + ' appearance-none'}>
+      <option value="">Select</option>
+      <option>Seed to Series A, under 50 people</option>
+      <option>Series B to C, 50 to 250 people</option>
+      <option>Growth or established, 250+ people</option>
+      <option>Other</option>
+    </select>
+  </div>
+  <div>
+    <label for="interest" class={label}>Interested in</label>
+    <select id="interest" name="interest" class={field + ' appearance-none'}>
+      <option>1:1 executive advisory</option>
+      <option>The Round (peer advisory)</option>
+      <option>Leadership team work with Kuma Partners</option>
+      <option>Speaking or research</option>
+      <option>Not sure yet</option>
+    </select>
+  </div>
+  <div class="sm:col-span-2">
+    <label for="message" class={label}>What decision or tension is on your desk right now?</label>
+    <textarea id="message" name="message" rows="4" required class={field + ' resize-y'}></textarea>
+  </div>
+  <div class="sm:col-span-2 flex flex-col sm:flex-row sm:items-center gap-6 justify-between">
+    <p class="text-xs text-stone max-w-md">Everything you share is read by Sven personally and treated as confidential. See the <a href="/legal" class="underline underline-offset-2 hover:text-bronze">privacy notice</a>.</p>
+    <button type="submit" class="bg-ink text-paper px-8 py-4 text-sm tracking-wide hover:bg-bronze transition-colors">Send request</button>
+  </div>
+</form>

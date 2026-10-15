@@ -1,0 +1,100 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const principles = [
+  { t: 'Confidential by default', b: 'Nothing you say reaches your board, investors or team unless you decide it should. When I work with your team as well, the boundaries are agreed with you upfront.' },
+  { t: 'Decisions over insight', b: 'Each conversation should leave you with a clearer decision, a sharper question or a concrete next move. Insight that changes nothing is entertainment.' },
+  { t: 'Direct and peer to peer', b: 'You will get my honest read, including when it is uncomfortable. I will also tell you when something is outside my competence.' },
+  { t: 'Systems first', b: 'When a problem keeps returning, we look at the structure producing it: roles, decision rights, governance, incentives and the way information moves.' },
+];
+
+const steps = [
+  { n: '01', t: 'Diagnostic conversation', b: 'We map the decision or tension that brought you here, what has been tried and what is at stake. Both of us assess fit.' },
+  { n: '02', t: 'Engagement design', b: 'If we proceed, we agree the objective, the rhythm and the people involved. Most engagements start with a defined period and a review point.' },
+  { n: '03', t: 'Working sessions', b: 'Regular 1:1 sessions in person in Barcelona or online, with access between sessions when a decision cannot wait.' },
+  { n: '04', t: 'Review and next step', b: 'We review progress against the objective. Some clients continue, some move into The Round, some bring in Kuma Partners for team work.' },
+];
+
+const fit = [
+  'Founders and CEOs of scale-ups, roughly Seed to Series C',
+  'C-suite leaders stepping into a bigger or different role',
+  'Leaders whose company has grown faster than its decision-making',
+  'Founders with non-linear or neurodivergent profiles who want to work with that wiring',
+];
+
+const notFit = [
+  'Looking for a certified life coach or therapy',
+  'Wanting a consulting report delivered by a junior team',
+  'Not ready to look at your own part in the problem',
+];
+---
+<Base title="Advisory | Sven Mulfinger" description="How 1:1 executive advisory with Sven Mulfinger works: operating principles, terms of engagement and who it is for.">
+  <section class="container-x pt-16 md:pt-28 pb-20">
+    <p class="eyebrow">Advisory</p>
+    <h1 class="mt-6 max-w-4xl font-serif text-5xl md:text-7xl leading-[1.04] tracking-[-0.02em] text-balance">A thinking partner for the decisions you cannot delegate.</h1>
+    <p class="mt-8 max-w-2xl text-lg text-graphite leading-relaxed">1:1 advisory is for the leader who carries the final call. We work on what is actually in front of you: a co-founder conversation you keep postponing, a hire that does not fit any more, a strategy that looks right on paper and stalls in practice.</p>
+  </section>
+
+  <section class="border-t border-line">
+    <div class="container-x py-20 md:py-28 grid md:grid-cols-12 gap-10">
+      <h2 class="md:col-span-4 font-serif text-4xl leading-tight">Operating principles</h2>
+      <div class="md:col-span-8 grid sm:grid-cols-2 gap-x-10 gap-y-12">
+        {principles.map((p) => (
+          <div class="border-t border-ink pt-5">
+            <h3 class="text-lg font-medium">{p.t}</h3>
+            <p class="mt-3 text-graphite leading-relaxed">{p.b}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink text-paper">
+    <div class="container-x py-20 md:py-28">
+      <p class="eyebrow !text-paper/50">Terms of engagement</p>
+      <h2 class="mt-4 font-serif text-4xl md:text-5xl leading-tight max-w-2xl">How an engagement runs.</h2>
+      <ol class="mt-14 grid md:grid-cols-4 gap-px bg-paper/15 border border-paper/15">
+        {steps.map((s) => (
+          <li class="bg-ink p-8">
+            <p class="font-serif text-bronze-soft text-lg">{s.n}</p>
+            <h3 class="mt-6 text-lg font-medium">{s.t}</h3>
+            <p class="mt-3 text-sm text-paper/70 leading-relaxed">{s.b}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-8 text-sm text-paper/60 max-w-2xl">Fees depend on scope and rhythm and are shared after the diagnostic conversation.</p>
+    </div>
+  </section>
+
+  <section class="container-x py-20 md:py-28 grid md:grid-cols-12 gap-10">
+    <h2 class="md:col-span-4 font-serif text-4xl leading-tight">Selection criteria</h2>
+    <div class="md:col-span-8 grid sm:grid-cols-2 gap-12">
+      <div>
+        <p class="eyebrow">A good fit</p>
+        <ul class="mt-5 space-y-4">
+          {fit.map((f) => <li class="flex gap-3 text-graphite"><span class="mt-2.5 h-px w-4 shrink-0 bg-bronze"></span>{f}</li>)}
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">Probably not a fit</p>
+        <ul class="mt-5 space-y-4">
+          {notFit.map((f) => <li class="flex gap-3 text-stone"><span class="mt-2.5 h-px w-4 shrink-0 bg-line"></span>{f}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line bg-bone">
+    <div class="container-x py-20 flex flex-col md:flex-row md:items-center justify-between gap-8">
+      <div>
+        <h2 class="font-serif text-3xl md:text-4xl">Is the issue the whole leadership team?</h2>
+        <p class="mt-3 text-graphite max-w-xl">Team diagnostics, alignment sprints and offsites run through Kuma Partners.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="/#contact" class="bg-ink text-paper px-7 py-4 text-sm hover:bg-bronze transition-colors text-center">Request a diagnostic</a>
+        <a href={site.links.kuma} rel="noopener" class="border border-ink px-7 py-4 text-sm hover:bg-ink hover:text-paper transition-colors text-center">kuma.partners ↗</a>
+      </div>
+    </div>
+  </section>
+</Base>

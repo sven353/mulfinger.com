@@ -1,0 +1,62 @@
+---
+import { nav, site } from '../data/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path === href);
+---
+<header class="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-line">
+  <div class="container-x flex h-16 items-center justify-between">
+    <a href="/" class="group flex items-baseline gap-3" aria-label="Sven Mulfinger, home">
+      <span class="font-serif text-xl tracking-tight">Sven Mulfinger</span>
+      <span class="hidden sm:inline eyebrow group-hover:text-bronze transition-colors">Advisory</span>
+    </a>
+
+    <nav aria-label="Main" class="hidden md:flex items-center gap-8 text-sm">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'relative py-1 transition-colors hover:text-bronze',
+            isActive(item.href) ? 'text-ink after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-bronze' : 'text-graphite',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >{item.label}</a>
+      ))}
+      <a href={site.links.kuma} class="text-graphite hover:text-bronze transition-colors" rel="noopener">Kuma Partners ↗</a>
+      <a href="/#contact" class="bg-ink text-paper px-4 py-2 hover:bg-bronze transition-colors">Request a diagnostic</a>
+    </nav>
+
+    <button
+      id="menu-open"
+      type="button"
+      class="md:hidden -mr-2 p-2"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+  </div>
+
+</header>
+
+<div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-label="Menu">
+  <div data-close class="absolute inset-0 bg-ink/40"></div>
+  <div class="absolute right-0 top-0 h-full w-[min(22rem,88vw)] bg-ink text-paper flex flex-col p-6">
+    <div class="flex items-center justify-between">
+      <span class="font-serif text-lg">Sven Mulfinger</span>
+      <button data-close type="button" class="-mr-2 p-2" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile" class="mt-12 flex flex-col gap-1 font-serif text-3xl">
+      {nav.map((item) => (
+        <a href={item.href} data-close class="py-2 hover:text-bronze-soft transition-colors">{item.label}</a>
+      ))}
+      <a href={site.links.kuma} class="py-2 hover:text-bronze-soft transition-colors" rel="noopener">Kuma Partners ↗</a>
+    </nav>
+    <a href="/#contact" data-close class="mt-auto bg-paper text-ink text-center py-3 text-sm hover:bg-bronze-soft transition-colors">Request a diagnostic</a>
+  </div>
+</div>
+
+
+<script is:inline src="/menu.js" defer></script>
