@@ -72,9 +72,11 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - JSON-LD parses, contains Person and Service, and a 12-question FAQPage with plain-text answers on home and advisory
 - the FAQ renders 12 items, each with a toggle; all 5 outbound links sit inside the expanded context and use `target="_blank" rel="noopener noreferrer"`
 - `llms-full.txt` contains all 12 FAQ answers
+- the proof bar sits directly after the hero with 3 credentials; home links to kuma.partners and offsite.kuma.partners in a new tab
+- every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes and no IE Business School claim anywhere in pages or llms files
 
-Status on 2026-10-15: build clean, 61/61 checks passed. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
+Status on 2026-10-15: build clean, 66/66 checks passed. All four main routes return 200 with no horizontal overflow at 1440, 820 and 390 px. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
 
 ## Deployment pipeline
 
@@ -148,6 +150,7 @@ UK spelling, no serial comma, no em dashes, no bold labels, short paragraphs.
 
 ## Changelog
 
+- 2026-10-15 (v5): Hero refined: hairline grid at 40% of the line colour, paragraph directly under the headline, horizontal button group, clear primary and outline hierarchy, more editorial spacing. Proof bar rebuilt as a full-width three-credential strip (IESE, 100+, EN · ES · DE · FR). Engagement cards gain a descriptor line and a second Kuma link to offsite.kuma.partners; external links open in a new tab. Verify script at 66 checks.
 - 2026-10-15 (v4): 12-question FAQ with visible one-line verdicts and 'Read context' toggles, smooth expansion where supported, outbound links to kuma.partners, offsite.kuma.partners, theround.kuma.partners and neurodisruptors.com only inside the expanded context. FAQPage schema extended to 12 answers. `/llms-full.txt` now generated from the FAQ data. Confirmed terms applied site-wide (24 to 48 hour reply, Madrid sessions, nomination route for The Round, retainer cadence). Verify script extended to 61 checks.
 - 2026-10-15 (v3): GEO layer (`llms.txt`, `llms-full.txt`, AI-friendly `robots.txt`), FAQ component with FAQPage schema on home and advisory, Service schema for the three engagement modes, WebPage schema. Form renamed to `executive-diagnostic` with new fields, inline validation and in-place confirmation. Hardened headers and caching in `netlify.toml`, `/sitemap.xml` redirect. `scripts/verify.mjs` and npm `verify` and `check` scripts. Full README.
 - 2026-10-15 (v2): Monochrome Swiss redesign, Layout and Badges components, /contact page, new copy, The Round and Kuma comparison on /advisory.

@@ -103,6 +103,25 @@ for (const page of ['index.html', 'advisory/index.html']) {
 const llmsFull = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
 check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 12);
 
+// 4d. Home hero and engagement cards
+{
+  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const proof = home.match(/<section aria-label="Credentials"[\s\S]*?<\/section>/)?.[0] ?? '';
+  check('proof bar sits directly after the hero', /<\/section>\s*<section aria-label="Credentials"/.test(home));
+  check('proof bar has 3 credentials', (proof.match(/<dt/g) ?? []).length === 3);
+  for (const host of ['https://kuma.partners', 'https://offsite.kuma.partners']) {
+    const a = [...home.matchAll(new RegExp(`<a [^>]*href="${host.replace(/\./g, '\\.')}"[^>]*>`, 'g'))].map((m) => m[0]);
+    const ok = a.length > 0 && a.some((t) => t.includes('target="_blank"') && t.includes('rel="noopener noreferrer"'));
+    check(`home links to ${host} in a new tab`, ok);
+  }
+}
+
+// 4e. No stray text before the document (catches a broken frontmatter fence)
+{
+  const stray = htmlFiles.filter((f) => !/^\s*<!doctype html>/i.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
+  check('every page starts with <!doctype html>', stray.length === 0, stray.join(', '));
+}
+
 // 5. Copy rules
 const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt')];
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));

@@ -24,8 +24,7 @@ export const site = {
 export const badges = [
   { label: 'Research', value: 'IESE Business School', note: 'Active research collaborator' },
   { label: 'Track record', value: '100+', note: 'Founders and CEOs guided' },
-  { label: 'Practice', value: 'EN / ES / DE / FR', note: 'International, four working languages' },
-  { label: 'Firm', value: 'Kuma Partners', note: 'Lead Partner' },
+  { label: 'Practice', value: 'EN · ES · DE · FR', note: 'Advising internationally' },
 ];
 
 export const nav = [

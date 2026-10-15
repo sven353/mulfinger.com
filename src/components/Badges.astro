@@ -1,22 +1,21 @@
 ---
+// Full-width proof bar directly beneath the hero.
+// Claims come from src/data/site.ts (confirmed list only).
 import { badges } from '../data/site';
-interface Props { tone?: 'light' | 'dark' }
-const { tone = 'light' } = Astro.props;
-const dark = tone === 'dark';
 ---
-<section aria-label="Credentials" class:list={['border-y', dark ? 'border-ink-line bg-ink text-white' : 'border-line bg-mist']}>
-  <dl class="container-x grid grid-cols-2 lg:grid-cols-4">
+<section aria-label="Credentials" class="border-y border-line bg-mist">
+  <dl class="container-x grid sm:grid-cols-3">
     {badges.map((b, i) => (
       <div class:list={[
-        'py-7 md:py-9 pr-4',
-        i % 2 === 1 && 'pl-4 md:pl-6 border-l',
-        i >= 2 && 'border-t lg:border-t-0',
-        i === 2 && 'lg:pl-6 lg:border-l',
-        dark ? 'border-ink-line' : 'border-line',
+        'flex items-baseline justify-between gap-6 py-6 sm:block sm:py-10',
+        i > 0 && 'border-t border-line sm:border-t-0 sm:border-l sm:pl-8 lg:pl-10',
+        i < badges.length - 1 && 'sm:pr-8',
       ]}>
-        <dt class:list={['label', dark ? 'text-fog' : 'text-steel']}>{String(i + 1).padStart(2, '0')} · {b.label}</dt>
-        <dd class="mt-3 text-xl md:text-2xl font-medium tracking-tight">{b.value}</dd>
-        <dd class:list={['mt-1 text-sm', dark ? 'text-fog' : 'text-steel']}>{b.note}</dd>
+        <dt class="label text-steel sm:mb-4">{b.label}</dt>
+        <div class="text-right sm:text-left">
+          <dd class="text-xl md:text-[1.7rem] font-medium tracking-tight leading-none">{b.value}</dd>
+          <dd class="mt-2 text-sm text-steel">{b.note}</dd>
+        </div>
       </div>
     ))}
   </dl>

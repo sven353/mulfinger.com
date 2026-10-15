@@ -23,55 +23,56 @@ const pillars = [
   },
 ];
 
-const modes = [
+// External links open in a new tab; internal links stay in the same tab.
+type ModeLink = { href: string; label: string; external?: boolean };
+const modes: Array<{ n: string; title: string; tag: string; body: string; meta: string[][]; links: ModeLink[] }> = [
   {
     n: 'Mode 01',
     title: '1:1 Executive Advisory',
-    body: 'Confidential, high-conviction thought partnership for founders, CEOs and enterprise leaders carrying the final call.',
+    tag: 'Confidential founder and CEO counsel',
+    body: 'High-conviction thought partnership for founders, CEOs and enterprise leaders carrying the final call.',
     meta: [['Format', 'Individual'], ['Rhythm', 'Fortnightly, 6 or 12 months'], ['Led by', 'Sven Mulfinger']],
-    href: '/advisory#one-to-one',
-    cta: 'How 1:1 advisory works',
-    external: false,
+    links: [{ href: '/advisory#one-to-one', label: 'How 1:1 advisory works' }],
   },
   {
     n: 'Mode 02',
     title: 'The Round',
-    body: 'A private, curated peer collective for high-growth founders and CEOs, year-round, based in Barcelona. By application or peer nomination.',
+    tag: 'Barcelona executive peer collective',
+    body: 'A private, curated peer collective for high-growth founders and CEOs, year-round. By application or peer nomination.',
     meta: [['Format', 'Peer group'], ['Rhythm', 'Monthly, year-round'], ['Led by', 'Sven Mulfinger']],
-    href: '/advisory#the-round',
-    cta: 'About The Round',
-    external: false,
+    links: [{ href: '/advisory#the-round', label: 'About The Round' }],
   },
   {
     n: 'Mode 03',
     title: 'Kuma Partners',
+    tag: 'Institutional offsites and organisational systems',
     body: 'The institutional practice for executive team alignment, strategic offsites and the 14-Day Leadership Friction Diagnostic.',
     meta: [['Format', 'Leadership team'], ['Rhythm', 'Diagnostic, then sprint'], ['Led by', 'Kuma partner team']],
-    href: site.links.kuma,
-    cta: 'kuma.partners',
-    external: true,
+    links: [
+      { href: site.links.kuma, label: 'Kuma Partners', external: true },
+      { href: site.links.offsite, label: 'Kuma Partners offsites', external: true },
+    ],
   },
 ];
 ---
 <Layout faq={faq}>
   <!-- Hero -->
   <section class="relative overflow-hidden">
+    <!-- Hairline 12-column grid: decorative, very low contrast so it never competes with the type -->
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 container-x hidden md:grid grid-cols-12">
-      {Array.from({ length: 12 }).map((_, i) => <div class:list={['border-l border-line/60', i === 11 && 'border-r']}></div>)}
+      {Array.from({ length: 12 }).map((_, i) => <div class:list={['border-l border-line/40', i === 11 && 'border-r']}></div>)}
     </div>
-    <div class="relative container-x pt-16 md:pt-28 pb-16 md:pb-24">
+    <div class="relative container-x pt-20 md:pt-32 lg:pt-40 pb-20 md:pb-28 lg:pb-32">
       <p class="label text-steel">Strategic advisory for founders and C-suite</p>
-      <h1 class="mt-8 display text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[6.25rem] max-w-[14ch] text-balance">
+      <h1 class="mt-10 md:mt-14 display text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[6.25rem] max-w-[14ch] text-balance">
         Translating deep systemic insight into decisive leadership.
       </h1>
-      <div class="mt-12 md:mt-16 grid md:grid-cols-12 gap-8 items-end">
-        <p class="md:col-span-6 text-lg md:text-xl text-steel leading-relaxed">
-          Guiding bold leaders through non-linear growth, structural friction and high-stakes transitions. Holding principled tension where standard playbooks fail.
-        </p>
-        <div class="md:col-span-4 md:col-start-9 flex flex-col sm:flex-row md:flex-col gap-3">
-          <a href="/contact" class="bg-ink text-white px-7 py-4 text-sm hover:bg-ink-2 transition-colors inline-flex justify-center items-center gap-3">Request strategic diagnostic <span aria-hidden="true">→</span></a>
-          <a href={site.links.kuma} rel="noopener" class="border border-ink px-7 py-4 text-sm hover:bg-ink hover:text-white transition-colors text-center">Explore Kuma Partners (B2B) ↗</a>
-        </div>
+      <p class="mt-10 md:mt-12 max-w-[38rem] text-lg md:text-xl text-steel leading-relaxed">
+        Guiding bold leaders through non-linear growth, structural friction and high-stakes transitions. Holding principled tension where standard playbooks fail.
+      </p>
+      <div class="mt-12 md:mt-14 flex flex-col sm:flex-row gap-3">
+        <a href="/contact" class="bg-ink text-white px-7 py-4 text-sm hover:bg-ink-hover transition-colors inline-flex justify-center items-center gap-3">Request strategic diagnostic <span aria-hidden="true">→</span></a>
+        <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="border border-line-strong bg-transparent text-ink px-7 py-4 text-sm hover:bg-mist transition-colors inline-flex justify-center items-center gap-2">Explore Kuma Partners (B2B) <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
       </div>
     </div>
   </section>
@@ -128,9 +129,13 @@ const modes = [
       <div class="mt-16 grid lg:grid-cols-3 border border-ink-line">
         {modes.map((m, i) => (
           <article class:list={['p-8 md:p-10 flex flex-col', i > 0 && 'border-t lg:border-t-0 lg:border-l border-ink-line']}>
-            <p class="label text-fog">{m.n}</p>
+            <div class="flex items-baseline justify-between gap-4">
+              <p class="label text-fog">{m.n}</p>
+              <span aria-hidden="true" class="h-px flex-1 bg-ink-line"></span>
+            </div>
             <h3 class="mt-10 text-3xl display">{m.title}</h3>
-            <p class="mt-4 text-fog leading-relaxed">{m.body}</p>
+            <p class="mt-2 text-sm text-white/70">{m.tag}</p>
+            <p class="mt-5 text-fog leading-relaxed">{m.body}</p>
             <dl class="mt-8 border-t border-ink-line text-sm flex-1">
               {m.meta.map(([k, v]) => (
                 <div class="flex justify-between gap-4 py-3 border-b border-ink-line">
@@ -138,9 +143,22 @@ const modes = [
                 </div>
               ))}
             </dl>
-            <a href={m.href} rel={m.external ? 'noopener' : undefined} class="mt-8 inline-flex items-center justify-between gap-2 text-sm border border-ink-line px-4 py-3 hover:bg-white hover:text-ink transition-colors">
-              {m.cta} <span aria-hidden="true">{m.external ? '↗' : '→'}</span>
-            </a>
+            <div class="mt-8 grid gap-2">
+              {m.links.map((l, j) => (
+                <a
+                  href={l.href}
+                  target={l.external ? '_blank' : undefined}
+                  rel={l.external ? 'noopener noreferrer' : undefined}
+                  class:list={[
+                    'inline-flex items-center justify-between gap-2 text-sm px-4 py-3 transition-colors',
+                    j === 0 ? 'bg-white text-ink hover:bg-mist' : 'border border-ink-line hover:border-fog',
+                  ]}
+                >
+                  <span>{l.label}{l.external && <span class="sr-only"> (opens in a new tab)</span>}</span>
+                  <span aria-hidden="true">{l.external ? '↗' : '→'}</span>
+                </a>
+              ))}
+            </div>
           </article>
         ))}
       </div>
@@ -186,7 +204,7 @@ const modes = [
       </div>
       <div class="md:col-span-4 md:col-start-9">
         <p class="text-steel leading-relaxed">A short application, then a confidential diagnostic conversation. If the fit is wrong, I will tell you, and where I can, point you to someone better placed.</p>
-        <a href="/contact" class="mt-8 w-full bg-ink text-white px-7 py-4 text-sm hover:bg-ink-2 transition-colors inline-flex justify-between items-center">Request strategic diagnostic <span aria-hidden="true">→</span></a>
+        <a href="/contact" class="mt-8 w-full bg-ink text-white px-7 py-4 text-sm hover:bg-ink-hover transition-colors inline-flex justify-between items-center">Request strategic diagnostic <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
