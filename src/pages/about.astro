@@ -1,10 +1,6 @@
 ---
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
-
-const hasPortrait = existsSync(join(process.cwd(), 'public', 'sven-mulfinger.jpg'));
 
 const lineage = [
   {
@@ -77,12 +73,6 @@ const foundations = [
     <div class="md:col-span-4">
       <p class="label text-steel">The intersection</p>
       <h2 class="mt-5 display text-4xl md:text-5xl">Neuroscience, organisations and governance.</h2>
-      <!-- Portrait: public/sven-mulfinger.jpg is picked up automatically at build time -->
-      <div class="mt-10 relative aspect-[4/5] overflow-hidden bg-mist ring-1 ring-line">
-        {hasPortrait
-          ? <img src="/sven-mulfinger.jpg" alt="Sven Mulfinger" width="960" height="1200" class="absolute inset-0 size-full object-cover" loading="lazy" decoding="async" />
-          : <span class="absolute bottom-5 left-5 label text-steel">Portrait to follow</span>}
-      </div>
     </div>
     <div class="md:col-span-7 md:col-start-6 space-y-6 text-lg text-steel leading-relaxed md:pt-12">
       <p>Three lenses run through everything I do. Neuroscience explains what happens to judgement under pressure: why smart people narrow their options, defend positions and avoid the conversation that matters. Organisational behaviour explains how those individual patterns harden into team habits. Governance is where the fix usually lives, in who decides what, with which information and by when.</p>

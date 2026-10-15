@@ -32,9 +32,9 @@ const { eyebrow, title, titleEs, updated, updatedEs } = Astro.props;
 <style is:global>
   .legal-body > article + article { margin-top: 6rem; padding-top: 4rem; border-top: 1px solid var(--color-ink); }
   .legal-body article { scroll-margin-top: 6rem; }
-  .legal-body h2 { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.015em; margin-top: 3rem; margin-bottom: 1rem; }
+  .legal-body h2 { font-size: 1.6rem; font-weight: 400; letter-spacing: -0.01em; margin-top: 3rem; margin-bottom: 1rem; }
   .legal-body .lang + h2 { margin-top: 0; }
-  .legal-body .lang { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-steel); margin-bottom: 2rem; }
+  .legal-body .lang { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.14em; font-weight: 500; text-transform: uppercase; color: var(--color-steel); margin-bottom: 2rem; }
   .legal-body p, .legal-body li { color: var(--color-steel); line-height: 1.7; }
   .legal-body p + p, .legal-body ul + p, .legal-body dl + p { margin-top: 1rem; }
   .legal-body ul { margin-top: 0.75rem; padding-left: 1.1rem; list-style: square; }
@@ -42,7 +42,7 @@ const { eyebrow, title, titleEs, updated, updatedEs } = Astro.props;
   .legal-body a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; }
   .legal-body dl { display: grid; grid-template-columns: minmax(9rem, 14rem) 1fr; border-top: 1px solid var(--color-line); }
   .legal-body dt, .legal-body dd { padding: 0.85rem 0; border-bottom: 1px solid var(--color-line); }
-  .legal-body dt { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-steel); padding-right: 1rem; }
+  .legal-body dt { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.1em; font-weight: 500; text-transform: uppercase; color: var(--color-steel); padding-right: 1rem; }
   .legal-body dd { color: var(--color-ink); }
   @media (max-width: 40rem) {
     .legal-body dl { grid-template-columns: 1fr; }

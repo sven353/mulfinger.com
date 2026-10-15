@@ -57,7 +57,7 @@ paper #FAF9F6 (background), mist #F2F0EB (alternate sections), ink #111317 (text
 All h1 to h3 are set in Newsreader; `display` is the serif display utility, `label` the small uppercase sans marker. No boxed cards: hairline rules and whitespace carry the rhythm.
 Primary button `bg-ink text-paper hover:bg-ink-hover`; secondary links are underlined text.
 
-Portrait: add `public/sven-mulfinger.jpg` (4:5, at least 960 x 1200) and it replaces the placeholder on Home and About automatically at the next build.
+Photography: one photograph site-wide, `src/assets/images/sven-hero.jpg`, in the home hero only. Astro converts it to responsive WebP (480 to 1256 px, 18 to 56 kB) at build time. The 4:5 crop is set by `object-[44%_40%]` in `src/pages/index.astro`; to swap the photo, replace the file under the same name and check the crop. `npm run verify` fails if a second `<img>` or a placeholder appears.
 
 ## Local development
 
@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes and no IE Business School claim anywhere in pages or llms files
 
-Status on 2026-10-15: build clean, 115/115 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
+Status on 2026-10-15: build clean, 121/121 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
 
 ## Deployment pipeline
 
@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-15 (v10): Single photograph in the hero (`src/assets/images/sven-hero.jpg`), optimised to responsive WebP, eager and high priority, 4:5 crop centred on Sven. Hero rebuilt as 7/5 columns; on mobile the order is headline, subhead, photo, call to action. Portrait placeholder removed from About. Legal pages no longer reference the removed mono font. Verify script at 121 checks.
 - 2026-10-15 (v9): GEO upgrade. Person `#sven-mulfinger` with new jobTitle, knowsAbout and LinkedIn in sameAs; ProfessionalService `#executive-advisory` with serviceType, areaServed and language codes; Kuma Partners organisation described for disambiguation. llms.txt restructured (entity summary, ecosystem routing, disambiguation); llms-full.txt gains the engagement model, diagnostic scenarios and entity relationships. Applebot-Extended allowed in robots.txt. LinkedIn link in the footer. Verify script at 115 checks.
 - 2026-10-15 (v8): Editorial authority redesign. Newsreader serif headings with Inter body, warm paper palette, boxed cards replaced by hairline rules. New home in eight sections: two-column hero with portrait frame and reassurance note, three narrative situations, background, four-step process, engagement paths with 1:1 as the primary offer, research feature, final invitation. Advisory restructured around buyer questions. Contact simplified to four fields plus consent (fields `role_organisation`, `decision_challenge`). Privacy Policy updated to match. All external links open in a new tab. New favicon and OG image. Verify script at 93 checks.
 - 2026-10-15 (v7): Editorial overhaul. New hero ("A thinking partner for the decisions you cannot delegate."), four real situations replace the philosophy cards, one approach section carries "Slow down to speed up", engagement modes rewritten as prose without product labels, home FAQ removed, advisory FAQ cut to six qualification questions, footer slogan removed, CTAs unified, site title, description, OG image and llms files updated.

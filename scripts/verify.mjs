@@ -109,7 +109,18 @@ check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
   check('home: reassurance note under the primary button', home.includes('Confidential. Direct. No obligation to continue.'));
-  check('home: portrait frame in the hero', /<figure[\s\S]*?(sven-mulfinger\.jpg|Portrait of Sven Mulfinger)/.test(home));
+  const img = home.match(/<figure[\s\S]*?<img[^>]*>/)?.[0]?.match(/<img[^>]*>/)?.[0] ?? '';
+  check('home: hero portrait is a real optimised image', /src="\/_astro\/sven-hero\.[^"]+\.webp"/.test(img) && /srcset="[^"]*480w[^"]*960w/.test(img));
+  check('home: portrait alt text', img.includes('alt="Sven Mulfinger, executive advisor to founders and CEOs."'));
+  check('home: portrait loads eagerly with high priority', img.includes('loading="eager"') && img.includes('fetchpriority="high"'));
+  const imgSrc = img.match(/src="([^"]+)"/)?.[1];
+  check('home: portrait file exists in dist', !!imgSrc && existsSync(join(DIST, imgSrc)));
+  const order = ['<h1', '<figure', 'href="/contact" class="inline-flex'].map((t) => home.indexOf(t));
+  check('home: mobile order headline, portrait, CTA', order.every((v) => v > 0) && order[0] < order[1] && order[1] < order[2]);
+  const imgCount = htmlFiles.reduce((n, f) => n + (readFileSync(f, 'utf8').match(/<img /g) ?? []).length, 0);
+  check(`one photograph site-wide (found ${imgCount})`, imgCount === 1);
+  const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
+  check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   check('home: situations section with 3 blocks', home.includes('The problems that bring CEOs to the table.') && (home.match(/id="situations-heading"[\s\S]*?<\/section>/)?.[0].match(/<article/g) ?? []).length === 3);
   check('home: background section', home.includes('I have sat on both sides of the table.'));
   check('home: 4-step process', home.includes('What happens when we work together.') && (home.match(/id="process-heading"[\s\S]*?<\/ol>/)?.[0].match(/<li/g) ?? []).length === 4);
