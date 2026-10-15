@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
+import Faq from '../components/Faq.astro';
+import { faq } from '../data/faq';
 
 const process = [
   { n: '01', t: 'Application', b: 'You describe the decision or friction in a short form. I read every application personally.' },
@@ -31,7 +33,7 @@ const compare = [
   { k: 'Led by', a: 'Sven Mulfinger', b: 'Sven Mulfinger', c: 'Sven and the Kuma partner team' },
 ];
 ---
-<Layout title="Advisory | Sven Mulfinger" description="How engagements with Sven Mulfinger work: 1:1 executive counsel, The Round peer advisory for founders and CEOs and leadership team work through Kuma Partners.">
+<Layout faq={faq} title="Advisory | Sven Mulfinger" description="How engagements with Sven Mulfinger work: 1:1 executive counsel, The Round peer advisory for founders and CEOs and leadership team work through Kuma Partners.">
   <section class="container-x pt-16 md:pt-28 pb-16 md:pb-24">
     <p class="label text-steel">Advisory · Engagement models</p>
     <h1 class="mt-8 display text-5xl md:text-7xl lg:text-[5.5rem] max-w-[15ch] text-balance">Counsel for the decisions you cannot delegate.</h1>
@@ -39,6 +41,7 @@ const compare = [
       <a href="#one-to-one" class="border border-line px-4 py-2 hover:border-ink transition-colors">01 · 1:1 Executive Advisory</a>
       <a href="#the-round" class="border border-line px-4 py-2 hover:border-ink transition-colors">02 · The Round</a>
       <a href="#compare" class="border border-line px-4 py-2 hover:border-ink transition-colors">03 · 1:1 or Kuma Partners</a>
+      <a href="#faq" class="border border-line px-4 py-2 hover:border-ink transition-colors">04 · FAQ</a>
     </nav>
   </section>
 
@@ -138,4 +141,6 @@ const compare = [
       </div>
     </div>
   </section>
+
+  <Faq tone="mist" heading="Before you apply." />
 </Layout>

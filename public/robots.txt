@@ -1,4 +1,30 @@
+# mulfinger.com
+# All crawlers, including AI search and answer engines, are welcome.
+# A machine-readable profile is at /llms.txt (summary) and /llms-full.txt (full).
+
 User-agent: *
+Allow: /
+Disallow: /thanks
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://mulfinger.com/sitemap-index.xml

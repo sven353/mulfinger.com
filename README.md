@@ -1,100 +1,140 @@
 # mulfinger.com
 
-Personal advisory site of Sven Mulfinger. Static Astro site styled with Tailwind CSS v4, hosted on Netlify. Replaces the previous HubSpot site.
+Personal advisory site of Dr. Sven Mulfinger. A static Astro site styled with Tailwind CSS, deployed from GitHub to Netlify. It replaces the previous HubSpot site.
 
-## Stack
+## Tech stack
 
-- Astro 7, static output (`dist/`)
+- Astro 7, fully static output in `dist/`
 - Tailwind CSS v4 via `@tailwindcss/vite`, plus `@tailwindcss/typography`
-- Self-hosted fonts: Inter Tight (display and text) and JetBrains Mono (labels), via Fontsource. No Google Fonts calls.
+- Self-hosted fonts via Fontsource: Inter Tight (display and text) and JetBrains Mono (labels). No Google Fonts calls.
 - `@astrojs/sitemap` for `sitemap-index.xml`
-- Netlify Forms: `executive-intake` on /contact
-- No frameworks or trackers in the browser. One small script (`public/menu.js`) for the mobile menu.
+- Netlify: hosting, CDN, HTTPS, Forms
+- No front-end framework and no trackers. Two small scripts in `public/`: `menu.js` (mobile menu) and `form.js` (form validation and in-place confirmation)
 
 ## Structure
 
 ```
 src/
-  data/site.ts            names, links, nav and ALL public claims (badges). Edit claims here only.
-  layouts/Layout.astro    html shell, SEO, header, footer
+  data/
+    site.ts               names, links, nav and ALL public claims (badges). Edit claims here only.
+    faq.ts                FAQ content, used by Faq.astro and the FAQPage schema
+  layouts/Layout.astro    html shell, SEO, header, footer. Takes an optional `faq` prop.
   components/
-    Seo.astro             meta, canonical, OpenGraph, Twitter card, JSON-LD (Person, Organization, ProfessionalService, WebSite)
+    Seo.astro             meta, canonical, OpenGraph, Twitter card, JSON-LD graph
+                          (Person, Organization, ProfessionalService, 3 x Service, WebSite, WebPage, FAQPage when `faq` is passed)
     Header.astro          sticky nav + full-screen mobile drawer (drawer sits outside <header> on purpose)
-    Footer.astro          architectural footer with credentials row
-    Badges.astro          credentials grid (IESE, 100+, languages, Kuma)
-    ContactForm.astro     Netlify form "executive-intake" with honeypot
+    Footer.astro          footer with credentials row
+    Badges.astro          credentials grid
+    Faq.astro             accordion on <details>, works without JavaScript
+    ContactForm.astro     Netlify form "executive-diagnostic" with honeypot and in-place success state
   pages/
-    index.astro           home
-    about.astro           systems lineage: genetics, engineering, founder, IESE, advisory
-    advisory.astro        1:1 advisory, The Round, comparison with Kuma Partners
+    index.astro           home (includes FAQ)
+    about.astro           systems lineage
+    advisory.astro        1:1 advisory, The Round, comparison with Kuma Partners (includes FAQ)
     contact.astro         executive diagnostic application
     legal.astro           legal notice and privacy (PLACEHOLDER, complete before launch)
-    thanks.astro          form success page (noindex)
+    thanks.astro          fallback success page for visitors without JavaScript (noindex)
     404.astro
   styles/global.css       design tokens and base styles
 public/
-  favicon.svg, og.png, robots.txt, menu.js
+  llms.txt, llms-full.txt GEO layer: machine-readable profile for AI search and assistants
+  robots.txt              allows all crawlers incl. AI bots, points to the sitemap
+  favicon.svg, og.png, menu.js, form.js
+scripts/verify.mjs        post-build checks (see Verification)
 netlify.toml              build, security headers, caching, redirects
 ```
 
-## Design system
-
-Monochrome Swiss. Tokens in `src/styles/global.css`:
-ink #0F1115, ink-line #1E232B, white #FFFFFF, mist #F8F9FA, line #E2E8F0, steel #5B6270 (text on light), fog #8B93A1 (text on dark).
-Display type uses the `display` utility, small mono markers the `label` utility.
-
-## Claims policy
-
-Only claims confirmed by Sven appear on the site. Confirmed 2026-10-15: IESE research collaboration, 100+ founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four languages. IE Business School is deliberately not mentioned.
-
 ## Local development
+
+Requires Node 22.
 
 ```bash
 npm install
 npm run dev       # http://localhost:4321
 npm run build     # outputs dist/
-npm run preview
+npm run verify    # post-build checks, run after build
+npm run check     # build + verify in one go
+npm run preview   # serve dist/ locally
 ```
 
-## First deploy
+Netlify Forms only work on Netlify. Locally, the form validates but submission will fail with the error message.
 
-### Option A: command line
+## Verification
+
+`npm run verify` checks the built site and exits non-zero on any failure:
+
+- required files exist: all pages, `llms.txt`, `llms-full.txt`, `robots.txt`, sitemap, `og.png`, scripts
+- sitemap lists the four main pages and excludes `/thanks`
+- every internal link and `#anchor` resolves
+- the form keeps `data-netlify="true"`, the honeypot, the hidden `form-name` and all four required fields
+- JSON-LD parses, contains Person and Service, and FAQPage on home and advisory
+- no em dashes and no IE Business School claim anywhere in pages or llms files
+
+Status on 2026-10-15: build clean, 44/44 checks passed. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
+
+## Deployment pipeline
+
+GitHub repo `sven353/mulfinger-com`, branch `main`. Netlify builds every push to `main` (`npm run build`, publish `dist`, settings from `netlify.toml`).
+
+Command line:
 
 ```bash
-cd mulfinger-com
-git init -b main
 git add .
-git commit -m "Complete mulfinger.com architecture overhaul"
-
-# create the empty repo first at https://github.com/new (name: mulfinger-com, no README)
-git remote add origin https://github.com/sven353/mulfinger-com.git
-git push -u origin main
-
-# Netlify
-npm install -g netlify-cli
-netlify login
-netlify init      # choose "Create & configure a new project", connect the GitHub repo
-                  # build command: npm run build, publish directory: dist
+git commit -m "Add GEO layer, FAQ schema, hardened Netlify form, security headers, and project docs"
+git push origin main
 ```
 
-### Option B: GitHub web upload
+Or through the GitHub web interface: Add file > Upload files, then commit to `main`. Files deleted locally must also be deleted in the repo by hand, because an upload never removes files.
 
-1. Create the repo `mulfinger-com` on GitHub.
-2. Add file > Upload files, drag in the contents of this folder (not `node_modules` or `dist`).
-3. In Netlify: Add new project > Import from Git > pick `mulfinger-com`. Settings come from `netlify.toml`.
+Netlify then builds, runs the form detection and publishes atomically. If a build fails, the previous version stays live. Every deploy can be rolled back from Netlify > Deploys.
 
-### After the first deploy
+## DNS (IONOS)
 
-1. Netlify > Forms: confirm the `executive-intake` form was detected (the old `diagnostic` form can be deleted). Add an email notification to your inbox.
-2. Netlify > Domain management: add `mulfinger.com` and `www.mulfinger.com`. Point DNS to Netlify (or move nameservers). HTTPS is automatic.
-3. Before switching DNS away from HubSpot, list the old URLs that matter (HubSpot sitemap, Search Console) and add 301s to `netlify.toml`.
-4. Submit `https://mulfinger.com/sitemap-index.xml` in Google Search Console.
+The domain is registered at IONOS and points to Netlify's load balancer.
+
+| Type  | Host | Value | Notes |
+|-------|------|-------|-------|
+| A     | @    | 75.2.60.5 | Netlify load balancer. Remove any other A or AAAA records on @. |
+| CNAME | www  | `<project-name>.netlify.app` | Netlify then redirects www to the apex, see `netlify.toml` |
+
+Keep the existing MX, SPF, DKIM and DMARC records for email untouched.
+
+After DNS resolves, Netlify > Domain management shows both domains as verified and issues the Let's Encrypt certificate automatically. Only then, turn on HSTS preload by submitting the domain at hstspreload.org. The header is already set, and preload is hard to undo, so be sure every subdomain serves HTTPS first.
+
+## Security headers
+
+Set in `netlify.toml` for every response: HSTS (1 year, subdomains, preload), `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (camera, microphone, geolocation off), `Cross-Origin-Opener-Policy`, and a CSP. The CSP allows only scripts, fonts and images from this domain. All scripts are external files, so there is no inline JavaScript. Fetch and form posts are allowed only to this domain.
+
+If you ever add a third-party embed (analytics, Calendly, video), its domain must be added to the CSP or it will be blocked.
+
+## Caching
+
+`/_astro/*` holds every fingerprinted build file (CSS, fonts, processed images) and is cached for a year as immutable. `/assets/*` gets the same rule for future hashed assets. Unhashed files (`og.png`, `favicon.svg`, scripts, `llms*.txt`) get short caches so edits appear after the next deploy. HTML always revalidates.
+
+## Inbound lead workflow (Netlify Forms)
+
+1. A visitor submits the application at /contact. With JavaScript, the page shows the in-place confirmation. Without it, Netlify redirects to /thanks.
+2. The submission lands in Netlify > Project > Forms > `executive-diagnostic`. The honeypot (`bot-field`) and Netlify's spam filter catch most bots. Flagged entries go to the Spam tab.
+3. Set up notifications once: Forms > Form notifications > Add notification > Email notification, recipient sven@mulfinger.com, form `executive-diagnostic`. For faster triage, add a Slack notification as well.
+4. Triage within a few working days, as the confirmation promises. Reply from your own inbox. The visitor's address is in the `email` field.
+5. Record qualified leads in HubSpot (private portal "Sven Mulfinger"), or export from Netlify as CSV.
+6. Delete submissions in Netlify once handled. The privacy notice promises deletion when no working relationship follows.
+
+The free Netlify tier includes 100 submissions per month.
+
+## GEO layer
+
+`llms.txt` follows the llmstxt.org format: H1, summary, then link sections. `llms-full.txt` is the full profile with biography, credentials, approach, engagement modes, research and FAQ. Both are linked from every page's `<head>`, are served as UTF-8 plain text and carry `X-Robots-Tag: noindex` so they do not compete with the HTML pages in classic search. Update both whenever a claim in `src/data/site.ts` changes.
+
+## Claims policy
+
+Only claims confirmed by Sven appear anywhere on the site, including the llms files. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
 
 ## Content to complete
 
-- `src/pages/legal.astro`: owner details and NIF, check with your advisor.
-- `src/data/site.ts`: add the LinkedIn URL (shows in footer and JSON-LD).
-- `src/pages/about.astro`: replace the portrait placeholder with `public/sven.jpg` (rendered greyscale).
+- `src/pages/legal.astro`: owner details and NIF, check with your advisor
+- `src/data/site.ts`: add the LinkedIn URL (shows in the footer and JSON-LD)
+- `src/pages/about.astro`: replace the portrait placeholder with `public/sven.jpg` (rendered greyscale)
 
 ## Writing rules for this site
 
@@ -102,5 +142,6 @@ UK spelling, no serial comma, no em dashes, no bold labels, short paragraphs.
 
 ## Changelog
 
-- 2026-10-15 (v2): Full overhaul. Monochrome Swiss design system, new Layout and Badges components, dedicated /contact page with Netlify form executive-intake, new copy across all pages, The Round and Kuma comparison on /advisory, new OG image and favicon.
-- 2026-10-15: Initial build. Home, About, Advisory, Legal, Thanks, 404. Netlify form, security headers, sitemap, OG image.
+- 2026-10-15 (v3): GEO layer (`llms.txt`, `llms-full.txt`, AI-friendly `robots.txt`), FAQ component with FAQPage schema on home and advisory, Service schema for the three engagement modes, WebPage schema. Form renamed to `executive-diagnostic` with new fields, inline validation and in-place confirmation. Hardened headers and caching in `netlify.toml`, `/sitemap.xml` redirect. `scripts/verify.mjs` and npm `verify` and `check` scripts. Full README.
+- 2026-10-15 (v2): Monochrome Swiss redesign, Layout and Badges components, /contact page, new copy, The Round and Kuma comparison on /advisory.
+- 2026-10-15 (v1): Initial build.

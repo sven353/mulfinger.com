@@ -1,0 +1,30 @@
+---
+// Accessible accordion built on <details>/<summary>: works without JavaScript.
+// FAQPage JSON-LD is emitted by Seo.astro via the `faq` prop on Layout.
+import { faq } from '../data/faq';
+
+interface Props { tone?: 'light' | 'mist'; heading?: string }
+const { tone = 'light', heading = 'Questions leaders ask first.' } = Astro.props;
+---
+<section id="faq" aria-labelledby="faq-heading" class:list={['border-t border-line scroll-mt-16', tone === 'mist' ? 'bg-mist' : 'bg-white']}>
+  <div class="container-x py-24 md:py-32 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <p class="label text-steel">FAQ</p>
+      <h2 id="faq-heading" class="mt-5 display text-4xl md:text-5xl text-balance">{heading}</h2>
+    </div>
+    <div class="md:col-span-8 border-t border-ink">
+      {faq.map((item, i) => (
+        <details class="group border-b border-line" open={i === 0}>
+          <summary class="flex cursor-pointer list-none items-start gap-5 py-6 [&::-webkit-details-marker]:hidden">
+            <span class="label text-steel pt-1.5 w-8 shrink-0">{String(i + 1).padStart(2, '0')}</span>
+            <span class="flex-1 text-lg md:text-xl font-medium tracking-tight">{item.q}</span>
+            <span aria-hidden="true" class="mt-1 grid size-6 shrink-0 place-items-center border border-line">
+              <svg class="transition-transform group-open:rotate-45" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M5 0v10M0 5h10"/></svg>
+            </span>
+          </summary>
+          <p class="pb-8 pl-[3.25rem] pr-11 text-steel leading-relaxed max-w-3xl">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

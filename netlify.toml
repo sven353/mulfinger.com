@@ -5,28 +5,73 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# Security headers for every page
+# ---------------------------------------------------------------
+# Security headers, every response
+# CSP notes:
+#   script-src 'self'   all scripts are external files (menu.js, form.js); JSON-LD is non-executable
+#   style-src           'unsafe-inline' is needed for Astro's small inlined styles
+#   connect-src 'self'  form.js posts to "/" for Netlify Forms
+#   form-action 'self'  no-JS fallback posts to this domain
+# ---------------------------------------------------------------
 [[headers]]
   for = "/*"
   [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; manifest-src 'self'; upgrade-insecure-requests"
 
-# Fingerprinted build assets: cache for a year
+# ---------------------------------------------------------------
+# Caching
+# /_astro/* holds every fingerprinted build file: CSS, fonts (.woff2) and processed images.
+# Their names change when the content changes, so a one-year immutable cache is safe.
+# /assets/* is reserved for any future fingerprinted assets.
+# Unhashed files in /public (og.png, favicon.svg, menu.js, form.js) get a short cache
+# so edits show up after the next deploy.
+# ---------------------------------------------------------------
 [[headers]]
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# HTML: always revalidate so new deploys show immediately
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/og.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/llms*.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+    X-Robots-Tag = "noindex"
+
 [[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# ---------------------------------------------------------------
+# Redirects
+# ---------------------------------------------------------------
 
 # Canonical host: www to apex
 [[redirects]]
@@ -35,8 +80,14 @@
   status = 301
   force = true
 
-# Old HubSpot URLs. Add any paths that rank or are linked from elsewhere.
-# Check the current sitemap at https://mulfinger.com/sitemap.xml before switching DNS.
+# Standard sitemap path (also covers the old HubSpot /sitemap.xml)
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+
+# Old HubSpot URLs. Add any paths that rank or are linked from elsewhere
+# before switching DNS (check HubSpot's sitemap and Search Console).
 [[redirects]]
   from = "/about-me"
   to = "/about"

@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import type { FaqItem } from '../data/faq';
 
 interface Props {
   title?: string;
@@ -7,6 +8,7 @@ interface Props {
   image?: string;
   noindex?: boolean;
   type?: 'website' | 'profile';
+  faq?: FaqItem[];
 }
 
 const {
@@ -15,11 +17,59 @@ const {
   image = site.ogImage,
   noindex = false,
   type = 'website',
+  faq,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const imageUrl = new URL(image, site.url).href;
 const sameAs = [site.links.kuma, site.links.neurodisruptors, site.links.linkedin].filter(Boolean);
+
+const services = [
+  {
+    '@type': 'Service',
+    '@id': `${site.url}/#service-1to1`,
+    name: '1:1 Executive Advisory',
+    serviceType: 'Executive advisory',
+    description: 'Confidential thought partnership for founders, CEOs and C-suite leaders carrying the final call.',
+    url: `${site.url}/advisory#one-to-one`,
+    provider: { '@id': `${site.url}/#person` },
+    areaServed: 'Europe',
+    availableLanguage: site.languages,
+  },
+  {
+    '@type': 'Service',
+    '@id': `${site.url}/#service-round`,
+    name: 'The Round',
+    serviceType: 'CEO peer advisory board',
+    description: 'Confidential, year-round peer board for founders and CEOs, starting in Barcelona. Membership by application.',
+    url: site.links.round,
+    provider: { '@id': `${site.url}/#person` },
+    areaServed: 'Barcelona, Europe',
+  },
+  {
+    '@type': 'Service',
+    '@id': `${site.url}/#service-kuma`,
+    name: 'Leadership team alignment with Kuma Partners',
+    serviceType: 'Executive team alignment and strategic offsites',
+    description: 'Executive team alignment, decision governance, strategic offsites and the 14-Day Leadership Friction Diagnostic.',
+    url: site.links.kuma,
+    provider: { '@id': `${site.url}/#kuma` },
+    areaServed: 'Europe',
+  },
+];
+
+const faqLd = faq?.length
+  ? {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      url: canonical,
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -59,10 +109,17 @@ const jsonLd = {
       name: 'Sven Mulfinger Strategic Advisory',
       url: site.url,
       provider: { '@id': `${site.url}/#person` },
+      founder: { '@id': `${site.url}/#person` },
       areaServed: { '@type': 'Place', name: 'Europe' },
+      address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
       availableLanguage: site.languages,
-      serviceType: ['Executive advisory', 'CEO peer advisory', 'Leadership team alignment'],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Engagement modes',
+        itemListElement: services.map((sv) => ({ '@type': 'Offer', itemOffered: { '@id': sv['@id'] } })),
+      },
     },
+    ...services,
     {
       '@type': 'WebSite',
       '@id': `${site.url}/#website`,
@@ -71,6 +128,17 @@ const jsonLd = {
       inLanguage: 'en-GB',
       publisher: { '@id': `${site.url}/#person` },
     },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      isPartOf: { '@id': `${site.url}/#website` },
+      about: { '@id': `${site.url}/#person` },
+      inLanguage: 'en-GB',
+    },
+    ...(faqLd ? [faqLd] : []),
   ],
 };
 ---

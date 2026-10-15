@@ -1,42 +1,71 @@
 ---
-// Netlify detects this form at deploy time from the static HTML (data-netlify="true").
-// Submissions: Netlify > Project > Forms > executive-intake. Add an email notification there.
-const field = 'w-full bg-white border border-line focus:border-ink px-4 py-3.5 text-base outline-none transition-colors placeholder:text-steel/60';
+// Netlify Form "executive-diagnostic".
+// Netlify detects it at deploy time from the static HTML (data-netlify="true").
+// With JavaScript: /form.js submits via fetch and shows the in-place confirmation below.
+// Without JavaScript: the browser posts normally and Netlify redirects to /thanks.
+// Submissions: Netlify > Project > Forms > executive-diagnostic.
+const field = 'peer w-full bg-white border border-line focus:border-ink px-4 py-3.5 text-base outline-none transition-colors placeholder:text-steel/60 aria-[invalid=true]:border-red-700';
 const lbl = 'label text-steel block mb-2';
+const err = 'mt-2 text-sm text-red-700 hidden';
 ---
-<form
-  name="executive-intake"
-  method="POST"
-  action="/thanks"
-  data-netlify="true"
-  netlify-honeypot="website"
-  class="grid gap-6"
->
-  <input type="hidden" name="form-name" value="executive-intake" />
-  <p class="hidden" aria-hidden="true">
-    <label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label>
-  </p>
+<div data-form-root>
+  <form
+    name="executive-diagnostic"
+    method="POST"
+    action="/thanks"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    novalidate
+    class="grid gap-6"
+    aria-describedby="form-note"
+  >
+    <input type="hidden" name="form-name" value="executive-diagnostic" />
+    <p class="hidden" aria-hidden="true">
+      <label>Do not fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    </p>
 
-  <div class="grid sm:grid-cols-2 gap-6">
-    <div>
-      <label for="name" class={lbl}>01 · Name</label>
-      <input id="name" name="name" type="text" required autocomplete="name" class={field} />
+    <div class="grid sm:grid-cols-2 gap-6">
+      <div>
+        <label for="full_name" class={lbl}>01 · Full name <span class="sr-only">(required)</span></label>
+        <input id="full_name" name="full_name" type="text" required minlength="2" maxlength="120" autocomplete="name" aria-describedby="full_name-error" class={field} />
+        <p id="full_name-error" class={err} data-error>Please enter your full name.</p>
+      </div>
+      <div>
+        <label for="email" class={lbl}>02 · Corporate or direct email <span class="sr-only">(required)</span></label>
+        <input id="email" name="email" type="email" required maxlength="160" autocomplete="email" inputmode="email" aria-describedby="email-error" class={field} />
+        <p id="email-error" class={err} data-error>Please enter a valid email address.</p>
+      </div>
     </div>
     <div>
-      <label for="email" class={lbl}>02 · Corporate email</label>
-      <input id="email" name="email" type="email" required autocomplete="email" class={field} />
+      <label for="organisation" class={lbl}>03 · Organisation and current stage <span class="sr-only">(required)</span></label>
+      <input id="organisation" name="organisation_stage" type="text" required minlength="2" maxlength="200" autocomplete="organization" placeholder="Acme Robotics, Series B, 120 people" aria-describedby="organisation-error" class={field} />
+      <p id="organisation-error" class={err} data-error>Please tell me your organisation and its stage.</p>
+    </div>
+    <div>
+      <label for="mandate" class={lbl}>04 · Nature of the strategic mandate <span class="sr-only">(required)</span></label>
+      <textarea id="mandate" name="strategic_mandate" rows="6" required minlength="40" maxlength="4000" placeholder="What decision, tension or transition is on your desk? What has already been tried?" aria-describedby="mandate-hint mandate-error" class={field + ' resize-y'}></textarea>
+      <p id="mandate-hint" class="mt-2 text-xs text-steel">A few sentences is enough. At least 40 characters.</p>
+      <p id="mandate-error" class={err} data-error>Please describe the mandate in a few sentences.</p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-6 justify-between pt-2">
+      <p id="form-note" class="text-xs text-steel max-w-sm leading-relaxed">Read by Sven personally and treated as confidential. Processing as described in the <a href="/legal" class="underline underline-offset-2 hover:text-ink">privacy notice</a>.</p>
+      <button type="submit" data-submit class="shrink-0 whitespace-nowrap bg-ink text-white px-8 py-4 text-sm hover:bg-ink-2 disabled:opacity-60 disabled:cursor-wait transition-colors inline-flex items-center justify-center gap-3">
+        <span data-submit-label>Submit application</span> <span aria-hidden="true">→</span>
+      </button>
+    </div>
+    <p data-form-error role="alert" class="hidden border border-red-700 px-4 py-3 text-sm text-red-700">The application could not be sent. Please try again in a moment.</p>
+  </form>
+
+  <div data-form-success hidden tabindex="-1" role="status" aria-live="polite" class="outline-none">
+    <p class="label text-steel">Application received</p>
+    <p class="mt-6 display text-4xl md:text-5xl">Thank you. I will read this personally.</p>
+    <p class="mt-6 text-steel leading-relaxed max-w-md">You will hear from me within a few working days. If it is time-critical, mention that in a short follow-up and I will prioritise it.</p>
+    <div class="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row gap-3">
+      <a href="/advisory" class="border border-ink px-6 py-3 text-sm text-center hover:bg-ink hover:text-white transition-colors">How engagements work</a>
+      <a href="/#research" class="px-1 py-3 text-sm underline underline-offset-4 decoration-line hover:decoration-ink">Read about the research</a>
     </div>
   </div>
-  <div>
-    <label for="role" class={lbl}>03 · Role and organisation</label>
-    <input id="role" name="role_organisation" type="text" required autocomplete="organization-title" placeholder="CEO, Acme Robotics (Series B, 120 people)" class={field} />
-  </div>
-  <div>
-    <label for="friction" class={lbl}>04 · Core strategic friction or challenge</label>
-    <textarea id="friction" name="strategic_friction" rows="6" required placeholder="What decision, tension or transition is on your desk right now? What has already been tried?" class={field + ' resize-y'}></textarea>
-  </div>
-  <div class="flex flex-col sm:flex-row sm:items-center gap-6 justify-between pt-2">
-    <p class="text-xs text-steel max-w-sm leading-relaxed">Read by Sven personally and treated as confidential. Processing as described in the <a href="/legal" class="underline underline-offset-2 hover:text-ink">privacy notice</a>.</p>
-    <button type="submit" class="shrink-0 whitespace-nowrap bg-ink text-white px-8 py-4 text-sm hover:bg-ink-2 transition-colors inline-flex items-center justify-center gap-3">Submit application <span aria-hidden="true">→</span></button>
-  </div>
-</form>
+</div>
+
+<script is:inline src="/form.js" defer></script>

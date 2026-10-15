@@ -3,14 +3,16 @@ import '../styles/global.css';
 import Seo from '../components/Seo.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import type { FaqItem } from '../data/faq';
 
 interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
   type?: 'website' | 'profile';
+  faq?: FaqItem[];
 }
-const { title, description, noindex, type } = Astro.props;
+const { title, description, noindex, type, faq } = Astro.props;
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -23,7 +25,8 @@ const { title, description, noindex, type } = Astro.props;
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname, 'https://mulfinger.com').href} />
     <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname, 'https://mulfinger.com').href} />
-    <Seo title={title} description={description} noindex={noindex} type={type} />
+    <Seo title={title} description={description} noindex={noindex} type={type} faq={faq} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable summary" />
   </head>
   <body class="min-h-dvh flex flex-col">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] bg-ink text-white px-4 py-2">Skip to content</a>
