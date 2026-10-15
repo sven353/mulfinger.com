@@ -13,19 +13,16 @@ const situations = [
     n: '01',
     title: 'The decisions that keep coming back',
     body: 'You have discussed the issue repeatedly. Everyone understands the problem. Yet the decision keeps getting postponed, diluted or reversed. By now the useful question is why the organisation cannot resolve it.',
-    indent: 'md:ml-0',
   },
   {
     n: '02',
     title: 'When the leadership team becomes the bottleneck',
     body: 'The people around the table are capable. But responsibilities overlap, disagreements stay unresolved and too many decisions still return to the CEO. The work is to understand what is happening between the people as well as within them.',
-    indent: 'md:ml-[16.666%]',
   },
   {
     n: '03',
     title: 'When the business outgrows the founder',
     body: 'The company has scaled. The way decisions are made, responsibilities are shared and leadership operates may not have changed with it. The founder has to work out what to keep, what to let go of and what the next version of their role must look like.',
-    indent: 'md:ml-[33.333%]',
   },
 ];
 
@@ -93,17 +90,18 @@ const steps = [
   </div>
   </section>
 
-  <!-- 2 · Situations -->
-  <section class="border-t border-line bg-linear-to-br from-[#FAF9F6] via-[#F7F6F1] to-[#EFEDE8]" aria-labelledby="situations-heading">
-    <div class="container-x py-24 md:py-32">
-      <p class="label text-steel">Where the work starts</p>
-      <h2 id="situations-heading" class="mt-6 display text-4xl md:text-6xl max-w-[18ch] text-balance">The problems that bring CEOs to the table.</h2>
-      <div class="mt-16 md:mt-24 space-y-16 md:space-y-20">
+  <!-- 2 · Situations: header, one full-width hairline, then a balanced three-column grid -->
+  <section class="border-t border-line bg-paper" aria-labelledby="situations-heading">
+    <div class="container-x py-16 md:py-24">
+      <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Where the work starts</p>
+      <h2 id="situations-heading" class="mt-2 mb-10 md:mb-14 font-serif text-3xl md:text-4xl text-ink max-w-xl text-balance">The problems that bring CEOs to the table.</h2>
+      <div class="border-t border-line mb-10 md:mb-12" role="presentation"></div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
         {situations.map((s) => (
-          <article class:list={['max-w-[44rem] border-t border-ink pt-6', s.indent]}>
-            <p class="label text-steel">{s.n}</p>
-            <h3 class="mt-4 text-[1.75rem] md:text-[2.1rem] leading-tight tracking-[-0.01em]">{s.title}</h3>
-            <p class="mt-5 text-lg text-steel leading-relaxed">{s.body}</p>
+          <article>
+            <p class="mb-3 font-mono text-xs text-steel/70 tabular-nums">{s.n}</p>
+            <h3 class="mb-3 font-serif text-xl md:text-2xl text-ink leading-snug">{s.title}</h3>
+            <p class="text-sm leading-relaxed text-steel">{s.body}</p>
           </article>
         ))}
       </div>
