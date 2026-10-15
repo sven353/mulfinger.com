@@ -17,7 +17,8 @@ Personal advisory site of Dr. Sven Mulfinger. A static Astro site styled with Ta
 src/
   data/
     site.ts               names, links, nav and ALL public claims (badges). Edit claims here only.
-    faq.ts                FAQ content, used by Faq.astro and the FAQPage schema
+    faq.ts                12-question FAQ (question, one-line verdict, expanded body with [text](url) links).
+                          Feeds Faq.astro, the FAQPage schema and /llms-full.txt.
   layouts/Layout.astro    html shell, SEO, header, footer. Takes an optional `faq` prop.
   components/
     Seo.astro             meta, canonical, OpenGraph, Twitter card, JSON-LD graph
@@ -25,7 +26,7 @@ src/
     Header.astro          sticky nav + full-screen mobile drawer (drawer sits outside <header> on purpose)
     Footer.astro          footer with credentials row
     Badges.astro          credentials grid
-    Faq.astro             accordion on <details>, works without JavaScript
+    Faq.astro             question + visible verdict, <details> 'Read context' toggle, outbound links only inside the toggle
     ContactForm.astro     Netlify form "executive-diagnostic" with honeypot and in-place success state
   pages/
     index.astro           home (includes FAQ)
@@ -35,9 +36,10 @@ src/
     legal.astro           legal notice and privacy (PLACEHOLDER, complete before launch)
     thanks.astro          fallback success page for visitors without JavaScript (noindex)
     404.astro
+    llms-full.txt.ts      generates /llms-full.txt at build time, including all 12 FAQ answers
   styles/global.css       design tokens and base styles
 public/
-  llms.txt, llms-full.txt GEO layer: machine-readable profile for AI search and assistants
+  llms.txt                GEO summary for AI search and assistants (static)
   robots.txt              allows all crawlers incl. AI bots, points to the sitemap
   favicon.svg, og.png, menu.js, form.js
 scripts/verify.mjs        post-build checks (see Verification)
@@ -67,10 +69,12 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - sitemap lists the four main pages and excludes `/thanks`
 - every internal link and `#anchor` resolves
 - the form keeps `data-netlify="true"`, the honeypot, the hidden `form-name` and all four required fields
-- JSON-LD parses, contains Person and Service, and FAQPage on home and advisory
+- JSON-LD parses, contains Person and Service, and a 12-question FAQPage with plain-text answers on home and advisory
+- the FAQ renders 12 items, each with a toggle; all 5 outbound links sit inside the expanded context and use `target="_blank" rel="noopener noreferrer"`
+- `llms-full.txt` contains all 12 FAQ answers
 - no em dashes and no IE Business School claim anywhere in pages or llms files
 
-Status on 2026-10-15: build clean, 44/44 checks passed. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
+Status on 2026-10-15: build clean, 61/61 checks passed. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
 
 ## Deployment pipeline
 
@@ -124,11 +128,13 @@ The free Netlify tier includes 100 submissions per month.
 
 ## GEO layer
 
-`llms.txt` follows the llmstxt.org format: H1, summary, then link sections. `llms-full.txt` is the full profile with biography, credentials, approach, engagement modes, research and FAQ. Both are linked from every page's `<head>`, are served as UTF-8 plain text and carry `X-Robots-Tag: noindex` so they do not compete with the HTML pages in classic search. Update both whenever a claim in `src/data/site.ts` changes.
+`llms.txt` follows the llmstxt.org format: H1, summary, then link sections. `llms-full.txt` is the full profile with biography, credentials, approach, engagement modes, research and all FAQ answers. It is generated from `src/data/faq.ts` at build time, so FAQ edits flow through automatically. Both are linked from every page's `<head>`, are served as UTF-8 plain text and carry `X-Robots-Tag: noindex` so they do not compete with the HTML pages in classic search. Update `public/llms.txt` and the intro in `src/pages/llms-full.txt.ts` whenever a claim in `src/data/site.ts` changes.
 
 ## Claims policy
 
 Only claims confirmed by Sven appear anywhere on the site, including the llms files. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
+
+Commercial terms confirmed the same day and published in the FAQ: 6 or 12-month retainer, two 60 to 90-minute sessions per month, unlimited direct voice and message access, in-person sessions in Barcelona or Madrid, response to applications within 24 to 48 hours, The Round by application or peer nomination. If any of these change, update `src/data/faq.ts`, the advisory page and the contact page together.
 
 ## Content to complete
 
@@ -142,6 +148,7 @@ UK spelling, no serial comma, no em dashes, no bold labels, short paragraphs.
 
 ## Changelog
 
+- 2026-10-15 (v4): 12-question FAQ with visible one-line verdicts and 'Read context' toggles, smooth expansion where supported, outbound links to kuma.partners, offsite.kuma.partners, theround.kuma.partners and neurodisruptors.com only inside the expanded context. FAQPage schema extended to 12 answers. `/llms-full.txt` now generated from the FAQ data. Confirmed terms applied site-wide (24 to 48 hour reply, Madrid sessions, nomination route for The Round, retainer cadence). Verify script extended to 61 checks.
 - 2026-10-15 (v3): GEO layer (`llms.txt`, `llms-full.txt`, AI-friendly `robots.txt`), FAQ component with FAQPage schema on home and advisory, Service schema for the three engagement modes, WebPage schema. Form renamed to `executive-diagnostic` with new fields, inline validation and in-place confirmation. Hardened headers and caching in `netlify.toml`, `/sitemap.xml` redirect. `scripts/verify.mjs` and npm `verify` and `check` scripts. Full README.
 - 2026-10-15 (v2): Monochrome Swiss redesign, Layout and Badges components, /contact page, new copy, The Round and Kuma comparison on /advisory.
 - 2026-10-15 (v1): Initial build.

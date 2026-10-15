@@ -74,10 +74,34 @@ for (const page of ['index.html', 'advisory/index.html', 'about/index.html']) {
   check(`JSON-LD on ${page}: Person + Service`, types.includes('Person') && types.includes('Service'));
   if (page !== 'about/index.html') {
     const faqNode = graph.find((n) => n['@type'] === 'FAQPage');
-    check(`FAQPage on ${page} (${faqNode?.mainEntity?.length ?? 0} questions)`, faqNode?.mainEntity?.length === 4);
+    check(`FAQPage on ${page} (${faqNode?.mainEntity?.length ?? 0} questions)`, faqNode?.mainEntity?.length === 12);
+    const faqTexts = (faqNode?.mainEntity ?? []).map((q) => q.acceptedAnswer?.text ?? '');
+    check(`FAQPage answers are plain text on ${page}`, faqTexts.length > 0 && faqTexts.every((t) => t.length > 80 && !/[<>\[\]]/.test(t)));
   }
   check(`canonical + og + twitter on ${page}`, /rel="canonical"/.test(html) && /og:image/.test(html) && /twitter:card/.test(html));
 }
+
+// 4b. FAQ markup and outbound routing
+for (const page of ['index.html', 'advisory/index.html']) {
+  const html = readFileSync(join(DIST, page), 'utf8');
+  const section = html.match(/<section id="faq"[\s\S]*?<\/section>/)?.[0] ?? '';
+  const items = section.match(/<li[\s\S]*?<\/li>/g) ?? [];
+  check(`FAQ on ${page} renders 12 items`, items.length === 12);
+  check(`every FAQ item has a <details> toggle on ${page}`, items.length > 0 && items.every((li) => li.includes('<details') && li.includes('<summary')));
+  // outbound links must sit inside <details>, never in the visible question or verdict
+  const leaked = items.filter((li) => /href="https?:\/\//.test(li.split('<details')[0]));
+  check(`no outbound links outside expanded context on ${page}`, leaked.length === 0);
+  const outbound = [...section.matchAll(/<a [^>]*href="https?:\/\/[^"]+"[^>]*>/g)].map((m) => m[0]);
+  const bad = outbound.filter((a) => !a.includes('target="_blank"') || !a.includes('rel="noopener noreferrer"'));
+  check(`${outbound.length} FAQ outbound links use target=_blank + noopener noreferrer on ${page}`, outbound.length === 5 && bad.length === 0, bad.join(' '));
+  for (const host of ['kuma.partners', 'offsite.kuma.partners', 'neurodisruptors.com']) {
+    check(`FAQ on ${page} links to ${host}`, outbound.some((a) => a.includes(`https://${host}`)));
+  }
+}
+
+// 4c. llms-full.txt carries all FAQ answers
+const llmsFull = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
+check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 12);
 
 // 5. Copy rules
 const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt')];

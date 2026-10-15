@@ -1,6 +1,6 @@
 ---
 import { site } from '../data/site';
-import type { FaqItem } from '../data/faq';
+import { toPlain, type FaqItem } from '../data/faq';
 
 interface Props {
   title?: string;
@@ -30,7 +30,7 @@ const services = [
     '@id': `${site.url}/#service-1to1`,
     name: '1:1 Executive Advisory',
     serviceType: 'Executive advisory',
-    description: 'Confidential thought partnership for founders, CEOs and C-suite leaders carrying the final call.',
+    description: 'Confidential thought partnership for founders, CEOs and C-suite leaders carrying the final call. 6 or 12-month retainer with fortnightly sessions, online or in person in Barcelona or Madrid.',
     url: `${site.url}/advisory#one-to-one`,
     provider: { '@id': `${site.url}/#person` },
     areaServed: 'Europe',
@@ -41,7 +41,7 @@ const services = [
     '@id': `${site.url}/#service-round`,
     name: 'The Round',
     serviceType: 'CEO peer advisory board',
-    description: 'Confidential, year-round peer board for founders and CEOs, starting in Barcelona. Membership by application.',
+    description: 'Private, curated peer collective for high-growth founders and CEOs, based in Barcelona. Participation by application or peer nomination.',
     url: site.links.round,
     provider: { '@id': `${site.url}/#person` },
     areaServed: 'Barcelona, Europe',
@@ -66,7 +66,7 @@ const faqLd = faq?.length
       mainEntity: faq.map((f) => ({
         '@type': 'Question',
         name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
+        acceptedAnswer: { '@type': 'Answer', text: `${f.verdict} ${toPlain(f.body)}` },
       })),
     }
   : null;

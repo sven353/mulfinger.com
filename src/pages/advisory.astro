@@ -7,8 +7,8 @@ import { faq } from '../data/faq';
 const process = [
   { n: '01', t: 'Application', b: 'You describe the decision or friction in a short form. I read every application personally.' },
   { n: '02', t: 'Diagnostic conversation', b: 'A confidential conversation to map what is at stake, what has been tried and whether I am the right person. Both sides assess fit.' },
-  { n: '03', t: 'Engagement design', b: 'We agree the objective, the rhythm, the people involved and how we will know it is working. Most engagements run for a defined period with a review point.' },
-  { n: '04', t: 'Working sessions', b: 'Regular sessions in person in Barcelona or online, with direct access between sessions when a decision cannot wait.' },
+  { n: '03', t: 'Engagement design', b: 'We agree the objective, the rhythm, the people involved and how we will know it is working. Most engagements run as a 6 or 12-month retainer with a review point.' },
+  { n: '04', t: 'Working sessions', b: 'Two 60 to 90-minute sessions a month, online or in person in Barcelona or Madrid, with direct access between sessions when a decision cannot wait.' },
   { n: '05', t: 'Review', b: 'We review against the objective. Some leaders continue, some join The Round and some bring in Kuma Partners for work with the whole team.' },
 ];
 
@@ -74,7 +74,7 @@ const compare = [
           </div>
         ))}
       </dl>
-      <p class="mt-6 text-sm text-steel">Fees depend on scope and rhythm and are shared after the diagnostic conversation.</p>
+      <p class="mt-6 text-sm text-steel">Fees depend on scope and term and are shared after the diagnostic conversation.</p>
     </div>
   </section>
 
@@ -86,7 +86,7 @@ const compare = [
           <p class="label text-fog">02 · The Round</p>
           <h2 class="mt-5 display text-4xl md:text-5xl">A peer board for founders and CEOs.</h2>
           <p class="mt-6 text-fog leading-relaxed">The Round by Kuma Partners is a confidential, year-round peer operating system. Leaders bring their hardest live issues to a small group of peers who have no agenda except helping them decide well. The first cohort, The Round Barcelona 01, meets in Barcelona, with European groups to follow.</p>
-          <p class="mt-4 text-fog leading-relaxed">Membership is by application and candidate review.</p>
+          <p class="mt-4 text-fog leading-relaxed">Participation is by application or peer nomination.</p>
           <a href={site.links.round} rel="noopener" class="mt-10 inline-flex items-center gap-3 border border-ink-line px-5 py-3 text-sm hover:bg-white hover:text-ink transition-colors">theround.kuma.partners <span aria-hidden="true">↗</span></a>
         </div>
         <dl class="md:col-span-6 md:col-start-7 border-t border-ink-line">
@@ -142,5 +142,5 @@ const compare = [
     </div>
   </section>
 
-  <Faq tone="mist" heading="Before you apply." />
+  <Faq tone="mist" heading="Before you apply." intro="The twelve questions leaders ask before applying. Short answers first, full context one click away." />
 </Layout>
