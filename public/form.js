@@ -61,7 +61,7 @@
       .catch(function () {
         if (failure) failure.classList.remove('hidden');
         button.disabled = false;
-        if (label) label.textContent = 'Submit application';
+        if (label) label.textContent = 'Send';
       });
   });
 })();

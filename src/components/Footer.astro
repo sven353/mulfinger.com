@@ -2,14 +2,14 @@
 import { site, badges } from '../data/site';
 const year = new Date().getFullYear();
 ---
-<footer class="bg-ink text-white">
+<footer class="bg-ink text-paper">
   <div class="container-x pt-20 pb-12">
     <div class="grid md:grid-cols-12 gap-12">
       <div class="md:col-span-6">
         <p class="label text-fog">Sven Mulfinger</p>
         <p class="mt-4 display text-3xl md:text-4xl max-w-[20ch]">Strategic advisory for founders and CEOs.</p>
         <p class="mt-4 text-sm text-fog max-w-sm">Based in Barcelona. In person in Barcelona and Madrid, and across Europe in English, Spanish, German and French.</p>
-        <a href="/contact" class="mt-10 inline-flex items-center gap-3 border border-ink-line px-5 py-3 text-sm hover:bg-white hover:text-ink transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+        <a href="/contact" class="mt-10 inline-flex items-center gap-3 border border-ink-line px-5 py-3 text-sm hover:bg-paper hover:text-ink transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
       </div>
       <nav aria-label="Footer" class="md:col-span-2 md:col-start-8 text-sm">
         <p class="label text-fog">Site</p>
@@ -24,10 +24,10 @@ const year = new Date().getFullYear();
       <div class="md:col-span-3 text-sm">
         <p class="label text-fog">Practice</p>
         <ul class="mt-4 space-y-2.5">
-          <li><a class="hover:text-fog" href={site.links.kuma} rel="noopener">Kuma Partners ↗</a></li>
-          <li><a class="hover:text-fog" href={site.links.round} rel="noopener">The Round ↗</a></li>
-          <li><a class="hover:text-fog" href={site.links.neurodisruptors} rel="noopener">Neurodisruptors ↗</a></li>
-          {site.links.linkedin && <li><a class="hover:text-fog" href={site.links.linkedin} rel="noopener me">LinkedIn ↗</a></li>}
+          <li><a class="hover:text-fog" href={site.links.kuma} target="_blank" rel="noopener noreferrer">Kuma Partners ↗</a></li>
+          <li><a class="hover:text-fog" href={site.links.round} target="_blank" rel="noopener noreferrer">The Round ↗</a></li>
+          <li><a class="hover:text-fog" href={site.links.neurodisruptors} target="_blank" rel="noopener noreferrer">Neurodisruptors ↗</a></li>
+          {site.links.linkedin && <li><a class="hover:text-fog" href={site.links.linkedin} target="_blank" rel="noopener noreferrer me">LinkedIn ↗</a></li>}
         </ul>
       </div>
     </div>
@@ -44,8 +44,8 @@ const year = new Date().getFullYear();
     <div class="mt-16 pt-6 border-t border-ink-line flex flex-col sm:flex-row gap-2 justify-between text-xs text-fog">
       <p>© {year} Sven Mulfinger · Barcelona</p>
       <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-2">
-        <a class="hover:text-white underline-offset-4 hover:underline" href="/privacy">Privacy Policy</a>
-        <a class="hover:text-white underline-offset-4 hover:underline" href="/legal">Legal Notice</a>
+        <a class="hover:text-paper underline-offset-4 hover:underline" href="/privacy">Privacy Policy</a>
+        <a class="hover:text-paper underline-offset-4 hover:underline" href="/legal">Legal Notice</a>
       </nav>
     </div>
   </div>

@@ -1,62 +1,68 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Fonts are self-hosted (Fontsource): no calls to Google, which keeps GDPR and the CSP simple */
-@import "@fontsource-variable/inter-tight/index.css";
-@import "@fontsource-variable/jetbrains-mono/index.css";
+/* Fonts are self-hosted (Fontsource): no calls to Google, which keeps GDPR and the CSP simple.
+   Newsreader (editorial serif) for headings, Inter for body and navigation. */
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
 
 @theme {
-  --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader Variable", ui-serif, Georgia, "Times New Roman", serif;
 
-  /* Monochrome system */
-  --color-ink: #0f1115;        /* graphite, primary dark */
-  --color-ink-2: #171a20;      /* raised dark surface */
-  --color-ink-line: #1e232b;   /* borders on dark */
-  --color-white: #ffffff;
-  --color-mist: #f8f9fa;       /* off-white surface */
-  --color-line: #e2e8f0;       /* borders on light */
-  --color-line-strong: #cbd2dc; /* outline buttons on light */
-  --color-ink-hover: #262a31;  /* primary button hover */
-  --color-steel: #5b6270;      /* secondary text on light */
-  --color-fog: #8b93a1;        /* secondary text on dark */
+  /* Editorial palette */
+  --color-paper: #faf9f6;      /* warm gallery off-white, page background */
+  --color-mist: #f2f0eb;       /* alternate section surface */
+  --color-white: #ffffff;      /* form fields */
+  --color-ink: #111317;        /* primary text, dark surfaces */
+  --color-ink-2: #1a1d22;      /* raised dark surface */
+  --color-ink-hover: #2a2e35;  /* primary button hover */
+  --color-ink-line: #262a31;   /* hairlines on dark */
+  --color-steel: #4a5568;      /* secondary text on light */
+  --color-fog: #9aa3b2;        /* secondary text on dark */
+  --color-line: #e2e8f0;       /* hairlines on light */
+  --color-line-strong: #cbd2dc;/* outline buttons */
 }
 
 html { scroll-behavior: smooth; }
 body {
-  background: var(--color-white);
+  background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: var(--color-ink); color: var(--color-white); }
+/* Every heading is set in the editorial serif */
+h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; }
+
+::selection { background: var(--color-ink); color: var(--color-paper); }
 :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 
 @utility container-x {
   width: 100%;
-  max-width: 80rem;
+  max-width: 78rem;
   margin-inline: auto;
   padding-inline: 1.25rem;
   @media (width >= 48rem) { padding-inline: 2.5rem; }
 }
 
-/* Small uppercase mono label used for indices and section markers */
+/* Small uppercase section marker, set in the body sans */
 @utility label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-weight: 450;
+  font-weight: 500;
 }
 
-/* Display type: tight Swiss grotesk */
+/* Editorial display type: serif, regular weight, tight but not cramped */
 @utility display {
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
 }
 
 @media (prefers-reduced-motion: reduce) {

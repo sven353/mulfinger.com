@@ -1,6 +1,10 @@
 ---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
+
+const hasPortrait = existsSync(join(process.cwd(), 'public', 'sven-mulfinger.jpg'));
 
 const lineage = [
   {
@@ -56,11 +60,11 @@ const foundations = [
         <h2 class="label text-steel">Lineage</h2>
         <p class="label text-steel hidden sm:block">Genetics → Engineering → C-suite</p>
       </div>
-      <ol class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 border-t border-l border-line bg-white">
+      <ol class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
         {lineage.map((l) => (
-          <li class="p-8 border-r border-b border-line flex flex-col min-h-[16rem]">
+          <li class="border-t border-ink pt-6 flex flex-col">
             <p class="label text-steel">{l.n}</p>
-            <h3 class="mt-10 text-2xl font-medium tracking-tight">{l.stage}</h3>
+            <h3 class="mt-6 text-2xl">{l.stage}</h3>
             <p class="mt-3 text-steel leading-relaxed">{l.text}</p>
           </li>
         ))}
@@ -73,9 +77,12 @@ const foundations = [
     <div class="md:col-span-4">
       <p class="label text-steel">The intersection</p>
       <h2 class="mt-5 display text-4xl md:text-5xl">Neuroscience, organisations and governance.</h2>
-      <!-- Portrait: add public/sven.jpg and replace this block with
-           <img src="/sven.jpg" alt="Sven Mulfinger" width="800" height="1000" class="mt-10 w-full grayscale" loading="lazy" /> -->
-      <div class="mt-10 aspect-[4/5] bg-mist border border-line flex items-end p-5"><span class="label text-steel">Portrait</span></div>
+      <!-- Portrait: public/sven-mulfinger.jpg is picked up automatically at build time -->
+      <div class="mt-10 relative aspect-[4/5] overflow-hidden bg-mist ring-1 ring-line">
+        {hasPortrait
+          ? <img src="/sven-mulfinger.jpg" alt="Sven Mulfinger" width="960" height="1200" class="absolute inset-0 size-full object-cover" loading="lazy" decoding="async" />
+          : <span class="absolute bottom-5 left-5 label text-steel">Portrait to follow</span>}
+      </div>
     </div>
     <div class="md:col-span-7 md:col-start-6 space-y-6 text-lg text-steel leading-relaxed md:pt-12">
       <p>Three lenses run through everything I do. Neuroscience explains what happens to judgement under pressure: why smart people narrow their options, defend positions and avoid the conversation that matters. Organisational behaviour explains how those individual patterns harden into team habits. Governance is where the fix usually lives, in who decides what, with which information and by when.</p>
@@ -85,21 +92,21 @@ const foundations = [
   </section>
 
   <!-- Foundations -->
-  <section class="bg-ink text-white">
+  <section class="bg-ink text-paper">
     <div class="container-x py-24 md:py-32">
       <p class="label text-fog">Core foundation</p>
       <h2 class="mt-5 display text-4xl md:text-6xl max-w-[18ch]">What you can hold me to.</h2>
-      <dl class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-ink-line">
+      <dl class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
         {foundations.map((f, i) => (
-          <div class="p-8 border-r border-b border-ink-line">
-            <dt><span class="label text-fog block">{String(i + 1).padStart(2, '0')}</span><span class="mt-10 block text-2xl font-medium tracking-tight">{f.t}</span></dt>
+          <div class="border-t border-ink-line pt-6">
+            <dt><span class="label text-fog block">{String(i + 1).padStart(2, '0')}</span><span class="mt-6 block font-serif text-2xl">{f.t}</span></dt>
             <dd class="mt-3 text-fog leading-relaxed">{f.b}</dd>
           </div>
         ))}
       </dl>
       <div class="mt-16 flex flex-col sm:flex-row gap-3">
-        <a href="/contact" class="bg-white text-ink px-7 py-4 text-sm inline-flex justify-center items-center gap-3 hover:bg-mist transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-        <a href={site.links.kuma} rel="noopener" class="border border-ink-line px-7 py-4 text-sm text-center hover:bg-white hover:text-ink transition-colors">Kuma Partners ↗</a>
+        <a href="/contact" class="bg-paper text-ink px-7 py-4 text-sm inline-flex justify-center items-center gap-3 hover:bg-mist transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+        <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="border border-ink-line px-7 py-4 text-sm text-center hover:bg-paper hover:text-ink transition-colors">Kuma Partners ↗</a>
       </div>
     </div>
   </section>

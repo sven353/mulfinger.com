@@ -6,7 +6,7 @@ Personal advisory site of Dr. Sven Mulfinger. A static Astro site styled with Ta
 
 - Astro 7, fully static output in `dist/`
 - Tailwind CSS v4 via `@tailwindcss/vite`, plus `@tailwindcss/typography`
-- Self-hosted fonts via Fontsource: Inter Tight (display and text) and JetBrains Mono (labels). No Google Fonts calls.
+- Self-hosted fonts via Fontsource: Newsreader (serif, all headings) and Inter (body and navigation). No Google Fonts calls, so the CSP and the Privacy Policy stay accurate.
 - `@astrojs/sitemap` for `sitemap-index.xml`
 - Netlify: hosting, CDN, HTTPS, Forms
 - No front-end framework and no trackers. Two small scripts in `public/`: `menu.js` (mobile menu) and `form.js` (form validation and in-place confirmation)
@@ -26,16 +26,16 @@ src/
                           (Person, Organization, ProfessionalService, 3 x Service, WebSite, WebPage, FAQPage when `faq` is passed)
     Header.astro          sticky nav + full-screen mobile drawer (drawer sits outside <header> on purpose)
     Footer.astro          footer with credentials row
-    Badges.astro          credentials grid
     Faq.astro             question + visible verdict, <details> 'Read context' toggle, outbound links only inside the toggle
     ContactForm.astro     Netlify form "executive-diagnostic": honeypot, required privacy consent checkbox,
                           first-layer data protection summary, in-place success state
     LegalShell.astro      shared frame and typography for the two legal pages
   pages/
-    index.astro           home: hero, proof bar, four situations, approach, three ways in, research, contact
+    index.astro           home: hero with portrait, three situations, background, four-step process,
+                          engagement paths (1:1 primary), research feature, final invitation
     about.astro           systems lineage
-    advisory.astro        how 1:1 advisory works, The Round, comparison with Kuma Partners, 6-question FAQ
-    contact.astro         executive diagnostic application
+    advisory.astro        who it is for, how an engagement works, what to expect, The Round and Kuma Partners, 6-question FAQ
+    contact.astro         "Discuss a leadership challenge" with the simplified form
     legal.astro           Legal Notice | Aviso Legal (LSSI-CE), English + Spanish, noindex follow
     privacy.astro         Privacy Policy | Política de Privacidad (GDPR, LOPDGDD), English + Spanish, noindex follow
     thanks.astro          fallback success page for visitors without JavaScript (noindex)
@@ -49,6 +49,15 @@ public/
 scripts/verify.mjs        post-build checks (see Verification)
 netlify.toml              build, security headers, caching, redirects
 ```
+
+## Design system
+
+Editorial authority (FT, Monocle, HBR rather than a tech landing page). Tokens in `src/styles/global.css`:
+paper #FAF9F6 (background), mist #F2F0EB (alternate sections), ink #111317 (text, dark surfaces), steel #4A5568 (secondary text), line #E2E8F0 (hairlines), fog #9AA3B2 (text on dark).
+All h1 to h3 are set in Newsreader; `display` is the serif display utility, `label` the small uppercase sans marker. No boxed cards: hairline rules and whitespace carry the rhythm.
+Primary button `bg-ink text-paper hover:bg-ink-hover`; secondary links are underlined text.
+
+Portrait: add `public/sven-mulfinger.jpg` (4:5, at least 960 x 1200) and it replaces the placeholder on Home and About automatically at the next build.
 
 ## Local development
 
@@ -80,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes and no IE Business School claim anywhere in pages or llms files
 
-Status on 2026-10-15: build clean, 86/86 checks passed. All four main routes return 200 with no horizontal overflow at 1440, 820 and 390 px. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
+Status on 2026-10-15: build clean, 93/93 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
 
 ## Deployment pipeline
 
@@ -158,13 +167,15 @@ UK spelling, no serial comma, no em dashes, no bold labels, short paragraphs.
 Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 - describe real leadership situations in the words leaders use, not frameworks or conceptual jargon
-- "Slow down to speed up" appears once on the site, in the approach section on the home page
-- no product labels (Mode, Format, Rhythm, Led by) on the home page; engagement modes are described in prose
+- no slogan banners: "Slow down to speed up" may appear at most once
+- no product labels (Mode, Format, Rhythm, Led by) on the home page; engagement paths are described in prose
+- every external link opens in a new tab with `rel="noopener noreferrer"`
 - the FAQ lives only on /advisory
 - primary call to action everywhere: "Discuss a leadership challenge"
 
 ## Changelog
 
+- 2026-10-15 (v8): Editorial authority redesign. Newsreader serif headings with Inter body, warm paper palette, boxed cards replaced by hairline rules. New home in eight sections: two-column hero with portrait frame and reassurance note, three narrative situations, background, four-step process, engagement paths with 1:1 as the primary offer, research feature, final invitation. Advisory restructured around buyer questions. Contact simplified to four fields plus consent (fields `role_organisation`, `decision_challenge`). Privacy Policy updated to match. All external links open in a new tab. New favicon and OG image. Verify script at 93 checks.
 - 2026-10-15 (v7): Editorial overhaul. New hero ("A thinking partner for the decisions you cannot delegate."), four real situations replace the philosophy cards, one approach section carries "Slow down to speed up", engagement modes rewritten as prose without product labels, home FAQ removed, advisory FAQ cut to six qualification questions, footer slogan removed, CTAs unified, site title, description, OG image and llms files updated.
 - 2026-10-15 (v6): Legal Notice (/legal) and Privacy Policy (/privacy) in English and Spanish under LSSI-CE, GDPR and LOPDGDD, both noindex follow and excluded from the sitemap. Footer links to both on every page. Form gains a required privacy consent checkbox and a first-layer data protection summary. Verify script at 87 checks.
 - 2026-10-15 (v5): Hero refined: hairline grid at 40% of the line colour, paragraph directly under the headline, horizontal button group, clear primary and outline hierarchy, more editorial spacing. Proof bar rebuilt as a full-width three-credential strip (IESE, 100+, EN · ES · DE · FR). Engagement cards gain a descriptor line and a second Kuma link to offsite.kuma.partners; external links open in a new tab. Verify script at 66 checks.

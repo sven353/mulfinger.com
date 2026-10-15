@@ -58,7 +58,7 @@ check('form data-netlify="true"', formTag.includes('data-netlify="true"'));
 check('form netlify-honeypot="bot-field"', formTag.includes('netlify-honeypot="bot-field"'));
 check('honeypot input present', contact.includes('name="bot-field"'));
 check('hidden form-name input', contact.includes('name="form-name" value="executive-diagnostic"'));
-for (const n of ['full_name', 'email', 'organisation_stage', 'strategic_mandate', 'privacy_consent']) {
+for (const n of ['full_name', 'email', 'role_organisation', 'decision_challenge', 'privacy_consent']) {
   check(`required field ${n}`, new RegExp(`name="${n}"[^>]*required|required[^>]*name="${n}"`).test(contact));
 }
 check('in-place success state present', contact.includes('data-form-success'));
@@ -105,17 +105,25 @@ for (const page of ['advisory/index.html']) {
 const llmsFull = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
 check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 6);
 
-// 4d. Home hero and engagement cards
+// 4d. Home structure (editorial redesign, October 2026)
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  const proof = home.match(/<section aria-label="Credentials"[\s\S]*?<\/section>/)?.[0] ?? '';
-  check('proof bar sits directly after the hero', /<\/section>\s*<section aria-label="Credentials"/.test(home));
-  check('proof bar has 3 credentials', (proof.match(/<dt/g) ?? []).length === 3);
-  for (const host of ['https://kuma.partners', 'https://offsite.kuma.partners']) {
+  check('home: reassurance note under the primary button', home.includes('Confidential. Direct. No obligation to continue.'));
+  check('home: portrait frame in the hero', /<figure[\s\S]*?(sven-mulfinger\.jpg|Portrait of Sven Mulfinger)/.test(home));
+  check('home: situations section with 3 blocks', home.includes('The problems that bring CEOs to the table.') && (home.match(/id="situations-heading"[\s\S]*?<\/section>/)?.[0].match(/<article/g) ?? []).length === 3);
+  check('home: background section', home.includes('I have sat on both sides of the table.'));
+  check('home: 4-step process', home.includes('What happens when we work together.') && (home.match(/id="process-heading"[\s\S]*?<\/ol>/)?.[0].match(/<li/g) ?? []).length === 4);
+  check('home: final invitation', home.includes('Bring the decision you have been circling.'));
+  for (const host of ['https://kuma.partners', 'https://offsite.kuma.partners', 'https://neurodisruptors.com']) {
     const a = [...home.matchAll(new RegExp(`<a [^>]*href="${host.replace(/\./g, '\\.')}"[^>]*>`, 'g'))].map((m) => m[0]);
-    const ok = a.length > 0 && a.some((t) => t.includes('target="_blank"') && t.includes('rel="noopener noreferrer"'));
-    check(`home links to ${host} in a new tab`, ok);
+    check(`home links to ${host} in a new tab`, a.length > 0 && a.every((t) => t.includes('target="_blank"') && t.includes('rel="noopener noreferrer"')));
   }
+}
+{
+  const css = files.filter((f) => f.endsWith('.css')).map((f) => readFileSync(f, 'utf8')).join('');
+  check('serif headings: Newsreader bundled and applied to h1-h3', css.includes('Newsreader Variable') && /h1,h2,h3\{font-family:var\(--font-serif\)/.test(css.replace(/\s/g, '')));
+  check('fonts self-hosted: no Google Fonts requests', !files.filter((f) => /\.(html|css)$/.test(f)).some((f) => readFileSync(f, 'utf8').includes('fonts.googleapis.com')));
+  check('warm paper background #FAF9F6', css.toLowerCase().includes('#faf9f6'));
 }
 
 // 4e. No stray text before the document (catches a broken frontmatter fence)
@@ -157,10 +165,9 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const homeText = home.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ');
   check('home: new hero headline', homeText.includes('A thinking partner for the decisions you cannot delegate.'));
   check('home: no FAQ block', !home.includes('id="faq"'));
-  check('home: 4 situations', (home.match(/class="label text-steel pt-1\.5">0[1-4]</g) ?? []).length === 4);
-  check('home: no product labels (Mode/Format/Rhythm/Led by)', !/\b(Mode 0\d|Format|Rhythm|Led by)\b/.test(homeText));
+    check('home: no product labels (Mode/Format/Rhythm/Led by)', !/\b(Mode 0\d|Format|Rhythm|Led by)\b/.test(homeText));
   const slogan = htmlFiles.reduce((n, f) => n + (readFileSync(f, 'utf8').replace(/<[^>]+>/g, ' ').match(/Slow down to speed up/gi) ?? []).length, 0);
-  check(`"Slow down to speed up" appears once across the site (found ${slogan})`, slogan === 1);
+  check(`"Slow down to speed up" not repeated as a banner (found ${slogan})`, slogan <= 1);
   const old = visible.filter((f) => readFileSync(f, 'utf8').includes('Translating deep systemic')).map((f) => relative(DIST, f));
   check('old hero headline fully retired', old.length === 0, old.join(', '));
 }

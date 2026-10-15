@@ -2,36 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { site } from '../data/site';
-
-const steps = [
-  ['01', 'You apply', 'Four questions. A few minutes at most.'],
-  ['02', 'Sven reads it', 'Personally, within 24 to 48 hours.'],
-  ['03', 'Diagnostic conversation', 'Confidential. Both sides assess fit.'],
-];
 ---
-<Layout title="Request a strategic diagnostic | Sven Mulfinger" description="Apply for a confidential strategic diagnostic with Sven Mulfinger, strategic thought partner to founders, CEOs and C-suite leaders.">
-  <section class="container-x pt-16 md:pt-28 pb-24 md:pb-32">
-    <div class="grid md:grid-cols-12 gap-12">
-      <div class="md:col-span-5">
-        <p class="label text-steel">Executive diagnostic application</p>
-        <h1 class="mt-8 display text-5xl md:text-6xl lg:text-7xl text-balance">Start with the friction.</h1>
-        <p class="mt-8 text-lg text-steel leading-relaxed">Tell me what is on your desk. If there is a fit, we set up a confidential diagnostic conversation. If there is not, I will say so and, where I can, point you to someone better placed.</p>
-
-        <ol class="mt-12 border-t border-line">
-          {steps.map(([n, t, b]) => (
-            <li class="grid grid-cols-[2.5rem_1fr] gap-3 py-5 border-b border-line">
-              <span class="label text-steel pt-1">{n}</span>
-              <div><p class="font-medium">{t}</p><p class="text-sm text-steel">{b}</p></div>
-            </li>
-          ))}
-        </ol>
-
-        <p class="mt-10 text-sm text-steel leading-relaxed">Looking for work with a whole leadership team? That runs through <a href={site.links.kuma} rel="noopener" class="underline underline-offset-2 hover:text-ink">Kuma Partners</a>.</p>
+<Layout title="Discuss a leadership challenge | Sven Mulfinger" description="Get in touch with Sven Mulfinger about a leadership decision or challenge. Confidential and direct. Initial conversations are exploratory and carry no obligation.">
+  <section class="container-x pt-14 md:pt-24 pb-24 md:pb-32">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-5">
+        <p class="label text-steel">Contact</p>
+        <h1 class="mt-8 display text-5xl md:text-6xl text-balance">Discuss a leadership challenge</h1>
+        <p class="mt-8 text-lg text-steel leading-relaxed">Confidential. Direct. Initial conversations are exploratory and carry no obligation.</p>
+        <p class="mt-6 text-steel leading-relaxed">I read every message myself and reply within 24 to 48 hours. If I am not the right person for what you describe, I will say so and, where I can, point you to someone who is.</p>
+        <p class="mt-10 pt-6 border-t border-line text-sm text-steel leading-relaxed">Looking for work with a whole leadership team? That runs through <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 text-ink">Kuma Partners<span class="sr-only"> (opens in a new tab)</span></a>.</p>
       </div>
-      <div class="md:col-span-6 md:col-start-7">
-        <div class="border border-line bg-mist p-6 md:p-10">
-          <ContactForm />
-        </div>
+      <div class="lg:col-span-6 lg:col-start-7">
+        <ContactForm />
       </div>
     </div>
   </section>

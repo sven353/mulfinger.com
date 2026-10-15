@@ -3,11 +3,11 @@ import { nav, site } from '../data/site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => path === href;
 ---
-<header class="sticky top-0 z-40 bg-white/92 backdrop-blur border-b border-line">
+<header class="sticky top-0 z-40 bg-paper/92 backdrop-blur border-b border-line">
   <div class="container-x flex h-16 items-center justify-between">
-    <a href="/" class="flex items-center gap-3" aria-label="Sven Mulfinger, home">
-      <span class="grid place-items-center size-7 bg-ink text-white text-[0.8rem] font-semibold tracking-tight">SM</span>
-      <span class="font-medium tracking-tight">Sven Mulfinger</span>
+    <a href="/" class="flex items-baseline gap-3" aria-label="Sven Mulfinger, home">
+      <span class="font-serif text-[1.35rem] tracking-[-0.01em]">Sven Mulfinger</span>
+      <span class="hidden lg:inline label text-steel">Executive advisory</span>
     </a>
 
     <nav aria-label="Main" class="hidden md:flex items-center gap-8 text-sm">
@@ -18,8 +18,8 @@ const isActive = (href: string) => path === href;
           aria-current={isActive(item.href) ? 'page' : undefined}
         >{item.label}</a>
       ))}
-      <a href={site.links.kuma} class="text-steel hover:text-ink transition-colors" rel="noopener">Kuma Partners ↗</a>
-      <a href="/contact" class="bg-ink text-white px-4 py-2.5 hover:bg-ink-hover transition-colors">Get in touch</a>
+      <a href={site.links.kuma} class="text-steel hover:text-ink transition-colors" target="_blank" rel="noopener noreferrer">Kuma Partners ↗</a>
+      <a href="/contact" class="bg-ink text-paper px-4 py-2.5 hover:bg-ink-hover transition-colors">Get in touch</a>
     </nav>
 
     <button id="menu-open" type="button" class="md:hidden -mr-2 p-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
@@ -30,9 +30,9 @@ const isActive = (href: string) => path === href;
 
 <!-- Outside <header>: the header's backdrop blur would otherwise clip this fixed panel -->
 <div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-label="Menu">
-  <div class="absolute inset-0 bg-ink text-white flex flex-col">
+  <div class="absolute inset-0 bg-ink text-paper flex flex-col">
     <div class="container-x flex h-16 items-center justify-between border-b border-ink-line">
-      <span class="font-medium tracking-tight">Sven Mulfinger</span>
+      <span class="font-serif text-xl">Sven Mulfinger</span>
       <button data-close type="button" class="-mr-2 p-2" aria-label="Close menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
@@ -44,12 +44,12 @@ const isActive = (href: string) => path === href;
           <span>{item.label}</span><span class="label text-fog">0{i + 1}</span>
         </a>
       ))}
-      <a href={site.links.kuma} rel="noopener" class="flex items-baseline justify-between py-5 border-b border-ink-line text-3xl display">
+      <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="flex items-baseline justify-between py-5 border-b border-ink-line text-3xl display">
         <span>Kuma Partners ↗</span><span class="label text-fog">B2B</span>
       </a>
     </nav>
     <div class="container-x mt-auto pb-8">
-      <a href="/contact" data-close class="block bg-white text-ink text-center py-4 text-sm">Discuss a leadership challenge</a>
+      <a href="/contact" data-close class="block bg-paper text-ink text-center py-4 text-sm">Discuss a leadership challenge</a>
     </div>
   </div>
 </div>
