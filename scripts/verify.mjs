@@ -72,9 +72,11 @@ for (const page of ['index.html', 'advisory/index.html', 'about/index.html']) {
   try { graph = JSON.parse(raw)['@graph']; } catch { check(`JSON-LD parses on ${page}`, false); continue; }
   const types = graph.map((n) => n['@type']);
   check(`JSON-LD on ${page}: Person + Service`, types.includes('Person') && types.includes('Service'));
-  if (page !== 'about/index.html') {
-    const faqNode = graph.find((n) => n['@type'] === 'FAQPage');
-    check(`FAQPage on ${page} (${faqNode?.mainEntity?.length ?? 0} questions)`, faqNode?.mainEntity?.length === 12);
+  const faqNode = graph.find((n) => n['@type'] === 'FAQPage');
+  if (page !== 'advisory/index.html') {
+    check(`no FAQPage on ${page}`, !faqNode);
+  } else {
+    check(`FAQPage on ${page} (${faqNode?.mainEntity?.length ?? 0} questions)`, faqNode?.mainEntity?.length === 6);
     const faqTexts = (faqNode?.mainEntity ?? []).map((q) => q.acceptedAnswer?.text ?? '');
     check(`FAQPage answers are plain text on ${page}`, faqTexts.length > 0 && faqTexts.every((t) => t.length > 80 && !/[<>\[\]]/.test(t)));
   }
@@ -82,26 +84,26 @@ for (const page of ['index.html', 'advisory/index.html', 'about/index.html']) {
 }
 
 // 4b. FAQ markup and outbound routing
-for (const page of ['index.html', 'advisory/index.html']) {
+for (const page of ['advisory/index.html']) {
   const html = readFileSync(join(DIST, page), 'utf8');
   const section = html.match(/<section id="faq"[\s\S]*?<\/section>/)?.[0] ?? '';
   const items = section.match(/<li[\s\S]*?<\/li>/g) ?? [];
-  check(`FAQ on ${page} renders 12 items`, items.length === 12);
+  check(`FAQ on ${page} renders 6 items`, items.length === 6);
   check(`every FAQ item has a <details> toggle on ${page}`, items.length > 0 && items.every((li) => li.includes('<details') && li.includes('<summary')));
   // outbound links must sit inside <details>, never in the visible question or verdict
   const leaked = items.filter((li) => /href="https?:\/\//.test(li.split('<details')[0]));
   check(`no outbound links outside expanded context on ${page}`, leaked.length === 0);
   const outbound = [...section.matchAll(/<a [^>]*href="https?:\/\/[^"]+"[^>]*>/g)].map((m) => m[0]);
   const bad = outbound.filter((a) => !a.includes('target="_blank"') || !a.includes('rel="noopener noreferrer"'));
-  check(`${outbound.length} FAQ outbound links use target=_blank + noopener noreferrer on ${page}`, outbound.length === 5 && bad.length === 0, bad.join(' '));
-  for (const host of ['kuma.partners', 'offsite.kuma.partners', 'neurodisruptors.com']) {
+  check(`${outbound.length} FAQ outbound links use target=_blank + noopener noreferrer on ${page}`, outbound.length === 3 && bad.length === 0, bad.join(' '));
+  for (const host of ['kuma.partners', 'offsite.kuma.partners', 'theround.kuma.partners']) {
     check(`FAQ on ${page} links to ${host}`, outbound.some((a) => a.includes(`https://${host}`)));
   }
 }
 
 // 4c. llms-full.txt carries all FAQ answers
 const llmsFull = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
-check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 12);
+check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 6);
 
 // 4d. Home hero and engagement cards
 {
@@ -147,8 +149,23 @@ for (const page of ['legal/index.html', 'privacy/index.html']) {
   check('form shows first-layer data protection info', contactHtml.includes('Basic data protection information'));
 }
 
-// 5. Copy rules
 const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt')];
+
+// 4g. Editorial rules from the October 2026 audit
+{
+  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const homeText = home.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ');
+  check('home: new hero headline', homeText.includes('A thinking partner for the decisions you cannot delegate.'));
+  check('home: no FAQ block', !home.includes('id="faq"'));
+  check('home: 4 situations', (home.match(/class="label text-steel pt-1\.5">0[1-4]</g) ?? []).length === 4);
+  check('home: no product labels (Mode/Format/Rhythm/Led by)', !/\b(Mode 0\d|Format|Rhythm|Led by)\b/.test(homeText));
+  const slogan = htmlFiles.reduce((n, f) => n + (readFileSync(f, 'utf8').replace(/<[^>]+>/g, ' ').match(/Slow down to speed up/gi) ?? []).length, 0);
+  check(`"Slow down to speed up" appears once across the site (found ${slogan})`, slogan === 1);
+  const old = visible.filter((f) => readFileSync(f, 'utf8').includes('Translating deep systemic')).map((f) => relative(DIST, f));
+  check('old hero headline fully retired', old.length === 0, old.join(', '));
+}
+
+// 5. Copy rules
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));
 const ie = visible.filter((f) => /\bIE Business School\b/.test(readFileSync(f, 'utf8').replace(/IESE Business School/g, ''))).map((f) => relative(DIST, f));

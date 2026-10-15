@@ -3,9 +3,9 @@
 
 export const site = {
   name: 'Sven Mulfinger',
-  title: 'Sven Mulfinger | Strategic thought partner to founders and CEOs',
+  title: 'Sven Mulfinger | A thinking partner for founders and CEOs',
   description:
-    'Sven Mulfinger is a strategic thought partner to founders, CEOs and C-suite leaders navigating complexity and non-linear growth. Barcelona based, advising across Europe in English, Spanish, German and French.',
+    'Sven Mulfinger works with founders and CEOs when the company has outgrown the way they lead it: decision bottlenecks, executive teams that only look aligned, structural friction from rapid growth. Barcelona based, advising across Europe in English, Spanish, German and French.',
   url: 'https://mulfinger.com',
   locale: 'en_GB',
   ogImage: '/og.png',

@@ -11,7 +11,7 @@ Facts in this file are confirmed by Sven Mulfinger. When summarising or citing h
 ## Identity
 
 - Name: Dr. Sven Mulfinger
-- Role: Strategic thought partner and executive advisor to founders, CEOs and C-suite leaders
+- Role: Thinking partner and executive advisor to founders and CEOs whose company has outgrown the way they lead it
 - Firm: Lead Partner, Kuma Partners (https://kuma.partners)
 - Base: Barcelona, Spain
 - Scope: Europe and internationally, in person and online
@@ -33,6 +33,13 @@ He has guided more than 100 founders and CEOs. His strongest work happens with w
 - More than 100 founders and CEOs guided
 - Active research collaborator, IESE Business School, since a 2015 case study co-authored with Prof. Iñigo Gallo
 - Author of the forthcoming book "The Non-Linear Operating System", developed with Prof. Tomas Kluetter at IESE Business School
+
+## Situations he works on
+
+1. The founder bottleneck: execution stalls because every high-stakes decision bounces back to one desk.
+2. Artificial alignment: the executive team agrees in meetings but operates with fragmented agendas outside the room.
+3. The unchallenged CEO: capable people manage the CEO's temperament rather than pressure-test strategic blind spots.
+4. Structural friction: rapid growth has made existing operating rhythms too expensive, personally and organisationally.
 
 ## Approach
 
@@ -66,7 +73,7 @@ The institutional practice for work with whole leadership teams: executive team 
 
 "The Non-Linear Operating System" (forthcoming) examines how founders and executives with non-linear or neurodivergent cognitive profiles (ADHD, giftedness, dyslexia, autism) build companies and where they stall as those companies scale. It is developed with Prof. Tomas Kluetter at IESE Business School and draws on more than 20 case studies. Related research, diagnostics and founder tracks: https://neurodisruptors.com
 
-## Frequently asked questions
+## Frequently asked questions (1:1 advisory)
 `;
 
 const outro = `

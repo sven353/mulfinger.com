@@ -18,8 +18,8 @@ src/
   data/
     site.ts               names, links, nav and ALL public claims (badges). Edit claims here only.
     legal.ts              owner, NIF/NIE, contact email, address, hosting: single source for both legal pages and the form notice
-    faq.ts                12-question FAQ (question, one-line verdict, expanded body with [text](url) links).
-                          Feeds Faq.astro, the FAQPage schema and /llms-full.txt.
+    faq.ts                6-question advisory FAQ (question, one-line verdict, expanded body with [text](url) links).
+                          Feeds Faq.astro on /advisory, the FAQPage schema and /llms-full.txt.
   layouts/Layout.astro    html shell, SEO, header, footer. Takes an optional `faq` prop.
   components/
     Seo.astro             meta, canonical, OpenGraph, Twitter card, JSON-LD graph
@@ -32,15 +32,15 @@ src/
                           first-layer data protection summary, in-place success state
     LegalShell.astro      shared frame and typography for the two legal pages
   pages/
-    index.astro           home (includes FAQ)
+    index.astro           home: hero, proof bar, four situations, approach, three ways in, research, contact
     about.astro           systems lineage
-    advisory.astro        1:1 advisory, The Round, comparison with Kuma Partners (includes FAQ)
+    advisory.astro        how 1:1 advisory works, The Round, comparison with Kuma Partners, 6-question FAQ
     contact.astro         executive diagnostic application
     legal.astro           Legal Notice | Aviso Legal (LSSI-CE), English + Spanish, noindex follow
     privacy.astro         Privacy Policy | Política de Privacidad (GDPR, LOPDGDD), English + Spanish, noindex follow
     thanks.astro          fallback success page for visitors without JavaScript (noindex)
     404.astro
-    llms-full.txt.ts      generates /llms-full.txt at build time, including all 12 FAQ answers
+    llms-full.txt.ts      generates /llms-full.txt at build time, including all FAQ answers
   styles/global.css       design tokens and base styles
 public/
   llms.txt                GEO summary for AI search and assistants (static)
@@ -80,7 +80,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes and no IE Business School claim anywhere in pages or llms files
 
-Status on 2026-10-15: build clean, 87/87 checks passed. All four main routes return 200 with no horizontal overflow at 1440, 820 and 390 px. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
+Status on 2026-10-15: build clean, 86/86 checks passed. All four main routes return 200 with no horizontal overflow at 1440, 820 and 390 px. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
 
 ## Deployment pipeline
 
@@ -155,8 +155,17 @@ Commercial terms confirmed the same day and published in the FAQ: 6 or 12-month 
 
 UK spelling, no serial comma, no em dashes, no bold labels, short paragraphs.
 
+Editorial rules from the October 2026 audit, enforced by `npm run verify`:
+
+- describe real leadership situations in the words leaders use, not frameworks or conceptual jargon
+- "Slow down to speed up" appears once on the site, in the approach section on the home page
+- no product labels (Mode, Format, Rhythm, Led by) on the home page; engagement modes are described in prose
+- the FAQ lives only on /advisory
+- primary call to action everywhere: "Discuss a leadership challenge"
+
 ## Changelog
 
+- 2026-10-15 (v7): Editorial overhaul. New hero ("A thinking partner for the decisions you cannot delegate."), four real situations replace the philosophy cards, one approach section carries "Slow down to speed up", engagement modes rewritten as prose without product labels, home FAQ removed, advisory FAQ cut to six qualification questions, footer slogan removed, CTAs unified, site title, description, OG image and llms files updated.
 - 2026-10-15 (v6): Legal Notice (/legal) and Privacy Policy (/privacy) in English and Spanish under LSSI-CE, GDPR and LOPDGDD, both noindex follow and excluded from the sitemap. Footer links to both on every page. Form gains a required privacy consent checkbox and a first-layer data protection summary. Verify script at 87 checks.
 - 2026-10-15 (v5): Hero refined: hairline grid at 40% of the line colour, paragraph directly under the headline, horizontal button group, clear primary and outline hierarchy, more editorial spacing. Proof bar rebuilt as a full-width three-credential strip (IESE, 100+, EN · ES · DE · FR). Engagement cards gain a descriptor line and a second Kuma link to offsite.kuma.partners; external links open in a new tab. Verify script at 66 checks.
 - 2026-10-15 (v4): 12-question FAQ with visible one-line verdicts and 'Read context' toggles, smooth expansion where supported, outbound links to kuma.partners, offsite.kuma.partners, theround.kuma.partners and neurodisruptors.com only inside the expanded context. FAQPage schema extended to 12 answers. `/llms-full.txt` now generated from the FAQ data. Confirmed terms applied site-wide (24 to 48 hour reply, Madrid sessions, nomination route for The Round, retainer cadence). Verify script extended to 61 checks.
