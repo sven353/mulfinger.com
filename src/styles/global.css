@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Fonts are self-hosted (Fontsource): no calls to Google, which keeps GDPR and the CSP simple */
+@import "@fontsource-variable/inter-tight/index.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+
+@theme {
+  --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Monochrome system */
+  --color-ink: #0f1115;        /* graphite, primary dark */
+  --color-ink-2: #171a20;      /* raised dark surface */
+  --color-ink-line: #1e232b;   /* borders on dark */
+  --color-white: #ffffff;
+  --color-mist: #f8f9fa;       /* off-white surface */
+  --color-line: #e2e8f0;       /* borders on light */
+  --color-steel: #5b6270;      /* secondary text on light */
+  --color-fog: #8b93a1;        /* secondary text on dark */
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--color-ink); color: var(--color-white); }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+@utility container-x {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) { padding-inline: 2.5rem; }
+}
+
+/* Small uppercase mono label used for indices and section markers */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 450;
+}
+
+/* Display type: tight Swiss grotesk */
+@utility display {
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}

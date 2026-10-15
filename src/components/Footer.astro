@@ -1,0 +1,48 @@
+---
+import { site, badges } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="bg-ink text-white">
+  <div class="container-x pt-20 pb-12">
+    <div class="grid md:grid-cols-12 gap-12">
+      <div class="md:col-span-6">
+        <p class="label text-fog">Operating principle</p>
+        <p class="mt-4 display text-4xl md:text-6xl">Slow down<br />to speed up.</p>
+        <a href="/contact" class="mt-10 inline-flex items-center gap-3 border border-ink-line px-5 py-3 text-sm hover:bg-white hover:text-ink transition-colors">Request strategic diagnostic <span aria-hidden="true">→</span></a>
+      </div>
+      <nav aria-label="Footer" class="md:col-span-2 md:col-start-8 text-sm">
+        <p class="label text-fog">Site</p>
+        <ul class="mt-4 space-y-2.5">
+          <li><a class="hover:text-fog" href="/">Home</a></li>
+          <li><a class="hover:text-fog" href="/about">About</a></li>
+          <li><a class="hover:text-fog" href="/advisory">Advisory</a></li>
+          <li><a class="hover:text-fog" href="/#research">Research</a></li>
+          <li><a class="hover:text-fog" href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="md:col-span-3 text-sm">
+        <p class="label text-fog">Practice</p>
+        <ul class="mt-4 space-y-2.5">
+          <li><a class="hover:text-fog" href={site.links.kuma} rel="noopener">Kuma Partners ↗</a></li>
+          <li><a class="hover:text-fog" href={site.links.round} rel="noopener">The Round ↗</a></li>
+          <li><a class="hover:text-fog" href={site.links.neurodisruptors} rel="noopener">Neurodisruptors ↗</a></li>
+          {site.links.linkedin && <li><a class="hover:text-fog" href={site.links.linkedin} rel="noopener me">LinkedIn ↗</a></li>}
+        </ul>
+      </div>
+    </div>
+
+    <dl class="mt-20 grid grid-cols-2 md:grid-cols-4 border-t border-ink-line">
+      {badges.map((b) => (
+        <div class="pt-5 pr-4">
+          <dt class="label text-fog">{b.label}</dt>
+          <dd class="mt-2 text-sm">{b.value} <span class="text-fog">{b.note}</span></dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="mt-16 pt-6 border-t border-ink-line flex flex-col sm:flex-row gap-2 justify-between text-xs text-fog">
+      <p>© {year} Sven Mulfinger · Barcelona</p>
+      <p><a class="hover:text-white" href="/legal">Legal notice and privacy</a></p>
+    </div>
+  </div>
+</footer>

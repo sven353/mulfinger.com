@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+
+const lineage = [
+  {
+    n: '01',
+    stage: 'Molecular genetics',
+    text: 'My first discipline. Genetics teaches you that complex outcomes come from small rules interacting at scale, and that the visible trait is rarely where the cause sits.',
+  },
+  {
+    n: '02',
+    stage: 'Chemical engineering',
+    text: 'Engineering added process thinking: flows, feedback loops, bottlenecks and failure modes. I hold a doctorate, and I still look at an organisation the way an engineer looks at a plant.',
+  },
+  {
+    n: '03',
+    stage: 'European institutions',
+    text: 'Both my parents worked for the EU institutions and I went to the European School in Brussels. I learned early that most conflict between capable people comes from different operating assumptions rather than bad intent.',
+  },
+  {
+    n: '04',
+    stage: 'Founder',
+    text: 'Four years building MaterFly, which became Dana, a venture in women\'s mental health. I know the founder seat from the inside, including the parts nobody posts about.',
+  },
+  {
+    n: '05',
+    stage: 'IESE Business School',
+    text: 'Research and teaching since a 2015 case study with Prof. Iñigo Gallo. Today I research neurodivergent founders and CEOs with Prof. Tomas Kluetter.',
+  },
+  {
+    n: '06',
+    stage: 'Executive advisory',
+    text: 'Lead Partner at Kuma Partners. More than 100 founders and CEOs guided across Europe, in four working languages, from early scale-ups to established leadership teams.',
+  },
+];
+
+const foundations = [
+  { t: 'Co-creation', b: 'You know your company. I bring pattern recognition from many others. The answer is built together, and you own it.' },
+  { t: 'Courage', b: 'I will say what others in the room cannot or will not. That includes the part of the problem that sits with you.' },
+  { t: 'Principled tension', b: 'Some tensions should not be resolved quickly. I hold them open long enough for a better decision to emerge.' },
+  { t: 'Absolute integrity', b: 'Confidentiality is total. I do not take work where my interests and yours could pull apart, and I say so when something is outside my competence.' },
+];
+---
+<Layout title="About | Sven Mulfinger" type="profile" description="From molecular genetics and chemical engineering to international executive advisory. Sven Mulfinger's background, research at IESE Business School and the foundations of his work.">
+  <section class="container-x pt-16 md:pt-28 pb-16 md:pb-24">
+    <p class="label text-steel">About · Systems lineage</p>
+    <h1 class="mt-8 display text-5xl md:text-7xl lg:text-[5.5rem] max-w-[16ch] text-balance">From the logic of cells to the logic of leadership teams.</h1>
+    <p class="mt-10 max-w-2xl text-lg md:text-xl text-steel leading-relaxed">I came to executive advisory through science and engineering. That path shapes how I work: I look for the structure underneath the symptom, and I trust evidence over charisma.</p>
+  </section>
+
+  <!-- Lineage grid -->
+  <section class="border-y border-line bg-mist">
+    <div class="container-x py-20 md:py-28">
+      <div class="flex items-baseline justify-between">
+        <h2 class="label text-steel">Lineage</h2>
+        <p class="label text-steel hidden sm:block">Genetics → Engineering → C-suite</p>
+      </div>
+      <ol class="mt-10 grid md:grid-cols-2 lg:grid-cols-3 border-t border-l border-line bg-white">
+        {lineage.map((l) => (
+          <li class="p-8 border-r border-b border-line flex flex-col min-h-[16rem]">
+            <p class="label text-steel">{l.n}</p>
+            <h3 class="mt-10 text-2xl font-medium tracking-tight">{l.stage}</h3>
+            <p class="mt-3 text-steel leading-relaxed">{l.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Intersection -->
+  <section class="container-x py-24 md:py-32 grid md:grid-cols-12 gap-10">
+    <div class="md:col-span-4">
+      <p class="label text-steel">The intersection</p>
+      <h2 class="mt-5 display text-4xl md:text-5xl">Neuroscience, organisations and governance.</h2>
+      <!-- Portrait: add public/sven.jpg and replace this block with
+           <img src="/sven.jpg" alt="Sven Mulfinger" width="800" height="1000" class="mt-10 w-full grayscale" loading="lazy" /> -->
+      <div class="mt-10 aspect-[4/5] bg-mist border border-line flex items-end p-5"><span class="label text-steel">Portrait</span></div>
+    </div>
+    <div class="md:col-span-7 md:col-start-6 space-y-6 text-lg text-steel leading-relaxed md:pt-12">
+      <p>Three lenses run through everything I do. Neuroscience explains what happens to judgement under pressure: why smart people narrow their options, defend positions and avoid the conversation that matters. Organisational behaviour explains how those individual patterns harden into team habits. Governance is where the fix usually lives, in who decides what, with which information and by when.</p>
+      <p>Most interventions stay in one lens. Coaching works on the individual and leaves the structure untouched. Consulting redesigns the structure and ignores the people who have to live in it. I work across all three, because the friction a CEO feels personally is usually the same friction the organisation produces structurally.</p>
+      <p>I keep the jargon out of the room. The measure of the work is simple: you decide better, faster and with less collateral damage than before.</p>
+    </div>
+  </section>
+
+  <!-- Foundations -->
+  <section class="bg-ink text-white">
+    <div class="container-x py-24 md:py-32">
+      <p class="label text-fog">Core foundation</p>
+      <h2 class="mt-5 display text-4xl md:text-6xl max-w-[18ch]">What you can hold me to.</h2>
+      <dl class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-ink-line">
+        {foundations.map((f, i) => (
+          <div class="p-8 border-r border-b border-ink-line">
+            <dt><span class="label text-fog block">{String(i + 1).padStart(2, '0')}</span><span class="mt-10 block text-2xl font-medium tracking-tight">{f.t}</span></dt>
+            <dd class="mt-3 text-fog leading-relaxed">{f.b}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="mt-16 flex flex-col sm:flex-row gap-3">
+        <a href="/contact" class="bg-white text-ink px-7 py-4 text-sm inline-flex justify-center items-center gap-3 hover:bg-mist transition-colors">Request strategic diagnostic <span aria-hidden="true">→</span></a>
+        <a href={site.links.kuma} rel="noopener" class="border border-ink-line px-7 py-4 text-sm text-center hover:bg-white hover:text-ink transition-colors">Kuma Partners ↗</a>
+      </div>
+    </div>
+  </section>
+</Layout>

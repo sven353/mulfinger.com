@@ -1,0 +1,48 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Security headers for every page
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+
+# Fingerprinted build assets: cache for a year
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML: always revalidate so new deploys show immediately
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Canonical host: www to apex
+[[redirects]]
+  from = "https://www.mulfinger.com/*"
+  to = "https://mulfinger.com/:splat"
+  status = 301
+  force = true
+
+# Old HubSpot URLs. Add any paths that rank or are linked from elsewhere.
+# Check the current sitemap at https://mulfinger.com/sitemap.xml before switching DNS.
+[[redirects]]
+  from = "/about-me"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/"
+  status = 301

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mulfinger.com/sitemap-index.xml

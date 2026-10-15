@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Badges from '../components/Badges.astro';
+import { site } from '../data/site';
+
+const pillars = [
+  {
+    n: '01',
+    title: 'Ethical clarity over easy answers',
+    body: 'Boardroom dilemmas rarely have a clean option. We name the trade-off you are actually making, who carries its cost and what you will still defend in a year. Then you decide with principled courage.',
+  },
+  {
+    n: '02',
+    title: 'Systems architecture over symptom management',
+    body: 'Recurring friction between capable executives is usually structural. We align decision rights, incentives and human dynamics at the root, so the same conflict does not return next quarter.',
+  },
+  {
+    n: '03',
+    title: 'Cognitive precision',
+    body: 'Under pressure, even sharp leaders lose resolution. We separate signal from noise, slow the critical decisions down and turn executive fog into deliberate action.',
+  },
+];
+
+const modes = [
+  {
+    n: 'Mode 01',
+    title: '1:1 Executive Advisory',
+    body: 'Confidential, high-conviction thought partnership for founders, CEOs and enterprise leaders carrying the final call.',
+    meta: [['Format', 'Individual'], ['Rhythm', 'Agreed per engagement'], ['Led by', 'Sven Mulfinger']],
+    href: '/advisory#one-to-one',
+    cta: 'How 1:1 advisory works',
+    external: false,
+  },
+  {
+    n: 'Mode 02',
+    title: 'The Round',
+    body: 'A curated, confidential peer board for high-impact founders and CEOs. Membership by application, year-round, starting in Barcelona.',
+    meta: [['Format', 'Peer group'], ['Rhythm', 'Monthly, year-round'], ['Led by', 'Sven Mulfinger']],
+    href: '/advisory#the-round',
+    cta: 'About The Round',
+    external: false,
+  },
+  {
+    n: 'Mode 03',
+    title: 'Kuma Partners',
+    body: 'The institutional practice for executive team alignment, strategic offsites and the 14-Day Leadership Friction Diagnostic.',
+    meta: [['Format', 'Leadership team'], ['Rhythm', 'Diagnostic, then sprint'], ['Led by', 'Kuma partner team']],
+    href: site.links.kuma,
+    cta: 'kuma.partners',
+    external: true,
+  },
+];
+---
+<Layout>
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 container-x hidden md:grid grid-cols-12">
+      {Array.from({ length: 12 }).map((_, i) => <div class:list={['border-l border-line/60', i === 11 && 'border-r']}></div>)}
+    </div>
+    <div class="relative container-x pt-16 md:pt-28 pb-16 md:pb-24">
+      <p class="label text-steel">Strategic advisory for founders and C-suite</p>
+      <h1 class="mt-8 display text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[6.25rem] max-w-[14ch] text-balance">
+        Translating deep systemic insight into decisive leadership.
+      </h1>
+      <div class="mt-12 md:mt-16 grid md:grid-cols-12 gap-8 items-end">
+        <p class="md:col-span-6 text-lg md:text-xl text-steel leading-relaxed">
+          Guiding bold leaders through non-linear growth, structural friction and high-stakes transitions. Holding principled tension where standard playbooks fail.
+        </p>
+        <div class="md:col-span-4 md:col-start-9 flex flex-col sm:flex-row md:flex-col gap-3">
+          <a href="/contact" class="bg-ink text-white px-7 py-4 text-sm hover:bg-ink-2 transition-colors inline-flex justify-center items-center gap-3">Request strategic diagnostic <span aria-hidden="true">→</span></a>
+          <a href={site.links.kuma} rel="noopener" class="border border-ink px-7 py-4 text-sm hover:bg-ink hover:text-white transition-colors text-center">Explore Kuma Partners (B2B) ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Badges />
+
+  <!-- Promise -->
+  <section class="container-x py-24 md:py-36">
+    <div class="grid md:grid-cols-12 gap-8">
+      <p class="md:col-span-3 label text-steel">00 · The work</p>
+      <div class="md:col-span-9">
+        <p class="display text-3xl md:text-5xl !leading-[1.08] text-balance">
+          Easy answers are cheap at the top. What leaders need is ethical clarity: seeing exactly what they are choosing and why.
+        </p>
+        <p class="mt-8 max-w-2xl text-lg text-steel leading-relaxed">
+          My work helps leaders slow down to speed up. The pause is deliberate and short, and it is far cheaper than months of misdirected energy and a strategy pulled in five directions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="border-t border-line bg-mist">
+    <div class="container-x py-24 md:py-32">
+      <div class="grid md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-7">
+          <p class="label text-steel">Core operating philosophy</p>
+          <h2 class="mt-5 display text-4xl md:text-6xl">Slow down to speed up.</h2>
+        </div>
+        <p class="md:col-span-4 md:col-start-9 text-steel leading-relaxed">Speed is rarely the constraint in a scaling company. Decision latency is: the time lost between knowing something must change and someone acting on it.</p>
+      </div>
+      <div class="mt-16 grid md:grid-cols-3 border border-line bg-white">
+        {pillars.map((p, i) => (
+          <article class:list={['p-8 md:p-10 flex flex-col', i > 0 && 'border-t md:border-t-0 md:border-l border-line']}>
+            <p class="label text-steel">{p.n}</p>
+            <h3 class="mt-12 md:mt-20 text-2xl font-medium tracking-tight leading-tight">{p.title}</h3>
+            <p class="mt-4 text-steel leading-relaxed">{p.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Modes -->
+  <section class="bg-ink text-white">
+    <div class="container-x py-24 md:py-32">
+      <div class="grid md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-7">
+          <p class="label text-fog">Engagement modes</p>
+          <h2 class="mt-5 display text-4xl md:text-6xl">Three ways in.</h2>
+        </div>
+        <p class="md:col-span-4 md:col-start-9 text-fog leading-relaxed">Which one fits depends on where the tension sits: in one leader, between peers or inside the executive team itself.</p>
+      </div>
+      <div class="mt-16 grid lg:grid-cols-3 border border-ink-line">
+        {modes.map((m, i) => (
+          <article class:list={['p-8 md:p-10 flex flex-col', i > 0 && 'border-t lg:border-t-0 lg:border-l border-ink-line']}>
+            <p class="label text-fog">{m.n}</p>
+            <h3 class="mt-10 text-3xl display">{m.title}</h3>
+            <p class="mt-4 text-fog leading-relaxed">{m.body}</p>
+            <dl class="mt-8 border-t border-ink-line text-sm flex-1">
+              {m.meta.map(([k, v]) => (
+                <div class="flex justify-between gap-4 py-3 border-b border-ink-line">
+                  <dt class="label text-fog self-center">{k}</dt><dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <a href={m.href} rel={m.external ? 'noopener' : undefined} class="mt-8 inline-flex items-center justify-between gap-2 text-sm border border-ink-line px-4 py-3 hover:bg-white hover:text-ink transition-colors">
+              {m.cta} <span aria-hidden="true">{m.external ? '↗' : '→'}</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research" class="scroll-mt-16">
+    <div class="container-x py-24 md:py-32 grid md:grid-cols-12 gap-12 items-start">
+      <div class="md:col-span-5">
+        <p class="label text-steel">Intellectual property and research</p>
+        <div class="mt-8 aspect-[3/4] max-w-[22rem] bg-ink text-white p-8 flex flex-col justify-between">
+          <div class="flex justify-between label text-fog"><span>Forthcoming</span><span>Book</span></div>
+          <div>
+            <p class="display text-[2.6rem] leading-[0.95]">The<br />Non-Linear<br />Operating<br />System</p>
+            <div class="mt-8 pt-4 border-t border-ink-line flex justify-between label text-fog"><span>Sven Mulfinger</span><span>IESE research</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 md:pt-14">
+        <h2 class="display text-4xl md:text-5xl text-balance">How non-linear minds build companies, and where they stall.</h2>
+        <div class="mt-8 space-y-5 text-steel text-lg leading-relaxed">
+          <p>Many founders have spiky cognitive profiles: ADHD, giftedness, dyslexia, autism or a combination that never received a label. The wiring that lets them see around corners also shapes how they delegate, decide and handle conflict once the company scales.</p>
+          <p><em class="not-italic text-ink">The Non-Linear Operating System</em> is a book in development with Prof. Tomas Kluetter at IESE Business School. It draws on more than 20 case studies of founders and senior executives and turns them into operating models for leaders and the teams around them.</p>
+        </div>
+        <dl class="mt-10 grid grid-cols-2 border-t border-line">
+          <div class="py-5 pr-4 border-b border-line"><dt class="label text-steel">Case studies</dt><dd class="mt-2 text-2xl font-medium tracking-tight">20+</dd></div>
+          <div class="py-5 pl-4 border-b border-l border-line"><dt class="label text-steel">IESE since</dt><dd class="mt-2 text-2xl font-medium tracking-tight">2015</dd></div>
+        </dl>
+        <a href={site.links.neurodisruptors} rel="noopener" class="mt-10 inline-flex items-center gap-3 text-sm border-b border-ink pb-1 hover:text-steel transition-colors">Explore the research at neurodisruptors.com <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conversion -->
+  <section class="border-t border-line bg-mist">
+    <div class="container-x py-24 md:py-32 grid md:grid-cols-12 gap-10 items-end">
+      <div class="md:col-span-7">
+        <p class="label text-steel">Confidential diagnostic</p>
+        <h2 class="mt-5 display text-4xl md:text-6xl text-balance">Bring the decision you have been circling.</h2>
+      </div>
+      <div class="md:col-span-4 md:col-start-9">
+        <p class="text-steel leading-relaxed">A short application, then a confidential diagnostic conversation. If the fit is wrong, I will tell you, and where I can, point you to someone better placed.</p>
+        <a href="/contact" class="mt-8 w-full bg-ink text-white px-7 py-4 text-sm hover:bg-ink-2 transition-colors inline-flex justify-between items-center">Request strategic diagnostic <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>

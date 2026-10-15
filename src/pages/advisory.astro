@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+
+const process = [
+  { n: '01', t: 'Application', b: 'You describe the decision or friction in a short form. I read every application personally.' },
+  { n: '02', t: 'Diagnostic conversation', b: 'A confidential conversation to map what is at stake, what has been tried and whether I am the right person. Both sides assess fit.' },
+  { n: '03', t: 'Engagement design', b: 'We agree the objective, the rhythm, the people involved and how we will know it is working. Most engagements run for a defined period with a review point.' },
+  { n: '04', t: 'Working sessions', b: 'Regular sessions in person in Barcelona or online, with direct access between sessions when a decision cannot wait.' },
+  { n: '05', t: 'Review', b: 'We review against the objective. Some leaders continue, some join The Round and some bring in Kuma Partners for work with the whole team.' },
+];
+
+const expectations = [
+  ['From me', 'Full preparation, honest reads, total confidentiality and a clear signal when something is outside my competence.'],
+  ['From you', 'Real problems rather than presentable ones, time between sessions to act and willingness to look at your own part.'],
+  ['What you leave with', 'Clearer decisions, sharper questions and a structure that holds after we stop working together.'],
+];
+
+const roundFeatures = [
+  ['Peer board', 'A monthly session where members bring live issues and are challenged by peers who carry the same weight.'],
+  ['Individual sparring', 'Regular 1:1 or small-pod sessions with Sven between peer meetings.'],
+  ['Immersion', 'A one-day, one-night immersion away from the office.'],
+  ['Annual offsite', 'A strategic offsite for the whole group once a year.'],
+  ['Accountability', 'A member ledger that tracks commitments made in the room.'],
+];
+
+const compare = [
+  { k: 'For', a: 'One leader carrying the final call', b: 'Founders and CEOs who want a peer board', c: 'An executive team or C-suite' },
+  { k: 'Focus', a: 'Personal decisions, role transitions, judgement under pressure', b: 'Live issues tested against peers, year-round', c: 'Team alignment, decision governance, co-founder friction' },
+  { k: 'Format', a: 'Confidential 1:1 sessions', b: 'Monthly peer board, sparring, immersion, offsite', c: '14-Day Leadership Friction Diagnostic, alignment sprints, offsites' },
+  { k: 'Led by', a: 'Sven Mulfinger', b: 'Sven Mulfinger', c: 'Sven and the Kuma partner team' },
+];
+---
+<Layout title="Advisory | Sven Mulfinger" description="How engagements with Sven Mulfinger work: 1:1 executive counsel, The Round peer advisory for founders and CEOs and leadership team work through Kuma Partners.">
+  <section class="container-x pt-16 md:pt-28 pb-16 md:pb-24">
+    <p class="label text-steel">Advisory · Engagement models</p>
+    <h1 class="mt-8 display text-5xl md:text-7xl lg:text-[5.5rem] max-w-[15ch] text-balance">Counsel for the decisions you cannot delegate.</h1>
+    <nav aria-label="On this page" class="mt-12 flex flex-wrap gap-2 text-sm">
+      <a href="#one-to-one" class="border border-line px-4 py-2 hover:border-ink transition-colors">01 · 1:1 Executive Advisory</a>
+      <a href="#the-round" class="border border-line px-4 py-2 hover:border-ink transition-colors">02 · The Round</a>
+      <a href="#compare" class="border border-line px-4 py-2 hover:border-ink transition-colors">03 · 1:1 or Kuma Partners</a>
+    </nav>
+  </section>
+
+  <!-- 1:1 -->
+  <section id="one-to-one" class="border-t border-line scroll-mt-16">
+    <div class="container-x py-20 md:py-28">
+      <div class="grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-5">
+          <p class="label text-steel">01 · 1:1 Executive Advisory</p>
+          <h2 class="mt-5 display text-4xl md:text-5xl">How a direct engagement works.</h2>
+        </div>
+        <p class="md:col-span-6 md:col-start-7 text-lg text-steel leading-relaxed md:pt-10">A confidential thought partnership for the leader who carries the final call. We work on what is actually in front of you: the co-founder conversation you keep postponing, the executive who no longer fits, the strategy that looks right on paper and stalls in practice. The first job is to retrieve clarity. Everything else follows from that.</p>
+      </div>
+
+      <ol class="mt-16 grid sm:grid-cols-2 lg:grid-cols-5 border-t border-l border-line">
+        {process.map((s) => (
+          <li class="p-6 md:p-7 border-r border-b border-line">
+            <p class="label text-steel">{s.n}</p>
+            <h3 class="mt-8 text-lg font-medium tracking-tight">{s.t}</h3>
+            <p class="mt-2 text-sm text-steel leading-relaxed">{s.b}</p>
+          </li>
+        ))}
+      </ol>
+
+      <dl class="mt-16 border-t border-ink">
+        {expectations.map(([k, v]) => (
+          <div class="grid md:grid-cols-12 gap-2 md:gap-10 py-6 border-b border-line">
+            <dt class="md:col-span-3 label text-steel pt-1">{k}</dt>
+            <dd class="md:col-span-9 text-lg leading-relaxed">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-6 text-sm text-steel">Fees depend on scope and rhythm and are shared after the diagnostic conversation.</p>
+    </div>
+  </section>
+
+  <!-- The Round -->
+  <section id="the-round" class="bg-ink text-white scroll-mt-16">
+    <div class="container-x py-20 md:py-28">
+      <div class="grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-5">
+          <p class="label text-fog">02 · The Round</p>
+          <h2 class="mt-5 display text-4xl md:text-5xl">A peer board for founders and CEOs.</h2>
+          <p class="mt-6 text-fog leading-relaxed">The Round by Kuma Partners is a confidential, year-round peer operating system. Leaders bring their hardest live issues to a small group of peers who have no agenda except helping them decide well. The first cohort, The Round Barcelona 01, meets in Barcelona, with European groups to follow.</p>
+          <p class="mt-4 text-fog leading-relaxed">Membership is by application and candidate review.</p>
+          <a href={site.links.round} rel="noopener" class="mt-10 inline-flex items-center gap-3 border border-ink-line px-5 py-3 text-sm hover:bg-white hover:text-ink transition-colors">theround.kuma.partners <span aria-hidden="true">↗</span></a>
+        </div>
+        <dl class="md:col-span-6 md:col-start-7 border-t border-ink-line">
+          {roundFeatures.map(([k, v], i) => (
+            <div class="grid grid-cols-[2.5rem_1fr] gap-4 py-6 border-b border-ink-line">
+              <span class="label text-fog pt-1">{String(i + 1).padStart(2, '0')}</span>
+              <div><dt class="text-lg font-medium tracking-tight">{k}</dt><dd class="mt-1 text-fog leading-relaxed">{v}</dd></div>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison -->
+  <section id="compare" class="scroll-mt-16">
+    <div class="container-x py-20 md:py-28">
+      <div class="grid md:grid-cols-12 gap-10 items-end">
+        <div class="md:col-span-6">
+          <p class="label text-steel">03 · Where each engagement sits</p>
+          <h2 class="mt-5 display text-4xl md:text-5xl">Personal counsel or enterprise intervention.</h2>
+        </div>
+        <p class="md:col-span-5 md:col-start-8 text-steel leading-relaxed">When the friction lives in one leader, 1:1 counsel is the right room. When it lives between executives, the work moves to Kuma Partners, which brings a team of former CEOs and operators into the company.</p>
+      </div>
+
+      <div class="mt-14 overflow-x-auto -mx-5 px-5 md:mx-0 md:px-0">
+        <table class="w-full min-w-[44rem] border-collapse text-left">
+          <thead>
+            <tr class="border-b border-ink">
+              <th scope="col" class="w-[16%] py-4 pr-4"><span class="sr-only">Dimension</span></th>
+              <th scope="col" class="py-4 pr-6 font-medium text-lg tracking-tight">1:1 Advisory</th>
+              <th scope="col" class="py-4 pr-6 font-medium text-lg tracking-tight">The Round</th>
+              <th scope="col" class="py-4 font-medium text-lg tracking-tight bg-mist px-4">Kuma Partners</th>
+            </tr>
+          </thead>
+          <tbody>
+            {compare.map((r) => (
+              <tr class="border-b border-line align-top">
+                <th scope="row" class="py-5 pr-4 label text-steel font-normal">{r.k}</th>
+                <td class="py-5 pr-6 text-steel leading-relaxed">{r.a}</td>
+                <td class="py-5 pr-6 text-steel leading-relaxed">{r.b}</td>
+                <td class="py-5 px-4 text-steel leading-relaxed bg-mist">{r.c}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-14 flex flex-col sm:flex-row gap-3">
+        <a href="/contact" class="bg-ink text-white px-7 py-4 text-sm inline-flex justify-center items-center gap-3 hover:bg-ink-2 transition-colors">Request strategic diagnostic <span aria-hidden="true">→</span></a>
+        <a href={site.links.kuma} rel="noopener" class="border border-ink px-7 py-4 text-sm text-center hover:bg-ink hover:text-white transition-colors">Leadership team work at kuma.partners ↗</a>
+      </div>
+    </div>
+  </section>
+</Layout>

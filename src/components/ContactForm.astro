@@ -1,0 +1,42 @@
+---
+// Netlify detects this form at deploy time from the static HTML (data-netlify="true").
+// Submissions: Netlify > Project > Forms > executive-intake. Add an email notification there.
+const field = 'w-full bg-white border border-line focus:border-ink px-4 py-3.5 text-base outline-none transition-colors placeholder:text-steel/60';
+const lbl = 'label text-steel block mb-2';
+---
+<form
+  name="executive-intake"
+  method="POST"
+  action="/thanks"
+  data-netlify="true"
+  netlify-honeypot="website"
+  class="grid gap-6"
+>
+  <input type="hidden" name="form-name" value="executive-intake" />
+  <p class="hidden" aria-hidden="true">
+    <label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="grid sm:grid-cols-2 gap-6">
+    <div>
+      <label for="name" class={lbl}>01 · Name</label>
+      <input id="name" name="name" type="text" required autocomplete="name" class={field} />
+    </div>
+    <div>
+      <label for="email" class={lbl}>02 · Corporate email</label>
+      <input id="email" name="email" type="email" required autocomplete="email" class={field} />
+    </div>
+  </div>
+  <div>
+    <label for="role" class={lbl}>03 · Role and organisation</label>
+    <input id="role" name="role_organisation" type="text" required autocomplete="organization-title" placeholder="CEO, Acme Robotics (Series B, 120 people)" class={field} />
+  </div>
+  <div>
+    <label for="friction" class={lbl}>04 · Core strategic friction or challenge</label>
+    <textarea id="friction" name="strategic_friction" rows="6" required placeholder="What decision, tension or transition is on your desk right now? What has already been tried?" class={field + ' resize-y'}></textarea>
+  </div>
+  <div class="flex flex-col sm:flex-row sm:items-center gap-6 justify-between pt-2">
+    <p class="text-xs text-steel max-w-sm leading-relaxed">Read by Sven personally and treated as confidential. Processing as described in the <a href="/legal" class="underline underline-offset-2 hover:text-ink">privacy notice</a>.</p>
+    <button type="submit" class="shrink-0 whitespace-nowrap bg-ink text-white px-8 py-4 text-sm hover:bg-ink-2 transition-colors inline-flex items-center justify-center gap-3">Submit application <span aria-hidden="true">→</span></button>
+  </div>
+</form>
