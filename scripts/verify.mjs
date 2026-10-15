@@ -117,8 +117,11 @@ check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?
   check('home: portrait file exists in dist', !!imgSrc && existsSync(join(DIST, imgSrc)));
   const order = ['<h1', '<figure', 'href="/contact" class="inline-flex'].map((t) => home.indexOf(t));
   check('home: mobile order headline, portrait, CTA', order.every((v) => v > 0) && order[0] < order[1] && order[1] < order[2]);
-  const imgCount = htmlFiles.reduce((n, f) => n + (readFileSync(f, 'utf8').match(/<img /g) ?? []).length, 0);
-  check(`one photograph site-wide (found ${imgCount})`, imgCount === 1);
+  // One photograph site-wide (the hero portrait); the book cover is the only other image allowed.
+  const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
+  const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
+  check(`one photograph site-wide (found ${photos.length})`, photos.length === 1);
+  check(`only the hero photo and book cover as images (found ${imgs.length})`, imgs.length === 2);
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   check('home: situations section with 3 blocks', home.includes('The problems that bring CEOs to the table.') && (home.match(/id="situations-heading"[\s\S]*?<\/section>/)?.[0].match(/<article/g) ?? []).length === 3);
@@ -218,7 +221,14 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));
 const ie = visible.filter((f) => /\bIE Business School\b/.test(readFileSync(f, 'utf8').replace(/IESE Business School/g, ''))).map((f) => relative(DIST, f));
-check('IE Business School not claimed', ie.length === 0, ie.join(', '));
+check('IE Business School named with Prof. Deuschel (confirmed 2026-10-15)', readFileSync(join(DIST, 'index.html'), 'utf8').includes('Nicolas Deuschel (IE Business School)'));
+check('Kluetter spelled Thomas everywhere', !visible.some((f) => readFileSync(f, 'utf8').includes('Tomas Kluetter')));
+check('old 20+ case-study figure retired', !visible.some((f) => /more than 20 case studies/.test(readFileSync(f, 'utf8'))));
+{
+  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const cover = home.match(/<img[^>]*alt="The Non-Linear Operating System by Dr\. Sven Mulfinger"[^>]*>/)?.[0] ?? '';
+  check('book cover rendered as optimised image with srcset', cover.includes('srcset=') && cover.includes('.webp'));
+}
 
 // Report
 const failed = results.filter((r) => !r.ok);

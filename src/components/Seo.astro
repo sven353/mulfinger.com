@@ -90,8 +90,11 @@ const jsonLd = {
       knowsLanguage: site.languages,
       address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
       worksFor: { '@id': `${site.url}/#kuma` },
-      // Research collaboration (confirmed). IE Business School is deliberately not claimed. No alumniOf by Sven's choice.
-      affiliation: { '@type': 'CollegeOrUniversity', name: 'IESE Business School', url: 'https://www.iese.edu' },
+      // Research collaborations confirmed by Sven (IESE since 2015; IE Business School confirmed 2026-10-15). No alumniOf by Sven's choice.
+      affiliation: [
+        { '@type': 'CollegeOrUniversity', name: 'IESE Business School', url: 'https://www.iese.edu' },
+        { '@type': 'CollegeOrUniversity', name: 'IE Business School', url: 'https://www.ie.edu' },
+      ],
       knowsAbout: [
         'Executive leadership',
         'Boardroom governance',

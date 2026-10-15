@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import heroPortrait from '../assets/images/sven-hero.jpg';
+import bookCover from '../assets/images/book-cover-nonlinear.png';
 import { site } from '../data/site';
 
 // The site's single photograph. Astro generates responsive WebP sizes at build time.
@@ -39,7 +40,7 @@ const pillars = [
   },
   {
     title: 'Research and governance',
-    body: 'Research collaborator of IESE Business School since a 2015 case study with Prof. Iñigo Gallo. Today I study how founders with non-linear cognitive profiles lead and govern, with Prof. Tomas Kluetter.',
+    body: 'Research collaborator of IESE Business School since a 2015 case study with Prof. Iñigo Gallo. Today I study how founders with non-linear cognitive profiles lead and govern, with Prof. Thomas Kluetter (IESE) and Prof. Nicolas Deuschel (IE Business School).',
   },
 ];
 
@@ -182,21 +183,26 @@ const steps = [
   <section id="research" class="bg-mist border-y border-line scroll-mt-16" aria-labelledby="research-heading">
     <div class="container-x py-24 md:py-32 grid lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-4">
-        <div class="mx-auto lg:mx-0 aspect-[2/3] max-w-[17rem] bg-ink text-paper p-7 flex flex-col justify-between shadow-[0_30px_60px_-30px_rgba(17,19,23,0.55)]">
-          <p class="label text-fog">Forthcoming</p>
-          <div>
-            <p class="font-serif text-[2.35rem] leading-[1.02]">The Non-Linear Operating System</p>
-            <div class="mt-6 h-px w-12 bg-fog"></div>
-            <p class="mt-4 text-xs text-fog">Sven Mulfinger</p>
-          </div>
-        </div>
+        <figure class="mx-auto lg:mx-0 max-w-[19rem]">
+          <Image
+            src={bookCover}
+            alt="The Non-Linear Operating System by Dr. Sven Mulfinger"
+            widths={[304, 456, 608, 912]}
+            sizes="(min-width: 1024px) 304px, 70vw"
+            format="webp"
+            quality={85}
+            loading="lazy"
+            decoding="async"
+            class="block w-full h-auto rounded-sm shadow-2xl"
+          />
+        </figure>
       </div>
       <div class="lg:col-span-7 lg:col-start-6">
-        <p class="label text-steel">Research</p>
+        <p class="label text-steel">Research &amp; intellectual property</p>
         <h2 id="research-heading" class="mt-6 display text-3xl md:text-5xl text-balance">Why do some leaders excel at seeing possibilities but struggle with the systems needed to scale them?</h2>
         <div class="mt-8 space-y-5 text-lg text-steel leading-relaxed max-w-2xl">
           <p>Many founders have spiky cognitive profiles: ADHD, giftedness, dyslexia, autism or a combination that never received a label. The same wiring that lets them see around corners shapes how they delegate, decide and handle conflict once the company grows.</p>
-          <p><em>The Non-Linear Operating System</em> is a book in development with Prof. Tomas Kluetter at IESE Business School, based on more than 20 case studies of founders and senior executives.</p>
+          <p><em>The Non-Linear Operating System</em> is a forthcoming work developed in collaboration with Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School), grounded in research and field analysis across more than 50 serial entrepreneurs and CEOs operating with a non-linear mind.</p>
         </div>
         <a href={site.links.neurodisruptors} target="_blank" rel="noopener noreferrer" class="mt-10 inline-flex items-center gap-2 text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">Explore the research at neurodisruptors.com <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
       </div>

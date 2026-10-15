@@ -19,7 +19,7 @@ export const site = {
   languages: ['English', 'Spanish', 'German', 'French'],
 };
 
-// Confirmed by Sven on 2026-10-15. IE Business School is deliberately NOT listed.
+// Confirmed by Sven on 2026-10-15. IE Business School collaboration (Prof. Deuschel) confirmed later the same day.
 // Commercial terms confirmed the same day live in src/data/faq.ts (Q5, Q6, Q8, Q12).
 export const badges = [
   { label: 'Research', value: 'IESE Business School', note: 'Active research collaborator' },

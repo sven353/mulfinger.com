@@ -8,7 +8,7 @@
 // Terms confirmed by Sven on 2026-10-15: 6 or 12-month retainer, two 60 to 90-minute
 // sessions a month, unlimited direct voice and message access for critical dilemmas,
 // in-person sessions in Barcelona or Madrid, reply within 24 to 48 hours,
-// The Round by application or peer nomination. IE Business School is not claimed.
+// The Round by application or peer nomination. IE Business School collaboration confirmed 2026-10-15.
 
 export type FaqItem = { q: string; verdict: string; body: string };
 

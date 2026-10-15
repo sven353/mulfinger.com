@@ -87,9 +87,9 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - `llms-full.txt` contains all 12 FAQ answers
 - the proof bar sits directly after the hero with 3 credentials; home links to kuma.partners and offsite.kuma.partners in a new tab
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
-- no em dashes and no IE Business School claim anywhere in pages or llms files
+- no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-15: build clean, 121/121 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
+Status on 2026-10-15: build clean, 125/125 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
 
 ## Deployment pipeline
 
@@ -158,7 +158,7 @@ Canonical host is the apex `https://mulfinger.com` everywhere (www redirects to 
 
 ## Claims policy
 
-Only claims confirmed by Sven appear anywhere on the site, including the llms files and the schema. Not confirmed and therefore excluded: IE Business School, a genetics-specific doctorate, Frankfurt as a location, alumniOf institutions. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
+Only claims confirmed by Sven appear anywhere on the site, including the llms files and the schema. Confirmed later on 2026-10-15: IE Business School collaboration (Prof. Dr. Nicolas Deuschel), Prof. Dr. Thomas Kluetter (spelling), research across more than 50 serial entrepreneurs and CEOs. Not confirmed and therefore excluded: a genetics-specific doctorate, Frankfurt as a location, alumniOf institutions. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
 
 Commercial terms confirmed the same day and published in the FAQ: 6 or 12-month retainer, two 60 to 90-minute sessions per month, unlimited direct voice and message access, in-person sessions in Barcelona or Madrid, response to applications within 24 to 48 hours, The Round by application or peer nomination. If any of these change, update `src/data/faq.ts`, the advisory page and the contact page together.
 
@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-15 (v11): Real book cover in the research section (optimised WebP, 3.4 MB source down to 32 to 280 kB per size). Research copy updated with Prof. Dr. Thomas Kluetter (IESE) and Prof. Dr. Nicolas Deuschel (IE Business School) and the 50+ figure, carried through About, schema affiliation and both llms files.
 - 2026-10-15 (v10): Single photograph in the hero (`src/assets/images/sven-hero.jpg`), optimised to responsive WebP, eager and high priority, 4:5 crop centred on Sven. Hero rebuilt as 7/5 columns; on mobile the order is headline, subhead, photo, call to action. Portrait placeholder removed from About. Legal pages no longer reference the removed mono font. Verify script at 121 checks.
 - 2026-10-15 (v9): GEO upgrade. Person `#sven-mulfinger` with new jobTitle, knowsAbout and LinkedIn in sameAs; ProfessionalService `#executive-advisory` with serviceType, areaServed and language codes; Kuma Partners organisation described for disambiguation. llms.txt restructured (entity summary, ecosystem routing, disambiguation); llms-full.txt gains the engagement model, diagnostic scenarios and entity relationships. Applebot-Extended allowed in robots.txt. LinkedIn link in the footer. Verify script at 115 checks.
 - 2026-10-15 (v8): Editorial authority redesign. Newsreader serif headings with Inter body, warm paper palette, boxed cards replaced by hairline rules. New home in eight sections: two-column hero with portrait frame and reassurance note, three narrative situations, background, four-step process, engagement paths with 1:1 as the primary offer, research feature, final invitation. Advisory restructured around buyer questions. Contact simplified to four fields plus consent (fields `role_organisation`, `decision_challenge`). Privacy Policy updated to match. All external links open in a new tab. New favicon and OG image. Verify script at 93 checks.
