@@ -24,7 +24,8 @@ const {
 
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const imageUrl = new URL(image, site.url).href;
-const sameAs = [site.links.kuma, site.links.neurodisruptors, site.links.linkedin].filter(Boolean);
+// Order: personal profile first, then the practices he leads. All confirmed by Sven.
+const sameAs = [site.links.linkedin, site.links.kuma, site.links.neurodisruptors].filter(Boolean);
 
 const services = [
   {
@@ -34,7 +35,7 @@ const services = [
     serviceType: 'Executive advisory',
     description: 'Confidential thought partnership for founders, CEOs and C-suite leaders carrying the final call. 6 or 12-month retainer with fortnightly sessions, online or in person in Barcelona or Madrid.',
     url: `${site.url}/advisory#one-to-one`,
-    provider: { '@id': `${site.url}/#person` },
+    provider: { '@id': `${site.url}/#sven-mulfinger` },
     areaServed: 'Europe',
     availableLanguage: site.languages,
   },
@@ -45,7 +46,7 @@ const services = [
     serviceType: 'CEO peer advisory board',
     description: 'Private, curated peer collective for high-growth founders and CEOs, based in Barcelona. Participation by application or peer nomination.',
     url: site.links.round,
-    provider: { '@id': `${site.url}/#person` },
+    provider: { '@id': `${site.url}/#sven-mulfinger` },
     areaServed: 'Barcelona, Europe',
   },
   {
@@ -78,24 +79,28 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'Person',
-      '@id': `${site.url}/#person`,
+      '@id': `${site.url}/#sven-mulfinger`,
       name: site.name,
       honorificPrefix: 'Dr.',
       url: site.url,
       image: imageUrl,
-      jobTitle: 'Strategic Advisor and Executive Coach',
+      jobTitle: 'Executive Advisor & Strategic Thought Partner',
+      slogan: 'A thinking partner for the decisions you cannot delegate.',
       description: site.description,
       knowsLanguage: site.languages,
       address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
       worksFor: { '@id': `${site.url}/#kuma` },
+      // Research collaboration (confirmed). IE Business School is deliberately not claimed. No alumniOf by Sven's choice.
       affiliation: { '@type': 'CollegeOrUniversity', name: 'IESE Business School', url: 'https://www.iese.edu' },
       knowsAbout: [
-        'Executive advisory',
+        'Executive leadership',
+        'Boardroom governance',
+        'Systems architecture',
+        'Organisational behaviour',
+        'Non-linear thinking',
+        'Strategic decision-making',
         'Leadership team alignment',
-        'Strategic offsites',
-        'Decision governance',
         'Neurodivergent leadership',
-        'Scale-up leadership',
       ],
       sameAs,
     },
@@ -104,17 +109,20 @@ const jsonLd = {
       '@id': `${site.url}/#kuma`,
       name: 'Kuma Partners',
       url: site.links.kuma,
+      description: 'Institutional practice led by Sven Mulfinger for executive team alignment, leadership offsites and the 14-Day Leadership Friction Diagnostic. Separate from his personal 1:1 advisory at mulfinger.com.',
     },
     {
       '@type': 'ProfessionalService',
-      '@id': `${site.url}/#advisory`,
-      name: 'Sven Mulfinger Strategic Advisory',
+      '@id': `${site.url}/#executive-advisory`,
+      name: 'Sven Mulfinger - Executive Advisory',
       url: site.url,
-      provider: { '@id': `${site.url}/#person` },
-      founder: { '@id': `${site.url}/#person` },
-      areaServed: { '@type': 'Place', name: 'Europe' },
+      serviceType: '1:1 Executive Advisory for Founders and CEOs',
+      description: 'Confidential 1:1 executive advisory for founders and CEOs: 6 or 12-month retainers, two working sessions a month and direct priority access between sessions.',
+      provider: { '@id': `${site.url}/#sven-mulfinger` },
+      founder: { '@id': `${site.url}/#sven-mulfinger` },
+      areaServed: ['Europe', 'Global'],
       address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
-      availableLanguage: site.languages,
+      availableLanguage: ['en', 'es', 'de', 'fr'],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Engagement modes',
@@ -128,7 +136,7 @@ const jsonLd = {
       url: site.url,
       name: site.name,
       inLanguage: 'en-GB',
-      publisher: { '@id': `${site.url}/#person` },
+      publisher: { '@id': `${site.url}/#sven-mulfinger` },
     },
     {
       '@type': 'WebPage',
@@ -137,7 +145,7 @@ const jsonLd = {
       name: title,
       description,
       isPartOf: { '@id': `${site.url}/#website` },
-      about: { '@id': `${site.url}/#person` },
+      about: { '@id': `${site.url}/#sven-mulfinger` },
       inLanguage: 'en-GB',
     },
     ...(faqLd ? [faqLd] : []),

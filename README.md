@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes and no IE Business School claim anywhere in pages or llms files
 
-Status on 2026-10-15: build clean, 93/93 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
+Status on 2026-10-15: build clean, 115/115 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
 
 ## Deployment pipeline
 
@@ -145,11 +145,20 @@ The free Netlify tier includes 100 submissions per month.
 
 ## GEO layer
 
+Entity graph (`src/components/Seo.astro`, in the `<head>` of every page): Person `#sven-mulfinger` (jobTitle, slogan, knowsAbout, sameAs LinkedIn, Kuma Partners and Neurodisruptors, worksFor Kuma Partners, IESE affiliation), Organization `#kuma`, ProfessionalService `#executive-advisory` (serviceType, areaServed Europe and Global, availableLanguage en, es, de, fr), three Service nodes, WebSite, WebPage, and FAQPage on /advisory only. No alumniOf, by Sven's choice.
+
+`robots.txt` explicitly allows GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended and Applebot-Extended.
+
+`llms.txt` carries an entity summary, ecosystem routing, a disambiguation note (Sven Mulfinger vs Kuma Partners) and the page index. `llms-full.txt` adds the biography, situations, core diagnostic scenarios, the advisory engagement model, entity relationships and all FAQ answers.
+
+Canonical host is the apex `https://mulfinger.com` everywhere (www redirects to it), so all schema and llms URLs use the apex form.
+
+
 `llms.txt` follows the llmstxt.org format: H1, summary, then link sections. `llms-full.txt` is the full profile with biography, credentials, approach, engagement modes, research and all FAQ answers. It is generated from `src/data/faq.ts` at build time, so FAQ edits flow through automatically. Both are linked from every page's `<head>`, are served as UTF-8 plain text and carry `X-Robots-Tag: noindex` so they do not compete with the HTML pages in classic search. Update `public/llms.txt` and the intro in `src/pages/llms-full.txt.ts` whenever a claim in `src/data/site.ts` changes.
 
 ## Claims policy
 
-Only claims confirmed by Sven appear anywhere on the site, including the llms files. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
+Only claims confirmed by Sven appear anywhere on the site, including the llms files and the schema. Not confirmed and therefore excluded: IE Business School, a genetics-specific doctorate, Frankfurt as a location, alumniOf institutions. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
 
 Commercial terms confirmed the same day and published in the FAQ: 6 or 12-month retainer, two 60 to 90-minute sessions per month, unlimited direct voice and message access, in-person sessions in Barcelona or Madrid, response to applications within 24 to 48 hours, The Round by application or peer nomination. If any of these change, update `src/data/faq.ts`, the advisory page and the contact page together.
 
@@ -157,7 +166,6 @@ Commercial terms confirmed the same day and published in the FAQ: 6 or 12-month 
 
 - `src/data/legal.ts`: replace the address placeholder with the full postal address (street, number, postcode, town). LSSI-CE Art. 10 requires it.
 - Have both legal pages reviewed by your lawyer or gestor before relying on them.
-- `src/data/site.ts`: add the LinkedIn URL (shows in the footer and JSON-LD)
 - `src/pages/about.astro`: replace the portrait placeholder with `public/sven.jpg` (rendered greyscale)
 
 ## Writing rules for this site
@@ -175,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-15 (v9): GEO upgrade. Person `#sven-mulfinger` with new jobTitle, knowsAbout and LinkedIn in sameAs; ProfessionalService `#executive-advisory` with serviceType, areaServed and language codes; Kuma Partners organisation described for disambiguation. llms.txt restructured (entity summary, ecosystem routing, disambiguation); llms-full.txt gains the engagement model, diagnostic scenarios and entity relationships. Applebot-Extended allowed in robots.txt. LinkedIn link in the footer. Verify script at 115 checks.
 - 2026-10-15 (v8): Editorial authority redesign. Newsreader serif headings with Inter body, warm paper palette, boxed cards replaced by hairline rules. New home in eight sections: two-column hero with portrait frame and reassurance note, three narrative situations, background, four-step process, engagement paths with 1:1 as the primary offer, research feature, final invitation. Advisory restructured around buyer questions. Contact simplified to four fields plus consent (fields `role_organisation`, `decision_challenge`). Privacy Policy updated to match. All external links open in a new tab. New favicon and OG image. Verify script at 93 checks.
 - 2026-10-15 (v7): Editorial overhaul. New hero ("A thinking partner for the decisions you cannot delegate."), four real situations replace the philosophy cards, one approach section carries "Slow down to speed up", engagement modes rewritten as prose without product labels, home FAQ removed, advisory FAQ cut to six qualification questions, footer slogan removed, CTAs unified, site title, description, OG image and llms files updated.
 - 2026-10-15 (v6): Legal Notice (/legal) and Privacy Policy (/privacy) in English and Spanish under LSSI-CE, GDPR and LOPDGDD, both noindex follow and excluded from the sitemap. Footer links to both on every page. Form gains a required privacy consent checkbox and a first-layer data protection summary. Verify script at 87 checks.

@@ -172,6 +172,37 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('old hero headline fully retired', old.length === 0, old.join(', '));
 }
 
+// 4h. GEO layer: entity graph, crawler rules and llms files
+{
+  for (const page of ['index.html', 'advisory/index.html']) {
+    const html = readFileSync(join(DIST, page), 'utf8');
+    const head = html.split('</head>')[0];
+    const raw = head.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)?.[1];
+    let graph = [];
+    try { graph = JSON.parse(raw)['@graph']; } catch {}
+    check(`${page}: JSON-LD graph sits in <head>`, graph.length > 0);
+    const person = graph.find((n) => n['@type'] === 'Person');
+    check(`${page}: Person #sven-mulfinger`, person?.['@id'] === 'https://mulfinger.com/#sven-mulfinger');
+    check(`${page}: jobTitle set`, person?.jobTitle === 'Executive Advisor & Strategic Thought Partner');
+    check(`${page}: sameAs LinkedIn, Kuma, Neurodisruptors`, ['linkedin.com/in/svenmulfinger', 'kuma.partners', 'neurodisruptors.com'].every((u) => (person?.sameAs ?? []).some((x) => x.includes(u))));
+    check(`${page}: worksFor Kuma Partners`, graph.some((n) => n['@id'] === person?.worksFor?.['@id'] && n.name === 'Kuma Partners'));
+    check(`${page}: no alumniOf (by choice)`, !person?.alumniOf);
+    const svc = graph.find((n) => n['@id'] === 'https://mulfinger.com/#executive-advisory');
+    check(`${page}: ProfessionalService #executive-advisory`, svc?.['@type'] === 'ProfessionalService' && svc?.provider?.['@id'] === person?.['@id'] && svc?.serviceType === '1:1 Executive Advisory for Founders and CEOs' && JSON.stringify(svc?.availableLanguage) === '["en","es","de","fr"]');
+  }
+  const robots = readFileSync(join(DIST, 'robots.txt'), 'utf8');
+  for (const bot of ['GPTBot', 'ClaudeBot', 'PerplexityBot', 'Applebot-Extended']) {
+    check(`robots.txt allows ${bot}`, new RegExp(`User-agent: ${bot}\\nAllow: /`).test(robots));
+  }
+  check('robots.txt sitemap line is a plain URL', /^Sitemap: https:\/\/mulfinger\.com\/sitemap-index\.xml$/m.test(robots));
+  const llms = readFileSync(join(DIST, 'llms.txt'), 'utf8');
+  check('llms.txt: core mandate, routing and disambiguation', llms.includes('A thinking partner for the decisions you cannot delegate') && llms.includes('## Ecosystem routing') && llms.includes('## Disambiguation'));
+  const full = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
+  check('llms-full.txt: engagement model and entity relationships', full.includes('## The advisory engagement model') && full.includes('## Entity relationships and disambiguation'));
+  const frankfurt = visible.filter((f) => readFileSync(f, 'utf8').includes('Frankfurt')).map((f) => relative(DIST, f));
+  check('Frankfurt not claimed (not confirmed)', frankfurt.length === 0, frankfurt.join(', '));
+}
+
 // 5. Copy rules
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));

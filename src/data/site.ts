@@ -14,7 +14,7 @@ export const site = {
     round: 'https://theround.kuma.partners',
     offsite: 'https://offsite.kuma.partners',
     neurodisruptors: 'https://neurodisruptors.com',
-    linkedin: '', // add the LinkedIn profile URL to show it in the footer and JSON-LD
+    linkedin: 'https://www.linkedin.com/in/svenmulfinger', // confirmed by Sven 2026-10-15
   },
   languages: ['English', 'Spanish', 'German', 'French'],
 };
