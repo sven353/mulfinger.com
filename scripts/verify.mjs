@@ -115,8 +115,9 @@ check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?
   check('home: portrait loads eagerly with high priority', img.includes('loading="eager"') && img.includes('fetchpriority="high"'));
   const imgSrc = img.match(/src="([^"]+)"/)?.[1];
   check('home: portrait file exists in dist', !!imgSrc && existsSync(join(DIST, imgSrc)));
-  const order = ['<h1', '<figure', 'href="/contact" class="inline-flex'].map((t) => home.indexOf(t));
-  check('home: mobile order headline, portrait, CTA', order.every((v) => v > 0) && order[0] < order[1] && order[1] < order[2]);
+  const order = ['<h1', '<figure', 'I work with founders and CEOs when decisions get harder', 'href="/contact" class="inline-flex'].map((t) => home.indexOf(t));
+  check('home: mobile order headline, photo, supporting text, CTA', order.every((v) => v > 0) && order[0] < order[1] && order[1] < order[2] && order[2] < order[3]);
+  check('home: hero photo in landscape 3:2 frame', /<figure[\s\S]*?aspect-\[3\/2\]/.test(home));
   // One photograph site-wide (the hero portrait); the book cover is the only other image allowed.
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));

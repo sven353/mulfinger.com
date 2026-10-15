@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-15 (v13): Hero rebalanced to a 42/58 split from md upwards with the photo in its natural 3:2 landscape ratio, showing both conversation partners and the city view. Mobile order: eyebrow, headline, photo, supporting text, call to action. Text column capped at 27.5rem.
 - 2026-10-15 (v12): Hero photo frame softened (3:4, rounded-2xl mobile, 1.5rem desktop, ink/5 hairline, faint shadow), subtle diagonal cream-to-grey gradients on the hero and situations sections, quieter caption, more air above the CTA.
 - 2026-10-15 (v11): Real book cover in the research section (optimised WebP, 3.4 MB source down to 32 to 280 kB per size). Research copy updated with Prof. Dr. Thomas Kluetter (IESE) and Prof. Dr. Nicolas Deuschel (IE Business School) and the 50+ figure, carried through About, schema affiliation and both llms files.
 - 2026-10-15 (v10): Single photograph in the hero (`src/assets/images/sven-hero.jpg`), optimised to responsive WebP, eager and high priority, 4:5 crop centred on Sven. Hero rebuilt as 7/5 columns; on mobile the order is headline, subhead, photo, call to action. Portrait placeholder removed from About. Legal pages no longer reference the removed mono font. Verify script at 121 checks.
