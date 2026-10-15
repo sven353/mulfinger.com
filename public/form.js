@@ -19,8 +19,10 @@
   function validate() {
     var firstBad = null;
     form.querySelectorAll('input[required], textarea[required]').forEach(function (el) {
-      var value = el.value.trim();
-      if (el.value !== value) el.value = value;
+      if (el.type !== 'checkbox') {
+        var value = el.value.trim();
+        if (el.value !== value) el.value = value;
+      }
       var ok = el.checkValidity();
       setError(el, !ok);
       if (!ok && !firstBad) firstBad = el;
@@ -30,7 +32,8 @@
   }
 
   form.querySelectorAll('input[required], textarea[required]').forEach(function (el) {
-    el.addEventListener('blur', function () { if (el.value) setError(el, !el.checkValidity()); });
+    el.addEventListener('blur', function () { if (el.type !== 'checkbox' && el.value) setError(el, !el.checkValidity()); });
+    el.addEventListener('change', function () { if (el.type === 'checkbox') setError(el, !el.checkValidity()); });
     el.addEventListener('input', function () { if (el.getAttribute('aria-invalid') === 'true') setError(el, !el.checkValidity()); });
   });
 

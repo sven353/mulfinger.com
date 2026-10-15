@@ -17,6 +17,7 @@ Personal advisory site of Dr. Sven Mulfinger. A static Astro site styled with Ta
 src/
   data/
     site.ts               names, links, nav and ALL public claims (badges). Edit claims here only.
+    legal.ts              owner, NIF/NIE, contact email, address, hosting: single source for both legal pages and the form notice
     faq.ts                12-question FAQ (question, one-line verdict, expanded body with [text](url) links).
                           Feeds Faq.astro, the FAQPage schema and /llms-full.txt.
   layouts/Layout.astro    html shell, SEO, header, footer. Takes an optional `faq` prop.
@@ -27,13 +28,16 @@ src/
     Footer.astro          footer with credentials row
     Badges.astro          credentials grid
     Faq.astro             question + visible verdict, <details> 'Read context' toggle, outbound links only inside the toggle
-    ContactForm.astro     Netlify form "executive-diagnostic" with honeypot and in-place success state
+    ContactForm.astro     Netlify form "executive-diagnostic": honeypot, required privacy consent checkbox,
+                          first-layer data protection summary, in-place success state
+    LegalShell.astro      shared frame and typography for the two legal pages
   pages/
     index.astro           home (includes FAQ)
     about.astro           systems lineage
     advisory.astro        1:1 advisory, The Round, comparison with Kuma Partners (includes FAQ)
     contact.astro         executive diagnostic application
-    legal.astro           legal notice and privacy (PLACEHOLDER, complete before launch)
+    legal.astro           Legal Notice | Aviso Legal (LSSI-CE), English + Spanish, noindex follow
+    privacy.astro         Privacy Policy | Política de Privacidad (GDPR, LOPDGDD), English + Spanish, noindex follow
     thanks.astro          fallback success page for visitors without JavaScript (noindex)
     404.astro
     llms-full.txt.ts      generates /llms-full.txt at build time, including all 12 FAQ answers
@@ -76,7 +80,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes and no IE Business School claim anywhere in pages or llms files
 
-Status on 2026-10-15: build clean, 66/66 checks passed. All four main routes return 200 with no horizontal overflow at 1440, 820 and 390 px. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
+Status on 2026-10-15: build clean, 87/87 checks passed. All four main routes return 200 with no horizontal overflow at 1440, 820 and 390 px. The form was also tested in a browser: empty and invalid submissions are blocked with inline errors, and a valid one posts all fields and shows the in-place confirmation.
 
 ## Deployment pipeline
 
@@ -120,11 +124,13 @@ If you ever add a third-party embed (analytics, Calendly, video), its domain mus
 ## Inbound lead workflow (Netlify Forms)
 
 1. A visitor submits the application at /contact. With JavaScript, the page shows the in-place confirmation. Without it, Netlify redirects to /thanks.
-2. The submission lands in Netlify > Project > Forms > `executive-diagnostic`. The honeypot (`bot-field`) and Netlify's spam filter catch most bots. Flagged entries go to the Spam tab.
-3. Set up notifications once: Forms > Form notifications > Add notification > Email notification, recipient sven@mulfinger.com, form `executive-diagnostic`. For faster triage, add a Slack notification as well.
-4. Triage within a few working days, as the confirmation promises. Reply from your own inbox. The visitor's address is in the `email` field.
-5. Record qualified leads in HubSpot (private portal "Sven Mulfinger"), or export from Netlify as CSV.
-6. Delete submissions in Netlify once handled. The privacy notice promises deletion when no working relationship follows.
+2. The visitor must tick the privacy consent box. The value `privacy_consent=accepted` is stored with the submission as the consent record.
+3. The submission lands in Netlify > Project > Forms > `executive-diagnostic`. The honeypot (`bot-field`) and Netlify's spam filter catch most bots. Flagged entries go to the Spam tab.
+4. Set up notifications once: Forms > Form notifications > Add notification > Email notification, recipient sven@mulfinger.com, form `executive-diagnostic`. For faster triage, add a Slack notification as well.
+5. Triage within a few working days, as the confirmation promises. Reply from your own inbox. The visitor's address is in the `email` field.
+6. Record qualified leads in HubSpot (private portal "Sven Mulfinger"), or export from Netlify as CSV.
+7. Delete submissions in Netlify once handled. The Privacy Policy promises deletion when no engagement follows.
+8. Data protection requests arrive at sven@kuma.partners and must be answered within one month.
 
 The free Netlify tier includes 100 submissions per month.
 
@@ -140,7 +146,8 @@ Commercial terms confirmed the same day and published in the FAQ: 6 or 12-month 
 
 ## Content to complete
 
-- `src/pages/legal.astro`: owner details and NIF, check with your advisor
+- `src/data/legal.ts`: replace the address placeholder with the full postal address (street, number, postcode, town). LSSI-CE Art. 10 requires it.
+- Have both legal pages reviewed by your lawyer or gestor before relying on them.
 - `src/data/site.ts`: add the LinkedIn URL (shows in the footer and JSON-LD)
 - `src/pages/about.astro`: replace the portrait placeholder with `public/sven.jpg` (rendered greyscale)
 
@@ -150,6 +157,7 @@ UK spelling, no serial comma, no em dashes, no bold labels, short paragraphs.
 
 ## Changelog
 
+- 2026-10-15 (v6): Legal Notice (/legal) and Privacy Policy (/privacy) in English and Spanish under LSSI-CE, GDPR and LOPDGDD, both noindex follow and excluded from the sitemap. Footer links to both on every page. Form gains a required privacy consent checkbox and a first-layer data protection summary. Verify script at 87 checks.
 - 2026-10-15 (v5): Hero refined: hairline grid at 40% of the line colour, paragraph directly under the headline, horizontal button group, clear primary and outline hierarchy, more editorial spacing. Proof bar rebuilt as a full-width three-credential strip (IESE, 100+, EN · ES · DE · FR). Engagement cards gain a descriptor line and a second Kuma link to offsite.kuma.partners; external links open in a new tab. Verify script at 66 checks.
 - 2026-10-15 (v4): 12-question FAQ with visible one-line verdicts and 'Read context' toggles, smooth expansion where supported, outbound links to kuma.partners, offsite.kuma.partners, theround.kuma.partners and neurodisruptors.com only inside the expanded context. FAQPage schema extended to 12 answers. `/llms-full.txt` now generated from the FAQ data. Confirmed terms applied site-wide (24 to 48 hour reply, Madrid sessions, nomination route for The Round, retainer cadence). Verify script extended to 61 checks.
 - 2026-10-15 (v3): GEO layer (`llms.txt`, `llms-full.txt`, AI-friendly `robots.txt`), FAQ component with FAQPage schema on home and advisory, Service schema for the three engagement modes, WebPage schema. Form renamed to `executive-diagnostic` with new fields, inline validation and in-place confirmation. Hardened headers and caching in `netlify.toml`, `/sitemap.xml` redirect. `scripts/verify.mjs` and npm `verify` and `check` scripts. Full README.

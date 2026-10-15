@@ -15,14 +15,14 @@ const files = walk(DIST);
 const htmlFiles = files.filter((f) => f.endsWith('.html'));
 
 // 1. Required files
-for (const f of ['index.html', 'about/index.html', 'advisory/index.html', 'contact/index.html', 'llms.txt', 'llms-full.txt', 'robots.txt', 'sitemap-index.xml', 'sitemap-0.xml', 'favicon.svg', 'og.png', 'menu.js', 'form.js', '404.html', 'thanks/index.html', 'legal/index.html']) {
+for (const f of ['index.html', 'about/index.html', 'advisory/index.html', 'contact/index.html', 'llms.txt', 'llms-full.txt', 'robots.txt', 'sitemap-index.xml', 'sitemap-0.xml', 'favicon.svg', 'og.png', 'menu.js', 'form.js', '404.html', 'thanks/index.html', 'legal/index.html', 'privacy/index.html']) {
   check(`file: ${f}`, existsSync(join(DIST, f)));
 }
 const sitemap = readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8');
 for (const p of ['/', '/about/', '/advisory/', '/contact/']) {
   check(`sitemap lists ${p}`, sitemap.includes(`https://mulfinger.com${p}`));
 }
-check('sitemap excludes /thanks', !sitemap.includes('/thanks'));
+check('sitemap excludes /thanks, /legal, /privacy', !/\/(thanks|legal|privacy)\//.test(sitemap));
 check('robots.txt references sitemap', readFileSync(join(DIST, 'robots.txt'), 'utf8').includes('Sitemap: https://mulfinger.com/sitemap-index.xml'));
 
 // 2. Internal links and anchors
@@ -58,7 +58,7 @@ check('form data-netlify="true"', formTag.includes('data-netlify="true"'));
 check('form netlify-honeypot="bot-field"', formTag.includes('netlify-honeypot="bot-field"'));
 check('honeypot input present', contact.includes('name="bot-field"'));
 check('hidden form-name input', contact.includes('name="form-name" value="executive-diagnostic"'));
-for (const n of ['full_name', 'email', 'organisation_stage', 'strategic_mandate']) {
+for (const n of ['full_name', 'email', 'organisation_stage', 'strategic_mandate', 'privacy_consent']) {
   check(`required field ${n}`, new RegExp(`name="${n}"[^>]*required|required[^>]*name="${n}"`).test(contact));
 }
 check('in-place success state present', contact.includes('data-form-success'));
@@ -120,6 +120,31 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
 {
   const stray = htmlFiles.filter((f) => !/^\s*<!doctype html>/i.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('every page starts with <!doctype html>', stray.length === 0, stray.join(', '));
+}
+
+// 4f. Legal layer
+for (const page of ['legal/index.html', 'privacy/index.html']) {
+  const html = readFileSync(join(DIST, page), 'utf8');
+  check(`${page}: robots noindex, follow`, html.includes('<meta name="robots" content="noindex, follow">'));
+  check(`${page}: owner, NIF/NIE and contact email present`, html.includes('EX4339734W') && html.includes('sven@kuma.partners') && html.includes('Sven Mulfinger'));
+  check(`${page}: English and Spanish versions`, html.includes('id="en"') && html.includes('id="es"') && html.includes('lang="es-ES"'));
+}
+{
+  const priv = readFileSync(join(DIST, 'privacy/index.html'), 'utf8');
+  for (const t of ['6.1.a', '6.1.f', 'Standard Contractual Clauses', 'aepd.es', 'portab', 'Cookies']) {
+    check(`privacy policy covers "${t}"`, priv.includes(t));
+  }
+  const legalHtml = readFileSync(join(DIST, 'legal/index.html'), 'utf8');
+  for (const t of ['Article 10', 'LateralDeck', 'Spiky Profile', 'courts of Barcelona', 'No contractual advisory relationship']) {
+    check(`legal notice covers "${t}"`, legalHtml.includes(t));
+  }
+  const noFooter = htmlFiles.filter((f) => {
+    const footer = readFileSync(f, 'utf8').match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '';
+    return !(footer.includes('href="/privacy"') && footer.includes('href="/legal"'));
+  }).map((f) => relative(DIST, f));
+  check('footer links to /privacy and /legal on every page', noFooter.length === 0, noFooter.join(', '));
+  const contactHtml = readFileSync(join(DIST, 'contact/index.html'), 'utf8');
+  check('form shows first-layer data protection info', contactHtml.includes('Basic data protection information'));
 }
 
 // 5. Copy rules

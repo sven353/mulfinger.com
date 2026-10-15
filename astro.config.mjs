@@ -6,6 +6,6 @@ export default defineConfig({
   site: 'https://mulfinger.com',
   output: 'static',
   trailingSlash: 'ignore',
-  integrations: [sitemap({ filter: (page) => !page.includes('/thanks') })],
+  integrations: [sitemap({ filter: (page) => !/\/(thanks|legal|privacy)\/?$/.test(page) })],
   vite: { plugins: [tailwindcss()] },
 });

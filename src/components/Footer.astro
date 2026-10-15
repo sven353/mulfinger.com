@@ -42,7 +42,10 @@ const year = new Date().getFullYear();
 
     <div class="mt-16 pt-6 border-t border-ink-line flex flex-col sm:flex-row gap-2 justify-between text-xs text-fog">
       <p>© {year} Sven Mulfinger · Barcelona</p>
-      <p><a class="hover:text-white" href="/legal">Legal notice and privacy</a></p>
+      <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-2">
+        <a class="hover:text-white underline-offset-4 hover:underline" href="/privacy">Privacy Policy</a>
+        <a class="hover:text-white underline-offset-4 hover:underline" href="/legal">Legal Notice</a>
+      </nav>
     </div>
   </div>
 </footer>

@@ -1,0 +1,52 @@
+---
+// Shared frame for the Legal Notice and Privacy Policy: title, language jump links,
+// last-updated line and typographic styles for the body.
+interface Props { eyebrow: string; title: string; titleEs: string; updated: string; updatedEs: string }
+const { eyebrow, title, titleEs, updated, updatedEs } = Astro.props;
+---
+<section class="container-x pt-16 md:pt-24 pb-24 md:pb-32">
+  <div class="grid md:grid-cols-12 gap-10">
+    <aside class="md:col-span-3">
+      <div class="md:sticky md:top-28">
+        <p class="label text-steel">{eyebrow}</p>
+        <nav aria-label="Language" class="mt-6 flex md:flex-col gap-2 text-sm">
+          <a href="#en" class="border border-line px-4 py-2 hover:border-ink transition-colors" hreflang="en">English</a>
+          <a href="#es" class="border border-line px-4 py-2 hover:border-ink transition-colors" hreflang="es">Español</a>
+        </nav>
+        <nav aria-label="Legal pages" class="mt-8 text-sm text-steel space-y-2">
+          <a href="/legal" class="block hover:text-ink">Legal Notice · Aviso Legal</a>
+          <a href="/privacy" class="block hover:text-ink">Privacy Policy · Política de Privacidad</a>
+        </nav>
+      </div>
+    </aside>
+    <div class="md:col-span-8 md:col-start-5">
+      <h1 class="display text-4xl md:text-6xl text-balance">{title}<span class="block text-steel">{titleEs}</span></h1>
+      <p class="mt-6 label text-steel">Last updated {updated} · Última actualización {updatedEs}</p>
+      <div class="legal-body mt-14">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .legal-body > article + article { margin-top: 6rem; padding-top: 4rem; border-top: 1px solid var(--color-ink); }
+  .legal-body article { scroll-margin-top: 6rem; }
+  .legal-body h2 { font-size: 1.35rem; font-weight: 600; letter-spacing: -0.015em; margin-top: 3rem; margin-bottom: 1rem; }
+  .legal-body .lang + h2 { margin-top: 0; }
+  .legal-body .lang { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-steel); margin-bottom: 2rem; }
+  .legal-body p, .legal-body li { color: var(--color-steel); line-height: 1.7; }
+  .legal-body p + p, .legal-body ul + p, .legal-body dl + p { margin-top: 1rem; }
+  .legal-body ul { margin-top: 0.75rem; padding-left: 1.1rem; list-style: square; }
+  .legal-body li + li { margin-top: 0.4rem; }
+  .legal-body a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; }
+  .legal-body dl { display: grid; grid-template-columns: minmax(9rem, 14rem) 1fr; border-top: 1px solid var(--color-line); }
+  .legal-body dt, .legal-body dd { padding: 0.85rem 0; border-bottom: 1px solid var(--color-line); }
+  .legal-body dt { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-steel); padding-right: 1rem; }
+  .legal-body dd { color: var(--color-ink); }
+  @media (max-width: 40rem) {
+    .legal-body dl { grid-template-columns: 1fr; }
+    .legal-body dt { border-bottom: 0; padding-bottom: 0.15rem; }
+    .legal-body dd { padding-top: 0; }
+  }
+</style>

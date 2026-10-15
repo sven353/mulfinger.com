@@ -1,22 +1,89 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import LegalShell from '../components/LegalShell.astro';
+import { legal as L } from '../data/legal';
 ---
-<Layout title="Legal notice and privacy | Sven Mulfinger" description="Legal notice and privacy information for mulfinger.com.">
-  <section class="container-x py-20 md:py-28">
-    <div class="prose prose-neutral max-w-3xl">
-      <h1 class="display font-medium">Legal notice and privacy</h1>
-      <p><em>Placeholder. Complete the details below and have them checked before launch.</em></p>
+<Layout
+  title="Legal Notice | Aviso Legal | Sven Mulfinger"
+  description="Legal Notice for mulfinger.com under Spanish Law 34/2002 (LSSI-CE): identifying data, terms of use, intellectual property, liability and jurisdiction."
+  robots="noindex, follow"
+>
+  <LegalShell eyebrow="Legal · LSSI-CE" title="Legal Notice" titleEs="Aviso Legal" updated={L.lastUpdated} updatedEs={L.lastUpdatedEs}>
 
-      <h2>Owner of this website</h2>
-      <p>Sven Mulfinger<br />[Legal entity or sole trader details, NIF/CIF]<br />[Registered address], Barcelona, Spain<br />Contact: via the form on this site</p>
+    <!-- ============================ ENGLISH ============================ -->
+    <article id="en" lang="en-GB">
+      <p class="lang">English</p>
 
-      <h2>Personal data</h2>
-      <p>When you use the contact form, the data you enter (your name, email, organisation and stage, plus your description of the mandate) is used only to reply to your request and, if we work together, to manage that relationship. The legal basis is your consent and pre-contractual steps you request.</p>
-      <p>Form submissions are stored by Netlify, Inc., our hosting provider, under standard contractual clauses. Data is kept for as long as needed to handle your request and is then deleted, unless a working relationship follows.</p>
-      <p>You can ask to access, correct or delete your data, or object to its processing, at any time by writing via the contact form. You can also lodge a complaint with the Agencia Española de Protección de Datos (aepd.es).</p>
+      <h2>1. Identifying data</h2>
+      <p>In compliance with Article 10 of Spanish Law 34/2002 of 11 July on Information Society Services and Electronic Commerce (LSSI-CE), the owner of this website is identified as follows:</p>
+      <dl class="mt-6">
+        <dt>Owner</dt><dd>{L.owner}</dd>
+        <dt>NIF/NIE</dt><dd>{L.taxId}</dd>
+        <dt>Address</dt><dd>{L.address}</dd>
+        <dt>Contact email</dt><dd><a href={`mailto:${L.email}`}>{L.email}</a></dd>
+        <dt>Domain</dt><dd>{L.domain} ({L.website})</dd>
+        <dt>Hosting provider</dt><dd>{L.hosting}</dd>
+      </dl>
 
-      <h2>Cookies</h2>
-      <p>This site does not use tracking or advertising cookies. Fonts are served from this domain, so no data is sent to third-party font services.</p>
-    </div>
-  </section>
+      <h2>2. Purpose and scope</h2>
+      <p>This Legal Notice governs access to, navigation of and use of {L.domain} (the "Website"), together with the intellectual property in its content. The Website presents the strategic advisory work of {L.owner} and allows visitors to request a confidential diagnostic conversation.</p>
+      <p>Anyone who accesses or browses the Website becomes a user and accepts this Legal Notice. If you do not agree with it, please do not use the Website. The owner may update this Legal Notice at any time. The version published on the Website on the date of access applies.</p>
+      <p>Users agree to use the Website lawfully, in good faith and in line with this Legal Notice, and not to use it in ways that could damage the Website, its owner or third parties, or impair its normal operation.</p>
+
+      <h2>3. Intellectual and industrial property</h2>
+      <p>All content on the Website, including texts, diagrams, graphic design, layout, logos and brand elements, and the original frameworks and concepts presented on it, among them LateralDeck, the Spiky Profile concepts and the publications of {L.owner} such as The Non-Linear Operating System, is the exclusive property of {L.owner} or is used under licence from its owners. It is protected by Spanish, European and international intellectual and industrial property law.</p>
+      <p>Reproduction, distribution, public communication, transformation or commercial use of all or part of this content, in any form or medium, is prohibited without the prior written consent of {L.owner}. Viewing and printing content for personal, non-commercial reference is permitted, provided the source is cited and no copyright notice is removed.</p>
+      <p>Third-party names and trademarks mentioned on the Website, including Kuma Partners and IESE Business School, belong to their respective owners. Their mention does not imply any licence over them.</p>
+
+      <h2>4. Limitation of liability</h2>
+      <p>The information on the Website is provided for strategic and general informational purposes. It does not constitute professional, legal, financial or medical advice for any specific situation, and it should not be relied upon as such.</p>
+      <p>No contractual advisory relationship is formed by browsing the Website, downloading materials or submitting the contact form. An advisory engagement exists only once both parties have signed a written agreement.</p>
+      <p>The owner takes reasonable care to keep the Website accurate, available and secure, but cannot guarantee that it is free of errors, interruptions or harmful components. To the extent permitted by law, the owner is not liable for damages arising from the use of the Website or from decisions taken on the basis of its content.</p>
+      <p>The Website contains links to external websites, such as kuma.partners and neurodisruptors.com. The owner has no control over third-party sites and is not responsible for their content, availability or privacy practices. If you become aware of unlawful content on a linked site, please inform the owner at <a href={`mailto:${L.email}`}>{L.email}</a> and the link will be reviewed promptly.</p>
+
+      <h2>5. Data protection</h2>
+      <p>Personal data submitted through the Website is processed in accordance with the <a href="/privacy">Privacy Policy</a>.</p>
+
+      <h2>6. Applicable law and jurisdiction</h2>
+      <p>This Legal Notice is governed by Spanish law. For any dispute arising from access to or use of the Website, the parties submit to the courts of Barcelona, Spain, unless mandatory consumer protection rules provide for a different jurisdiction.</p>
+    </article>
+
+    <!-- ============================ ESPAÑOL ============================ -->
+    <article id="es" lang="es-ES">
+      <p class="lang">Español</p>
+
+      <h2>1. Datos identificativos</h2>
+      <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos identificativos del titular de este sitio web:</p>
+      <dl class="mt-6">
+        <dt>Titular</dt><dd>{L.owner}</dd>
+        <dt>NIF/NIE</dt><dd>{L.taxId}</dd>
+        <dt>Domicilio</dt><dd>{L.addressEs}</dd>
+        <dt>Correo electrónico</dt><dd><a href={`mailto:${L.email}`}>{L.email}</a></dd>
+        <dt>Dominio</dt><dd>{L.domain} ({L.website})</dd>
+        <dt>Proveedor de alojamiento</dt><dd>{L.hosting}</dd>
+      </dl>
+
+      <h2>2. Objeto y ámbito de aplicación</h2>
+      <p>El presente Aviso Legal regula el acceso, la navegación y el uso de {L.domain} (el "Sitio Web"), así como la propiedad intelectual de sus contenidos. El Sitio Web presenta la actividad de asesoramiento estratégico de {L.owner} y permite a los visitantes solicitar una conversación de diagnóstico confidencial.</p>
+      <p>Quien accede o navega por el Sitio Web adquiere la condición de usuario y acepta este Aviso Legal. Si no está de acuerdo, le rogamos que no utilice el Sitio Web. El titular puede actualizar este Aviso Legal en cualquier momento. Se aplica la versión publicada en la fecha de acceso.</p>
+      <p>El usuario se compromete a hacer un uso lícito y de buena fe del Sitio Web, conforme a este Aviso Legal, y a no utilizarlo de forma que pueda dañar el Sitio Web, a su titular o a terceros, o impedir su normal funcionamiento.</p>
+
+      <h2>3. Propiedad intelectual e industrial</h2>
+      <p>Todos los contenidos del Sitio Web, incluidos textos, diagramas, diseño gráfico, maquetación, logotipos y elementos de marca, así como los marcos de trabajo y conceptos originales que en él se presentan, entre ellos LateralDeck, los conceptos de Spiky Profile y las publicaciones de {L.owner} como The Non-Linear Operating System, son propiedad exclusiva de {L.owner} o se utilizan bajo licencia de sus titulares. Están protegidos por la legislación española, europea e internacional de propiedad intelectual e industrial.</p>
+      <p>Queda prohibida la reproducción, distribución, comunicación pública, transformación o explotación comercial de la totalidad o parte de estos contenidos, en cualquier forma o soporte, sin el consentimiento previo y por escrito de {L.owner}. Se permite la visualización e impresión para uso personal y no comercial, siempre que se cite la fuente y no se elimine ningún aviso de derechos.</p>
+      <p>Los nombres y marcas de terceros mencionados en el Sitio Web, como Kuma Partners e IESE Business School, pertenecen a sus respectivos titulares. Su mención no implica licencia alguna sobre ellos.</p>
+
+      <h2>4. Limitación de responsabilidad</h2>
+      <p>La información del Sitio Web tiene una finalidad estratégica e informativa de carácter general. No constituye asesoramiento profesional, jurídico, financiero ni médico para ninguna situación concreta y no debe utilizarse como tal.</p>
+      <p>La navegación por el Sitio Web, la descarga de materiales o el envío del formulario de contacto no generan ninguna relación contractual de asesoramiento. Un encargo de asesoramiento existe únicamente cuando ambas partes han firmado un acuerdo por escrito.</p>
+      <p>El titular adopta medidas razonables para mantener el Sitio Web exacto, disponible y seguro, pero no puede garantizar la ausencia de errores, interrupciones o elementos dañinos. En la medida permitida por la ley, el titular no responde de los daños derivados del uso del Sitio Web ni de decisiones tomadas en base a sus contenidos.</p>
+      <p>El Sitio Web contiene enlaces a sitios externos, como kuma.partners y neurodisruptors.com. El titular no controla dichos sitios y no se hace responsable de sus contenidos, disponibilidad o prácticas de privacidad. Si tiene conocimiento de contenidos ilícitos en un sitio enlazado, comuníquelo a <a href={`mailto:${L.email}`}>{L.email}</a> y el enlace se revisará con prontitud.</p>
+
+      <h2>5. Protección de datos</h2>
+      <p>Los datos personales facilitados a través del Sitio Web se tratan conforme a la <a href="/privacy#es">Política de Privacidad</a>.</p>
+
+      <h2>6. Legislación aplicable y jurisdicción</h2>
+      <p>Este Aviso Legal se rige por la legislación española. Para cualquier controversia derivada del acceso o uso del Sitio Web, las partes se someten a los juzgados y tribunales de Barcelona, salvo que la normativa de protección de consumidores establezca otro fuero de forma imperativa.</p>
+    </article>
+  </LegalShell>
 </Layout>

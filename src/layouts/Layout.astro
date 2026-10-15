@@ -11,8 +11,9 @@ interface Props {
   noindex?: boolean;
   type?: 'website' | 'profile';
   faq?: FaqItem[];
+  robots?: string;
 }
-const { title, description, noindex, type, faq } = Astro.props;
+const { title, description, noindex, type, faq, robots } = Astro.props;
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -25,7 +26,7 @@ const { title, description, noindex, type, faq } = Astro.props;
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname, 'https://mulfinger.com').href} />
     <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname, 'https://mulfinger.com').href} />
-    <Seo title={title} description={description} noindex={noindex} type={type} faq={faq} />
+    <Seo title={title} description={description} noindex={noindex} type={type} faq={faq} robots={robots} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable summary" />
   </head>
   <body class="min-h-dvh flex flex-col">

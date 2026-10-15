@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalShell from '../components/LegalShell.astro';
+import { legal as L } from '../data/legal';
+---
+<Layout
+  title="Privacy Policy | Política de Privacidad | Sven Mulfinger"
+  description="How mulfinger.com processes personal data under GDPR (EU) 2016/679 and Spanish LOPDGDD 3/2018: controller, data, purposes, legal bases, retention, processors and your rights."
+  robots="noindex, follow"
+>
+  <LegalShell eyebrow="Privacy · GDPR · LOPDGDD" title="Privacy Policy" titleEs="Política de Privacidad" updated={L.lastUpdated} updatedEs={L.lastUpdatedEs}>
+
+    <!-- ============================ ENGLISH ============================ -->
+    <article id="en" lang="en-GB">
+      <p class="lang">English</p>
+      <p>This policy explains how personal data is processed on {L.domain}, in accordance with Regulation (EU) 2016/679 (General Data Protection Regulation, GDPR) and Spanish Organic Law 3/2018 on the Protection of Personal Data and Guarantee of Digital Rights (LOPDGDD).</p>
+
+      <h2>1. Data controller</h2>
+      <dl class="mt-6">
+        <dt>Controller</dt><dd>{L.owner}</dd>
+        <dt>NIF/NIE</dt><dd>{L.taxId}</dd>
+        <dt>Address</dt><dd>{L.address}</dd>
+        <dt>Contact for privacy</dt><dd><a href={`mailto:${L.email}`}>{L.email}</a></dd>
+      </dl>
+
+      <h2>2. Data we collect</h2>
+      <p>Data you provide through the strategic diagnostic form on the Contact page:</p>
+      <ul>
+        <li>identification and contact data: full name and corporate or direct email address;</li>
+        <li>professional data: organisation and its current stage;</li>
+        <li>the description of your strategic mandate or challenge, as you choose to write it;</li>
+        <li>a record of your acceptance of this policy and the date and time of submission.</li>
+      </ul>
+      <p>Technical data generated when you visit the Website: IP address, browser and device type, pages requested and time of access. This data is recorded in the server logs of our hosting provider and is used only for security, abuse prevention and the technical operation of the Website.</p>
+      <p>Please do not include special categories of personal data (for example health data) in the form. Only provide data about third parties if you are entitled to do so.</p>
+
+      <h2>3. Purposes of processing</h2>
+      <ul>
+        <li>Responding to your enquiry and conducting a preliminary executive diagnostic assessment.</li>
+        <li>Assessing mutual fit for 1:1 Executive Advisory or for admission to a peer collective such as The Round.</li>
+        <li>Keeping the Website secure and working properly.</li>
+      </ul>
+      <p>Your data is not used for advertising, is not sold, and is not used for automated decision-making or profiling.</p>
+
+      <h2>4. Legal bases</h2>
+      <ul>
+        <li>Your consent, given when you submit the form and accept this policy (Art. 6.1.a GDPR). You can withdraw it at any time, without affecting the lawfulness of processing carried out before withdrawal.</li>
+        <li>Steps taken at your request before entering into a possible advisory agreement (Art. 6.1.b GDPR).</li>
+        <li>Our legitimate interest in managing professional advisory enquiries and in keeping the Website secure (Art. 6.1.f GDPR).</li>
+      </ul>
+
+      <h2>5. Data retention</h2>
+      <p>Enquiry data is kept only for as long as strictly necessary to answer your request or to continue the advisory conversation. If no engagement follows, it is securely deleted. If an engagement follows, the data becomes part of the client relationship and is kept for its duration and afterwards for the periods required by law, for example tax and accounting obligations. Server logs are kept for the limited period set by the hosting provider.</p>
+
+      <h2>6. Recipients, processors and international transfers</h2>
+      <p>Your data is not shared with third parties, including Kuma Partners, without telling you first, except where required by law.</p>
+      <p>Service providers process data on our behalf as processors, under data processing agreements and only on our instructions:</p>
+      <ul>
+        <li>Netlify, Inc. ({L.hosting}) hosts the Website and receives form submissions. Netlify is based in the United States. Transfers are covered by the Standard Contractual Clauses approved by the European Commission, which provide safeguards in line with the GDPR.</li>
+        <li>The email and customer relationship management providers used to receive and manage enquiries, under equivalent safeguards.</li>
+      </ul>
+
+      <h2>7. Your rights</h2>
+      <p>You have the right to access your data, to rectify it, to have it erased, to restrict or object to its processing and to receive it in a portable format. Where processing is based on consent, you may withdraw consent at any time.</p>
+      <p>To exercise any of these rights, email <a href={`mailto:${L.email}`}>{L.email}</a> with the subject "Data protection", stating the right you wish to exercise and enclosing valid proof of identity. You will receive a reply within one month, extendable in the cases provided for by law.</p>
+      <p>If you believe your data has not been processed lawfully, you can lodge a complaint with the Spanish Data Protection Agency (Agencia Española de Protección de Datos, <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>).</p>
+
+      <h2>8. Security</h2>
+      <p>The Website is served exclusively over encrypted HTTPS connections with strict security headers. Access to enquiry data is limited to {L.owner}. Appropriate technical and organisational measures protect it against loss, misuse and unauthorised access.</p>
+
+      <h2>9. Cookies</h2>
+      <p>The Website is a privacy-first static site. It does not use advertising, analytics or third-party tracking cookies, does not embed third-party trackers and does not set cookies for profiling. Fonts are served from this domain, so no data is sent to font providers. If this ever changes, a consent banner will be added before any non-essential cookie is set and this policy will be updated.</p>
+
+      <h2>10. Minors</h2>
+      <p>The Website is directed at business leaders and is not intended for people under 18.</p>
+
+      <h2>11. Changes to this policy</h2>
+      <p>This policy may be updated to reflect legal or operational changes. The date of the latest update is shown at the top of this page.</p>
+    </article>
+
+    <!-- ============================ ESPAÑOL ============================ -->
+    <article id="es" lang="es-ES">
+      <p class="lang">Español</p>
+      <p>Esta política explica cómo se tratan los datos personales en {L.domain}, de conformidad con el Reglamento (UE) 2016/679 (Reglamento General de Protección de Datos, RGPD) y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
+
+      <h2>1. Responsable del tratamiento</h2>
+      <dl class="mt-6">
+        <dt>Responsable</dt><dd>{L.owner}</dd>
+        <dt>NIF/NIE</dt><dd>{L.taxId}</dd>
+        <dt>Domicilio</dt><dd>{L.addressEs}</dd>
+        <dt>Contacto de privacidad</dt><dd><a href={`mailto:${L.email}`}>{L.email}</a></dd>
+      </dl>
+
+      <h2>2. Datos que tratamos</h2>
+      <p>Datos que usted facilita a través del formulario de diagnóstico estratégico de la página de Contacto:</p>
+      <ul>
+        <li>datos identificativos y de contacto: nombre completo y correo electrónico corporativo o directo;</li>
+        <li>datos profesionales: organización y su etapa actual;</li>
+        <li>la descripción de su mandato o reto estratégico, tal como decida redactarla;</li>
+        <li>el registro de su aceptación de esta política y la fecha y hora del envío.</li>
+      </ul>
+      <p>Datos técnicos generados al visitar el Sitio Web: dirección IP, tipo de navegador y dispositivo, páginas solicitadas y hora de acceso. Estos datos se registran en los registros del servidor de nuestro proveedor de alojamiento y se utilizan exclusivamente para la seguridad, la prevención de abusos y el funcionamiento técnico del Sitio Web.</p>
+      <p>Le rogamos que no incluya en el formulario categorías especiales de datos (por ejemplo, datos de salud). Facilite datos de terceros solo si está legitimado para ello.</p>
+
+      <h2>3. Finalidades del tratamiento</h2>
+      <ul>
+        <li>Responder a su consulta y realizar una evaluación preliminar de diagnóstico ejecutivo.</li>
+        <li>Valorar el encaje mutuo para el 1:1 Executive Advisory o para la admisión en un colectivo de pares como The Round.</li>
+        <li>Mantener la seguridad y el correcto funcionamiento del Sitio Web.</li>
+      </ul>
+      <p>Sus datos no se utilizan con fines publicitarios, no se venden y no se someten a decisiones automatizadas ni a elaboración de perfiles.</p>
+
+      <h2>4. Bases jurídicas</h2>
+      <ul>
+        <li>Su consentimiento, otorgado al enviar el formulario y aceptar esta política (art. 6.1.a RGPD). Puede retirarlo en cualquier momento, sin que ello afecte a la licitud del tratamiento previo a su retirada.</li>
+        <li>La aplicación, a petición suya, de medidas previas a un posible contrato de asesoramiento (art. 6.1.b RGPD).</li>
+        <li>Nuestro interés legítimo en gestionar consultas profesionales de asesoramiento y en mantener la seguridad del Sitio Web (art. 6.1.f RGPD).</li>
+      </ul>
+
+      <h2>5. Conservación de los datos</h2>
+      <p>Los datos de la consulta se conservan solo durante el tiempo estrictamente necesario para atender su solicitud o continuar la conversación de asesoramiento. Si no se inicia ningún encargo, se eliminan de forma segura. Si se inicia, los datos pasan a formar parte de la relación con el cliente y se conservan durante la misma y, después, durante los plazos exigidos por la ley, por ejemplo, las obligaciones fiscales y contables. Los registros del servidor se conservan durante el periodo limitado que establece el proveedor de alojamiento.</p>
+
+      <h2>6. Destinatarios, encargados y transferencias internacionales</h2>
+      <p>Sus datos no se comunican a terceros, incluida Kuma Partners, sin informarle previamente, salvo obligación legal.</p>
+      <p>Determinados proveedores tratan datos por nuestra cuenta como encargados del tratamiento, en virtud de contratos de encargo y únicamente siguiendo nuestras instrucciones:</p>
+      <ul>
+        <li>Netlify, Inc. ({L.hosting}) aloja el Sitio Web y recibe los envíos del formulario. Netlify tiene su sede en Estados Unidos. Las transferencias están amparadas por las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea, que ofrecen garantías conformes con el RGPD.</li>
+        <li>Los proveedores de correo electrónico y de gestión de relaciones con clientes utilizados para recibir y gestionar las consultas, con garantías equivalentes.</li>
+      </ul>
+
+      <h2>7. Sus derechos</h2>
+      <p>Tiene derecho a acceder a sus datos, rectificarlos, suprimirlos, limitar u oponerse a su tratamiento y recibirlos en un formato portable. Cuando el tratamiento se basa en el consentimiento, puede retirarlo en cualquier momento.</p>
+      <p>Para ejercer cualquiera de estos derechos, escriba a <a href={`mailto:${L.email}`}>{L.email}</a> con el asunto "Protección de datos", indicando el derecho que desea ejercer y adjuntando un documento válido que acredite su identidad. Recibirá respuesta en el plazo de un mes, prorrogable en los supuestos previstos por la ley.</p>
+      <p>Si considera que sus datos no se han tratado conforme a la normativa, puede presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>).</p>
+
+      <h2>8. Seguridad</h2>
+      <p>El Sitio Web se sirve exclusivamente mediante conexiones HTTPS cifradas y con cabeceras de seguridad estrictas. El acceso a los datos de las consultas está limitado a {L.owner}. Se aplican medidas técnicas y organizativas adecuadas para protegerlos frente a pérdida, uso indebido y acceso no autorizado.</p>
+
+      <h2>9. Cookies</h2>
+      <p>El Sitio Web es un sitio estático orientado a la privacidad. No utiliza cookies publicitarias, analíticas ni de seguimiento de terceros, no integra rastreadores de terceros y no instala cookies con fines de elaboración de perfiles. Las tipografías se sirven desde este dominio, por lo que no se envían datos a proveedores de fuentes. Si esto cambiara, se añadirá un banner de consentimiento antes de instalar cualquier cookie no esencial y se actualizará esta política.</p>
+
+      <h2>10. Menores</h2>
+      <p>El Sitio Web se dirige a directivos y profesionales y no está destinado a menores de 18 años.</p>
+
+      <h2>11. Cambios en esta política</h2>
+      <p>Esta política puede actualizarse para reflejar cambios legales u operativos. La fecha de la última actualización figura al inicio de esta página.</p>
+    </article>
+  </LegalShell>
+</Layout>
