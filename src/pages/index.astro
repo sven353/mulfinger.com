@@ -13,17 +13,20 @@ const situations = [
   {
     n: '01',
     title: 'The decisions that keep coming back',
-    body: 'You have discussed the issue repeatedly. Everyone understands the problem. Yet the decision keeps getting postponed, diluted or reversed. By now the useful question is why the organisation cannot resolve it.',
+    lead: 'Repeatedly discussed, never resolved.',
+    body: 'Everyone understands the problem. Yet the decision keeps getting postponed, diluted or reversed. By now the useful question is why the organisation cannot resolve it.',
   },
   {
     n: '02',
     title: 'When the leadership team becomes the bottleneck',
-    body: 'The people around the table are capable. But responsibilities overlap, disagreements stay unresolved and too many decisions still return to the CEO. The work is to understand what is happening between the people as well as within them.',
+    lead: 'Capable people, structural gridlock.',
+    body: 'Responsibilities overlap, disagreements stay unresolved and too many decisions still return to the CEO. The work is to understand what is happening between the people as well as within them.',
   },
   {
     n: '03',
     title: 'When the business outgrows the founder',
-    body: 'The company has scaled. The way decisions are made, responsibilities are shared and leadership operates may not have changed with it. The founder has to work out what to keep, what to let go of and what the next version of their role must look like.',
+    lead: 'The company scaled; leadership did not.',
+    body: 'How decisions are made and responsibilities are shared has not changed with it. The founder has to work out what to keep, what to let go of and what the next version of their role must look like.',
   },
 ];
 
@@ -131,7 +134,7 @@ const cases = [
           <article class:list={['reveal', `delay-${(i + 1) * 100}`]}>
             <span class="mb-3 block font-mono text-xs text-steel/70 tabular-nums">{s.n}</span>
             <h3 class="mb-3 font-serif text-xl md:text-2xl text-ink leading-snug">{s.title}</h3>
-            <p class="text-sm leading-relaxed text-steel">{s.body}</p>
+            <p class="max-w-[40ch] text-sm leading-relaxed text-steel"><strong class="font-semibold text-ink">{s.lead}</strong> {s.body}</p>
           </article>
         ))}
       </div>
@@ -139,7 +142,7 @@ const cases = [
   </section>
 
   <!-- 3 · Background: header block, then three pillars under one hairline -->
-  <section class="bg-mist border-y border-line" aria-labelledby="background-heading">
+  <section class="bg-mist/60 border-y border-line/70" aria-labelledby="background-heading">
     <div class="container-x py-16 md:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Background</p>
@@ -159,18 +162,21 @@ const cases = [
   </section>
 
   <!-- 4 · Process: four steps in sequence -->
-  <section aria-labelledby="process-heading">
+  <section class="bg-paper" aria-labelledby="process-heading">
     <div class="container-x py-16 md:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">The work</p>
         <h2 id="process-heading" class="mt-2 mb-10 md:mb-12 font-serif text-3xl md:text-4xl text-ink">What happens when we work together.</h2>
       </div>
-      <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      <!-- One continuous axis on desktop (drawn on the list, so it never moves during reveal); vertical axis on mobile -->
+      <ol class="relative grid grid-cols-1 md:grid-cols-4 md:before:absolute md:before:inset-x-0 md:before:top-8 md:before:border-t md:before:border-line-strong md:before:content-['']">
         {steps.map((s, i) => (
-          <li class:list={['reveal border-t border-line-strong pt-4', i > 0 && `delay-${Math.min(i, 3) * 100}`]}>
-            <span class="block font-mono text-xs text-steel/70 tabular-nums">{s.n}</span>
-            <h3 class="mt-3 font-serif text-xl text-ink leading-snug">{s.t}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-steel">{s.b}</p>
+          <li class:list={['reveal relative pl-7 md:pl-0 md:pr-8 pb-10 md:pb-0 border-l md:border-l-0 border-line-strong last:pb-0', i > 0 && `delay-${Math.min(i, 3) * 100}`]}>
+            <span aria-hidden="true" class="md:hidden absolute -left-[4px] top-1 size-[7px] rounded-full bg-ink"></span>
+            <span class="block h-5 font-mono text-xs leading-5 text-steel tabular-nums">{s.n}</span>
+            <span aria-hidden="true" class="hidden md:block relative mt-3 h-0"><span class="absolute -top-[3.5px] left-0 size-[7px] rounded-full bg-ink"></span></span>
+            <h3 class="mt-3 md:mt-9 font-serif text-xl text-ink leading-snug">{s.t}</h3>
+            <p class="mt-2 max-w-[34ch] text-sm leading-relaxed text-steel">{s.b}</p>
           </li>
         ))}
       </ol>
@@ -178,7 +184,7 @@ const cases = [
   </section>
 
   <!-- 4b · Field reflections: three anonymised cases from real engagements -->
-  <section class="bg-paper border-y border-line" aria-labelledby="cases-heading">
+  <section class="bg-mist/60 border-y border-line/70" aria-labelledby="cases-heading">
     <div class="container-x py-16 md:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Field reflections · Judgement in practice</p>
@@ -212,14 +218,15 @@ const cases = [
   </section>
 
   <!-- 5 · Engagement paths: three cards, 1:1 as the primary offer -->
-  <section class="border-t border-line" aria-labelledby="paths-heading">
+  <section class="bg-paper" aria-labelledby="paths-heading">
     <div class="container-x py-16 md:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Ways to work together</p>
         <h2 id="paths-heading" class="mt-2 mb-10 md:mb-12 font-serif text-3xl md:text-4xl text-ink">Three paths, one starting point.</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-        <article class="reveal delay-100 flex flex-col justify-between rounded-xl border border-line-strong bg-mist p-8">
+      <!-- Subtle grouping panel holds the three paths together -->
+      <div class="rounded-2xl md:rounded-[1.75rem] border border-ink/5 bg-mist/50 p-3 md:p-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 items-stretch">
+        <article class="reveal delay-100 flex flex-col justify-between rounded-xl border border-line-strong bg-[#EAE7DF] p-8">
           <div>
             <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Primary · Individual</p>
             <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">1:1 Executive Advisory</h3>

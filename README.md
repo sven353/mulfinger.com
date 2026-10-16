@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-16 (v20): Reading rhythm: bold lead-ins on the three situations, paragraph measure capped at 40ch, alternating paper and mist sections, grouped engagement paths, four-step process on one continuous timeline axis (vertical on mobile).
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.

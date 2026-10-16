@@ -271,6 +271,18 @@ for (const page of ['about/index.html', 'advisory/index.html']) {
   check('favicon linked on every page', noIcon.length === 0, noIcon.join(', '));
 }
 
+// 4m. Reading rhythm (2026-10-16)
+{
+  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const sit = home.match(/aria-labelledby="situations-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
+  check('situations: three bold lead-ins', (sit.match(/<strong class="font-semibold text-ink">/g) ?? []).length === 3);
+  const proc = home.match(/aria-labelledby="process-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
+  check('process: single timeline axis drawn on the list', /<ol[^>]*md:before:border-t/.test(proc));
+  const bgs = [...home.matchAll(/<section class="([^"]*)"[^>]*aria-labelledby="(situations|background|process|cases|paths)-heading"/g)].map((m) => [m[2], /bg-mist/.test(m[1]) ? 'mist' : 'paper']);
+  const want = [['situations','paper'],['background','mist'],['process','paper'],['cases','mist'],['paths','paper']];
+  check('sections alternate paper and mist', JSON.stringify(bgs) === JSON.stringify(want), JSON.stringify(bgs));
+}
+
 // 5. Copy rules
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));
