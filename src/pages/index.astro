@@ -81,24 +81,26 @@ const cases = [
 ---
 <Layout>
   <!-- 1 · Hero
-       md and up: text column 5/12 (about 42%), photo 7/12 (about 58%), photo shown in its natural landscape ratio.
-       Mobile: DOM order gives eyebrow, headline, photo, supporting text, then the call to action. -->
+       lg and up (desktop, unchanged): text column 5/12, photo 7/12 in its natural landscape ratio.
+       Below lg: a single flex column in reading order, set with order-*: eyebrow and headline,
+       lead paragraph, photo, then the call to action. The text block uses `contents` below lg so its
+       two children can be ordered independently, and becomes a normal grid item again at lg. -->
   <!-- Hero backdrop: a barely perceptible diagonal from warm cream to gallery grey -->
   <section class="bg-linear-to-tr from-[#FAF9F6] via-[#F5F4EE] to-[#ECEAE6]">
-  <div class="container-x pt-14 md:pt-20 lg:pt-28 pb-20 md:pb-24 lg:pb-28">
-    <div class="grid md:grid-cols-12 md:gap-x-10 lg:gap-x-14 md:items-center">
-      <div class="md:col-span-5 md:row-start-1 md:self-end max-w-[27.5rem]">
-        <p class="text-[11px] font-medium tracking-[0.18em] uppercase text-steel">Executive advisory · Founders and CEOs</p>
-        <h1 class="mt-4 md:mt-6 font-serif text-4xl md:text-[2.6rem] lg:text-5xl leading-[1.15] tracking-[-0.01em] text-ink text-balance">A thinking partner for the decisions you cannot delegate.</h1>
+  <div class="container-x pt-8 lg:pt-28 pb-12 lg:pb-28">
+    <div class="flex flex-col lg:grid lg:grid-cols-12 lg:gap-x-14 lg:items-center">
+      <div class="order-1 lg:order-none lg:col-span-5 lg:row-start-1 lg:self-end max-w-[27.5rem]">
+        <p class="mb-3 lg:mb-0 text-[10px] lg:text-[11px] font-medium tracking-[0.16em] lg:tracking-[0.18em] uppercase text-steel">Executive advisory · Founders and CEOs</p>
+        <h1 class="mb-4 lg:mb-0 lg:mt-6 font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight lg:leading-[1.15] tracking-[-0.01em] text-ink text-balance">A thinking partner for the decisions you cannot delegate.</h1>
       </div>
 
-      <figure class="mt-10 md:mt-0 md:col-span-7 md:col-start-6 md:row-start-1 md:row-span-2">
-        <div class="relative aspect-[3/2] overflow-hidden rounded-2xl lg:rounded-[1.75rem] border border-ink/5 bg-mist shadow-md">
+      <figure class="order-3 lg:order-none mb-6 lg:mb-0 lg:mt-0 lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:row-span-2">
+        <div class="relative w-full aspect-[16/10] max-h-[280px] sm:max-h-[360px] lg:aspect-[3/2] lg:max-h-none overflow-hidden rounded-2xl lg:rounded-[1.75rem] border border-ink/5 bg-mist shadow-md">
           <Image
             src={heroPortrait}
             alt="Dr. Sven Mulfinger advising founders and CEOs"
             widths={[480, 720, 960, 1256]}
-            sizes="(min-width: 768px) 58vw, 100vw"
+            sizes="(min-width: 1024px) 58vw, 100vw"
             format="webp"
             quality={82}
             loading="eager"
@@ -110,11 +112,11 @@ const cases = [
         <figcaption class="mt-2 text-right text-[11px] tracking-wide text-steel/80">Dr. Sven Mulfinger</figcaption>
       </figure>
 
-      <div class="mt-8 md:mt-8 md:col-span-5 md:row-start-2 md:self-start max-w-[27.5rem] space-y-8">
-        <p class="text-base lg:text-lg text-steel leading-relaxed max-w-lg">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
-        <div>
-          <a href="/contact" class="inline-flex items-center gap-2 whitespace-nowrap rounded-sm bg-ink text-paper px-6 md:px-5 lg:px-6 py-3.5 text-sm hover:bg-ink-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-          <span class="mt-3 block text-xs text-steel">Confidential. Direct. No obligation to continue.</span>
+      <div class="contents lg:block lg:mt-8 lg:col-span-5 lg:row-start-2 lg:self-start max-w-[27.5rem]">
+        <p class="order-2 lg:order-none mb-5 lg:mb-8 max-w-prose lg:max-w-lg text-sm sm:text-base lg:text-lg text-steel leading-relaxed">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
+        <div class="order-4 lg:order-none">
+          <a href="/contact" class="flex w-full justify-center sm:inline-flex sm:w-auto items-center gap-2 whitespace-nowrap rounded-sm bg-ink text-paper px-6 py-3.5 text-sm hover:bg-ink-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+          <span class="mt-2 lg:mt-3 block text-[11px] lg:text-xs text-center sm:text-left text-steel">Confidential. Direct. No obligation to continue.</span>
         </div>
       </div>
     </div>
@@ -123,15 +125,15 @@ const cases = [
 
   <!-- 2 · Situations: header, one full-width hairline, then a balanced three-column grid -->
   <section class="border-t border-line bg-paper" aria-labelledby="situations-heading">
-    <div class="container-x py-16 md:py-24">
+    <div class="container-x py-10 lg:py-24">
       <div class="reveal">
       <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Where the work starts</p>
       <h2 id="situations-heading" class="mt-2 mb-8 font-serif text-3xl md:text-4xl text-ink max-w-xl text-balance">The problems that bring CEOs to the table.</h2>
       </div>
       <div class="border-t border-line mb-10" role="presentation"></div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-12">
         {situations.map((s, i) => (
-          <article class:list={['reveal', `delay-${(i + 1) * 100}`]}>
+          <article class:list={['reveal border-t border-line/80 pt-5 first:border-t-0 first:pt-0 lg:border-t-0 lg:pt-0', `delay-${(i + 1) * 100}`]}>
             <span class="mb-3 block font-mono text-xs text-steel/70 tabular-nums">{s.n}</span>
             <h3 class="mb-3 font-serif text-xl md:text-2xl text-ink leading-snug">{s.title}</h3>
             <p class="max-w-[40ch] text-sm leading-relaxed text-steel"><strong class="font-semibold text-ink">{s.lead}</strong> {s.body}</p>
@@ -143,7 +145,7 @@ const cases = [
 
   <!-- 3 · Background: header block, then three pillars under one hairline -->
   <section class="bg-mist/60 border-y border-line/70" aria-labelledby="background-heading">
-    <div class="container-x py-16 md:py-24">
+    <div class="container-x py-10 lg:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Background</p>
         <h2 id="background-heading" class="mt-2 mb-4 font-serif text-3xl md:text-4xl text-ink">I have sat on both sides of the table.</h2>
@@ -163,19 +165,18 @@ const cases = [
 
   <!-- 4 · Process: four steps in sequence -->
   <section class="bg-paper" aria-labelledby="process-heading">
-    <div class="container-x py-16 md:py-24">
+    <div class="container-x py-10 lg:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">The work</p>
         <h2 id="process-heading" class="mt-2 mb-10 md:mb-12 font-serif text-3xl md:text-4xl text-ink">What happens when we work together.</h2>
       </div>
       <!-- One continuous axis on desktop (drawn on the list, so it never moves during reveal); vertical axis on mobile -->
-      <ol class="relative grid grid-cols-1 md:grid-cols-4 md:before:absolute md:before:inset-x-0 md:before:top-8 md:before:border-t md:before:border-line-strong md:before:content-['']">
+      <ol class="relative grid grid-cols-1 gap-5 lg:gap-0 lg:grid-cols-4 lg:before:absolute lg:before:inset-x-0 lg:before:top-8 lg:before:border-t lg:before:border-line-strong lg:before:content-['']">
         {steps.map((s, i) => (
-          <li class:list={['reveal relative pl-7 md:pl-0 md:pr-8 pb-10 md:pb-0 border-l md:border-l-0 border-line-strong last:pb-0', i > 0 && `delay-${Math.min(i, 3) * 100}`]}>
-            <span aria-hidden="true" class="md:hidden absolute -left-[4px] top-1 size-[7px] rounded-full bg-ink"></span>
+          <li class:list={['reveal relative lg:pr-8 border-t border-line/80 pt-5 first:border-t-0 first:pt-0 lg:border-t-0 lg:pt-0', i > 0 && `delay-${Math.min(i, 3) * 100}`]}>
             <span class="block h-5 font-mono text-xs leading-5 text-steel tabular-nums">{s.n}</span>
-            <span aria-hidden="true" class="hidden md:block relative mt-3 h-0"><span class="absolute -top-[3.5px] left-0 size-[7px] rounded-full bg-ink"></span></span>
-            <h3 class="mt-3 md:mt-9 font-serif text-xl text-ink leading-snug">{s.t}</h3>
+            <span aria-hidden="true" class="hidden lg:block relative mt-3 h-0"><span class="absolute -top-[3.5px] left-0 size-[7px] rounded-full bg-ink"></span></span>
+            <h3 class="mt-3 lg:mt-9 font-serif text-xl text-ink leading-snug">{s.t}</h3>
             <p class="mt-2 max-w-[34ch] text-sm leading-relaxed text-steel">{s.b}</p>
           </li>
         ))}
@@ -185,7 +186,7 @@ const cases = [
 
   <!-- 4b · Field reflections: three anonymised cases from real engagements -->
   <section class="bg-mist/60 border-y border-line/70" aria-labelledby="cases-heading">
-    <div class="container-x py-16 md:py-24">
+    <div class="container-x py-10 lg:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Field reflections · Judgement in practice</p>
         <h2 id="cases-heading" class="mt-2 mb-4 font-serif text-3xl md:text-4xl text-ink">How this looks in the room.</h2>
@@ -219,14 +220,14 @@ const cases = [
 
   <!-- 5 · Engagement paths: three cards, 1:1 as the primary offer -->
   <section class="bg-paper" aria-labelledby="paths-heading">
-    <div class="container-x py-16 md:py-24">
+    <div class="container-x py-10 lg:py-24">
       <div class="reveal">
         <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Ways to work together</p>
         <h2 id="paths-heading" class="mt-2 mb-10 md:mb-12 font-serif text-3xl md:text-4xl text-ink">Three paths, one starting point.</h2>
       </div>
       <!-- Subtle grouping panel holds the three paths together -->
       <div class="rounded-2xl md:rounded-[1.75rem] border border-ink/5 bg-mist/50 p-3 md:p-4 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 items-stretch">
-        <article class="reveal delay-100 flex flex-col justify-between rounded-xl border border-line-strong bg-[#EAE7DF] p-8">
+        <article class="reveal delay-100 flex flex-col justify-between rounded-xl border border-line-strong bg-[#EAE7DF] p-6 lg:p-8">
           <div>
             <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Primary · Individual</p>
             <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">1:1 Executive Advisory</h3>
@@ -234,7 +235,7 @@ const cases = [
           </div>
           <a href="/advisory" class="mt-8 inline-flex items-center gap-2 self-start rounded-sm bg-ink text-paper px-5 py-3 text-sm hover:bg-ink-hover transition-colors">How 1:1 advisory works <span aria-hidden="true">→</span></a>
         </article>
-        <article class="reveal delay-200 flex flex-col justify-between rounded-xl border border-line bg-white p-8">
+        <article class="reveal delay-200 flex flex-col justify-between rounded-xl border border-line bg-white p-6 lg:p-8">
           <div>
             <!-- 16:9 crop centred at 35%: keeps Sven, the banner and the screen; drops the bottles and name tents in the foreground -->
             <figure class="mb-6">
@@ -257,17 +258,17 @@ const cases = [
             <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">The Round</h3>
             <p class="mt-4 text-sm leading-relaxed text-steel">A private peer collective in Barcelona for founders and CEOs of high-growth companies. Monthly sessions on live issues with people who carry the same weight. By application or nomination.</p>
           </div>
-          <a href="/advisory#the-round" class="mt-8 inline-flex items-center gap-2 self-start text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">About The Round <span aria-hidden="true">→</span></a>
+          <a href="/advisory#the-round" class="relative mt-8 inline-flex items-center gap-2 self-start text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] lg:after:hidden">About The Round <span aria-hidden="true">→</span></a>
         </article>
-        <article class="reveal delay-300 flex flex-col justify-between rounded-xl border border-line bg-white p-8">
+        <article class="reveal delay-300 flex flex-col justify-between rounded-xl border border-line bg-white p-6 lg:p-8">
           <div>
             <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Leadership teams</p>
             <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">Kuma Partners</h3>
             <p class="mt-4 text-sm leading-relaxed text-steel">My institutional practice for leadership team offsites, enterprise operating models and the 14-Day Leadership Friction Diagnostic, run with partners who have led companies themselves.</p>
           </div>
           <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-            <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">kuma.partners <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
-            <a href={site.links.offsite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">Offsites <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+            <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="relative inline-flex items-center gap-1.5 border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] lg:after:hidden">kuma.partners <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+            <a href={site.links.offsite} target="_blank" rel="noopener noreferrer" class="relative inline-flex items-center gap-1.5 border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] lg:after:hidden">Offsites <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
           </div>
         </article>
       </div>
@@ -276,7 +277,7 @@ const cases = [
 
   <!-- 6 · Research -->
   <section id="research" class="bg-mist border-y border-line scroll-mt-16" aria-labelledby="research-heading">
-    <div class="container-x py-24 md:py-32 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="container-x py-12 lg:py-32 grid lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-4 reveal">
         <figure class="mx-auto lg:mx-0 max-w-[19rem]">
           <Image
@@ -306,7 +307,7 @@ const cases = [
 
   <!-- 8 · Final invitation (section 7 of the brief is the removal of FAQ and slogans) -->
   <section aria-labelledby="invite-heading">
-    <div class="container-x py-28 md:py-40 text-center reveal">
+    <div class="container-x py-16 lg:py-40 text-center reveal">
       <h2 id="invite-heading" class="display text-4xl md:text-7xl max-w-[16ch] mx-auto text-balance">Bring the decision you have been circling.</h2>
       <a href="/contact" class="mt-12 inline-flex items-center gap-3 bg-ink text-paper px-8 py-4 text-sm hover:bg-ink-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
       <p class="mt-4 text-sm text-steel">Confidential. Direct. No obligation to continue.</p>

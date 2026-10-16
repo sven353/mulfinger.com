@@ -115,8 +115,14 @@ check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?
   check('home: portrait loads eagerly with high priority', img.includes('loading="eager"') && img.includes('fetchpriority="high"'));
   const imgSrc = img.match(/src="([^"]+)"/)?.[1];
   check('home: portrait file exists in dist', !!imgSrc && existsSync(join(DIST, imgSrc)));
-  const order = ['<h1', '<figure', 'I work with founders and CEOs when decisions get harder', 'href="/contact" class="inline-flex'].map((t) => home.indexOf(t));
-  check('home: mobile order headline, photo, supporting text, CTA', order.every((v) => v > 0) && order[0] < order[1] && order[1] < order[2] && order[2] < order[3]);
+  // Mobile reading order (below lg) is set with flex order: eyebrow and headline 1, lead 2, photo 3, CTA 4.
+  const ord = (re) => Number(home.match(re)?.[1] ?? 0);
+  const oHead = ord(/class="order-(\d)[^"]*lg:col-span-5 lg:row-start-1/);
+  const oPhoto = ord(/<figure class="order-(\d)/);
+  const oLead = ord(/<p class="order-(\d)[^"]*"[^>]*>I work with founders/);
+  const oCta = ord(/<div class="order-(\d)[^"]*">\s*<a href="\/contact"/);
+  check('home: mobile order headline, lead, photo, CTA', oHead === 1 && oLead === 2 && oPhoto === 3 && oCta === 4, [oHead, oLead, oPhoto, oCta].join(','));
+  check('home: mobile reorder only below lg', /<figure class="order-3 lg:order-none/.test(home) && home.includes('class="contents lg:block'));
   check('home: hero photo in landscape 3:2 frame', /<figure[\s\S]*?aspect-\[3\/2\]/.test(home));
   // One photograph site-wide (the hero portrait); the book cover is the only other image allowed.
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
@@ -277,7 +283,7 @@ for (const page of ['about/index.html', 'advisory/index.html']) {
   const sit = home.match(/aria-labelledby="situations-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('situations: three bold lead-ins', (sit.match(/<strong class="font-semibold text-ink">/g) ?? []).length === 3);
   const proc = home.match(/aria-labelledby="process-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
-  check('process: single timeline axis drawn on the list', /<ol[^>]*md:before:border-t/.test(proc));
+  check('process: single timeline axis drawn on the list', /<ol[^>]*lg:before:border-t/.test(proc));
   const bgs = [...home.matchAll(/<section class="([^"]*)"[^>]*aria-labelledby="(situations|background|process|cases|paths)-heading"/g)].map((m) => [m[2], /bg-mist/.test(m[1]) ? 'mist' : 'paper']);
   const want = [['situations','paper'],['background','mist'],['process','paper'],['cases','mist'],['paths','paper']];
   check('sections alternate paper and mist', JSON.stringify(bgs) === JSON.stringify(want), JSON.stringify(bgs));

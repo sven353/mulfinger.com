@@ -3,7 +3,7 @@ import { nav, site } from '../data/site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => path === href;
 ---
-<header class="sticky top-0 z-40 bg-paper/92 backdrop-blur border-b border-line">
+<header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-md border-b border-ink/5 lg:bg-paper/92 lg:backdrop-blur lg:border-line">
   <div class="container-x flex h-16 items-center justify-between">
     <a href="/" class="flex items-baseline gap-3" aria-label="Sven Mulfinger, home">
       <span class="font-serif text-[1.35rem] tracking-[-0.01em]">Sven Mulfinger</span>
@@ -29,8 +29,8 @@ const isActive = (href: string) => path === href;
 </header>
 
 <!-- Outside <header>: the header's backdrop blur would otherwise clip this fixed panel -->
-<div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-label="Menu">
-  <div class="absolute inset-0 bg-ink text-paper flex flex-col">
+<div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden overflow-x-hidden overscroll-contain" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="absolute inset-0 bg-ink text-paper flex flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
     <div class="container-x flex h-16 items-center justify-between border-b border-ink-line">
       <span class="font-serif text-xl">Sven Mulfinger</span>
       <button data-close type="button" class="-mr-2 p-2" aria-label="Close menu">
