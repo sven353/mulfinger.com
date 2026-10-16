@@ -2,6 +2,18 @@
 import { site, badges } from '../data/site';
 const year = new Date().getFullYear();
 ---
+<!-- Institutional proof bar, directly above the footer on every page -->
+<section aria-label="Credentials" class="bg-mist border-y border-line py-8">
+  <dl class="container-x grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+    {badges.map((b) => (
+      <div>
+        <dt class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">{b.label}</dt>
+        <dd class="mt-1.5 font-serif text-lg text-ink">{b.value} <span class="font-sans text-sm text-steel">· {b.note}</span></dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
 <footer class="bg-ink text-paper">
   <div class="container-x pt-20 pb-12">
     <div class="grid md:grid-cols-12 gap-12">
@@ -32,14 +44,6 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <dl class="mt-20 grid sm:grid-cols-3 border-t border-ink-line">
-      {badges.map((b) => (
-        <div class="pt-5 pr-4">
-          <dt class="label text-fog">{b.label}</dt>
-          <dd class="mt-2 text-sm">{b.value} <span class="text-fog">{b.note}</span></dd>
-        </div>
-      ))}
-    </dl>
 
     <div class="mt-16 pt-6 border-t border-ink-line flex flex-col sm:flex-row gap-2 justify-between text-xs text-fog">
       <p>© {year} Sven Mulfinger · Barcelona</p>

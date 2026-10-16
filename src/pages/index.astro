@@ -29,7 +29,7 @@ const situations = [
 const pillars = [
   {
     title: 'Entrepreneurial experience',
-    body: 'Four years building MaterFly, the venture in women\'s mental health that became Dana, then founding Kuma Partners. I know what it is to carry full responsibility for a company, including the parts that never reach the pitch deck.',
+    body: 'Firsthand responsibility for founding and building companies: four years on MaterFly, the venture in women\'s mental health that became Dana, then founding Kuma Partners. I know what it is to carry the whole company, including the parts that never reach the pitch deck.',
   },
   {
     title: 'Executive and international practice',
@@ -37,7 +37,7 @@ const pillars = [
   },
   {
     title: 'Research and governance',
-    body: 'Research collaborator of IESE Business School since a 2015 case study with Prof. Iñigo Gallo. Today I study how founders with non-linear cognitive profiles lead and govern, with Prof. Thomas Kluetter (IESE) and Prof. Nicolas Deuschel (IE Business School).',
+    body: 'Research collaboration with IESE Business School since a 2015 case study with Prof. Iñigo Gallo, and with IE Business School. With Prof. Thomas Kluetter and Prof. Nicolas Deuschel I study how founders with non-linear minds lead and govern.',
   },
 ];
 
@@ -57,15 +57,15 @@ const steps = [
   <div class="container-x pt-14 md:pt-20 lg:pt-28 pb-20 md:pb-24 lg:pb-28">
     <div class="grid md:grid-cols-12 md:gap-x-10 lg:gap-x-14 md:items-center">
       <div class="md:col-span-5 md:row-start-1 md:self-end max-w-[27.5rem]">
-        <p class="label text-steel">Executive advisory · Founders and CEOs</p>
-        <h1 class="mt-6 md:mt-8 display text-[2.75rem] sm:text-5xl md:text-[2.6rem] lg:text-[3.6rem] xl:text-[4rem] text-balance">A thinking partner for the decisions you cannot delegate.</h1>
+        <p class="text-[11px] font-medium tracking-[0.18em] uppercase text-steel">Executive advisory · Founders and CEOs</p>
+        <h1 class="mt-4 md:mt-6 font-serif text-4xl md:text-[2.6rem] lg:text-5xl leading-[1.15] tracking-[-0.01em] text-ink text-balance">A thinking partner for the decisions you cannot delegate.</h1>
       </div>
 
       <figure class="mt-10 md:mt-0 md:col-span-7 md:col-start-6 md:row-start-1 md:row-span-2">
-        <div class="relative aspect-[3/2] overflow-hidden rounded-2xl lg:rounded-[1.75rem] border border-ink/5 bg-mist shadow-[0_8px_30px_rgb(0,0,0,0.05)]">
+        <div class="relative aspect-[3/2] overflow-hidden rounded-2xl lg:rounded-[1.75rem] border border-ink/5 bg-mist shadow-md">
           <Image
             src={heroPortrait}
-            alt="Sven Mulfinger, executive advisor to founders and CEOs."
+            alt="Dr. Sven Mulfinger advising founders and CEOs"
             widths={[480, 720, 960, 1256]}
             sizes="(min-width: 768px) 58vw, 100vw"
             format="webp"
@@ -76,14 +76,14 @@ const steps = [
             class="absolute inset-0 size-full object-cover object-center"
           />
         </div>
-        <figcaption class="mt-2 text-[11px] tracking-wide text-steel/80">Dr. Sven Mulfinger</figcaption>
+        <figcaption class="mt-2 text-right text-[11px] tracking-wide text-steel/80">Dr. Sven Mulfinger</figcaption>
       </figure>
 
       <div class="mt-8 md:mt-8 md:col-span-5 md:row-start-2 md:self-start max-w-[27.5rem] space-y-8">
-        <p class="text-lg lg:text-xl text-steel leading-relaxed">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
+        <p class="text-base lg:text-lg text-steel leading-relaxed max-w-lg">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
         <div>
-          <a href="/contact" class="inline-flex items-center gap-3 whitespace-nowrap bg-ink text-paper px-7 md:px-5 lg:px-7 py-4 text-sm hover:bg-ink-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-          <p class="mt-4 text-sm text-steel">Confidential. Direct. No obligation to continue.</p>
+          <a href="/contact" class="inline-flex items-center gap-2 whitespace-nowrap rounded-sm bg-ink text-paper px-6 md:px-5 lg:px-6 py-3.5 text-sm hover:bg-ink-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+          <span class="mt-3 block text-xs text-steel">Confidential. Direct. No obligation to continue.</span>
         </div>
       </div>
     </div>
@@ -93,13 +93,15 @@ const steps = [
   <!-- 2 · Situations: header, one full-width hairline, then a balanced three-column grid -->
   <section class="border-t border-line bg-paper" aria-labelledby="situations-heading">
     <div class="container-x py-16 md:py-24">
+      <div class="reveal">
       <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Where the work starts</p>
-      <h2 id="situations-heading" class="mt-2 mb-10 md:mb-14 font-serif text-3xl md:text-4xl text-ink max-w-xl text-balance">The problems that bring CEOs to the table.</h2>
-      <div class="border-t border-line mb-10 md:mb-12" role="presentation"></div>
+      <h2 id="situations-heading" class="mt-2 mb-8 font-serif text-3xl md:text-4xl text-ink max-w-xl text-balance">The problems that bring CEOs to the table.</h2>
+      </div>
+      <div class="border-t border-line mb-10" role="presentation"></div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-        {situations.map((s) => (
-          <article>
-            <p class="mb-3 font-mono text-xs text-steel/70 tabular-nums">{s.n}</p>
+        {situations.map((s, i) => (
+          <article class:list={['reveal', `delay-${(i + 1) * 100}`]}>
+            <span class="mb-3 block font-mono text-xs text-steel/70 tabular-nums">{s.n}</span>
             <h3 class="mb-3 font-serif text-xl md:text-2xl text-ink leading-snug">{s.title}</h3>
             <p class="text-sm leading-relaxed text-steel">{s.body}</p>
           </article>
@@ -108,76 +110,80 @@ const steps = [
     </div>
   </section>
 
-  <!-- 3 · Background -->
+  <!-- 3 · Background: header block, then three pillars under one hairline -->
   <section class="bg-mist border-y border-line" aria-labelledby="background-heading">
-    <div class="container-x py-24 md:py-32">
-      <div class="grid lg:grid-cols-12 gap-10">
-        <div class="lg:col-span-5">
-          <p class="label text-steel">Background</p>
-          <h2 id="background-heading" class="mt-6 display text-4xl md:text-6xl">I have sat on both sides of the table.</h2>
-        </div>
-        <p class="lg:col-span-6 lg:col-start-7 lg:pt-16 font-serif text-xl md:text-2xl leading-snug text-ink">I trained in molecular genetics and chemical engineering and hold a doctorate. I have founded and built companies and carried the decisions that come with them. That is the experience I bring when a founder or CEO has a hard call to make.</p>
+    <div class="container-x py-16 md:py-24">
+      <div class="reveal">
+        <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Background</p>
+        <h2 id="background-heading" class="mt-2 mb-4 font-serif text-3xl md:text-4xl text-ink">I have sat on both sides of the table.</h2>
+        <p class="mb-12 max-w-2xl text-lg text-ink/80 leading-relaxed">I trained in molecular genetics and chemical engineering and hold a doctorate. I have founded and built companies and carried the decisions that come with them. That is the experience I bring when a founder or CEO has a hard call to make.</p>
       </div>
-      <div class="mt-16 md:mt-20 grid md:grid-cols-3 gap-x-12 gap-y-12">
-        {pillars.map((p) => (
-          <div class="border-t border-ink pt-6">
-            <h3 class="text-2xl leading-tight">{p.title}</h3>
-            <p class="mt-4 text-steel leading-relaxed">{p.body}</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pt-8 border-t border-line">
+        {pillars.map((p, i) => (
+          <div class:list={['reveal', `delay-${(i + 1) * 100}`]}>
+            <h3 class="mb-3 font-serif text-xl md:text-2xl text-ink leading-snug">{p.title}</h3>
+            <p class="text-sm leading-relaxed text-steel">{p.body}</p>
           </div>
         ))}
       </div>
-      <a href="/about" class="mt-14 inline-flex items-center gap-2 text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">More about my background <span aria-hidden="true">→</span></a>
+      <a href="/about" class="reveal mt-12 inline-flex items-center gap-2 text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">More about my background <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
-  <!-- 4 · Process -->
+  <!-- 4 · Process: four steps in sequence -->
   <section aria-labelledby="process-heading">
-    <div class="container-x py-24 md:py-32">
-      <p class="label text-steel">The work</p>
-      <h2 id="process-heading" class="mt-6 display text-4xl md:text-6xl max-w-[18ch]">What happens when we work together.</h2>
-      <ol class="mt-16 md:mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
-        {steps.map((s) => (
-          <li class="border-t border-ink pt-6">
-            <p class="font-serif text-4xl text-steel/70">{s.n}</p>
-            <h3 class="mt-6 text-xl leading-snug">{s.t}</h3>
-            <p class="mt-3 text-steel leading-relaxed">{s.b}</p>
+    <div class="container-x py-16 md:py-24">
+      <div class="reveal">
+        <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">The work</p>
+        <h2 id="process-heading" class="mt-2 mb-10 md:mb-12 font-serif text-3xl md:text-4xl text-ink">What happens when we work together.</h2>
+      </div>
+      <ol class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        {steps.map((s, i) => (
+          <li class:list={['reveal border-t border-line-strong pt-4', i > 0 && `delay-${Math.min(i, 3) * 100}`]}>
+            <span class="block font-mono text-xs text-steel/70 tabular-nums">{s.n}</span>
+            <h3 class="mt-3 font-serif text-xl text-ink leading-snug">{s.t}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-steel">{s.b}</p>
           </li>
         ))}
       </ol>
     </div>
   </section>
 
-  <!-- 5 · Engagement paths -->
+  <!-- 5 · Engagement paths: three cards, 1:1 as the primary offer -->
   <section class="border-t border-line" aria-labelledby="paths-heading">
-    <div class="container-x py-24 md:py-32">
-      <p class="label text-steel">Ways to work together</p>
-      <h2 id="paths-heading" class="mt-6 display text-4xl md:text-6xl">Three paths, one starting point.</h2>
-      <div class="mt-16 grid lg:grid-cols-12 gap-10 lg:gap-12">
-        <article class="lg:col-span-7 bg-ink text-paper p-8 md:p-12 flex flex-col">
-          <p class="label text-fog">Primary · Individual</p>
-          <h3 class="mt-8 display text-4xl md:text-5xl">1:1 Executive Advisory</h3>
-          <p class="mt-6 text-lg leading-relaxed text-paper/85 max-w-xl">Confidential strategic counsel for individual founders and CEOs. Two sessions a month for 6 or 12 months, in Barcelona, Madrid or online, with direct access in between when a decision cannot wait.</p>
-          <div class="mt-auto pt-12">
-            <a href="/advisory" class="inline-flex items-center gap-3 bg-paper text-ink px-6 py-3.5 text-sm hover:bg-mist transition-colors">How 1:1 advisory works <span aria-hidden="true">→</span></a>
+    <div class="container-x py-16 md:py-24">
+      <div class="reveal">
+        <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Ways to work together</p>
+        <h2 id="paths-heading" class="mt-2 mb-10 md:mb-12 font-serif text-3xl md:text-4xl text-ink">Three paths, one starting point.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        <article class="reveal delay-100 flex flex-col justify-between rounded-xl border border-line-strong bg-mist p-8">
+          <div>
+            <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Primary · Individual</p>
+            <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">1:1 Executive Advisory</h3>
+            <p class="mt-4 text-sm leading-relaxed text-steel">Confidential strategic counsel for individual founders and CEOs. Two sessions a month for 6 or 12 months, in Barcelona, Madrid or online, with direct access in between when a decision cannot wait.</p>
+          </div>
+          <a href="/advisory" class="mt-8 inline-flex items-center gap-2 self-start rounded-sm bg-ink text-paper px-5 py-3 text-sm hover:bg-ink-hover transition-colors">How 1:1 advisory works <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="reveal delay-200 flex flex-col justify-between rounded-xl border border-line bg-white p-8">
+          <div>
+            <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Peer group · Barcelona</p>
+            <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">The Round</h3>
+            <p class="mt-4 text-sm leading-relaxed text-steel">A private peer collective in Barcelona for founders and CEOs of high-growth companies. Monthly sessions on live issues with people who carry the same weight. By application or nomination.</p>
+          </div>
+          <a href="/advisory#the-round" class="mt-8 inline-flex items-center gap-2 self-start text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">About The Round <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="reveal delay-300 flex flex-col justify-between rounded-xl border border-line bg-white p-8">
+          <div>
+            <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Leadership teams</p>
+            <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">Kuma Partners</h3>
+            <p class="mt-4 text-sm leading-relaxed text-steel">My institutional practice for leadership team offsites, enterprise operating models and the 14-Day Leadership Friction Diagnostic, run with partners who have led companies themselves.</p>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">kuma.partners <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+            <a href={site.links.offsite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">Offsites <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
           </div>
         </article>
-        <div class="lg:col-span-5 flex flex-col">
-          <article class="border-t border-ink pt-6 pb-10">
-            <p class="label text-steel">Peer group · Barcelona</p>
-            <h3 class="mt-4 text-3xl">The Round</h3>
-            <p class="mt-4 text-steel leading-relaxed">A private peer collective in Barcelona for founders and CEOs of high-growth companies. Monthly sessions on live issues with people who carry the same weight. By application or nomination.</p>
-            <a href="/advisory#the-round" class="mt-6 inline-flex items-center gap-2 text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">About The Round <span aria-hidden="true">→</span></a>
-          </article>
-          <article class="border-t border-ink pt-6">
-            <p class="label text-steel">Leadership teams</p>
-            <h3 class="mt-4 text-3xl">Kuma Partners</h3>
-            <p class="mt-4 text-steel leading-relaxed">My institutional practice for leadership team offsites, enterprise operating models and the 14-Day Leadership Friction Diagnostic, run with partners who have led companies themselves.</p>
-            <div class="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
-              <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">kuma.partners <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
-              <a href={site.links.offsite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border-b border-line-strong pb-1 text-steel hover:text-ink hover:border-ink transition-colors">Offsites <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
-            </div>
-          </article>
-        </div>
       </div>
     </div>
   </section>
@@ -185,7 +191,7 @@ const steps = [
   <!-- 6 · Research -->
   <section id="research" class="bg-mist border-y border-line scroll-mt-16" aria-labelledby="research-heading">
     <div class="container-x py-24 md:py-32 grid lg:grid-cols-12 gap-12 items-center">
-      <div class="lg:col-span-4">
+      <div class="lg:col-span-4 reveal">
         <figure class="mx-auto lg:mx-0 max-w-[19rem]">
           <Image
             src={bookCover}
@@ -200,7 +206,7 @@ const steps = [
           />
         </figure>
       </div>
-      <div class="lg:col-span-7 lg:col-start-6">
+      <div class="lg:col-span-7 lg:col-start-6 reveal delay-100">
         <p class="label text-steel">Research &amp; intellectual property</p>
         <h2 id="research-heading" class="mt-6 display text-3xl md:text-5xl text-balance">Why do some leaders excel at seeing possibilities but struggle with the systems needed to scale them?</h2>
         <div class="mt-8 space-y-5 text-lg text-steel leading-relaxed max-w-2xl">
@@ -214,7 +220,7 @@ const steps = [
 
   <!-- 8 · Final invitation (section 7 of the brief is the removal of FAQ and slogans) -->
   <section aria-labelledby="invite-heading">
-    <div class="container-x py-28 md:py-40 text-center">
+    <div class="container-x py-28 md:py-40 text-center reveal">
       <h2 id="invite-heading" class="display text-4xl md:text-7xl max-w-[16ch] mx-auto text-balance">Bring the decision you have been circling.</h2>
       <a href="/contact" class="mt-12 inline-flex items-center gap-3 bg-ink text-paper px-8 py-4 text-sm hover:bg-ink-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
       <p class="mt-4 text-sm text-steel">Confidential. Direct. No obligation to continue.</p>

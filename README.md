@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-15: build clean, 125/125 checks passed. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
+Status on 2026-10-16: build clean, 132/132 checks passed. Scroll reveal browser-tested: 21 elements reveal on scroll, zero layout shift, nothing hidden with reduced motion or without JavaScript. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
 
 ## Deployment pipeline
 
@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-16 (v15): Scroll reveal (`public/reveal.js`, IntersectionObserver, threshold 0.12, 100/200/300 ms stagger), hidden state only with JavaScript and no reduced-motion preference; hero never animated. Background and process sections restructured, engagement paths as three equal cards with 1:1 tinted as primary, light proof bar above the footer on every page.
 - 2026-10-15 (v14): Situations section rebuilt as a three-column editorial grid: header, one full-width hairline, then three equal columns. Staggered indents and per-item rules removed.
 - 2026-10-15 (v13): Hero rebalanced to a 42/58 split from md upwards with the photo in its natural 3:2 landscape ratio, showing both conversation partners and the city view. Mobile order: eyebrow, headline, photo, supporting text, call to action. Text column capped at 27.5rem.
 - 2026-10-15 (v12): Hero photo frame softened (3:4, rounded-2xl mobile, 1.5rem desktop, ink/5 hairline, faint shadow), subtle diagonal cream-to-grey gradients on the hero and situations sections, quieter caption, more air above the CTA.

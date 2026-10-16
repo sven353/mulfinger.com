@@ -111,7 +111,7 @@ check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?
   check('home: reassurance note under the primary button', home.includes('Confidential. Direct. No obligation to continue.'));
   const img = home.match(/<figure[\s\S]*?<img[^>]*>/)?.[0]?.match(/<img[^>]*>/)?.[0] ?? '';
   check('home: hero portrait is a real optimised image', /src="\/_astro\/sven-hero\.[^"]+\.webp"/.test(img) && /srcset="[^"]*480w[^"]*960w/.test(img));
-  check('home: portrait alt text', img.includes('alt="Sven Mulfinger, executive advisor to founders and CEOs."'));
+  check('home: portrait alt text', img.includes('alt="Dr. Sven Mulfinger advising founders and CEOs"'));
   check('home: portrait loads eagerly with high priority', img.includes('loading="eager"') && img.includes('fetchpriority="high"'));
   const imgSrc = img.match(/src="([^"]+)"/)?.[1];
   check('home: portrait file exists in dist', !!imgSrc && existsSync(join(DIST, imgSrc)));
@@ -216,6 +216,19 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('llms-full.txt: engagement model and entity relationships', full.includes('## The advisory engagement model') && full.includes('## Entity relationships and disambiguation'));
   const frankfurt = visible.filter((f) => readFileSync(f, 'utf8').includes('Frankfurt')).map((f) => relative(DIST, f));
   check('Frankfurt not claimed (not confirmed)', frankfurt.length === 0, frankfurt.join(', '));
+}
+
+// 4i. Scroll reveal and proof bar
+{
+  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const css = files.filter((f) => f.endsWith('.css')).map((f) => readFileSync(f, 'utf8')).join('').replace(/\s/g, '');
+  check('reveal.js shipped and loaded in <head> without defer', existsSync(join(DIST, 'reveal.js')) && /<head>[\s\S]*<script src="\/reveal\.js"><\/script>[\s\S]*<\/head>/.test(home));
+  check('reveal hides content only under .js and no-preference motion', css.includes('@media(prefers-reduced-motion:no-preference){.js.reveal{opacity:0'));
+  check('reveal stagger delays defined', [['100', '.1s'], ['200', '.2s'], ['300', '.3s']].every(([d, s]) => css.includes(`.js.reveal.delay-${d}{transition-delay:${d}ms}`) || css.includes(`.js.reveal.delay-${d}{transition-delay:${s}}`)));
+  check('hero is never hidden by reveal', !/<section class="bg-linear-to-tr[^>]*reveal/.test(home) && !/<h1[^>]*reveal/.test(home));
+  check('home uses reveal on sections below the fold', (home.match(/class="[^"]*\breveal\b/g) ?? []).length >= 12);
+  const noBar = htmlFiles.filter((f) => !/<section aria-label="Credentials"[\s\S]*?<\/section>\s*<footer/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
+  check('proof bar directly above the footer on every page', noBar.length === 0, noBar.join(', '));
 }
 
 // 5. Copy rules

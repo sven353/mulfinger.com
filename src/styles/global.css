@@ -65,6 +65,22 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; }
   line-height: 1.04;
 }
 
+/* Scroll reveal. Hidden state applies only when reveal.js has set .js on <html>
+   and the visitor has not asked for reduced motion. Stagger with Tailwind delay-100/200/300. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .js .reveal:not(.is-visible) { will-change: opacity, transform; }
+  .js .reveal.is-visible { opacity: 1; transform: none; }
+  /* Explicit stagger: the transition shorthand above would otherwise reset Tailwind's delay utilities */
+  .js .reveal.delay-100 { transition-delay: 100ms; }
+  .js .reveal.delay-200 { transition-delay: 200ms; }
+  .js .reveal.delay-300 { transition-delay: 300ms; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }

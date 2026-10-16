@@ -22,9 +22,9 @@ export const site = {
 // Confirmed by Sven on 2026-10-15. IE Business School collaboration (Prof. Deuschel) confirmed later the same day.
 // Commercial terms confirmed the same day live in src/data/faq.ts (Q5, Q6, Q8, Q12).
 export const badges = [
-  { label: 'Research', value: 'IESE Business School', note: 'Active research collaborator' },
-  { label: 'Track record', value: '100+', note: 'Founders and CEOs guided' },
-  { label: 'Practice', value: 'EN · ES · DE · FR', note: 'Advising internationally' },
+  { label: 'Research', value: 'IESE & IE Business School', note: 'Active research collaborator' },
+  { label: 'Track record', value: '100+ founders & CEOs', note: 'Guided across Europe' },
+  { label: 'Working languages', value: 'EN · ES · DE · FR', note: 'Advising internationally' },
 ];
 
 export const nav = [
