@@ -244,6 +244,24 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('100+ scope clarified in llms.txt', readFileSync(join(DIST, 'llms.txt'), 'utf8').includes('executive peer councils'));
 }
 
+// 4k. Subpages share the homepage design system
+for (const page of ['about/index.html', 'advisory/index.html']) {
+  const html = readFileSync(join(DIST, page), 'utf8');
+  const main = html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? '';
+  const firstSection = main.match(/<section[^>]*>/)?.[0] ?? '';
+  check(`${page}: hero uses the diagonal paper gradient`, firstSection.includes('bg-linear-to-tr'));
+  check(`${page}: hero is never hidden by reveal`, !firstSection.includes('reveal') && !/<h1[^>]*reveal/.test(main));
+  check(`${page}: sections below the fold use reveal`, (main.match(/class="[^"]*\breveal\b/g) ?? []).length >= 8);
+  check(`${page}: h1 set in Newsreader serif`, /<h1[^>]*font-serif/.test(main));
+}
+{
+  const adv = readFileSync(join(DIST, 'advisory/index.html'), 'utf8');
+  check('advisory: who / what-we-work-on two-column grid', adv.includes('Who this is for') && adv.includes('What we work on'));
+  check('advisory: three path cards with rounded corners', (adv.match(/<article[^>]*rounded-\[1\.5rem\]/g) ?? []).length === 3);
+  const about = readFileSync(join(DIST, 'about/index.html'), 'utf8');
+  check('about: three pillars and closing invitation', about.includes('Three sources of judgement.') && about.includes('id="about-invite-heading"'));
+}
+
 // 5. Copy rules
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));

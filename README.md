@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-16: build clean, 136/136 checks passed. Scroll reveal browser-tested: 21 elements reveal on scroll, zero layout shift, nothing hidden with reduced motion or without JavaScript. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
+Status on 2026-10-16: build clean, 148/148 checks passed. Scroll reveal browser-tested: 21 elements reveal on scroll, zero layout shift, nothing hidden with reduced motion or without JavaScript. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
 
 ## Deployment pipeline
 
@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.
 - 2026-10-16 (v16): Field Reflections section (three anonymised cases: dilemma, what lay beneath, resolution) between the process and the engagement paths. 100+ track record clarified on home, About, proof bar and both llms files.
 - 2026-10-16 (v15): Scroll reveal (`public/reveal.js`, IntersectionObserver, threshold 0.12, 100/200/300 ms stagger), hidden state only with JavaScript and no reduced-motion preference; hero never animated. Background and process sections restructured, engagement paths as three equal cards with 1:1 tinted as primary, light proof bar above the footer on every page.

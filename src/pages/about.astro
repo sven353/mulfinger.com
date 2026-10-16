@@ -2,37 +2,34 @@
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
 
-const lineage = [
+const eyebrow = 'text-[11px] tracking-[0.18em] text-steel uppercase font-medium';
+
+// The three pillars, aligned with the homepage background section.
+const pillars = [
   {
     n: '01',
-    stage: 'Molecular genetics',
-    text: 'My first discipline. Genetics teaches you that complex outcomes come from small rules interacting at scale, and that the visible trait is rarely where the cause sits.',
+    title: 'Entrepreneurial leadership',
+    body: "Firsthand responsibility for founding and building companies: four years on MaterFly, the venture in women's mental health that became Dana, then founding Kuma Partners. I know what it is to carry the whole company, including the parts that never reach the pitch deck.",
   },
   {
     n: '02',
-    stage: 'Chemical engineering',
-    text: 'Engineering added process thinking: flows, feedback loops, bottlenecks and failure modes. I hold a doctorate, and I still look at an organisation the way an engineer looks at a plant.',
+    title: 'Executive and international practice',
+    body: 'Over 100 founders, managing directors and C-suite leaders guided across 1:1 advisory, executive peer councils and board-level interventions throughout Europe, in English, Spanish, German and French.',
   },
   {
     n: '03',
-    stage: 'European institutions',
-    text: 'Both my parents worked for the EU institutions and I went to the European School in Brussels. I learned early that most conflict between capable people comes from different operating assumptions rather than bad intent.',
+    title: 'Academic research and governance',
+    body: 'Research with IESE Business School since a 2015 case study with Prof. Iñigo Gallo. Today, with Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School), I study how founders with non-linear minds lead and govern.',
   },
-  {
-    n: '04',
-    stage: 'Founder',
-    text: 'Four years building MaterFly, which became Dana, a venture in women\'s mental health. I know the founder seat from the inside, including the parts nobody posts about.',
-  },
-  {
-    n: '05',
-    stage: 'IESE Business School',
-    text: 'Research and teaching since a 2015 case study with Prof. Iñigo Gallo. Today I research neurodivergent founders and CEOs with Prof. Thomas Kluetter (IESE) and Prof. Nicolas Deuschel (IE Business School).',
-  },
-  {
-    n: '06',
-    stage: 'Executive advisory',
-    text: 'Lead Partner at Kuma Partners. Over 100 founders, managing directors and C-suite leaders guided across 1:1 advisory, executive peer councils and board-level interventions, in four working languages, from early scale-ups to established leadership teams.',
-  },
+];
+
+const lineage = [
+  { n: '01', stage: 'Molecular genetics', text: 'My first discipline. Genetics teaches you that complex outcomes come from small rules interacting at scale, and that the visible trait is rarely where the cause sits.' },
+  { n: '02', stage: 'Chemical engineering', text: 'Engineering added process thinking: flows, feedback loops, bottlenecks and failure modes. I hold a doctorate, and I still look at an organisation the way an engineer looks at a plant.' },
+  { n: '03', stage: 'European institutions', text: 'Both my parents worked for the EU institutions and I went to the European School in Brussels. I learned early that most conflict between capable people comes from different operating assumptions rather than bad intent.' },
+  { n: '04', stage: 'Founder', text: "Four years building MaterFly, which became Dana, a venture in women's mental health. I know the founder seat from the inside, including the parts nobody posts about." },
+  { n: '05', stage: 'IESE and IE Business School', text: 'Research and teaching since a 2015 case study with Prof. Iñigo Gallo. Today I research neurodivergent founders and CEOs with Prof. Thomas Kluetter (IESE) and Prof. Nicolas Deuschel (IE Business School).' },
+  { n: '06', stage: 'Executive advisory', text: 'Lead Partner at Kuma Partners. Over 100 founders, managing directors and C-suite leaders guided across 1:1 advisory, executive peer councils and board-level interventions, in four working languages, from early scale-ups to established leadership teams.' },
 ];
 
 const foundations = [
@@ -42,26 +39,53 @@ const foundations = [
   { t: 'Absolute integrity', b: 'Confidentiality is total. I do not take work where my interests and yours could pull apart, and I say so when something is outside my competence.' },
 ];
 ---
-<Layout title="About | Sven Mulfinger" type="profile" description="From molecular genetics and chemical engineering to international executive advisory. Sven Mulfinger's background, research at IESE Business School and the foundations of his work.">
-  <section class="container-x pt-16 md:pt-28 pb-16 md:pb-24">
-    <p class="label text-steel">About · Systems lineage</p>
-    <h1 class="mt-8 display text-5xl md:text-7xl lg:text-[5.5rem] max-w-[16ch] text-balance">From the logic of cells to the logic of leadership teams.</h1>
-    <p class="mt-10 max-w-2xl text-lg md:text-xl text-steel leading-relaxed">I came to executive advisory through science and engineering. That path shapes how I work: I look for the structure underneath the symptom, and I trust evidence over charisma.</p>
+<Layout title="About | Sven Mulfinger" type="profile" description="From molecular genetics and chemical engineering to founding companies and international executive advisory. Sven Mulfinger's background, research with IESE and IE Business School and the foundations of his work.">
+  <!-- Hero: same diagonal backdrop as the homepage; never animated -->
+  <section class="bg-linear-to-tr from-[#FAF9F6] via-[#F5F4EE] to-[#ECEAE6]">
+    <div class="container-x pt-14 md:pt-24 pb-16 md:pb-24">
+      <div class="max-w-3xl">
+        <p class={eyebrow}>Background &amp; perspective</p>
+        <h1 class="mt-4 md:mt-6 font-serif text-4xl md:text-5xl lg:text-[3.6rem] leading-[1.1] tracking-[-0.01em] text-ink text-balance">Sitting on both sides of the table.</h1>
+        <p class="mt-6 md:mt-8 max-w-[40rem] text-base lg:text-lg text-steel leading-relaxed">I trained as a scientist in molecular genetics and chemical engineering and hold a doctorate. I then founded and built companies and carried the decisions that come with them. Today I bring both to founders and CEOs: an engineer's habit of looking for the structure underneath the symptom, and a founder's memory of how lonely the final call can be.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- Lineage grid -->
-  <section class="border-y border-line bg-mist">
-    <div class="container-x py-20 md:py-28">
-      <div class="flex items-baseline justify-between">
-        <h2 class="label text-steel">Lineage</h2>
-        <p class="label text-steel hidden sm:block">Genetics → Engineering → C-suite</p>
+  <!-- Three pillars -->
+  <section class="bg-paper border-t border-line" aria-labelledby="pillars-heading">
+    <div class="container-x py-16 md:py-24">
+      <div class="reveal">
+        <p class={eyebrow}>Experience and research</p>
+        <h2 id="pillars-heading" class="mt-2 mb-8 font-serif text-3xl md:text-4xl text-ink">Three sources of judgement.</h2>
       </div>
-      <ol class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
-        {lineage.map((l) => (
-          <li class="border-t border-ink pt-6 flex flex-col">
-            <p class="label text-steel">{l.n}</p>
-            <h3 class="mt-6 text-2xl">{l.stage}</h3>
-            <p class="mt-3 text-steel leading-relaxed">{l.text}</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pt-8 border-t border-line">
+        {pillars.map((p, i) => (
+          <article class:list={['reveal', `delay-${(i + 1) * 100}`]}>
+            <span class="mb-3 block font-mono text-xs text-steel/70 tabular-nums">{p.n}</span>
+            <h3 class="mb-3 font-serif text-xl md:text-2xl text-ink leading-snug">{p.title}</h3>
+            <p class="text-sm leading-relaxed text-steel">{p.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Lineage -->
+  <section class="bg-mist border-t border-line" aria-labelledby="lineage-heading">
+    <div class="container-x py-16 md:py-24">
+      <div class="reveal flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class={eyebrow}>The path here</p>
+          <h2 id="lineage-heading" class="mt-2 font-serif text-3xl md:text-4xl text-ink">From genetics to the C-suite.</h2>
+        </div>
+        <p class="hidden sm:block text-sm text-steel">Genetics → Engineering → Founder → Advisory</p>
+      </div>
+      <ol class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
+        {lineage.map((l, i) => (
+          <li class:list={['reveal border-t border-line-strong pt-4', `delay-${(i % 3 + 1) * 100}`]}>
+            <span class="block font-mono text-xs text-steel/70 tabular-nums">{l.n}</span>
+            <h3 class="mt-3 font-serif text-xl text-ink leading-snug">{l.stage}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-steel">{l.text}</p>
           </li>
         ))}
       </ol>
@@ -69,34 +93,51 @@ const foundations = [
   </section>
 
   <!-- Intersection -->
-  <section class="container-x py-24 md:py-32 grid md:grid-cols-12 gap-10">
-    <div class="md:col-span-4">
-      <p class="label text-steel">The intersection</p>
-      <h2 class="mt-5 display text-4xl md:text-5xl">Neuroscience, organisations and governance.</h2>
-    </div>
-    <div class="md:col-span-7 md:col-start-6 space-y-6 text-lg text-steel leading-relaxed md:pt-12">
-      <p>Three lenses run through everything I do. Neuroscience explains what happens to judgement under pressure: why smart people narrow their options, defend positions and avoid the conversation that matters. Organisational behaviour explains how those individual patterns harden into team habits. Governance is where the fix usually lives, in who decides what, with which information and by when.</p>
-      <p>Most interventions stay in one lens. Coaching works on the individual and leaves the structure untouched. Consulting redesigns the structure and ignores the people who have to live in it. I work across all three, because the friction a CEO feels personally is usually the same friction the organisation produces structurally.</p>
-      <p>I keep the jargon out of the room. The measure of the work is simple: you decide better, faster and with less collateral damage than before.</p>
+  <section class="bg-paper border-t border-line" aria-labelledby="lenses-heading">
+    <div class="container-x py-16 md:py-24 grid md:grid-cols-12 gap-10">
+      <div class="md:col-span-4 reveal">
+        <p class={eyebrow}>The intersection</p>
+        <h2 id="lenses-heading" class="mt-2 font-serif text-3xl md:text-4xl text-ink text-balance">Neuroscience, organisations and governance.</h2>
+      </div>
+      <div class="md:col-span-7 md:col-start-6 space-y-5 text-base lg:text-lg text-steel leading-relaxed reveal delay-100">
+        <p>Three lenses run through everything I do. Neuroscience explains what happens to judgement under pressure: why smart people narrow their options, defend positions and avoid the conversation that matters. Organisational behaviour explains how those individual patterns harden into team habits. Governance is where the fix usually lives, in who decides what, with which information and by when.</p>
+        <p>Most interventions stay in one lens. Coaching works on the individual and leaves the structure untouched. Consulting redesigns the structure and ignores the people who have to live in it. I work across all three, because the friction a CEO feels personally is usually the same friction the organisation produces structurally.</p>
+        <p>I keep the jargon out of the room. The measure of the work is simple: you decide better, faster and with less collateral damage than before.</p>
+      </div>
     </div>
   </section>
 
   <!-- Foundations -->
-  <section class="bg-ink text-paper">
-    <div class="container-x py-24 md:py-32">
-      <p class="label text-fog">Core foundation</p>
-      <h2 class="mt-5 display text-4xl md:text-6xl max-w-[18ch]">What you can hold me to.</h2>
-      <dl class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
+  <section class="bg-paper border-t border-line" aria-labelledby="foundations-heading">
+    <div class="container-x py-16 md:py-24">
+      <div class="reveal">
+        <p class={eyebrow}>Core foundation</p>
+        <h2 id="foundations-heading" class="mt-2 mb-8 font-serif text-3xl md:text-4xl text-ink">What you can hold me to.</h2>
+      </div>
+      <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 pt-8 border-t border-line">
         {foundations.map((f, i) => (
-          <div class="border-t border-ink-line pt-6">
-            <dt><span class="label text-fog block">{String(i + 1).padStart(2, '0')}</span><span class="mt-6 block font-serif text-2xl">{f.t}</span></dt>
-            <dd class="mt-3 text-fog leading-relaxed">{f.b}</dd>
+          <div class:list={['reveal', i > 0 && `delay-${Math.min(i, 3) * 100}`]}>
+            <dt class="font-serif text-xl md:text-2xl text-ink">{f.t}</dt>
+            <dd class="mt-3 text-sm leading-relaxed text-steel">{f.b}</dd>
           </div>
         ))}
       </dl>
-      <div class="mt-16 flex flex-col sm:flex-row gap-3">
-        <a href="/contact" class="bg-paper text-ink px-7 py-4 text-sm inline-flex justify-center items-center gap-3 hover:bg-mist transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-        <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="border border-ink-line px-7 py-4 text-sm text-center hover:bg-paper hover:text-ink transition-colors">Kuma Partners ↗</a>
+    </div>
+  </section>
+
+  <!-- Closing invitation: warm editorial panel -->
+  <section class="bg-paper pb-16 md:pb-24" aria-labelledby="about-invite-heading">
+    <div class="container-x">
+      <div class="reveal rounded-2xl md:rounded-[1.75rem] border border-ink/5 bg-linear-to-tr from-[#F5F4EE] via-[#F2F0EB] to-[#ECEAE6] shadow-sm px-6 py-12 md:px-14 md:py-16 grid md:grid-cols-12 gap-8 items-end">
+        <div class="md:col-span-7">
+          <h2 id="about-invite-heading" class="font-serif text-3xl md:text-[2.6rem] leading-tight text-ink text-balance">Bring the decision you have been circling.</h2>
+          <p class="mt-4 max-w-xl text-steel leading-relaxed">A first conversation is confidential and exploratory. If I am not the right person for what you describe, I will say so.</p>
+        </div>
+        <div class="md:col-span-5 md:text-right">
+          <a href="/contact" class="inline-flex items-center gap-2 whitespace-nowrap rounded-sm bg-ink text-paper px-6 py-3.5 text-sm hover:bg-ink-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+          <span class="mt-3 block text-xs text-steel">Confidential. Direct. No obligation to continue.</span>
+          <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-1.5 text-sm border-b border-ink pb-1 hover:text-steel hover:border-steel transition-colors">Leadership team work at Kuma Partners <span aria-hidden="true">↗</span><span class="sr-only">(opens in a new tab)</span></a>
+        </div>
       </div>
     </div>
   </section>
