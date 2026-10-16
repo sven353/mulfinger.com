@@ -23,7 +23,7 @@ export const site = {
 // Commercial terms confirmed the same day live in src/data/faq.ts (Q5, Q6, Q8, Q12).
 export const badges = [
   { label: 'Research', value: 'IESE & IE Business School', note: 'Active research collaborator' },
-  { label: 'Track record', value: '100+ founders & CEOs', note: 'Guided across Europe' },
+  { label: 'Track record', value: '100+ leaders guided', note: 'Founders, MDs and C-suite across Europe' },
   { label: 'Working languages', value: 'EN · ES · DE · FR', note: 'Advising internationally' },
 ];
 

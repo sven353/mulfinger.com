@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-16: build clean, 132/132 checks passed. Scroll reveal browser-tested: 21 elements reveal on scroll, zero layout shift, nothing hidden with reduced motion or without JavaScript. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
+Status on 2026-10-16: build clean, 136/136 checks passed. Scroll reveal browser-tested: 21 elements reveal on scroll, zero layout shift, nothing hidden with reduced motion or without JavaScript. All six routes return 200 with no horizontal overflow at 1440, 820 and 390 px.
 
 ## Deployment pipeline
 
@@ -158,7 +158,7 @@ Canonical host is the apex `https://mulfinger.com` everywhere (www redirects to 
 
 ## Claims policy
 
-Only claims confirmed by Sven appear anywhere on the site, including the llms files and the schema. Confirmed later on 2026-10-15: IE Business School collaboration (Prof. Dr. Nicolas Deuschel), Prof. Dr. Thomas Kluetter (spelling), research across more than 50 serial entrepreneurs and CEOs. Not confirmed and therefore excluded: a genetics-specific doctorate, Frankfurt as a location, alumniOf institutions. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
+Only claims confirmed by Sven appear anywhere on the site, including the llms files and the schema. Confirmed on 2026-10-16: the three Field Reflections cases are real, anonymised engagements with accurate figures; the 100+ track record covers founders, managing directors and C-suite leaders across 1:1 advisory, executive peer councils and board-level interventions. Confirmed later on 2026-10-15: IE Business School collaboration (Prof. Dr. Nicolas Deuschel), Prof. Dr. Thomas Kluetter (spelling), research across more than 50 serial entrepreneurs and CEOs. Not confirmed and therefore excluded: a genetics-specific doctorate, Frankfurt as a location, alumniOf institutions. Confirmed on 2026-10-15: IESE Business School research collaboration, more than 100 founders and CEOs guided, molecular genetics and chemical engineering background, doctorate, four working languages. IE Business School is deliberately not mentioned. The field of the doctorate is not stated.
 
 Commercial terms confirmed the same day and published in the FAQ: 6 or 12-month retainer, two 60 to 90-minute sessions per month, unlimited direct voice and message access, in-person sessions in Barcelona or Madrid, response to applications within 24 to 48 hours, The Round by application or peer nomination. If any of these change, update `src/data/faq.ts`, the advisory page and the contact page together.
 
@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-16 (v16): Field Reflections section (three anonymised cases: dilemma, what lay beneath, resolution) between the process and the engagement paths. 100+ track record clarified on home, About, proof bar and both llms files.
 - 2026-10-16 (v15): Scroll reveal (`public/reveal.js`, IntersectionObserver, threshold 0.12, 100/200/300 ms stagger), hidden state only with JavaScript and no reduced-motion preference; hero never animated. Background and process sections restructured, engagement paths as three equal cards with 1:1 tinted as primary, light proof bar above the footer on every page.
 - 2026-10-15 (v14): Situations section rebuilt as a three-column editorial grid: header, one full-width hairline, then three equal columns. Staggered indents and per-item rules removed.
 - 2026-10-15 (v13): Hero rebalanced to a 42/58 split from md upwards with the photo in its natural 3:2 landscape ratio, showing both conversation partners and the city view. Mobile order: eyebrow, headline, photo, supporting text, call to action. Text column capped at 27.5rem.

@@ -231,6 +231,17 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('proof bar directly above the footer on every page', noBar.length === 0, noBar.join(', '));
 }
 
+// 4j. Field reflections and track record scope (confirmed 2026-10-16)
+{
+  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
+  const sec = home.match(/aria-labelledby="cases-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
+  check('field reflections: 3 cases', (sec.match(/<article/g) ?? []).length === 3);
+  const pos = ['id="process-heading"', 'id="cases-heading"', 'id="paths-heading"'].map((t) => home.indexOf(t));
+  check('field reflections sit between process and paths', pos.every((x) => x > 0) && pos[0] < pos[1] && pos[1] < pos[2]);
+  check('100+ scope clarified on home', home.includes('across confidential 1:1 advisory, executive peer councils and board-level interventions'));
+  check('100+ scope clarified in llms.txt', readFileSync(join(DIST, 'llms.txt'), 'utf8').includes('executive peer councils'));
+}
+
 // 5. Copy rules
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));

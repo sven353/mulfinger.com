@@ -26,13 +26,13 @@ Sven Mulfinger came to executive advisory through science and engineering. He tr
 
 He spent four years as a founder building MaterFly, a venture that became Dana, in women's mental health. He then launched Kuma Partners, the Barcelona-based executive advisory and leadership alignment firm he leads as Lead Partner.
 
-He has guided more than 100 founders and CEOs. His strongest work happens with whole leadership teams: preparing and facilitating C-suite and company offsites, resolving co-founder tension and redesigning how decisions are made once a company outgrows its founding habits.
+He has guided over 100 founders, managing directors and C-suite leaders across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe. His strongest work happens with whole leadership teams: preparing and facilitating C-suite and company offsites, resolving co-founder tension and redesigning how decisions are made once a company outgrows its founding habits.
 
 ## Credentials
 
 - Background in molecular genetics and chemical engineering
 - Doctorate (Dr.)
-- More than 100 founders and CEOs guided
+- Over 100 founders, managing directors and C-suite leaders guided (1:1 advisory, executive peer councils, board-level interventions)
 - Active research collaborator, IESE Business School, since a 2015 case study co-authored with Prof. Iñigo Gallo
 - Research collaboration with IE Business School (Prof. Dr. Nicolas Deuschel) on the book project
 - Author of the forthcoming book "The Non-Linear Operating System", developed with Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School)
