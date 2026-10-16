@@ -262,6 +262,15 @@ for (const page of ['about/index.html', 'advisory/index.html']) {
   check('about: three pillars and closing invitation', about.includes('Three sources of judgement.') && about.includes('id="about-invite-heading"'));
 }
 
+// 4l. Favicon: valid standalone SVG, Direction A mark, linked on every page
+{
+  const fav = readFileSync(join(DIST, 'favicon.svg'), 'utf8');
+  check('favicon: valid SVG namespace', fav.includes('xmlns="http://www.w3.org/2000/svg"'));
+  check('favicon: squircle tile and letter path, adapts to dark mode', /<rect class="tile"[^>]*rx="118"/.test(fav) && /<path class="letter" d="M/.test(fav) && fav.includes('prefers-color-scheme:dark') || fav.includes('prefers-color-scheme: dark'));
+  const noIcon = htmlFiles.filter((f) => !/<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml">/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
+  check('favicon linked on every page', noIcon.length === 0, noIcon.join(', '));
+}
+
 // 5. Copy rules
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));

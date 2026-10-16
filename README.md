@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.
 - 2026-10-16 (v16): Field Reflections section (three anonymised cases: dilemma, what lay beneath, resolution) between the process and the engagement paths. 100+ track record clarified on home, About, proof bar and both llms files.

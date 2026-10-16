@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#111317"/><text x="32" y="45" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="38" fill="#faf9f6">M</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- mulfinger.com mark, Direction A: Newsreader capital M (wght 650, opsz 24) in a squircle tile.
+       Inverts in dark browser chrome so the tile never disappears. -->
+  <style>
+    .tile { fill: #111317; }
+    .letter { fill: #FAF9F6; }
+    @media (prefers-color-scheme: dark) {
+      .tile { fill: #FAF9F6; }
+      .letter { fill: #111317; }
+    }
+  </style>
+  <rect class="tile" width="512" height="512" rx="118"/>
+  <path class="letter" d="M434 378.4 467.2 391.1V400.1H335.8V391.1L370 380.2L352.9 150.5L355.8 151L254.8 402H218.6L114.8 151.8L117.8 151.2L104.2 378.5L138.4 391.1V400.1H44.8V391.1L78.9 378.5L95.7 133.4L60.5 119V110H166.3L259.3 338.2L254.3 338.2L346.2 110H446.9V119L413.7 131.1Z"/>
+</svg>
