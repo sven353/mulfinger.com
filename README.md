@@ -183,6 +183,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 
 ## Changelog
 
+- 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.
 - 2026-10-16 (v16): Field Reflections section (three anonymised cases: dilemma, what lay beneath, resolution) between the process and the engagement paths. 100+ track record clarified on home, About, proof bar and both llms files.
 - 2026-10-16 (v15): Scroll reveal (`public/reveal.js`, IntersectionObserver, threshold 0.12, 100/200/300 ms stagger), hidden state only with JavaScript and no reduced-motion preference; hero never animated. Background and process sections restructured, engagement paths as three equal cards with 1:1 tinted as primary, light proof bar above the footer on every page.
 - 2026-10-15 (v14): Situations section rebuilt as a three-column editorial grid: header, one full-width hairline, then three equal columns. Staggered indents and per-item rules removed.

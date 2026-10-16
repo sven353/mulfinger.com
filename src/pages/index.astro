@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import heroPortrait from '../assets/images/sven-hero.jpg';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
+import roundSession from '../assets/images/the-round-session.jpg';
 import { site } from '../data/site';
 
 // The site's single photograph. Astro generates responsive WebP sizes at build time.
@@ -228,6 +229,23 @@ const cases = [
         </article>
         <article class="reveal delay-200 flex flex-col justify-between rounded-xl border border-line bg-white p-8">
           <div>
+            <!-- 16:9 crop centred at 35%: keeps Sven, the banner and the screen; drops the bottles and name tents in the foreground -->
+            <figure class="mb-6">
+              <div class="relative aspect-video overflow-hidden rounded-2xl border border-ink/5 shadow-sm bg-mist">
+                <Image
+                  src={roundSession}
+                  alt="Dr. Sven Mulfinger facilitating The Round executive peer session in Barcelona."
+                  widths={[360, 540, 720, 1024]}
+                  sizes="(min-width: 768px) 30vw, 100vw"
+                  format="webp"
+                  quality={80}
+                  loading="lazy"
+                  decoding="async"
+                  class="absolute inset-0 size-full object-cover object-[center_35%]"
+                />
+              </div>
+              <figcaption class="mt-2 text-[11px] tracking-wide text-steel/80">The Round · Executive peer council in session, Barcelona.</figcaption>
+            </figure>
             <p class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">Peer group · Barcelona</p>
             <h3 class="mt-5 font-serif text-2xl md:text-[1.75rem] text-ink leading-snug">The Round</h3>
             <p class="mt-4 text-sm leading-relaxed text-steel">A private peer collective in Barcelona for founders and CEOs of high-growth companies. Monthly sessions on live issues with people who carry the same weight. By application or nomination.</p>

@@ -121,8 +121,10 @@ check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?
   // One photograph site-wide (the hero portrait); the book cover is the only other image allowed.
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
-  check(`one photograph site-wide (found ${photos.length})`, photos.length === 1);
-  check(`only the hero photo and book cover as images (found ${imgs.length})`, imgs.length === 2);
+  const roundPhoto = imgs.filter((t) => t.includes('alt="Dr. Sven Mulfinger facilitating The Round executive peer session in Barcelona."'));
+  check(`The Round session photo present, lazy-loaded`, roundPhoto.length === 1 && roundPhoto[0].includes('loading="lazy"'));
+  check(`two photographs site-wide: hero and The Round (found ${photos.length})`, photos.length === 2);
+  check(`only hero, The Round photo and book cover as images (found ${imgs.length})`, imgs.length === 3);
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   check('home: situations section with 3 blocks', home.includes('The problems that bring CEOs to the table.') && (home.match(/id="situations-heading"[\s\S]*?<\/section>/)?.[0].match(/<article/g) ?? []).length === 3);
