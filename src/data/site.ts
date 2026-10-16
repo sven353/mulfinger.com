@@ -3,12 +3,13 @@
 
 export const site = {
   name: 'Sven Mulfinger',
-  title: 'Sven Mulfinger | A thinking partner for founders and CEOs',
+  title: 'Dr. Sven Mulfinger | A thinking partner for founders and CEOs',
   description:
-    'Sven Mulfinger works with founders and CEOs when the company has outgrown the way they lead it: decision bottlenecks, executive teams that only look aligned, structural friction from rapid growth. Barcelona based, advising across Europe in English, Spanish, German and French.',
+    'Confidential strategic advisory for founders and CEOs navigating consequential decisions, leadership friction and high-stakes transitions. Barcelona based, advising across Europe in English, Spanish, German and French.',
   url: 'https://mulfinger.com',
   locale: 'en_GB',
   ogImage: '/og.png',
+  ogImageAlt: 'Dr. Sven Mulfinger, strategic advisory for founders and CEOs',
   links: {
     kuma: 'https://kuma.partners',
     round: 'https://theround.kuma.partners',

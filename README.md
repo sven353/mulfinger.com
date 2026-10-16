@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-16: build clean, 156/156 checks passed. Four editorial photographs site-wide (hero, 1:1 session, The Round, Kuma offsite); path cards equal height at 1440 px, no horizontal overflow at 375, 820 and 1440 px. Desktop pixel-identical to v20 at 1440, 1280 and 1024 px on all main pages. Mobile tested at 375, 390 and 414 px: no horizontal overflow, hero order eyebrow, headline, lead, photo, CTA, all path links at least 44 px tall, menu drawer opens and closes without shifting the page.
+Status on 2026-10-16: build clean, 162/162 checks passed. Four editorial photographs site-wide (hero, 1:1 session, The Round, Kuma offsite); path cards equal height at 1440 px, no horizontal overflow at 375, 820 and 1440 px. Desktop pixel-identical to v20 at 1440, 1280 and 1024 px on all main pages. Mobile tested at 375, 390 and 414 px: no horizontal overflow, hero order eyebrow, headline, lead, photo, CTA, all path links at least 44 px tall, menu drawer opens and closes without shifting the page.
 
 ## Deployment pipeline
 
@@ -186,6 +186,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 - 2026-10-16 (v20): Reading rhythm: bold lead-ins on the three situations, paragraph measure capped at 40ch, alternating paper and mist sections, grouped engagement paths, four-step process on one continuous timeline axis (vertical on mobile).
 - 2026-10-16 (v21): Mobile-only layout pass (below 1024 px): natural hero order (headline, lead, photo, full-width CTA), section padding py-10, balanced headings, hairline separators between situations and process steps, compact path cards with 44 px touch targets, softer glass header, drawer locked against sideways scroll. Desktop unchanged.
 - 2026-10-16 (v22): Documentary photographs on the 1:1 Advisory and Kuma Partners cards. All three path cards share one anatomy (16:9 photo and caption, eyebrow, title, description, action pinned to the bottom); About The Round now links to theround.kuma.partners.
+- 2026-10-16 (v23): Social sharing: new 1200x630 editorial OG card (rendered from HTML with the site's own Inter and Newsreader), complete OpenGraph and X metadata with absolute apex URLs and image alt text, og.png cached one day with must-revalidate.
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.

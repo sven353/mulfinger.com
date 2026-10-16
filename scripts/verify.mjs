@@ -290,6 +290,22 @@ for (const page of ['about/index.html', 'advisory/index.html']) {
   check('sections alternate paper and mist', JSON.stringify(bgs) === JSON.stringify(want), JSON.stringify(bgs));
 }
 
+// 4n. Social sharing cards
+{
+  const og = readFileSync(join(DIST, 'og.png'));
+  const w = og.readUInt32BE(16), h = og.readUInt32BE(20);
+  check(`og.png is a 1200x630 PNG (found ${w}x${h})`, og.subarray(1, 4).toString() === 'PNG' && w === 1200 && h === 630);
+  for (const page of ['index.html', 'about/index.html', 'advisory/index.html', 'contact/index.html']) {
+    const html = readFileSync(join(DIST, page), 'utf8');
+    const meta = (k) => html.match(new RegExp(`<meta (?:property|name)="${k}" content="([^"]*)"`))?.[1];
+    const abs = ['og:url', 'og:image', 'og:image:secure_url', 'twitter:url', 'twitter:image'].every((k) => meta(k)?.startsWith('https://mulfinger.com/'));
+    const canon = html.match(/rel="canonical" href="([^"]+)"/)?.[1] ?? '';
+    check(`social: ${page} absolute apex URLs, og.png, large card`, abs && canon.startsWith('https://mulfinger.com/') && meta('og:image') === 'https://mulfinger.com/og.png' && meta('twitter:card') === 'summary_large_image' && meta('og:image:type') === 'image/png' && !!meta('og:image:alt') && !!meta('twitter:image:alt'));
+  }
+  const toml = readFileSync('netlify.toml', 'utf8');
+  check('og.png cached one day with revalidation', /for = "\/og\.png"\s*\[headers\.values\]\s*Cache-Control = "public, max-age=86400, must-revalidate"/.test(toml));
+}
+
 // 5. Copy rules
 const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));
