@@ -19,7 +19,7 @@
   --color-ink-2: #1a1d22;      /* raised dark surface */
   --color-ink-hover: #2a2e35;  /* primary button hover */
   --color-ink-line: #262a31;   /* hairlines on dark */
-  --color-steel: #4a5568;      /* secondary text on light */
+  --color-steel: #2d3748;      /* secondary text on light (Slate 800 for legibility on paper) */
   --color-fog: #9aa3b2;        /* secondary text on dark */
   --color-line: #e2e8f0;       /* hairlines on light */
   --color-line-strong: #cbd2dc;/* outline buttons */
