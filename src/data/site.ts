@@ -5,7 +5,7 @@ export const site = {
   name: 'Sven Mulfinger',
   title: 'Dr. Sven Mulfinger | A thinking partner for founders and CEOs',
   description:
-    'Confidential strategic advisory for founders and CEOs navigating consequential decisions, leadership friction and high-stakes transitions. Barcelona based, advising across Europe in English, Spanish, German and French.',
+    'Confidential strategic advisory for founders and CEOs facing consequential decisions and leadership friction. Barcelona based, working across Europe.',
   url: 'https://mulfinger.com',
   locale: 'en_GB',
   ogImage: '/og.png',
