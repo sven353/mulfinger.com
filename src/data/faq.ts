@@ -12,7 +12,7 @@
 
 export type FaqItem = { q: string; verdict: string; body: string };
 
-const KUMA = 'https://kuma.partners';
+const KUMA = 'https://www.kuma.partners';
 const OFFSITE = 'https://offsite.kuma.partners';
 const ROUND = 'https://theround.kuma.partners';
 

@@ -25,7 +25,7 @@ const {
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const imageUrl = new URL(image, site.url).href;
 // Order: personal profile first, then the practices he leads. All confirmed by Sven.
-const sameAs = [site.links.linkedin, site.links.kuma, site.links.neurodisruptors].filter(Boolean);
+const sameAs = [site.links.linkedin, site.links.kumaProfile, site.links.neurodisruptorsProfile].filter(Boolean);
 
 const services = [
   {

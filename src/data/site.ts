@@ -11,10 +11,13 @@ export const site = {
   ogImage: '/og.png',
   ogImageAlt: 'Dr. Sven Mulfinger, strategic advisory for founders and CEOs',
   links: {
-    kuma: 'https://kuma.partners',
+    kuma: 'https://www.kuma.partners',
     round: 'https://theround.kuma.partners',
     offsite: 'https://offsite.kuma.partners',
     neurodisruptors: 'https://neurodisruptors.com',
+    // Profile pages that describe the same person. Used for schema sameAs; keep identical on all three sites.
+    kumaProfile: 'https://www.kuma.partners/partners.html',
+    neurodisruptorsProfile: 'https://neurodisruptors.com/about/',
     linkedin: 'https://www.linkedin.com/in/svenmulfinger', // confirmed by Sven 2026-10-15
   },
   languages: ['English', 'Spanish', 'German', 'French'],

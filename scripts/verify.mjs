@@ -96,7 +96,7 @@ for (const page of ['advisory/index.html']) {
   const outbound = [...section.matchAll(/<a [^>]*href="https?:\/\/[^"]+"[^>]*>/g)].map((m) => m[0]);
   const bad = outbound.filter((a) => !a.includes('target="_blank"') || !a.includes('rel="noopener noreferrer"'));
   check(`${outbound.length} FAQ outbound links use target=_blank + noopener noreferrer on ${page}`, outbound.length === 3 && bad.length === 0, bad.join(' '));
-  for (const host of ['kuma.partners', 'offsite.kuma.partners', 'theround.kuma.partners']) {
+  for (const host of ['www.kuma.partners', 'offsite.kuma.partners', 'theround.kuma.partners']) {
     check(`FAQ on ${page} links to ${host}`, outbound.some((a) => a.includes(`https://${host}`)));
   }
 }
@@ -138,7 +138,7 @@ check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?
   check('home: background section', home.includes('I have sat on both sides of the table.'));
   check('home: 4-step process', home.includes('What happens when we work together.') && (home.match(/id="process-heading"[\s\S]*?<\/ol>/)?.[0].match(/<li/g) ?? []).length === 4);
   check('home: final invitation', home.includes('Bring the decision you have been circling.'));
-  for (const host of ['https://kuma.partners', 'https://offsite.kuma.partners', 'https://neurodisruptors.com']) {
+  for (const host of ['https://www.kuma.partners', 'https://offsite.kuma.partners', 'https://neurodisruptors.com']) {
     const a = [...home.matchAll(new RegExp(`<a [^>]*href="${host.replace(/\./g, '\\.')}"[^>]*>`, 'g'))].map((m) => m[0]);
     check(`home links to ${host} in a new tab`, a.length > 0 && a.every((t) => t.includes('target="_blank"') && t.includes('rel="noopener noreferrer"')));
   }
