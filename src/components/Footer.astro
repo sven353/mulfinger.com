@@ -1,55 +1,44 @@
 ---
-import { site, badges } from '../data/site';
+// Colophon-style footer on paper. The credentials line replaces the old proof bar.
+import { site } from '../data/site';
 const year = new Date().getFullYear();
+const ext = { target: '_blank', rel: 'noopener noreferrer' };
 ---
-<!-- Institutional proof bar, directly above the footer on every page -->
-<section aria-label="Credentials" class="bg-mist border-y border-line py-8">
-  <dl class="container-x grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-    {badges.map((b) => (
-      <div>
-        <dt class="text-[11px] tracking-[0.18em] text-steel uppercase font-medium">{b.label}</dt>
-        <dd class="mt-1.5 font-serif text-lg text-ink">{b.value} <span class="font-sans text-sm text-steel">· {b.note}</span></dd>
+<footer class="mt-auto">
+  <div class="container-x">
+    <div class="border-t border-ink pt-12 pb-10 lg:grid lg:grid-cols-12 lg:gap-x-10">
+      <div class="lg:col-span-3">
+        <p class="font-serif text-[1.4rem] text-ink">Sven Mulfinger</p>
+        <p class="mt-2 label">Executive advisory for founders and CEOs. Based in Barcelona.</p>
       </div>
-    ))}
-  </dl>
-</section>
-
-<footer class="bg-ink text-paper">
-  <div class="container-x pt-20 pb-12">
-    <div class="grid md:grid-cols-12 gap-12">
-      <div class="md:col-span-6">
-        <p class="label text-fog">Sven Mulfinger</p>
-        <p class="mt-4 display text-3xl md:text-4xl max-w-[20ch]">Strategic advisory for founders and CEOs.</p>
-        <p class="mt-4 text-sm text-fog max-w-sm">Based in Barcelona. In person in Barcelona and Madrid, and across Europe in English, Spanish, German and French.</p>
-        <a href="/contact" class="mt-10 inline-flex items-center gap-3 border border-ink-line px-5 py-3 text-sm hover:bg-paper hover:text-ink transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+      <div class="mt-8 lg:mt-0 lg:col-span-5">
+        <p class="reading text-[1.0625rem]! leading-relaxed">
+          Research collaborator with IESE and IE Business School<span class="text-line-strong" aria-hidden="true"> · </span>More than 100 founders, managing directors and C-suite leaders guided
+        </p>
+        <p class="mt-2 label">In person in Barcelona and Madrid, online across Europe, in English, Spanish, German and French.</p>
       </div>
-      <nav aria-label="Footer" class="md:col-span-2 md:col-start-8 text-sm">
-        <p class="label text-fog">Site</p>
-        <ul class="mt-4 space-y-2.5">
-          <li><a class="hover:text-fog" href="/">Home</a></li>
-          <li><a class="hover:text-fog" href="/about">About</a></li>
-          <li><a class="hover:text-fog" href="/advisory">Advisory</a></li>
-          <li><a class="hover:text-fog" href="/#research">Research</a></li>
-          <li><a class="hover:text-fog" href="/contact">Contact</a></li>
+      <nav aria-label="Footer" class="mt-8 lg:mt-0 lg:col-span-2 text-[0.875rem]">
+        <ul class="space-y-2">
+          <li><a class="text-steel hover:text-ink" href="/about">About</a></li>
+          <li><a class="text-steel hover:text-ink" href="/advisory">Advisory</a></li>
+          <li><a class="text-steel hover:text-ink" href="/#research">Research</a></li>
+          <li><a class="text-steel hover:text-ink" href="/contact">Contact</a></li>
         </ul>
       </nav>
-      <div class="md:col-span-3 text-sm">
-        <p class="label text-fog">Practice</p>
-        <ul class="mt-4 space-y-2.5">
-          <li><a class="hover:text-fog" href={site.links.kuma} target="_blank" rel="noopener noreferrer">Kuma Partners ↗</a></li>
-          <li><a class="hover:text-fog" href={site.links.round} target="_blank" rel="noopener noreferrer">The Round ↗</a></li>
-          <li><a class="hover:text-fog" href={site.links.neurodisruptors} target="_blank" rel="noopener noreferrer">Neurodisruptors ↗</a></li>
-          {site.links.linkedin && <li><a class="hover:text-fog" href={site.links.linkedin} target="_blank" rel="noopener noreferrer me">LinkedIn ↗</a></li>}
+      <div class="mt-6 lg:mt-0 lg:col-span-2 text-[0.875rem]">
+        <ul class="space-y-2">
+          <li><a class="text-steel hover:text-ink" href={site.links.kuma} {...ext}>Kuma Partners ↗</a></li>
+          <li><a class="text-steel hover:text-ink" href={site.links.round} {...ext}>The Round ↗</a></li>
+          <li><a class="text-steel hover:text-ink" href={site.links.neurodisruptors} {...ext}>Neurodisruptors ↗</a></li>
+          {site.links.linkedin && <li><a class="text-steel hover:text-ink" href={site.links.linkedin} target="_blank" rel="noopener noreferrer me">LinkedIn ↗</a></li>}
         </ul>
       </div>
     </div>
-
-
-    <div class="mt-16 pt-6 border-t border-ink-line flex flex-col sm:flex-row gap-2 justify-between text-xs text-fog">
+    <div class="pb-10 pt-5 border-t border-line flex flex-col sm:flex-row gap-2 justify-between label">
       <p>© {year} Sven Mulfinger · Barcelona</p>
       <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-2">
-        <a class="hover:text-paper underline-offset-4 hover:underline" href="/privacy">Privacy Policy</a>
-        <a class="hover:text-paper underline-offset-4 hover:underline" href="/legal">Legal Notice</a>
+        <a class="hover:text-ink underline-offset-4 hover:underline" href="/privacy">Privacy Policy</a>
+        <a class="hover:text-ink underline-offset-4 hover:underline" href="/legal">Legal Notice</a>
       </nav>
     </div>
   </div>

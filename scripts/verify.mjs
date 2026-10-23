@@ -96,7 +96,7 @@ for (const page of ['advisory/index.html']) {
   const outbound = [...section.matchAll(/<a [^>]*href="https?:\/\/[^"]+"[^>]*>/g)].map((m) => m[0]);
   const bad = outbound.filter((a) => !a.includes('target="_blank"') || !a.includes('rel="noopener noreferrer"'));
   check(`${outbound.length} FAQ outbound links use target=_blank + noopener noreferrer on ${page}`, outbound.length === 3 && bad.length === 0, bad.join(' '));
-  for (const host of ['www.kuma.partners', 'offsite.kuma.partners', 'theround.kuma.partners']) {
+  for (const host of ['kuma.partners', 'offsite.kuma.partners', 'theround.kuma.partners']) {
     check(`FAQ on ${page} links to ${host}`, outbound.some((a) => a.includes(`https://${host}`)));
   }
 }
@@ -105,40 +105,28 @@ for (const page of ['advisory/index.html']) {
 const llmsFull = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
 check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 6);
 
-// 4d. Home structure (editorial redesign, October 2026)
+// 4d. Home structure: "the working paper" (v26, October 2026)
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  check('home: reassurance note under the primary button', home.includes('Confidential. Direct. No obligation to continue.'));
-  const img = home.match(/<figure[\s\S]*?<img[^>]*>/)?.[0]?.match(/<img[^>]*>/)?.[0] ?? '';
-  check('home: hero portrait is a real optimised image', /src="\/_astro\/sven-hero\.[^"]+\.webp"/.test(img) && /srcset="[^"]*480w[^"]*960w/.test(img));
-  check('home: portrait alt text', img.includes('alt="Dr. Sven Mulfinger advising founders and CEOs"'));
-  check('home: portrait loads eagerly with high priority', img.includes('loading="eager"') && img.includes('fetchpriority="high"'));
-  const imgSrc = img.match(/src="([^"]+)"/)?.[1];
-  check('home: portrait file exists in dist', !!imgSrc && existsSync(join(DIST, imgSrc)));
-  // Mobile reading order (below lg) is set with flex order: eyebrow and headline 1, lead 2, photo 3, CTA 4.
-  const ord = (re) => Number(home.match(re)?.[1] ?? 0);
-  const oHead = ord(/class="order-(\d)[^"]*lg:col-span-5 lg:row-start-1/);
-  const oPhoto = ord(/<figure class="order-(\d)/);
-  const oLead = ord(/<p class="order-(\d)[^"]*"[^>]*>I work with founders/);
-  const oCta = ord(/<div class="order-(\d)[^"]*">\s*<a href="\/contact"/);
-  check('home: mobile order headline, lead, photo, CTA', oHead === 1 && oLead === 2 && oPhoto === 3 && oCta === 4, [oHead, oLead, oPhoto, oCta].join(','));
-  check('home: mobile reorder only below lg', /<figure class="order-3 lg:order-none/.test(home) && home.includes('class="contents lg:block'));
-  check('home: hero photo in landscape 3:2 frame', /<figure[\s\S]*?aspect-\[3\/2\]/.test(home));
-  // One photograph site-wide (the hero portrait); the book cover is the only other image allowed.
+  check('home: reassurance note next to the primary button', home.includes('Confidential. Direct. No obligation to continue.'));
+  const hero = home.match(/<section aria-labelledby="hero-heading">[\s\S]*?<\/section>/)?.[0] ?? '';
+  check('home: typographic opening, no image in the hero', hero.includes('<h1') && !hero.includes('<img'));
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
-  const roundPhoto = imgs.filter((t) => t.includes('alt="Dr. Sven Mulfinger facilitating The Round executive peer session in Barcelona."'));
-  check(`The Round session photo present, lazy-loaded`, roundPhoto.length === 1 && roundPhoto[0].includes('loading="lazy"'));
-  check(`four photographs site-wide: hero, 1:1 session, The Round, Kuma offsite (found ${photos.length})`, photos.length === 4);
-  check('three path cards each carry a 16:9 photograph', (home.match(/<figure class="mb-6">\s*<div class="relative aspect-video/g) ?? []).length === 3);
-  check(`only the four photographs and the book cover as images (found ${imgs.length})`, imgs.length === 5);
+  check(`two documentary photographs site-wide: Berlin offsite and The Round (found ${photos.length})`, photos.length === 2 && photos.some((t) => t.includes('Berlin')) && photos.some((t) => t.includes('The Round')));
+  check(`only the two photographs and the book cover as images (found ${imgs.length})`, imgs.length === 3);
+  check('no synthetic portraits shipped', !files.some((f) => /sven-hero|one-on-one-advisory/.test(f)));
+  check('photographs have square corners (no rounded frames)', !/<figure[\s\S]{0,200}rounded/.test(home));
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
-  check('home: situations section with 3 blocks', home.includes('The problems that bring CEOs to the table.') && (home.match(/id="situations-heading"[\s\S]*?<\/section>/)?.[0].match(/<article/g) ?? []).length === 3);
-  check('home: background section', home.includes('I have sat on both sides of the table.'));
-  check('home: 4-step process', home.includes('What happens when we work together.') && (home.match(/id="process-heading"[\s\S]*?<\/ol>/)?.[0].match(/<li/g) ?? []).length === 4);
-  check('home: final invitation', home.includes('Bring the decision you have been circling.'));
-  for (const host of ['https://www.kuma.partners', 'https://offsite.kuma.partners', 'https://neurodisruptors.com']) {
+  const sec = (id) => home.match(new RegExp(`aria-labelledby="${id}-heading"[\\s\\S]*?<\\/section>`))?.[0] ?? '';
+  check('home: situations as three prose paragraphs', home.includes('When the usual answers stop working.') && (sec('situations').match(/<p class="reading"><em/g) ?? []).length === 3);
+  check('home: how I think, two worked patterns', (sec('thinking').match(/<blockquote/g) ?? []).length === 2);
+  check('home: background narrative', home.includes('I have carried the responsibility too.') && ['The operator.', 'The scientist.', 'The advisor.'].every((t) => sec('background').includes(t)));
+  check('home: final invitation', home.includes('Bring the problem you have not been able to solve.'));
+  const order = ['situations', 'thinking', 'background', 'cases', 'research', 'paths', 'invite'].map((id) => home.indexOf(`id="${id}-heading"`));
+  check('home: chapter order', order.every((x, i) => x > 0 && (i === 0 || x > order[i - 1])), order.join(','));
+  for (const host of ['https://kuma.partners', 'https://offsite.kuma.partners', 'https://neurodisruptors.com']) {
     const a = [...home.matchAll(new RegExp(`<a [^>]*href="${host.replace(/\./g, '\\.')}"[^>]*>`, 'g'))].map((m) => m[0]);
     check(`home links to ${host} in a new tab`, a.length > 0 && a.every((t) => t.includes('target="_blank"') && t.includes('rel="noopener noreferrer"')));
   }
@@ -227,46 +215,44 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('Frankfurt not claimed (not confirmed)', frankfurt.length === 0, frankfurt.join(', '));
 }
 
-// 4i. Scroll reveal and proof bar
+// 4i. Quiet design rules: no scroll animation, no gradients, no cards, no uppercase labels
 {
-  const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  const css = files.filter((f) => f.endsWith('.css')).map((f) => readFileSync(f, 'utf8')).join('').replace(/\s/g, '');
-  check('reveal.js shipped and loaded in <head> without defer', existsSync(join(DIST, 'reveal.js')) && /<head>[\s\S]*<script src="\/reveal\.js"><\/script>[\s\S]*<\/head>/.test(home));
-  check('reveal hides content only under .js and no-preference motion', css.includes('@media(prefers-reduced-motion:no-preference){.js.reveal{opacity:0'));
-  check('reveal stagger delays defined', [['100', '.1s'], ['200', '.2s'], ['300', '.3s']].every(([d, s]) => css.includes(`.js.reveal.delay-${d}{transition-delay:${d}ms}`) || css.includes(`.js.reveal.delay-${d}{transition-delay:${s}}`)));
-  check('hero is never hidden by reveal', !/<section class="bg-linear-to-tr[^>]*reveal/.test(home) && !/<h1[^>]*reveal/.test(home));
-  check('home uses reveal on sections below the fold', (home.match(/class="[^"]*\breveal\b/g) ?? []).length >= 12);
-  const noBar = htmlFiles.filter((f) => !/<section aria-label="Credentials"[\s\S]*?<\/section>\s*<footer/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
-  check('proof bar directly above the footer on every page', noBar.length === 0, noBar.join(', '));
+  const css = files.filter((f) => f.endsWith('.css')).map((f) => readFileSync(f, 'utf8')).join('');
+  check('no scroll-reveal script or classes', !htmlFiles.some((f) => readFileSync(f, 'utf8').includes('src="/reveal.js"')) && !htmlFiles.some((f) => /class="[^"]*\breveal\b/.test(readFileSync(f, 'utf8'))));
+  const main = (f) => readFileSync(f, 'utf8').match(/<main[\s\S]*?<\/main>/)?.[0] ?? '';
+  const pages = ['index.html', 'about/index.html', 'advisory/index.html', 'contact/index.html'].map((p) => join(DIST, p));
+  check('no gradient backgrounds on main pages', !pages.some((f) => /bg-linear|bg-gradient/.test(main(f))));
+  check('no rounded cards on main pages', !pages.some((f) => /rounded-(xl|2xl|\[)/.test(main(f))));
+  check('no uppercase tracked labels on main pages', !pages.some((f) => /\buppercase\b/.test(main(f))));
+  check('single accent colour defined', /--color-accent:\s*#1f4e5a/i.test(css));
+  check('warm hairlines replace slate', /--color-line:\s*#ddd6ca/i.test(css) && !/--color-line:\s*#e2e8f0/i.test(css));
+  const noCredits = htmlFiles.filter((f) => !(readFileSync(f, 'utf8').match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '').includes('IESE and IE Business School')).map((f) => relative(DIST, f));
+  check('credentials line in the footer on every page', noCredits.length === 0, noCredits.join(', '));
 }
 
-// 4j. Field reflections and track record scope (confirmed 2026-10-16)
+// 4j. Field notes and track record scope (confirmed 2026-10-16)
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
   const sec = home.match(/aria-labelledby="cases-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
-  check('field reflections: 3 cases', (sec.match(/<article/g) ?? []).length === 3);
-  const pos = ['id="process-heading"', 'id="cases-heading"', 'id="paths-heading"'].map((t) => home.indexOf(t));
-  check('field reflections sit between process and paths', pos.every((x) => x > 0) && pos[0] < pos[1] && pos[1] < pos[2]);
+  check('field notes: 3 cases', (sec.match(/<article/g) ?? []).length === 3);
+  check('field notes: each case has situation, underneath and what changed', ['The situation.', 'Underneath.', 'What changed.'].every((t) => (sec.split(`<em class="text-ink">${t}</em>`).length - 1) === 3));
   check('100+ scope clarified on home', home.includes('across confidential 1:1 advisory, executive peer councils and board-level interventions'));
   check('100+ scope clarified in llms.txt', readFileSync(join(DIST, 'llms.txt'), 'utf8').includes('executive peer councils'));
 }
 
-// 4k. Subpages share the homepage design system
-for (const page of ['about/index.html', 'advisory/index.html']) {
+// 4k. Subpages share the working-paper system
+for (const page of ['about/index.html', 'advisory/index.html', 'contact/index.html']) {
   const html = readFileSync(join(DIST, page), 'utf8');
   const main = html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? '';
-  const firstSection = main.match(/<section[^>]*>/)?.[0] ?? '';
-  check(`${page}: hero uses the diagonal paper gradient`, firstSection.includes('bg-linear-to-tr'));
-  check(`${page}: hero is never hidden by reveal`, !firstSection.includes('reveal') && !/<h1[^>]*reveal/.test(main));
-  check(`${page}: sections below the fold use reveal`, (main.match(/class="[^"]*\breveal\b/g) ?? []).length >= 8);
-  check(`${page}: h1 set in Newsreader serif`, /<h1[^>]*font-serif/.test(main));
+  check(`${page}: h1 set as serif display type`, /<h1[^>]*class="display/.test(main));
+  check(`${page}: margin note column on desktop`, main.includes('lg:col-span-3'));
 }
 {
   const adv = readFileSync(join(DIST, 'advisory/index.html'), 'utf8');
-  check('advisory: who / what-we-work-on two-column grid', adv.includes('Who this is for') && adv.includes('What we work on'));
-  check('advisory: three path cards with rounded corners', (adv.match(/<article[^>]*rounded-\[1\.5rem\]/g) ?? []).length === 3);
+  check('advisory: who / what-we-work-on', adv.includes('Who this is for') && adv.includes('What we work on'));
+  check('advisory: three paths as a list, linked anchors work', (adv.match(/id="paths-heading"[\s\S]*?<\/ul>/)?.[0].match(/<li/g) ?? []).length === 3 && adv.includes('id="the-round"'));
   const about = readFileSync(join(DIST, 'about/index.html'), 'utf8');
-  check('about: three pillars and closing invitation', about.includes('Three sources of judgement.') && about.includes('id="about-invite-heading"'));
+  check('about: three sources of judgement and closing invitation', about.includes('Three sources of judgement.') && about.includes('id="invite-heading"'));
 }
 
 // 4l. Favicon: valid standalone SVG, Direction A mark, linked on every page
@@ -278,16 +264,11 @@ for (const page of ['about/index.html', 'advisory/index.html']) {
   check('favicon linked on every page', noIcon.length === 0, noIcon.join(', '));
 }
 
-// 4m. Reading rhythm (2026-10-16)
+// 4m. Reading rhythm: one background, serif reading text
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  const sit = home.match(/aria-labelledby="situations-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
-  check('situations: three bold lead-ins', (sit.match(/<strong class="font-semibold text-ink">/g) ?? []).length === 3);
-  const proc = home.match(/aria-labelledby="process-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
-  check('process: single timeline axis drawn on the list', /<ol[^>]*lg:before:border-t/.test(proc));
-  const bgs = [...home.matchAll(/<section class="([^"]*)"[^>]*aria-labelledby="(situations|background|process|cases|paths)-heading"/g)].map((m) => [m[2], /bg-mist/.test(m[1]) ? 'mist' : 'paper']);
-  const want = [['situations','paper'],['background','mist'],['process','paper'],['cases','mist'],['paths','paper']];
-  check('sections alternate paper and mist', JSON.stringify(bgs) === JSON.stringify(want), JSON.stringify(bgs));
+  check('home: one background (no tinted section bands)', !/<section[^>]*class="[^"]*bg-(mist|white)/.test(home));
+  check('home: reading text set in the serif', (home.match(/class="[^"]*\breading\b/g) ?? []).length >= 15);
 }
 
 // 4n. Social sharing cards

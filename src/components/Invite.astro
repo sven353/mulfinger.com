@@ -1,0 +1,23 @@
+---
+// The one invitation, used at the end of every main page.
+interface Props { heading?: string; body?: string }
+const {
+  heading = 'Bring the problem you have not been able to solve.',
+  body = 'Tell me what is happening, what you have tried and what is at stake. We will work out together whether working with me would make a difference.',
+} = Astro.props;
+---
+<section aria-labelledby="invite-heading">
+  <div class="container-x">
+    <div class="border-t border-ink py-16 lg:py-24 lg:grid lg:grid-cols-12 lg:gap-x-10">
+      <div class="lg:col-span-3"><p class="label lg:pt-3">A first conversation</p></div>
+      <div class="mt-3 lg:mt-0 lg:col-span-8">
+        <h2 id="invite-heading" class="display text-[2.4rem] sm:text-[3.4rem] lg:text-[4rem] text-ink max-w-[18ch] text-balance">{heading}</h2>
+        <p class="mt-6 reading max-w-[34rem]">{body}</p>
+        <div class="mt-9 flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-3">
+          <a href="/contact" class="inline-flex justify-center items-center gap-2 bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+          <span class="label">Confidential. Direct. No obligation to continue.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

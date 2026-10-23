@@ -3,18 +3,22 @@ import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { site } from '../data/site';
 ---
-<Layout title="Discuss a leadership challenge | Sven Mulfinger" description="Get in touch with Sven Mulfinger about a leadership decision or challenge. Confidential and direct, with no obligation in the first conversation.">
-  <section class="container-x pt-14 md:pt-24 pb-24 md:pb-32">
-    <div class="grid lg:grid-cols-12 gap-12">
-      <div class="lg:col-span-5">
-        <p class="label text-steel">Contact</p>
-        <h1 class="mt-8 display text-5xl md:text-6xl text-balance">Discuss a leadership challenge</h1>
-        <p class="mt-8 text-lg text-steel leading-relaxed">Confidential. Direct. Initial conversations are exploratory and carry no obligation.</p>
-        <p class="mt-6 text-steel leading-relaxed">I read every message myself and reply within 24 to 48 hours. If I am not the right person for what you describe, I will say so and, where I can, point you to someone who is.</p>
-        <p class="mt-10 pt-6 border-t border-line text-sm text-steel leading-relaxed">Looking for work with a whole leadership team? That runs through <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 text-ink">Kuma Partners<span class="sr-only"> (opens in a new tab)</span></a>.</p>
-      </div>
-      <div class="lg:col-span-6 lg:col-start-7">
-        <ContactForm />
+<Layout title="Discuss a leadership challenge | Sven Mulfinger" description="Get in touch with Sven Mulfinger about a leadership decision or challenge. Confidential and direct. Initial conversations are exploratory and carry no obligation.">
+  <section class="container-x pt-12 lg:pt-24 pb-20 lg:pb-28">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-x-10">
+      <div class="lg:col-span-3 lg:pt-4"><p class="label">Contact</p></div>
+      <div class="mt-6 lg:mt-0 lg:col-span-9">
+        <h1 class="display text-[2.85rem] sm:text-[4rem] lg:text-[4.75rem] leading-[1.02] text-ink max-w-[14ch]">Discuss a leadership challenge</h1>
+        <div class="mt-8 lg:mt-10 lg:grid lg:grid-cols-9 lg:gap-x-10">
+          <div class="lg:col-span-4 space-y-5">
+            <p class="reading text-ink!">Confidential. Direct. Initial conversations are exploratory and carry no obligation.</p>
+            <p class="reading">I read every message myself and reply within 24 to 48 hours. If I am not the right person for what you describe, I will say so and, where I can, point you to someone who is.</p>
+            <p class="pt-5 border-t border-line label">Looking for work with a whole leadership team? That runs through <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="link">Kuma Partners<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+          </div>
+          <div class="mt-10 lg:mt-0 lg:col-span-5">
+            <ContactForm />
+          </div>
+        </div>
       </div>
     </div>
   </section>

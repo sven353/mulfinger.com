@@ -4,7 +4,7 @@
 // With JavaScript: /form.js submits via fetch and shows the in-place confirmation below.
 // Without JavaScript: the browser posts normally and Netlify redirects to /thanks.
 // Submissions: Netlify > Project > Forms > executive-diagnostic.
-const field = 'peer w-full bg-white border border-line focus:border-ink px-4 py-3.5 text-base outline-none transition-colors placeholder:text-steel/60 aria-[invalid=true]:border-red-700';
+const field = 'peer w-full bg-white border border-line focus:border-accent px-4 py-3.5 text-base outline-none transition-colors placeholder:text-steel/60 aria-[invalid=true]:border-red-700';
 const lbl = 'block mb-2 text-sm font-medium text-ink';
 const err = 'mt-2 text-sm text-red-700 hidden';
 import { legal as L } from '../data/legal';
@@ -49,7 +49,7 @@ import { legal as L } from '../data/legal';
     </div>
 
     <!-- First-layer data protection information (GDPR Art. 13, AEPD layered model) -->
-    <details class="border border-line bg-paper text-xs text-steel">
+    <details class="border border-line bg-mist text-xs text-steel">
       <summary class="cursor-pointer px-4 py-3 text-xs font-medium text-steel">Basic data protection information</summary>
       <dl class="grid grid-cols-[7rem_1fr] gap-x-4 gap-y-2 px-4 pb-4 leading-relaxed">
         <dt class="font-medium text-ink">Controller</dt><dd>{L.owner}</dd>
@@ -71,7 +71,7 @@ import { legal as L } from '../data/legal';
 
     <div class="flex flex-col sm:flex-row sm:items-center gap-6 justify-between pt-2">
       <p id="form-note" class="text-xs text-steel max-w-sm leading-relaxed">Read by Sven personally and treated as confidential.</p>
-      <button type="submit" data-submit class="shrink-0 whitespace-nowrap bg-ink text-paper px-8 py-4 text-sm hover:bg-ink-hover disabled:opacity-60 disabled:cursor-wait transition-colors inline-flex items-center justify-center gap-3">
+      <button type="submit" data-submit class="shrink-0 whitespace-nowrap bg-accent text-paper px-8 py-4 text-[0.9375rem] hover:bg-accent-hover disabled:opacity-60 disabled:cursor-wait transition-colors inline-flex items-center justify-center gap-3">
         <span data-submit-label>Send</span> <span aria-hidden="true">→</span>
       </button>
     </div>
@@ -80,11 +80,11 @@ import { legal as L } from '../data/legal';
 
   <div data-form-success hidden tabindex="-1" role="status" aria-live="polite" class="outline-none">
     <p class="label text-steel">Message received</p>
-    <p class="mt-6 display text-4xl md:text-5xl">Thank you. I will read this myself.</p>
+    <p class="mt-4 display text-4xl md:text-5xl">Thank you. I will read this myself.</p>
     <p class="mt-6 text-steel leading-relaxed max-w-md">You will hear from me within 24 to 48 hours. If it makes sense, we will arrange a confidential first conversation.</p>
-    <div class="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row gap-3">
-      <a href="/advisory" class="border border-ink px-6 py-3 text-sm text-center hover:bg-ink hover:text-paper transition-colors">How engagements work</a>
-      <a href="/#research" class="px-1 py-3 text-sm underline underline-offset-4 decoration-line hover:decoration-ink">Read about the research</a>
+    <div class="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row gap-x-8">
+      <a href="/advisory" class="link py-3 text-[0.9375rem]">How engagements work</a>
+      <a href="/#research" class="link py-3 text-[0.9375rem]">Read about the research</a>
     </div>
   </div>
 </div>

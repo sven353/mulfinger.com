@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Fonts are self-hosted (Fontsource): no calls to Google, which keeps GDPR and the CSP simple.
-   Newsreader (editorial serif) for headings, Inter for body and navigation. */
+/* "The working paper" (v26). The site reads like a carefully edited essay:
+   Newsreader for reading, Inter only for small practical things (navigation, notes, forms).
+   One warm background, warm hairlines, one accent. No gradients, no cards, no scroll animation.
+   Fonts are self-hosted (Fontsource): no calls to Google, which keeps GDPR and the CSP simple. */
 @import "@fontsource-variable/inter/index.css";
 @import "@fontsource-variable/newsreader/opsz.css";
 @import "@fontsource-variable/newsreader/opsz-italic.css";
@@ -11,18 +13,23 @@
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Newsreader Variable", ui-serif, Georgia, "Times New Roman", serif;
 
-  /* Editorial palette */
-  --color-paper: #faf9f6;      /* warm gallery off-white, page background */
-  --color-mist: #f2f0eb;       /* alternate section surface */
+  /* Warm paper palette */
+  --color-paper: #faf9f6;      /* warm ivory, the only page background */
+  --color-mist: #f1ede5;       /* rare quiet surface: form notes, details */
   --color-white: #ffffff;      /* form fields */
-  --color-ink: #111317;        /* primary text, dark surfaces */
-  --color-ink-2: #1a1d22;      /* raised dark surface */
-  --color-ink-hover: #2a2e35;  /* primary button hover */
-  --color-ink-line: #262a31;   /* hairlines on dark */
-  --color-steel: #2d3748;      /* secondary text on light (Slate 800 for legibility on paper) */
-  --color-fog: #9aa3b2;        /* secondary text on dark */
-  --color-line: #e2e8f0;       /* hairlines on light */
-  --color-line-strong: #cbd2dc;/* outline buttons */
+  --color-ink: #16171a;        /* headlines and primary text */
+  --color-ink-hover: #2c2e33;
+  --color-steel: #3e3a34;      /* reading text: warm dark grey */
+  --color-muted: #6f685e;      /* margin notes, captions */
+  --color-line: #ddd6ca;       /* warm hairlines */
+  --color-line-strong: #bdb3a3;/* rules that carry structure */
+  --color-accent: #1f4e5a;     /* petrol: links and the one button */
+  --color-accent-hover: #163a43;
+
+  /* Kept for the legal pages and older markup */
+  --color-ink-2: #1a1d22;
+  --color-ink-line: #262a31;
+  --color-fog: #9aa3b2;
 }
 
 html { scroll-behavior: smooth; }
@@ -35,29 +42,29 @@ body {
 }
 
 /* Every heading is set in the editorial serif */
-h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; }
+h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400; }
 
 ::selection { background: var(--color-ink); color: var(--color-paper); }
-:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
 @utility container-x {
   width: 100%;
-  max-width: 78rem;
+  max-width: 76rem;
   margin-inline: auto;
   padding-inline: 1.25rem;
   @media (width >= 48rem) { padding-inline: 2.5rem; }
 }
 
-/* Small uppercase section marker, set in the body sans */
+/* Margin note: the quiet sans line that names a section, in sentence case */
 @utility label {
   font-family: var(--font-sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-weight: 500;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  letter-spacing: 0.005em;
+  color: var(--color-muted);
 }
 
-/* Editorial display type: serif, regular weight, tight but not cramped */
+/* Display type: serif, regular weight */
 @utility display {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -65,24 +72,27 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; }
   line-height: 1.04;
 }
 
-/* Scroll reveal. Hidden state applies only when reveal.js has set .js on <html>
-   and the visitor has not asked for reduced motion. Stagger with Tailwind delay-100/200/300. */
-@media (prefers-reduced-motion: no-preference) {
-  .js .reveal {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .js .reveal:not(.is-visible) { will-change: opacity, transform; }
-  .js .reveal.is-visible { opacity: 1; transform: none; }
-  /* Explicit stagger: the transition shorthand above would otherwise reset Tailwind's delay utilities */
-  .js .reveal.delay-100 { transition-delay: 100ms; }
-  .js .reveal.delay-200 { transition-delay: 200ms; }
-  .js .reveal.delay-300 { transition-delay: 300ms; }
+/* Reading text, set like print */
+@utility reading {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.62;
+  color: var(--color-steel);
+  @media (width >= 40rem) { font-size: 1.1875rem; }
 }
 
-/* Below lg only: balanced headings (no single-word widows) and no horizontal page overflow.
-   Scoped by max-width so desktop line breaks stay exactly as they are. */
+/* Editorial link: petrol, thin underline that firms up on hover */
+@utility link {
+  color: var(--color-accent);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  transition: text-decoration-color 150ms, color 150ms;
+  &:hover { color: var(--color-accent-hover); text-decoration-color: currentColor; }
+}
+
+/* Below lg: balanced headings and no horizontal page overflow */
 @media (max-width: 1023.98px) {
   h1, h2, h3 { text-wrap: balance; }
   html, body { overflow-x: clip; }

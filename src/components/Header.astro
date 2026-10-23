@@ -3,53 +3,50 @@ import { nav, site } from '../data/site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => path === href;
 ---
-<header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-md border-b border-ink/5 lg:bg-paper/92 lg:backdrop-blur lg:border-line">
-  <div class="container-x flex h-16 items-center justify-between">
-    <a href="/" class="flex items-baseline gap-3" aria-label="Sven Mulfinger, home">
-      <span class="font-serif text-[1.35rem] tracking-[-0.01em]">Sven Mulfinger</span>
-      <span class="hidden lg:inline label text-steel">Executive advisory</span>
-    </a>
+<header class="bg-paper">
+  <div class="container-x">
+    <div class="flex h-20 items-center justify-between border-b border-line">
+      <a href="/" class="font-serif text-[1.4rem] tracking-[-0.01em] text-ink" aria-label="Sven Mulfinger, home">Sven Mulfinger</a>
 
-    <nav aria-label="Main" class="hidden md:flex items-center gap-8 text-sm">
-      {nav.filter((i) => i.href !== '/contact').map((item) => (
-        <a
-          href={item.href}
-          class:list={['py-1 transition-colors hover:text-ink', isActive(item.href) ? 'text-ink underline underline-offset-[6px] decoration-1' : 'text-steel']}
-          aria-current={isActive(item.href) ? 'page' : undefined}
-        >{item.label}</a>
-      ))}
-      <a href={site.links.kuma} class="text-steel hover:text-ink transition-colors" target="_blank" rel="noopener noreferrer">Kuma Partners ↗</a>
-      <a href="/contact" class="bg-ink text-paper px-4 py-2.5 hover:bg-ink-hover transition-colors">Get in touch</a>
-    </nav>
+      <nav aria-label="Main" class="hidden md:flex items-center gap-7 text-[0.875rem]">
+        {nav.filter((i) => i.href !== '/contact').map((item) => (
+          <a
+            href={item.href}
+            class:list={['py-1 transition-colors hover:text-ink', isActive(item.href) ? 'text-ink underline underline-offset-[6px] decoration-1' : 'text-muted']}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >{item.label}</a>
+        ))}
+        <a href={site.links.kuma} class="text-muted hover:text-ink transition-colors" target="_blank" rel="noopener noreferrer">Kuma Partners ↗</a>
+        <a href="/contact" class="link">Get in touch</a>
+      </nav>
 
-    <button id="menu-open" type="button" class="md:hidden -mr-2 p-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h18M3 16h18"/></svg>
-    </button>
+      <button id="menu-open" type="button" class="md:hidden -mr-2 p-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h18M3 16h18"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
-<!-- Outside <header>: the header's backdrop blur would otherwise clip this fixed panel -->
+<!-- Mobile menu: a paper page of its own, set like a contents list -->
 <div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden overflow-x-hidden overscroll-contain" role="dialog" aria-modal="true" aria-label="Menu">
-  <div class="absolute inset-0 bg-ink text-paper flex flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
-    <div class="container-x flex h-16 items-center justify-between border-b border-ink-line">
-      <span class="font-serif text-xl">Sven Mulfinger</span>
-      <button data-close type="button" class="-mr-2 p-2" aria-label="Close menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
+  <div class="absolute inset-0 bg-paper text-ink flex flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
+    <div class="container-x">
+      <div class="flex h-20 items-center justify-between border-b border-line">
+        <span class="font-serif text-[1.4rem]">Sven Mulfinger</span>
+        <button data-close type="button" class="-mr-2 p-2" aria-label="Close menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
     </div>
     <nav aria-label="Mobile" class="container-x flex flex-col">
-      <a href="/" data-close class="flex items-baseline justify-between py-5 border-b border-ink-line text-3xl display"><span>Home</span><span class="label text-fog">00</span></a>
-      {nav.map((item, i) => (
-        <a href={item.href} data-close class="flex items-baseline justify-between py-5 border-b border-ink-line text-3xl display">
-          <span>{item.label}</span><span class="label text-fog">0{i + 1}</span>
-        </a>
+      <a href="/" data-close class="py-4 border-b border-line font-serif text-[2rem]">Home</a>
+      {nav.map((item) => (
+        <a href={item.href} data-close class="py-4 border-b border-line font-serif text-[2rem]">{item.label}</a>
       ))}
-      <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="flex items-baseline justify-between py-5 border-b border-ink-line text-3xl display">
-        <span>Kuma Partners ↗</span><span class="label text-fog">B2B</span>
-      </a>
+      <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="py-4 border-b border-line font-serif text-[2rem]">Kuma Partners ↗</a>
     </nav>
-    <div class="container-x mt-auto pb-8">
-      <a href="/contact" data-close class="block bg-paper text-ink text-center py-4 text-sm">Discuss a leadership challenge</a>
+    <div class="container-x mt-auto pb-8 pt-10">
+      <a href="/contact" data-close class="block bg-accent text-paper text-center py-4 text-[0.9375rem]">Discuss a leadership challenge</a>
     </div>
   </div>
 </div>
