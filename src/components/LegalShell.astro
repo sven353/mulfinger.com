@@ -10,8 +10,8 @@ const { eyebrow, title, titleEs, updated, updatedEs } = Astro.props;
       <div class="md:sticky md:top-28">
         <p class="label text-steel">{eyebrow}</p>
         <nav aria-label="Language" class="mt-6 flex md:flex-col gap-2 text-sm">
-          <a href="#en" class="border border-line px-4 py-2 hover:border-ink transition-colors" hreflang="en">English</a>
-          <a href="#es" class="border border-line px-4 py-2 hover:border-ink transition-colors" hreflang="es">Español</a>
+          <a href="#en" class="hair-all px-4 py-2 hover:hair-ink transition-colors" hreflang="en">English</a>
+          <a href="#es" class="hair-all px-4 py-2 hover:hair-ink transition-colors" hreflang="es">Español</a>
         </nav>
         <nav aria-label="Legal pages" class="mt-8 text-sm text-steel space-y-2">
           <a href="/legal" class="block hover:text-ink">Legal Notice · Aviso Legal</a>
@@ -30,7 +30,7 @@ const { eyebrow, title, titleEs, updated, updatedEs } = Astro.props;
 </section>
 
 <style is:global>
-  .legal-body > article + article { margin-top: 6rem; padding-top: 4rem; border-top: 1px solid var(--color-ink); }
+  .legal-body > article + article { margin-top: 6rem; padding-top: 4rem; box-shadow: inset 0 var(--hair) 0 var(--color-line-strong); }
   .legal-body article { scroll-margin-top: 6rem; }
   .legal-body h2 { font-size: 1.6rem; font-weight: 400; letter-spacing: -0.01em; margin-top: 3rem; margin-bottom: 1rem; }
   .legal-body .lang + h2 { margin-top: 0; }
@@ -39,14 +39,14 @@ const { eyebrow, title, titleEs, updated, updatedEs } = Astro.props;
   .legal-body p + p, .legal-body ul + p, .legal-body dl + p { margin-top: 1rem; }
   .legal-body ul { margin-top: 0.75rem; padding-left: 1.1rem; list-style: square; }
   .legal-body li + li { margin-top: 0.4rem; }
-  .legal-body a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; }
-  .legal-body dl { display: grid; grid-template-columns: minmax(9rem, 14rem) 1fr; border-top: 1px solid var(--color-line); }
-  .legal-body dt, .legal-body dd { padding: 0.85rem 0; border-bottom: 1px solid var(--color-line); }
+  .legal-body a { color: var(--color-ink); text-decoration: none; padding-bottom: 0.1em; box-shadow: inset 0 calc(-1 * var(--hair)) 0 currentColor; }
+  .legal-body dl { display: grid; grid-template-columns: minmax(9rem, 14rem) 1fr; box-shadow: inset 0 var(--hair) 0 var(--color-line); }
+  .legal-body dt, .legal-body dd { padding: 0.85rem 0; box-shadow: inset 0 calc(-1 * var(--hair)) 0 var(--color-line); }
   .legal-body dt { font-family: var(--font-sans); font-size: 0.72rem; letter-spacing: 0.1em; font-weight: 500; text-transform: uppercase; color: var(--color-steel); padding-right: 1rem; }
   .legal-body dd { color: var(--color-ink); }
   @media (max-width: 40rem) {
     .legal-body dl { grid-template-columns: 1fr; }
-    .legal-body dt { border-bottom: 0; padding-bottom: 0.15rem; }
+    .legal-body dt { box-shadow: none; padding-bottom: 0.15rem; }
     .legal-body dd { padding-top: 0; }
   }
 </style>

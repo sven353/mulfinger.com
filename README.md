@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-24: build clean, 168/168 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
+Status on 2026-10-24: build clean, 170/170 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
 
 ## Deployment pipeline
 
@@ -207,6 +207,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 - 2026-10-24 (v41): Opening photograph uncovered from the left; it now sits flush under the header line, aligned to its ends, with soft rounded corners (panel rounded to match). Lines site-wide drawn at a single device pixel on retina screens (Safari and Firefox) and lightened so they read as hairlines in every browser; footer and invitation rules no longer black.
 - 2026-10-24 (v42): /advisory section "When 1:1 is not the right room" renamed "Three ways I work with leaders and leadership teams" (margin note "Ways to work together"), with an intro covering 1:1, The Round and Kuma Partners.
 - 2026-10-24 (v43): Shared PhotoHero component: /advisory now opens with the same rounded photo strip and headline panel as the homepage; "On this page" links moved below it. Panel headline slightly smaller so longer titles stay inside the photo at every width.
+- 2026-10-24 (v44): True hairlines site-wide. Chrome rounds borders, thin heights and text underlines up to a full CSS pixel (two or three device pixels on retina), so every line is now drawn as an inset shadow at 1/device-pixel-ratio: section rules, boxes, list rows, FAQ, header, footer, form fields and link underlines all measure one device pixel at densities 1, 1.5, 2 and 3. New hair-* utilities in global.css; verify.mjs fails if a border, divide or underline utility reappears.
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.

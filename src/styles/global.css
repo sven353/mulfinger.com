@@ -84,12 +84,13 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
 /* Editorial link: petrol, thin underline that firms up on hover */
 @utility link {
   color: var(--color-accent);
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.22em;
-  text-decoration-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
-  transition: text-decoration-color 150ms, color 150ms;
-  &:hover { color: var(--color-accent-hover); text-decoration-color: currentColor; }
+  text-decoration: none;
+  padding-bottom: 0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  box-shadow: inset 0 calc(-1 * var(--hair)) 0 color-mix(in srgb, var(--color-accent) 45%, transparent);
+  transition: box-shadow 150ms, color 150ms;
+  &:hover { color: var(--color-accent-hover); box-shadow: inset 0 calc(-1 * var(--hair)) 0 currentColor; }
 }
 
 /* ---------- Motion (v27) ----------
@@ -160,22 +161,38 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   .case[open]::details-content { block-size: auto; }
 }
 
-/* Hairlines. Every line is 1 CSS pixel, which a retina screen draws two device pixels thick.
-   On those screens, draw lines at a single device pixel instead. */
-@media (min-resolution: 2dppx) {
-  .border { border-width: 0.5px; }
-  .border-t { border-top-width: 0.5px; }
-  .border-b { border-bottom-width: 0.5px; }
-  .border-l { border-left-width: 0.5px; }
-  .border-t-0 { border-top-width: 0; }
-  .h-px { height: 0.5px; }
-  .divide-y > :not(:last-child) { border-top-width: 0; border-bottom-width: 0.5px; }
-  @media (width >= 64rem) {
-    .lg\:border-b-0 { border-bottom-width: 0; }
-    .lg\:divide-y-0 > :not(:last-child) { border-bottom-width: 0; }
-    .lg\:divide-x > :not(:last-child) { border-left-width: 0; border-right-width: 0.5px; }
-  }
-}
+
+/* ---------- Hairlines (v44) ----------
+   Every line on the site is exactly one device pixel, on any screen and at any zoom.
+   Chrome rounds borders, thin heights and text underlines up to a full CSS pixel, which a retina
+   screen draws two or three device pixels thick. Inset box-shadows are not rounded, so lines are
+   drawn with them, at 1 / device-pixel-ratio of a CSS pixel.
+   Use: hair-t, hair-b, hair-l, hair-r, hair-all (any combination, with lg: and hover: variants),
+   hair-t-0 / hair-b-0 / hair-l-0 to remove one side, hair-strong or hair-ink for colour,
+   hair-u for a text underline in the current colour. Form fields keep real borders. */
+:root { --hair: 1px; }
+@media (min-resolution: 1.5dppx) { :root { --hair: 0.67px; } }
+@media (min-resolution: 2dppx) { :root { --hair: 0.5px; } }
+@media (min-resolution: 3dppx) { :root { --hair: 0.34px; } }
+@property --sh-t { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
+@property --sh-b { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
+@property --sh-l { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
+@property --sh-r { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
+@property --hc { syntax: '*'; inherits: false; initial-value: #e5dfd5; }
+[class*="hair-"] { box-shadow: var(--sh-t), var(--sh-b), var(--sh-l), var(--sh-r); }
+@utility hair-t { --sh-t: inset 0 var(--hair) 0 var(--hc); }
+@utility hair-b { --sh-b: inset 0 calc(-1 * var(--hair)) 0 var(--hc); }
+@utility hair-l { --sh-l: inset var(--hair) 0 0 var(--hc); }
+@utility hair-r { --sh-r: inset calc(-1 * var(--hair)) 0 0 var(--hc); }
+@utility hair-all { --sh-t: inset 0 var(--hair) 0 var(--hc); --sh-b: inset 0 calc(-1 * var(--hair)) 0 var(--hc); --sh-l: inset var(--hair) 0 0 var(--hc); --sh-r: inset calc(-1 * var(--hair)) 0 0 var(--hc); }
+@utility hair-t-0 { --sh-t: 0 0 #0000; }
+@utility hair-b-0 { --sh-b: 0 0 #0000; }
+@utility hair-l-0 { --sh-l: 0 0 #0000; }
+@utility hair-strong { --hc: var(--color-line-strong); }
+@utility hair-ink { --hc: var(--color-ink); }
+@utility hair-accent { --hc: var(--color-accent); }
+@utility hair-red { --hc: #b91c1c; }
+@utility hair-u { --sh-b: inset 0 calc(-1 * var(--hair)) 0 currentColor; padding-bottom: 0.1em; }
 
 /* Below lg: balanced headings and no horizontal page overflow */
 @media (max-width: 1023.98px) {

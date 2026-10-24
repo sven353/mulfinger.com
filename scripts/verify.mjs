@@ -240,6 +240,9 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('motion: hero rises on arrival, chapters draw and settle, photos drift', /<h1[^>]*class="rise rise-2 /.test(home) && (home.match(/class="draw /g) ?? []).length >= 6 && (home.match(/\bsettle\b/g) ?? []).length >= 10 && (home.match(/<blockquote[^>]*class="wipe /g) ?? []).length === 1 && home.includes('class="unveil '));
   check('motion: scroll timelines survive minification (never folded into the animation shorthand)', ['draw', 'settle', 'wipe', 'drift', 'progress'].every((c) => new RegExp(`\\.${c}\\{[^}]*animation-timeline:var\\(--tl-`).test(flat)) && !/animation:[^;}]*(view|scroll)\(/.test(flat));
   check('motion: reading-progress line on every page', htmlFiles.filter((f) => !f.endsWith('404.html')).every((f) => readFileSync(f, 'utf8').includes('<div class="progress" aria-hidden="true"></div>')));
+  check('hairlines: every line drawn as a one-device-pixel inset shadow', flat.includes('[class*=hair-]{box-shadow:var(--sh-t),var(--sh-b),var(--sh-l),var(--sh-r)}') && /@media\((min-resolution:2dppx|resolution>=2x)\)\{:root\{--hair:\.5px\}\}/.test(flat));
+  const thick = htmlFiles.filter((f) => /class="[^"]*(?<![\w:-])(border|border-[tblrxy]|divide-[xy]|underline)(?![\w-])/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
+  check('no border, divide or underline utilities left in the markup', thick.length === 0, thick.join(', '));
   check('single accent colour defined', /--color-accent:\s*#1f4e5a/i.test(css));
   check('warm hairlines replace slate', /--color-line:\s*#e5dfd5/i.test(css) && !/--color-line:\s*#e2e8f0/i.test(css));
   const noCredits = htmlFiles.filter((f) => !(readFileSync(f, 'utf8').match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '').includes('IESE and IE Business School')).map((f) => relative(DIST, f));

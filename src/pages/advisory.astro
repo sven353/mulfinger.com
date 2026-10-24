@@ -70,33 +70,33 @@ const expectations = [
     <div class="mt-10 grid sm:grid-cols-2 gap-10 sm:gap-12">
       <div>
         <h3 class="text-[1.45rem] text-ink">Who this is for</h3>
-        <ul class="mt-4 border-t border-line">
-          {forWhom.map((f) => <li class="py-3 border-b border-line reading text-[1.0625rem]!">{f}</li>)}
+        <ul class="mt-4 hair-t ">
+          {forWhom.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]!">{f}</li>)}
         </ul>
         <p class="mt-4 label">Probably not a fit if you are looking for entry-level business coaching, therapy or a consulting report.</p>
       </div>
       <div>
         <h3 class="text-[1.45rem] text-ink">What we work on</h3>
-        <ul class="mt-4 border-t border-line">
-          {workOn.map((f) => <li class="py-3 border-b border-line reading text-[1.0625rem]!">{f}</li>)}
+        <ul class="mt-4 hair-t ">
+          {workOn.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]!">{f}</li>)}
         </ul>
       </div>
     </div>
   </Chapter>
 
   <Chapter id="how" note="Engagement" heading="How an engagement works.">
-    <dl class="mt-8 border-t border-line">
+    <dl class="mt-8 hair-t ">
       {terms.map(([k, v]) => (
-        <div class="py-4 sm:grid sm:grid-cols-[12rem_1fr] sm:gap-8 border-b border-line">
+        <div class="py-4 sm:grid sm:grid-cols-[12rem_1fr] sm:gap-8 hair-b ">
           <dt class="label sm:pt-1">{k}</dt>
           <dd class="mt-1 sm:mt-0 reading text-ink!">{v}</dd>
         </div>
       ))}
     </dl>
     <h3 class="mt-14 text-[1.45rem] text-ink">The sequence</h3>
-    <ol class="mt-4 border-t border-line">
+    <ol class="mt-4 hair-t ">
       {steps.map((s, i) => (
-        <li class="py-5 grid grid-cols-[2rem_1fr] gap-x-3 border-b border-line">
+        <li class="py-5 grid grid-cols-[2rem_1fr] gap-x-3 hair-b ">
           <span class="font-serif text-[1.35rem] leading-snug text-muted">{i + 1}.</span>
           <div>
             <p class="font-serif text-[1.35rem] leading-snug text-ink">{s.t}</p>

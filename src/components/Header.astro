@@ -5,14 +5,14 @@ const isActive = (href: string) => path === href;
 ---
 <header class="bg-paper">
   <div class="container-x">
-    <div class="flex h-20 items-center justify-between border-b border-line">
+    <div class="flex h-20 items-center justify-between hair-b ">
       <a href="/" class="font-serif text-[1.4rem] tracking-[-0.01em] text-ink" aria-label="Sven Mulfinger, home">Sven Mulfinger</a>
 
       <nav aria-label="Main" class="hidden md:flex items-center gap-7 text-[0.875rem]">
         {nav.filter((i) => i.href !== '/contact').map((item) => (
           <a
             href={item.href}
-            class:list={['py-1 transition-colors hover:text-ink', isActive(item.href) ? 'text-ink underline underline-offset-[6px] decoration-1' : 'text-muted']}
+            class:list={['py-1 transition-colors hover:text-ink', isActive(item.href) ? 'text-ink hair-u  ' : 'text-muted']}
             aria-current={isActive(item.href) ? 'page' : undefined}
           >{item.label}</a>
         ))}
@@ -31,7 +31,7 @@ const isActive = (href: string) => path === href;
 <div id="mobile-menu" class="md:hidden fixed inset-0 z-50 hidden overflow-x-hidden overscroll-contain" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="absolute inset-0 bg-paper text-ink flex flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
     <div class="container-x">
-      <div class="flex h-20 items-center justify-between border-b border-line">
+      <div class="flex h-20 items-center justify-between hair-b ">
         <span class="font-serif text-[1.4rem]">Sven Mulfinger</span>
         <button data-close type="button" class="-mr-2 p-2" aria-label="Close menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -39,11 +39,11 @@ const isActive = (href: string) => path === href;
       </div>
     </div>
     <nav aria-label="Mobile" class="container-x flex flex-col">
-      <a href="/" data-close class="py-4 border-b border-line font-serif text-[2rem]">Home</a>
+      <a href="/" data-close class="py-4 hair-b font-serif text-[2rem]">Home</a>
       {nav.map((item) => (
-        <a href={item.href} data-close class="py-4 border-b border-line font-serif text-[2rem]">{item.label}</a>
+        <a href={item.href} data-close class="py-4 hair-b font-serif text-[2rem]">{item.label}</a>
       ))}
-      <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="py-4 border-b border-line font-serif text-[2rem]">Kuma Partners ↗</a>
+      <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="py-4 hair-b font-serif text-[2rem]">Kuma Partners ↗</a>
     </nav>
     <div class="container-x mt-auto pb-8 pt-10">
       <a href="/contact" data-close class="block bg-accent text-paper text-center py-4 text-[0.9375rem]">Discuss a leadership challenge</a>

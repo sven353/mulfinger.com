@@ -77,9 +77,9 @@ const pattern = {
   <!-- 2 · Situations: why founders and CEOs get in touch -->
   <Chapter id="situations" note="Why leaders get in touch" heading="When the usual answers stop working." wide>
     <p class="mt-6 reading max-w-[38rem]">Most founders and CEOs who contact me for advisory or a sparring partner arrive with one of these three situations.</p>
-    <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 border border-line-strong divide-y lg:divide-y-0 lg:divide-x divide-line-strong">
+    <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 hair-all hair-strong">
       {situations.map((s, i) => (
-        <article class:list={['situation settle', `s${i + 1}`, 'p-7 lg:p-9']}>
+        <article class:list={['situation settle', `s${i + 1}`, 'p-7 lg:p-9', i > 0 && 'hair-t hair-strong lg:hair-t-0 lg:hair-l']}>
           <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d={icons[s.icon]} /></svg>
           <h3 class="mt-5 text-[1.55rem] sm:text-[1.7rem] leading-[1.15] text-ink">{s.title}.</h3>
           <p class="mt-4 reading">{s.body}</p>
@@ -102,9 +102,9 @@ const pattern = {
 
   <!-- 4 · Background: figures first, then three sentences -->
   <Chapter id="background" note="Background" heading="I have carried the responsibility too.">
-    <dl class="mt-10 grid grid-cols-2 lg:grid-cols-4 border-t border-line">
+    <dl class="mt-10 grid grid-cols-2 lg:grid-cols-4 hair-t ">
       {figures.map((f, i) => (
-        <div class:list={['settle', `s${i + 1}`, 'pt-5 pb-6 pr-4 border-b border-line lg:border-b-0']}>
+        <div class:list={['settle', `s${i + 1}`, 'pt-5 pb-6 pr-4 hair-b  lg:hair-b-0']}>
           <dt class="sr-only">{f.t}</dt>
           <dd class="display text-[2.8rem] sm:text-[3.4rem] leading-none text-ink">{f.n}</dd>
           <dd class="mt-2 label max-w-[11rem]">{f.t}</dd>
@@ -124,7 +124,7 @@ const pattern = {
   <Chapter id="cases" note="Field notes" heading="What changed.">
     <p class="mt-6 reading max-w-[38rem]">Three real engagements, anonymised. Confidentiality prevents names, not the substance.</p>
     {cases.map((c) => (
-      <article class="settle mt-8 pt-7 border-t border-line max-w-[38rem] first-of-type:mt-10">
+      <article class="settle mt-8 pt-7 hair-t max-w-[38rem] first-of-type:mt-10">
         <details class="case group">
           <summary class="list-none cursor-pointer [&::-webkit-details-marker]:hidden">
             <span class="label block">{c.context}</span>
@@ -135,7 +135,7 @@ const pattern = {
             <span class="mt-3 block reading">{c.summary}</span>
             <span class="mt-3 inline-flex text-[0.9375rem] text-accent"><span class="group-open:hidden">Read the case</span><span class="hidden group-open:inline">Close the case</span></span>
           </summary>
-          <div class="mt-5 pl-5 border-l border-line-strong space-y-3">
+          <div class="mt-5 pl-5 hair-l hair-strong space-y-3">
             <p class="reading"><em class="text-ink">The situation.</em> {c.dilemma}</p>
             <p class="reading"><em class="text-ink">Underneath.</em> {c.issue}</p>
             <p class="reading"><em class="text-ink">What changed.</em> {c.resolution}</p>

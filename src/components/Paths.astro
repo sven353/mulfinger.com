@@ -32,9 +32,9 @@ const rows = [
   },
 ];
 ---
-<ul class="mt-8 border-t border-line">
+<ul class="mt-8 hair-t ">
   {rows.map((r) => (
-    <li class="settle py-7 grid grid-cols-[5.5rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-5 sm:gap-x-8 border-b border-line">
+    <li class="settle py-7 grid grid-cols-[5.5rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-5 sm:gap-x-8 hair-b ">
       <div class="relative aspect-[4/5] sm:aspect-[4/3] overflow-hidden bg-mist self-start">
         <Image src={r.img} alt={r.alt} widths={[176, 320, 480]} sizes="(min-width: 640px) 160px, 88px" format="webp" quality={78} loading="lazy" decoding="async" class:list={['absolute inset-0 size-full object-cover', r.pos]} />
       </div>

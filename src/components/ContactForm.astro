@@ -4,7 +4,7 @@
 // With JavaScript: /form.js submits via fetch and shows the in-place confirmation below.
 // Without JavaScript: the browser posts normally and Netlify redirects to /thanks.
 // Submissions: Netlify > Project > Forms > executive-diagnostic.
-const field = 'peer w-full bg-white border border-line focus:border-accent px-4 py-3.5 text-base outline-none transition-colors placeholder:text-steel/60 aria-[invalid=true]:border-red-700';
+const field = 'peer w-full bg-white hair-all focus:hair-accent px-4 py-3.5 text-base outline-none transition-shadow placeholder:text-steel/60 aria-[invalid=true]:hair-red';
 const lbl = 'block mb-2 text-sm font-medium text-ink';
 const err = 'mt-2 text-sm text-red-700 hidden';
 import { legal as L } from '../data/legal';
@@ -49,7 +49,7 @@ import { legal as L } from '../data/legal';
     </div>
 
     <!-- First-layer data protection information (GDPR Art. 13, AEPD layered model) -->
-    <details class="border border-line bg-mist text-xs text-steel">
+    <details class="hair-all bg-mist text-xs text-steel">
       <summary class="cursor-pointer px-4 py-3 text-xs font-medium text-steel">Basic data protection information</summary>
       <dl class="grid grid-cols-[7rem_1fr] gap-x-4 gap-y-2 px-4 pb-4 leading-relaxed">
         <dt class="font-medium text-ink">Controller</dt><dd>{L.owner}</dd>
@@ -57,14 +57,14 @@ import { legal as L } from '../data/legal';
         <dt class="font-medium text-ink">Legal basis</dt><dd>Your consent and steps taken at your request before a possible agreement.</dd>
         <dt class="font-medium text-ink">Recipients</dt><dd>No third parties except processors such as Netlify (hosting, under Standard Contractual Clauses).</dd>
         <dt class="font-medium text-ink">Rights</dt><dd>Access, rectification, erasure, restriction, objection, portability. Write to {L.email}.</dd>
-        <dt class="font-medium text-ink">More</dt><dd>See the full <a href="/privacy" class="underline underline-offset-2 hover:text-ink">Privacy Policy</a>.</dd>
+        <dt class="font-medium text-ink">More</dt><dd>See the full <a href="/privacy" class="hair-u hover:text-ink">Privacy Policy</a>.</dd>
       </dl>
     </details>
 
     <div>
       <label class="flex items-start gap-3 text-sm text-steel leading-relaxed cursor-pointer">
         <input id="privacy_consent" name="privacy_consent" type="checkbox" value="accepted" required aria-describedby="privacy_consent-error" class="mt-0.5 size-4 shrink-0 accent-[var(--color-ink)] aria-[invalid=true]:outline aria-[invalid=true]:outline-red-700" />
-        <span>I have read the <a href="/privacy" class="underline underline-offset-2 text-ink">Privacy Policy</a> and consent to my data being processed to answer this message. <span class="sr-only">(required)</span></span>
+        <span>I have read the <a href="/privacy" class="hair-u text-ink">Privacy Policy</a> and consent to my data being processed to answer this message. <span class="sr-only">(required)</span></span>
       </label>
       <p id="privacy_consent-error" class={err} data-error>Please accept the Privacy Policy to send your message.</p>
     </div>
@@ -75,14 +75,14 @@ import { legal as L } from '../data/legal';
         <span data-submit-label>Send</span> <span aria-hidden="true">→</span>
       </button>
     </div>
-    <p data-form-error role="alert" class="hidden border border-red-700 px-4 py-3 text-sm text-red-700">Your message could not be sent. Please try again in a moment.</p>
+    <p data-form-error role="alert" class="hidden hair-all hair-red px-4 py-3 text-sm text-red-700">Your message could not be sent. Please try again in a moment.</p>
   </form>
 
   <div data-form-success hidden tabindex="-1" role="status" aria-live="polite" class="outline-none">
     <p class="label text-steel">Message received</p>
     <p class="mt-4 display text-4xl md:text-5xl">Thank you. I will read this myself.</p>
     <p class="mt-6 text-steel leading-relaxed max-w-md">You will hear from me within 24 to 48 hours. If it makes sense, we will arrange a confidential first conversation.</p>
-    <div class="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row gap-x-8">
+    <div class="mt-10 pt-6 hair-t flex flex-col sm:flex-row gap-x-8">
       <a href="/advisory" class="link py-3 text-[0.9375rem]">How engagements work</a>
       <a href="/#research" class="link py-3 text-[0.9375rem]">Read about the research</a>
     </div>
