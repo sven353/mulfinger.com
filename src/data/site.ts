@@ -5,19 +5,16 @@ export const site = {
   name: 'Sven Mulfinger',
   title: 'Dr. Sven Mulfinger | A thinking partner for founders and CEOs',
   description:
-    'Confidential strategic advisory for founders and CEOs facing consequential decisions and leadership friction. Barcelona based, working across Europe.',
+    'Independent counsel for founders and CEOs facing consequential decisions, friction in the executive team and turning points for the company. Serial entrepreneur and CEO, based in Barcelona, working in Barcelona, Madrid, Munich and Brussels and online worldwide, in English, Spanish, German and French.',
   url: 'https://mulfinger.com',
   locale: 'en_GB',
   ogImage: '/og.png',
   ogImageAlt: 'Dr. Sven Mulfinger, strategic advisory for founders and CEOs',
   links: {
-    kuma: 'https://www.kuma.partners',
+    kuma: 'https://kuma.partners',
     round: 'https://theround.kuma.partners',
     offsite: 'https://offsite.kuma.partners',
     neurodisruptors: 'https://neurodisruptors.com',
-    // Profile pages that describe the same person. Used for schema sameAs; keep identical on all three sites.
-    kumaProfile: 'https://www.kuma.partners/partners.html',
-    neurodisruptorsProfile: 'https://neurodisruptors.com/about/',
     linkedin: 'https://www.linkedin.com/in/svenmulfinger', // confirmed by Sven 2026-10-15
   },
   languages: ['English', 'Spanish', 'German', 'French'],

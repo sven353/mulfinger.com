@@ -216,6 +216,15 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
 /* Raised card surface on paper */
 .surface { background: #ffffff; }
 
+/* Touch screens: text links get an invisible tap area of at least ~44px, with no visual change */
+@media (pointer: coarse) {
+  a.link, footer a, nav[aria-label="On this page"] a, nav[aria-label="Legal"] a, form a, header a, .faq-ctx > summary, .faq-more > summary { position: relative; }
+  a.link::after, footer a::after, nav[aria-label="On this page"] a::after, nav[aria-label="Legal"] a::after, form a::after, header a::after,
+  .faq-ctx > summary::after, .faq-more > summary::after {
+    content: ''; position: absolute; inset: -12px -6px;
+  }
+}
+
 /* Below lg: balanced headings and no horizontal page overflow */
 @media (max-width: 1023.98px) {
   h1, h2, h3 { text-wrap: balance; }

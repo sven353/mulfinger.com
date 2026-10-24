@@ -25,7 +25,7 @@ const {
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const imageUrl = new URL(image, site.url).href;
 // Order: personal profile first, then the practices he leads. All confirmed by Sven.
-const sameAs = [site.links.linkedin, site.links.kumaProfile, site.links.neurodisruptorsProfile].filter(Boolean);
+const sameAs = [site.links.linkedin, site.links.kuma, site.links.neurodisruptors].filter(Boolean);
 
 const services = [
   {
@@ -34,7 +34,7 @@ const services = [
     name: '1:1 Executive Advisory',
     serviceType: 'Executive advisory',
     description: 'Confidential thought partnership for founders, CEOs and C-suite leaders carrying the final call. 6 or 12-month retainer with fortnightly sessions, online or in person in Barcelona or Madrid.',
-    url: `${site.url}/advisory#one-to-one`,
+    url: `${site.url}/advisory`,
     provider: { '@id': `${site.url}/#sven-mulfinger` },
     areaServed: 'Europe',
     availableLanguage: site.languages,
@@ -97,6 +97,8 @@ const jsonLd = {
       ],
       knowsAbout: [
         'Executive leadership',
+        'Cognitive preferences in leadership',
+        'Founder and CEO advisory',
         'Boardroom governance',
         'Systems architecture',
         'Organisational behaviour',
@@ -106,6 +108,21 @@ const jsonLd = {
         'Neurodivergent leadership',
       ],
       sameAs,
+      workLocation: ['Barcelona', 'Madrid', 'Munich', 'Brussels'].map((c) => ({ '@type': 'Place', name: c })),
+      subjectOf: { '@id': `${site.url}/#book` },
+    },
+    {
+      '@type': 'Book',
+      '@id': `${site.url}/#book`,
+      name: 'The Non-Linear Operating System',
+      description: 'Forthcoming book on how founders and CEOs with non-linear cognitive profiles (ADHD, giftedness, dyslexia, autism) think, lead, decide and scale, based on field research with more than 50 serial entrepreneurs and CEOs.',
+      author: { '@id': `${site.url}/#sven-mulfinger` },
+      contributor: [
+        { '@type': 'Person', name: 'Prof. Dr. Thomas Kluetter', affiliation: { '@type': 'CollegeOrUniversity', name: 'IESE Business School' } },
+        { '@type': 'Person', name: 'Prof. Dr. Nicolas Deuschel', affiliation: { '@type': 'CollegeOrUniversity', name: 'IE Business School' } },
+      ],
+      url: site.links.neurodisruptors,
+      inLanguage: 'en',
     },
     {
       '@type': 'Organization',
@@ -123,7 +140,7 @@ const jsonLd = {
       description: 'Confidential 1:1 executive advisory for founders and CEOs: 6 or 12-month retainers, two working sessions a month and direct priority access between sessions.',
       provider: { '@id': `${site.url}/#sven-mulfinger` },
       founder: { '@id': `${site.url}/#sven-mulfinger` },
-      areaServed: ['Europe', 'Global'],
+      areaServed: ['Barcelona', 'Madrid', 'Munich', 'Brussels', 'Europe', 'Global'],
       address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
       availableLanguage: ['en', 'es', 'de', 'fr'],
       hasOfferCatalog: {

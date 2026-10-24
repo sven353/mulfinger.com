@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-24: build clean, 173/173 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
+Status on 2026-10-24: build clean, 177/177 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
 
 ## Deployment pipeline
 
@@ -216,6 +216,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 - 2026-10-24 (v50): Case studies section renamed ("Case studies" / "Results from the room."); The lonely decision now one year of sparring (stated by Sven). Path thumbnails served sharper (higher resolution, quality 90) with 2px corners. Footer credentials: serial entrepreneur and CEO, 100+ leaders, IESE and IE; in person in Barcelona, Madrid, Munich and Brussels, online across the world (stated by Sven).
 - 2026-10-24 (v51): Research text rewritten by Sven (three paragraphs on the spiky profile, the 50+ founders and CEOs and the aim of the research); book cover larger (up to 272 px desktop, 184 px phones).
 - 2026-10-24 (v52): /advisory gets colour and icons. Engagement terms as six white icon tiles on a sand band; What to expect as three icon cards; the COO field memo on a dark band in the middle of the page; tick and cross marks on the in-scope and out-of-scope lists. New Icon component (line icons in the petrol accent).
+- 2026-10-24 (v53): GEO and mobile pass. llms.txt and llms-full.txt updated (serial entrepreneur and CEO, 20 years, Munich and Brussels, recent research on cognitive preferences, IE and Prof. Deuschel in the research text, retired slogan removed, contact wording) and llms-full.txt now carries the three case studies, generated from src/data/cases.ts like the homepage. JSON-LD: Book node, work locations, extra knowsAbout, broken #one-to-one anchor fixed. Sitemap lastmod dates. Mobile: invisible 44px tap areas on text links for touch screens, larger menu buttons, shorter opening photo on phones so the headline is in the first view.
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.

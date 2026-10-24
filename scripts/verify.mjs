@@ -220,6 +220,13 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('llms.txt: core mandate, routing and disambiguation', llms.includes('A thinking partner for the decisions you cannot delegate') && llms.includes('## Ecosystem routing') && llms.includes('## Disambiguation'));
   const full = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
   check('llms-full.txt: engagement model and entity relationships', full.includes('## The advisory engagement model') && full.includes('## Entity relationships and disambiguation'));
+  check('llms-full.txt: three case studies with outcomes, generated from the same data as the homepage', (full.match(/^### .+ \(.+\)$/gm) ?? []).length === 3 && full.includes('Outcome: One year of independent sparring.'));
+  check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
+  const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
+  const ids = new Set(homeGraph.map((n) => n['@id']));
+  const refs = [...JSON.stringify(homeGraph).matchAll(/"@id":"([^"]+)"/g)].map((m) => m[1]);
+  check('JSON-LD: Book node for The Non-Linear Operating System, no dangling @id references', homeGraph.some((n) => n['@type'] === 'Book' && n.author?.['@id'] === 'https://mulfinger.com/#sven-mulfinger') && refs.every((r) => ids.has(r)));
+  check('sitemap carries lastmod dates', /<lastmod>\d{4}-\d{2}-\d{2}/.test(readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8')));
   const frankfurt = visible.filter((f) => readFileSync(f, 'utf8').includes('Frankfurt')).map((f) => relative(DIST, f));
   check('Frankfurt not claimed (not confirmed)', frankfurt.length === 0, frankfurt.join(', '));
 }
