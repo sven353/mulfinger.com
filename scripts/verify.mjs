@@ -116,8 +116,11 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('home: hero photograph loads eagerly with high priority, after the headline in reading order', heroImg.includes('loading="eager"') && heroImg.includes('fetchpriority="high"') && hero.indexOf('<h1') < hero.indexOf('<img'));
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
-  check(`three photographs site-wide: 1:1 conversation, Berlin offsite, The Round (found ${photos.length})`, photos.length === 3 && ['1:1 advisory conversation', 'Berlin', 'The Round'].every((k) => photos.some((t) => t.includes(k))));
-  check(`only the three photographs and the book cover as images (found ${imgs.length})`, imgs.length === 4);
+  const homeImgs = home.match(/<img [^>]*>/g) ?? [];
+  check(`home: hero, Berlin strip, three path thumbnails and the book cover (found ${homeImgs.length})`, homeImgs.length === 6 && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session', 'leadership team working session'].every((k) => homeImgs.some((t) => t.includes(k))));
+  const paths = home.match(/aria-labelledby="paths-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
+  check('home: each way of working has a small photograph beside it', (paths.match(/<li[\s\S]*?<img[\s\S]*?<h3/g) ?? []).length === 3);
+  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|leadership team working session/.test(t)));
   check('photographs have square corners (no rounded frames)', !/<figure[\s\S]{0,200}rounded/.test(home));
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
@@ -233,7 +236,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('motion: everything behind prefers-reduced-motion', flat.includes('@media(prefers-reduced-motion:no-preference){.rise{') && !/\.(settle|draw|wipe|drift)\{animation/.test(flat.split('@media(prefers-reduced-motion:no-preference)')[0]));
   check('motion: scroll-linked parts behind @supports, nothing hidden without it', flat.includes('@supports(animation-timeline:view())') && !/\.(settle|wipe|draw)\{[^}]*(opacity:0|display:none)/.test(flat.split('@supports(animation-timeline:view())')[0]));
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  check('motion: hero rises on arrival, chapters draw and settle, photos drift', /<h1[^>]*class="rise rise-2 /.test(home) && (home.match(/class="draw /g) ?? []).length >= 6 && (home.match(/\bsettle\b/g) ?? []).length >= 10 && (home.match(/class="drift /g) ?? []).length === 2 && (home.match(/<blockquote[^>]*class="wipe /g) ?? []).length === 2 && home.includes('class="unveil '));
+  check('motion: hero rises on arrival, chapters draw and settle, photos drift', /<h1[^>]*class="rise rise-2 /.test(home) && (home.match(/class="draw /g) ?? []).length >= 6 && (home.match(/\bsettle\b/g) ?? []).length >= 10 && (home.match(/class="drift /g) ?? []).length === 1 && (home.match(/<blockquote[^>]*class="wipe /g) ?? []).length === 2 && home.includes('class="unveil '));
   check('motion: scroll timelines survive minification (never folded into the animation shorthand)', ['draw', 'settle', 'wipe', 'drift', 'progress'].every((c) => new RegExp(`\\.${c}\\{[^}]*animation-timeline:var\\(--tl-`).test(flat)) && !/animation:[^;}]*(view|scroll)\(/.test(flat));
   check('motion: reading-progress line on every page', htmlFiles.filter((f) => !f.endsWith('404.html')).every((f) => readFileSync(f, 'utf8').includes('<div class="progress" aria-hidden="true"></div>')));
   check('single accent colour defined', /--color-accent:\s*#1f4e5a/i.test(css));

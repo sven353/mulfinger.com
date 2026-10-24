@@ -5,7 +5,6 @@ import Chapter from '../components/Chapter.astro';
 import Paths from '../components/Paths.astro';
 import Invite from '../components/Invite.astro';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
-import roundSession from '../assets/images/the-round-session.jpg';
 import offsiteSession from '../assets/images/kuma-offsite-session.jpg';
 import conversation from '../assets/images/advisory-conversation.jpg';
 import { site } from '../data/site';
@@ -205,12 +204,6 @@ const pattern = {
   <!-- 7 · Three ways to work together -->
   <Chapter id="paths" note="Ways to work together" heading="Three ways to work together.">
     <p class="mt-6 reading max-w-[38rem]">1:1 advisory is the core of my work. The other two exist for when the tension sits elsewhere: between peers, or inside the executive team.</p>
-    <figure class="mt-8">
-      <div class="relative aspect-[3/2] overflow-hidden bg-mist">
-        <Image src={roundSession} alt="Dr. Sven Mulfinger facilitating The Round executive peer session in Barcelona." widths={[480, 720, 960, 1024]} sizes="(min-width: 1024px) 680px, 100vw" format="webp" quality={80} loading="lazy" decoding="async" class="drift absolute inset-0 size-full object-cover object-[center_35%]" />
-      </div>
-      <figcaption class="mt-3 label">The Round, a peer session in Barcelona.</figcaption>
-    </figure>
     <Paths />
   </Chapter>
 

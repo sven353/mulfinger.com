@@ -1,32 +1,52 @@
 ---
-// The three ways to work together, set as a plain list with hairlines (no cards).
+// The three ways to work together: a small photograph beside each, then title, text and link.
 // Shared by the homepage and /advisory so both say the same thing.
+import { Image } from 'astro:assets';
 import { site } from '../data/site';
+import advisoryImg from '../assets/images/path-advisory.jpg';
+import roundImg from '../assets/images/the-round-session.jpg';
+import teamsImg from '../assets/images/path-teams.jpg';
+
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
+const rows = [
+  {
+    title: '1:1 Executive Advisory',
+    img: advisoryImg, pos: 'object-[47%_35%]',
+    alt: 'Dr. Sven Mulfinger in a 1:1 advisory session',
+    body: 'Confidential counsel for the founder or CEO carrying the final call. Two sessions a month for six or twelve months, in Barcelona, Madrid or online, with direct access in between when a decision cannot wait.',
+    links: [{ href: '/advisory', label: 'How 1:1 advisory works', external: false }],
+  },
+  {
+    title: 'The Round',
+    img: roundImg, pos: 'object-[center_35%]',
+    alt: 'Dr. Sven Mulfinger facilitating The Round executive peer session in Barcelona.',
+    body: 'A private peer group in Barcelona for founders and CEOs of growing companies. Monthly sessions on live issues with people who carry the same weight. By application or nomination.',
+    links: [{ href: site.links.round, label: 'theround.kuma.partners', external: true }],
+  },
+  {
+    title: 'Leadership teams',
+    img: teamsImg, pos: 'object-[62%_center]',
+    alt: 'Illustration of a leadership team working session at an offsite',
+    body: 'When the friction sits between executives, the work moves to Kuma Partners, my practice for leadership team offsites, operating models and the 14-Day Leadership Friction Diagnostic, run with partners who have led companies themselves.',
+    links: [{ href: site.links.kuma, label: 'kuma.partners', external: true }, { href: site.links.offsite, label: 'Offsites', external: true }],
+  },
+];
 ---
 <ul class="mt-8 border-t border-line">
-  <li class="settle py-7 sm:grid sm:grid-cols-[13rem_1fr] sm:gap-8 border-b border-line">
-    <h3 class="text-2xl leading-snug text-ink">1:1 Executive Advisory</h3>
-    <div class="mt-2 sm:mt-0">
-      <p class="reading">Confidential counsel for the founder or CEO carrying the final call. Two sessions a month for six or twelve months, in Barcelona, Madrid or online, with direct access in between when a decision cannot wait.</p>
-      <p class="mt-3 text-[0.9375rem]"><a href="/advisory" class="link">How 1:1 advisory works</a></p>
-    </div>
-  </li>
-  <li class="settle py-7 sm:grid sm:grid-cols-[13rem_1fr] sm:gap-8 border-b border-line">
-    <h3 class="text-2xl leading-snug text-ink">The Round</h3>
-    <div class="mt-2 sm:mt-0">
-      <p class="reading">A private peer group in Barcelona for founders and CEOs of growing companies. Monthly sessions on live issues with people who carry the same weight. By application or nomination.</p>
-      <p class="mt-3 text-[0.9375rem]"><a href={site.links.round} {...ext} class="link">theround.kuma.partners<span class="sr-only"> (opens in a new tab)</span></a></p>
-    </div>
-  </li>
-  <li class="settle py-7 sm:grid sm:grid-cols-[13rem_1fr] sm:gap-8 border-b border-line">
-    <h3 class="text-2xl leading-snug text-ink">Leadership teams</h3>
-    <div class="mt-2 sm:mt-0">
-      <p class="reading">When the friction sits between executives, the work moves to Kuma Partners, my practice for leadership team offsites, operating models and the 14-Day Leadership Friction Diagnostic, run with partners who have led companies themselves.</p>
-      <p class="mt-3 text-[0.9375rem] flex flex-wrap gap-x-6 gap-y-2">
-        <a href={site.links.kuma} {...ext} class="link">kuma.partners<span class="sr-only"> (opens in a new tab)</span></a>
-        <a href={site.links.offsite} {...ext} class="link">Offsites<span class="sr-only"> (opens in a new tab)</span></a>
-      </p>
-    </div>
-  </li>
+  {rows.map((r) => (
+    <li class="settle py-7 grid grid-cols-[5.5rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-5 sm:gap-x-8 border-b border-line">
+      <div class="relative aspect-[4/5] sm:aspect-[4/3] overflow-hidden bg-mist self-start">
+        <Image src={r.img} alt={r.alt} widths={[176, 320, 480]} sizes="(min-width: 640px) 160px, 88px" format="webp" quality={78} loading="lazy" decoding="async" class:list={['absolute inset-0 size-full object-cover', r.pos]} />
+      </div>
+      <div>
+        <h3 class="text-[1.4rem] sm:text-2xl leading-snug text-ink">{r.title}</h3>
+        <p class="mt-2 reading">{r.body}</p>
+        <p class="mt-3 text-[0.9375rem] flex flex-wrap gap-x-6 gap-y-2">
+          {r.links.map((l) => l.external
+            ? <a href={l.href} {...ext} class="link">{l.label}<span class="sr-only"> (opens in a new tab)</span></a>
+            : <a href={l.href} class="link">{l.label}</a>)}
+        </p>
+      </div>
+    </li>
+  ))}
 </ul>
