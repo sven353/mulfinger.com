@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-23: build clean, 155/155 checks passed. No horizontal overflow at 390, 820 and 1440 px on any page.
+Status on 2026-10-24: build clean, 160/160 checks passed. No horizontal overflow at 390, 820 and 1440 px; nothing left half-faded at the end of any page from 390 to 2560 px wide.
 
 ## Deployment pipeline
 
@@ -190,6 +190,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 - 2026-10-16 (v24): Kuma Partners card now shows the Berlin leadership team offsite (Sven and Vincent Azé at the board), cropped at centre 35%.
 - 2026-10-17 (v25): Page hierarchy: secondary text token darkened to #2D3748, narrative body copy at 15/16 px with 1.7 leading, background section as an asymmetric statement and stacked pillars, field reflections as white outcome cards with a highlighted resolution, research band on a soft mist background.
 - 2026-10-23 (v26): Redesign, "the working paper". The site now reads like an edited essay: one warm ivory background, warm hairlines, Newsreader for reading text, Inter only for navigation and notes, a single petrol accent, section names as quiet margin notes. No gradients, cards, uppercase labels or scroll animation. Typographic hero; documentary photographs only (Berlin offsite, The Round), square-cornered with captions. Homepage adds "How I think" (two draft patterns for Sven to replace) and a background told as operator, scientist and advisor. About, Advisory, Contact, FAQ, header, footer and social card rebuilt in the same system. Removed: public/reveal.js and the two staged photographs.
+- 2026-10-24 (v27): Motion that follows the reader's scroll. The opening composes itself on arrival; a thin petrol reading-progress line runs along the top; section rules draw in from the left; headings and blocks of text settle into place; the two client remarks are written out across the line; photographs drift slightly slower than the page; margin notes stay beside the text while a chapter is read. Built with CSS scroll-driven animations (no JavaScript); browsers without support and visitors who prefer reduced motion see the finished page.
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.

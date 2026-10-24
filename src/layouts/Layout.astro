@@ -31,6 +31,7 @@ const { title, description, noindex, type, faq, robots } = Astro.props;
   </head>
   <body class="min-h-dvh flex flex-col">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] bg-accent text-paper px-4 py-2">Skip to content</a>
+    <div class="progress" aria-hidden="true"></div>
     <Header />
     <main id="main" class="flex-1">
       <slot />

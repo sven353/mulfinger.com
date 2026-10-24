@@ -7,13 +7,17 @@ const hid = headingId ?? (id ? `${id}-heading` : undefined);
 ---
 <section id={id} aria-labelledby={heading ? hid : undefined} class:list={['scroll-mt-20', extra]}>
   <div class="container-x">
-    <div class:list={['py-14 lg:py-20 lg:grid lg:grid-cols-12 lg:gap-x-10', rule && 'border-t border-line-strong']}>
+    <div class="relative py-14 lg:py-20 lg:grid lg:grid-cols-12 lg:gap-x-10">
+      {rule && <span aria-hidden="true" class="draw absolute inset-x-0 top-0 h-px bg-line-strong"></span>}
       <div class="lg:col-span-3">
-        <p class="label lg:pt-2">{note}</p>
-        <slot name="margin" />
+        <!-- The margin note stays beside the text while you read the chapter -->
+        <div class="lg:sticky lg:top-10">
+          <p class="label lg:pt-2">{note}</p>
+          <slot name="margin" />
+        </div>
       </div>
       <div class="mt-3 lg:mt-0 lg:col-span-8 xl:col-span-7">
-        {heading && <h2 id={hid} class="text-[2rem] sm:text-[2.5rem] leading-[1.1] tracking-[-0.012em] text-ink text-balance">{heading}</h2>}
+        {heading && <h2 id={hid} class="settle text-[2rem] sm:text-[2.5rem] leading-[1.1] tracking-[-0.012em] text-ink text-balance">{heading}</h2>}
         <slot />
       </div>
     </div>

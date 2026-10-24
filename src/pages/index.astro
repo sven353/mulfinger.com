@@ -81,14 +81,16 @@ const patterns = [
   <section aria-labelledby="hero-heading">
     <div class="container-x pt-12 lg:pt-24 pb-12 lg:pb-16 lg:grid lg:grid-cols-12 lg:gap-x-10">
       <div class="lg:col-span-3 lg:pt-4">
-        <p class="label text-ink!">Dr. Sven Mulfinger</p>
-        <p class="label">Executive advisory for founders and CEOs</p>
-        <p class="label mt-3 hidden lg:block">Barcelona · Madrid · online</p>
+        <div class="rise">
+          <p class="label text-ink!">Dr. Sven Mulfinger</p>
+          <p class="label">Executive advisory for founders and CEOs</p>
+          <p class="label mt-3 hidden lg:block">Barcelona · Madrid · online</p>
+        </div>
       </div>
       <div class="mt-6 lg:mt-0 lg:col-span-9">
-        <h1 id="hero-heading" class="display text-[2.85rem] sm:text-[4rem] lg:text-[4.6rem] leading-[1.02] text-ink max-w-[15ch]">A thinking partner for the decisions you cannot delegate.</h1>
-        <p class="mt-7 lg:mt-9 reading text-[1.25rem]! sm:text-[1.375rem]! leading-[1.5]! max-w-[36rem]">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
-        <div class="mt-8 lg:mt-10 flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-3">
+        <h1 id="hero-heading" class="rise rise-2 display text-[2.85rem] sm:text-[4rem] lg:text-[4.6rem] leading-[1.02] text-ink max-w-[15ch]">A thinking partner for the decisions you cannot delegate.</h1>
+        <p class="rise rise-3 mt-7 lg:mt-9 reading text-[1.25rem]! sm:text-[1.375rem]! leading-[1.5]! max-w-[36rem]">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
+        <div class="rise rise-4 mt-8 lg:mt-10 flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-3">
           <a href="/contact" class="inline-flex justify-center items-center gap-2 bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
           <span class="label">Confidential. Direct. No obligation to continue.</span>
         </div>
@@ -108,7 +110,7 @@ const patterns = [
         quality={80}
         loading="eager"
         decoding="async"
-        class="absolute inset-0 size-full object-cover object-[center_40%]"
+        class="drift absolute inset-0 size-full object-cover object-[center_40%]"
       />
     </div>
     <figcaption class="mt-3 label lg:grid lg:grid-cols-12 lg:gap-x-10"><span class="lg:col-start-4 lg:col-span-9">Leadership team offsite in Berlin, run with Vincent Azé for Kuma Partners. The sticky notes are the work.</span></figcaption>
@@ -118,7 +120,7 @@ const patterns = [
   <Chapter id="situations" note="Where the work starts" heading="When the usual answers stop working.">
     <div class="mt-8 space-y-6 max-w-[38rem]">
       {situations.map((s) => (
-        <p class="reading"><em class="text-ink">{s.title}.</em> {s.lead} {s.body}</p>
+        <p class="settle reading"><em class="text-ink">{s.title}.</em> {s.lead} {s.body}</p>
       ))}
     </div>
   </Chapter>
@@ -128,8 +130,8 @@ const patterns = [
     <p slot="margin" class="label mt-3 hidden lg:block max-w-[14rem]">Composite patterns from practice, not individual clients.</p>
     <p class="mt-6 reading max-w-[38rem]">The useful work usually starts by questioning the label. Two patterns I see often:</p>
     {patterns.map((p) => (
-      <article class="mt-10 pt-8 border-t border-line max-w-[38rem]">
-        <blockquote class="display text-[1.7rem] sm:text-[2.1rem] leading-[1.18] text-ink">“{p.remark}”</blockquote>
+      <article class="settle mt-10 pt-8 border-t border-line max-w-[38rem]">
+        <blockquote class="wipe display text-[1.7rem] sm:text-[2.1rem] leading-[1.18] text-ink">“{p.remark}”</blockquote>
         <p class="mt-5 reading">{p.obvious}</p>
         <p class="mt-4 reading">{p.question}</p>
         <p class="mt-4 reading text-ink">{p.shift}</p>
@@ -146,9 +148,9 @@ const patterns = [
       <div><dt class="text-ink">Based</dt><dd>Barcelona</dd></div>
     </dl>
     <div class="mt-8 space-y-6 max-w-[38rem]">
-      <p class="reading"><em class="text-ink">The operator.</em> I spent four years building MaterFly, the venture in women's mental health that became Dana, and then founded Kuma Partners. I know what it is to carry the whole company, including the parts that never reach the pitch deck.</p>
-      <p class="reading"><em class="text-ink">The scientist.</em> I trained in molecular genetics and chemical engineering and hold a doctorate. Both taught me to look for the mechanism underneath the symptom. In genetics the visible trait is rarely where the cause sits, and in engineering a recurring failure usually points to the process rather than the part.</p>
-      <p class="reading"><em class="text-ink">The advisor.</em> I have guided more than 100 founders, managing directors and C-suite leaders across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe, in English, Spanish, German and French. I grew up between languages and institutions in Brussels, which still shapes how I read a leadership team.</p>
+      <p class="settle reading"><em class="text-ink">The operator.</em> I spent four years building MaterFly, the venture in women's mental health that became Dana, and then founded Kuma Partners. I know what it is to carry the whole company, including the parts that never reach the pitch deck.</p>
+      <p class="settle reading"><em class="text-ink">The scientist.</em> I trained in molecular genetics and chemical engineering and hold a doctorate. Both taught me to look for the mechanism underneath the symptom. In genetics the visible trait is rarely where the cause sits, and in engineering a recurring failure usually points to the process rather than the part.</p>
+      <p class="settle reading"><em class="text-ink">The advisor.</em> I have guided more than 100 founders, managing directors and C-suite leaders across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe, in English, Spanish, German and French. I grew up between languages and institutions in Brussels, which still shapes how I read a leadership team.</p>
     </div>
     <p class="mt-8 text-[0.9375rem]"><a href="/about" class="link">More about my background</a></p>
   </Chapter>
@@ -157,7 +159,7 @@ const patterns = [
   <Chapter id="cases" note="Field notes" heading="What changed.">
     <p class="mt-6 reading max-w-[38rem]">Confidentiality prevents publishing names. It does not prevent showing how real executive dilemmas get resolved. Three engagements, anonymised.</p>
     {cases.map((c) => (
-      <article class="mt-10 pt-8 border-t border-line max-w-[38rem]">
+      <article class="settle mt-10 pt-8 border-t border-line max-w-[38rem]">
         <p class="label">{c.context}</p>
         <h3 class="mt-2 text-[1.6rem] sm:text-[1.85rem] leading-snug text-ink">{c.title}</h3>
         <p class="mt-4 reading"><em class="text-ink">The situation.</em> {c.dilemma}</p>
@@ -185,7 +187,7 @@ const patterns = [
     <p class="mt-6 reading max-w-[38rem]">1:1 advisory is the core of my work. The other two exist for when the tension sits elsewhere: between peers, or inside the executive team.</p>
     <figure class="mt-8">
       <div class="relative aspect-[3/2] overflow-hidden bg-mist">
-        <Image src={roundSession} alt="Dr. Sven Mulfinger facilitating The Round executive peer session in Barcelona." widths={[480, 720, 960, 1024]} sizes="(min-width: 1024px) 680px, 100vw" format="webp" quality={80} loading="lazy" decoding="async" class="absolute inset-0 size-full object-cover object-[center_35%]" />
+        <Image src={roundSession} alt="Dr. Sven Mulfinger facilitating The Round executive peer session in Barcelona." widths={[480, 720, 960, 1024]} sizes="(min-width: 1024px) 680px, 100vw" format="webp" quality={80} loading="lazy" decoding="async" class="drift absolute inset-0 size-full object-cover object-[center_35%]" />
       </div>
       <figcaption class="mt-3 label">The Round, a peer session in Barcelona.</figcaption>
     </figure>

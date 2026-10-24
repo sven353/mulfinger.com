@@ -92,6 +92,47 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   &:hover { color: var(--color-accent-hover); text-decoration-color: currentColor; }
 }
 
+/* ---------- Motion (v27) ----------
+   Motion follows the reader's scroll instead of playing on a timer, so it feels like turning pages.
+   Everything sits behind prefers-reduced-motion, and the scroll-linked parts behind @supports:
+   browsers without scroll-driven animations simply show the finished page. Nothing is ever hidden. */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes settle { from { opacity: 0.25; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes drift { from { transform: translateY(-5%) scale(1.12); } to { transform: translateY(5%) scale(1.12); } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.progress { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The opening composes itself once on arrival: note, headline, paragraph, invitation */
+  .rise { animation: rise 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  .rise-2 { animation-delay: 120ms; }
+  .rise-3 { animation-delay: 260ms; }
+  .rise-4 { animation-delay: 400ms; }
+
+  @supports (animation-timeline: view()) {
+    /* Timelines are passed through custom properties and set as longhands, so the CSS minifier
+       cannot fold them into the animation shorthand (which browsers would then ignore). */
+    :root { --tl-view: view(); --tl-page: scroll(root); }
+    /* Thin reading-progress line at the top of the window */
+    .progress {
+      display: block; position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 45;
+      background: var(--color-accent); transform-origin: 0 50%;
+      animation-name: grow; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: var(--tl-page);
+    }
+    /* Section rules draw from left to right as a new chapter arrives */
+    .draw { transform-origin: 0 50%; animation-name: draw; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: var(--tl-view); animation-range: entry 10% cover 30%; }
+    /* Headings and blocks of text settle into place, tied to the scroll position */
+    .settle { animation-name: settle; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: var(--tl-view); animation-range: entry 5% cover 28%; }
+    /* The client's remark is written out across the line as it comes into view */
+    .wipe { animation-name: wipe; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: var(--tl-view); animation-range: entry 20% cover 40%; }
+    /* Photographs drift slightly slower than the page */
+    .drift { animation-name: drift; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: var(--tl-view); animation-range: cover; will-change: transform; }
+  }
+}
+
 /* Below lg: balanced headings and no horizontal page overflow */
 @media (max-width: 1023.98px) {
   h1, h2, h3 { text-wrap: balance; }
