@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-24: build clean, 160/160 checks passed. No horizontal overflow at 390, 820 and 1440 px; nothing left half-faded at the end of any page from 390 to 2560 px wide.
+Status on 2026-10-24: build clean, 162/162 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
 
 ## Deployment pipeline
 
@@ -193,6 +193,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 - 2026-10-24 (v27): Motion that follows the reader's scroll. The opening composes itself on arrival; a thin petrol reading-progress line runs along the top; section rules draw in from the left; headings and blocks of text settle into place; the two client remarks are written out across the line; photographs drift slightly slower than the page; margin notes stay beside the text while a chapter is read. Built with CSS scroll-driven animations (no JavaScript); browsers without support and visitors who prefer reduced motion see the finished page.
 - 2026-10-24 (v28): New Berlin offsite photograph and caption on the homepage.
 - 2026-10-24 (v29): Homepage "The operator" paragraph rewritten: 20 years building start-ups, CEO in the corporate world, then Kuma Partners (stated by Sven).
+- 2026-10-24 (v30): Less text, more rhythm. Homepage roughly halved in reading length: 1:1 conversation photograph in the opening, bleeding off the right edge and uncovered on arrival; the three situations as cards that stack while you scroll; one "How I think" pattern (the COO pattern moved to /advisory); the Berlin offsite as a full-width strip with a large pull quote; background led by four figures; one field case open and two behind "Read the case"; research cut to two sentences. About timeline cut from six steps to five with the 20-year operator story.
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.

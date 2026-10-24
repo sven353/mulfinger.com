@@ -7,27 +7,22 @@ import Invite from '../components/Invite.astro';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
 import roundSession from '../assets/images/the-round-session.jpg';
 import offsiteSession from '../assets/images/kuma-offsite-session.jpg';
+import conversation from '../assets/images/advisory-conversation.jpg';
 import { site } from '../data/site';
 
+// Three situations, one sentence each. They stack as cards while you scroll.
 const situations = [
-  {
-    n: '01',
-    title: 'The decisions that keep coming back',
-    lead: 'Repeatedly discussed, never resolved.',
-    body: 'Everyone understands the problem. Yet the decision keeps getting postponed, diluted or reversed. By now the useful question is why the organisation cannot resolve it.',
-  },
-  {
-    n: '02',
-    title: 'When the leadership team becomes the bottleneck',
-    lead: 'Capable people, structural gridlock.',
-    body: 'Responsibilities overlap, disagreements stay unresolved and too many decisions still return to the CEO. The work is to understand what is happening between the people as well as within them.',
-  },
-  {
-    n: '03',
-    title: 'When the business outgrows the founder',
-    lead: 'The company scaled; leadership did not.',
-    body: 'How decisions are made and responsibilities are shared has not changed with it. The founder has to work out what to keep, what to let go of and what the next version of their role must look like.',
-  },
+  { title: 'The decisions that keep coming back', body: 'Everyone understands the problem, yet the decision keeps getting postponed, diluted or reversed.' },
+  { title: 'When the leadership team becomes the bottleneck', body: 'Capable people and overlapping responsibilities, with too many decisions still landing back on the CEO.' },
+  { title: 'When the business outgrows the founder', body: 'The company scaled, but the way decisions are made and shared did not change with it.' },
+];
+
+// Figures stated by Sven (20 years: 2026-10-24; 100+ scope and languages: 2026-10-15/16).
+const figures = [
+  { n: '20', t: 'years building start-ups' },
+  { n: '100+', t: 'founders, MDs and C-suite leaders guided' },
+  { n: '4', t: 'working languages' },
+  { n: '2', t: 'business schools I research with' },
 ];
 
 // Field reflections: real engagements, anonymised. Confirmed accurate by Sven on 2026-10-16.
@@ -58,107 +53,119 @@ const cases = [
   },
 ];
 
-
-// "How I think": DRAFT composite patterns written as placeholders. Sven to replace or confirm
-// with situations from his own practice. They are framed on the page as patterns, not client stories.
-const patterns = [
-  {
-    remark: 'My team does not take enough ownership.',
-    obvious: 'The obvious response is to work on accountability: clearer roles, tighter follow-up, perhaps a different person in one of the seats.',
-    question: "The question I ask first is what the team has learned. If every important decision eventually comes back to the CEO's desk, escalating is the rational thing to do. What looks like a problem with the team is often a pattern the CEO keeps in place without meaning to.",
-    shift: 'The useful question then becomes what the CEO has to stop doing for real ownership to become possible.',
-  },
-  {
-    remark: 'We need to hire a COO.',
-    obvious: 'The obvious response is to start a search.',
-    question: 'Before that, I want to know which decisions the CEO actually wants to stop making, and which ones they will still quietly take back. A senior hire is often a container for decisions the founder has not yet decided to release.',
-    shift: 'If that stays unresolved, the new COO inherits the title without the authority and the company pays for a second bottleneck. Sometimes the answer is still a COO, and it is a far better hire once the decisions the role owns are clear.',
-  },
-];
+// "How I think": DRAFT composite pattern written as a placeholder for Sven to replace or confirm.
+// A second pattern (the COO hire) lives on /advisory.
+const pattern = {
+  remark: 'My team does not take enough ownership.',
+  obvious: 'The obvious response is to work on accountability: clearer roles, tighter follow-up, perhaps a different person in one of the seats.',
+  question: "The question I ask first is what the team has learned. If every important decision eventually comes back to the CEO's desk, escalating is the rational thing to do.",
+  shift: 'The useful question then becomes what the CEO has to stop doing for real ownership to become possible.',
+};
 ---
 <Layout>
-  <!-- 1 · Opening: typographic, no stock photograph. Never animated. -->
-  <section aria-labelledby="hero-heading">
-    <div class="container-x pt-12 lg:pt-24 pb-12 lg:pb-16 lg:grid lg:grid-cols-12 lg:gap-x-10">
-      <div class="lg:col-span-3 lg:pt-4">
-        <div class="rise">
-          <p class="label text-ink!">Dr. Sven Mulfinger</p>
-          <p class="label">Executive advisory for founders and CEOs</p>
-          <p class="label mt-3 hidden lg:block">Barcelona · Madrid · online</p>
+  <!-- 1 · Opening: headline on paper, the photograph bleeding off the right edge (below on mobile) -->
+  <section aria-labelledby="hero-heading" class="overflow-x-clip">
+    <div class="container-x">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-x-10 lg:min-h-[min(44rem,calc(100svh-5rem))]">
+        <div class="lg:col-span-7 pt-10 lg:pt-20 pb-10 lg:pb-16 lg:pr-4">
+          <p class="rise label"><span class="text-ink">Dr. Sven Mulfinger</span> · Executive advisory for founders and CEOs · Barcelona, Madrid, online</p>
+          <h1 id="hero-heading" class="rise rise-2 mt-6 lg:mt-10 display text-[2.75rem] sm:text-[3.75rem] lg:text-[4.35rem] leading-[1.02] text-ink max-w-[13ch]">A thinking partner for the decisions you cannot delegate.</h1>
+          <p class="rise rise-3 mt-7 lg:mt-9 reading text-[1.2rem]! sm:text-[1.3rem]! leading-[1.5]! max-w-[32rem]">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
+          <div class="rise rise-4 mt-8 lg:mt-10 flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-3">
+            <a href="/contact" class="inline-flex justify-center items-center gap-2 bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+            <span class="label">Confidential. Direct. No obligation to continue.</span>
+          </div>
         </div>
-      </div>
-      <div class="mt-6 lg:mt-0 lg:col-span-9">
-        <h1 id="hero-heading" class="rise rise-2 display text-[2.85rem] sm:text-[4rem] lg:text-[4.6rem] leading-[1.02] text-ink max-w-[15ch]">A thinking partner for the decisions you cannot delegate.</h1>
-        <p class="rise rise-3 mt-7 lg:mt-9 reading text-[1.25rem]! sm:text-[1.375rem]! leading-[1.5]! max-w-[36rem]">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
-        <div class="rise rise-4 mt-8 lg:mt-10 flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-3">
-          <a href="/contact" class="inline-flex justify-center items-center gap-2 bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-          <span class="label">Confidential. Direct. No obligation to continue.</span>
-        </div>
+        <figure class="unveil relative -mx-5 md:-mx-10 lg:mx-0 lg:col-span-5 lg:mr-[calc(min(0px,(76rem-100vw)/2)-2.5rem)] aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto overflow-hidden bg-mist">
+          <Image
+            src={conversation}
+            alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives"
+            widths={[480, 800, 1264]}
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            format="webp"
+            quality={82}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="absolute inset-0 size-full object-cover object-[47%_35%]"
+          />
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- A real working room: documentary photograph, square corners, newspaper caption -->
-  <figure class="container-x pb-4">
-    <div class="relative aspect-[4/3] sm:aspect-[3/2] lg:aspect-[2/1] overflow-hidden bg-mist">
-      <Image
-        src={offsiteSession}
-        alt="Dr. Sven Mulfinger and Vincent Azé facilitating an executive leadership team offsite in Berlin"
-        widths={[480, 800, 1200, 1600]}
-        sizes="(min-width: 1216px) 1136px, 100vw"
-        format="webp"
-        quality={80}
-        loading="eager"
-        decoding="async"
-        class="drift absolute inset-0 size-full object-cover object-[center_40%]"
-      />
-    </div>
-    <figcaption class="mt-3 label lg:grid lg:grid-cols-12 lg:gap-x-10"><span class="block max-w-[38rem] lg:col-start-4 lg:col-span-9">Leadership team offsite in Berlin, with Vincent Azé. The best moment comes when we step back and the team holds the difficult conversation itself. Our work is to orchestrate everything that leads up to it.</span></figcaption>
-  </figure>
-
-  <!-- 2 · Situations, as prose -->
+  <!-- 2 · Situations: three cards that stack as you scroll -->
   <Chapter id="situations" note="Where the work starts" heading="When the usual answers stop working.">
-    <div class="mt-8 space-y-6 max-w-[38rem]">
-      {situations.map((s) => (
-        <p class="settle reading"><em class="text-ink">{s.title}.</em> {s.lead} {s.body}</p>
+    <div class="mt-10 pb-[16svh]">
+      {situations.map((s, i) => (
+        <article class="stack-card" style={`--i:${i}`}>
+          <p class="label">{['One', 'Two', 'Three'][i]} of three</p>
+          <h3 class="mt-4 text-[1.75rem] sm:text-[2.25rem] leading-[1.12] text-ink max-w-[20ch]">{s.title}.</h3>
+          <p class="mt-4 reading max-w-[30rem]">{s.body}</p>
+        </article>
       ))}
     </div>
   </Chapter>
 
-  <!-- 3 · How I think: two worked patterns -->
+  <!-- 3 · How I think: one worked pattern -->
   <Chapter id="thinking" note="How I think" heading="Most problems arrive with a label already on them.">
-    <p slot="margin" class="label mt-3 hidden lg:block max-w-[14rem]">Composite patterns from practice, not individual clients.</p>
-    <p class="mt-6 reading max-w-[38rem]">The useful work usually starts by questioning the label. Two patterns I see often:</p>
-    {patterns.map((p) => (
-      <article class="settle mt-10 pt-8 border-t border-line max-w-[38rem]">
-        <blockquote class="wipe display text-[1.7rem] sm:text-[2.1rem] leading-[1.18] text-ink">“{p.remark}”</blockquote>
-        <p class="mt-5 reading">{p.obvious}</p>
-        <p class="mt-4 reading">{p.question}</p>
-        <p class="mt-4 reading text-ink">{p.shift}</p>
-      </article>
-    ))}
+    <p slot="margin" class="label mt-3 hidden lg:block max-w-[14rem]">A composite pattern from practice, not an individual client.</p>
+    <article class="mt-8 max-w-[38rem]">
+      <blockquote class="wipe display text-[1.8rem] sm:text-[2.3rem] leading-[1.15] text-ink">“{pattern.remark}”</blockquote>
+      <p class="settle mt-6 reading">{pattern.obvious}</p>
+      <p class="settle mt-4 reading">{pattern.question}</p>
+      <p class="settle mt-4 reading text-ink">{pattern.shift}</p>
+    </article>
   </Chapter>
 
-  <!-- 4 · Background as three short narratives -->
+  <!-- A breather: the working room, full width, with the line that explains it -->
+  <section aria-labelledby="room-quote">
+    <figure>
+      <div class="relative w-full h-[58svh] min-h-[20rem] max-h-[42rem] overflow-hidden bg-mist">
+        <Image
+          src={offsiteSession}
+          alt="Dr. Sven Mulfinger and Vincent Azé facilitating an executive leadership team offsite in Berlin"
+          widths={[640, 960, 1200]}
+          sizes="100vw"
+          format="webp"
+          quality={80}
+          loading="lazy"
+          decoding="async"
+          class="drift absolute inset-0 size-full object-cover object-[center_40%]"
+        />
+      </div>
+      <div class="container-x">
+        <div class="pt-10 pb-6 lg:pt-14 lg:grid lg:grid-cols-12 lg:gap-x-10">
+          <blockquote id="room-quote" class="wipe lg:col-start-4 lg:col-span-8 display text-[1.85rem] sm:text-[2.6rem] lg:text-[3rem] leading-[1.1] text-ink max-w-[24ch]">“The best moment comes when we step back and the team holds the difficult conversation itself.”</blockquote>
+          <figcaption class="mt-5 label lg:col-start-4 lg:col-span-8 max-w-[38rem]">Leadership team offsite in Berlin, with Vincent Azé. Our work is to orchestrate everything that leads up to that moment.</figcaption>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+  <!-- 4 · Background: figures first, then three sentences -->
   <Chapter id="background" note="Background" heading="I have carried the responsibility too.">
-    <dl slot="margin" class="mt-6 hidden lg:block space-y-4 label max-w-[14rem]">
-      <div><dt class="text-ink">Trained</dt><dd>Molecular genetics, chemical engineering, doctorate</dd></div>
-      <div><dt class="text-ink">Founded</dt><dd>MaterFly, which became Dana; Kuma Partners</dd></div>
-      <div><dt class="text-ink">Research</dt><dd>IESE and IE Business School</dd></div>
-      <div><dt class="text-ink">Based</dt><dd>Barcelona</dd></div>
+    <dl class="mt-10 grid grid-cols-2 lg:grid-cols-4 border-t border-line">
+      {figures.map((f, i) => (
+        <div class:list={['settle', `s${i + 1}`, 'pt-5 pb-6 pr-4 border-b border-line lg:border-b-0']}>
+          <dt class="sr-only">{f.t}</dt>
+          <dd class="display text-[2.8rem] sm:text-[3.4rem] leading-none text-ink">{f.n}</dd>
+          <dd class="mt-2 label max-w-[11rem]">{f.t}</dd>
+        </div>
+      ))}
     </dl>
-    <div class="mt-8 space-y-6 max-w-[38rem]">
-      <p class="settle reading"><em class="text-ink">The operator.</em> I have been building start-ups for 20 years and have served as CEO in the corporate world, so I know both sides and how they meet. Then I founded Kuma Partners. I know what it is to carry the whole company, including the parts that never reach the pitch deck.</p>
-      <p class="settle reading"><em class="text-ink">The scientist.</em> I trained in molecular genetics and chemical engineering and hold a doctorate. Both taught me to look for the mechanism underneath the symptom. In genetics the visible trait is rarely where the cause sits, and in engineering a recurring failure usually points to the process rather than the part.</p>
-      <p class="settle reading"><em class="text-ink">The advisor.</em> I have guided more than 100 founders, managing directors and C-suite leaders across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe, in English, Spanish, German and French. I grew up between languages and institutions in Brussels, which still shapes how I read a leadership team.</p>
+    <div class="mt-10 space-y-5 max-w-[38rem]">
+      <p class="settle reading"><em class="text-ink">The operator.</em> Twenty years building start-ups and serving as CEO in the corporate world, then founding Kuma Partners. I know what it is to carry the whole company, including the parts that never reach the pitch deck.</p>
+      <p class="settle reading"><em class="text-ink">The scientist.</em> Molecular genetics, chemical engineering and a doctorate taught me to look for the mechanism underneath the symptom.</p>
+      <p class="settle reading"><em class="text-ink">The advisor.</em> More than 100 founders, managing directors and C-suite leaders guided across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe.</p>
     </div>
     <p class="mt-8 text-[0.9375rem]"><a href="/about" class="link">More about my background</a></p>
   </Chapter>
 
-  <!-- 5 · Field notes: three real engagements, anonymised, set as prose -->
+  <!-- 5 · Field notes: one case open, two a click away -->
   <Chapter id="cases" note="Field notes" heading="What changed.">
-    <p class="mt-6 reading max-w-[38rem]">Confidentiality prevents publishing names. It does not prevent showing how real executive dilemmas get resolved. Three engagements, anonymised.</p>
-    {cases.map((c) => (
+    <p class="mt-6 reading max-w-[38rem]">Three real engagements, anonymised. Confidentiality prevents names, not the substance.</p>
+    {cases.map((c, i) => i === 0 ? (
       <article class="settle mt-10 pt-8 border-t border-line max-w-[38rem]">
         <p class="label">{c.context}</p>
         <h3 class="mt-2 text-[1.6rem] sm:text-[1.85rem] leading-snug text-ink">{c.title}</h3>
@@ -166,18 +173,30 @@ const patterns = [
         <p class="mt-3 reading"><em class="text-ink">Underneath.</em> {c.issue}</p>
         <p class="mt-3 reading"><em class="text-ink">What changed.</em> {c.resolution}</p>
       </article>
+    ) : (
+      <article class="settle mt-8 pt-7 border-t border-line max-w-[38rem]">
+        <details class="case group">
+          <summary class="list-none cursor-pointer [&::-webkit-details-marker]:hidden">
+            <span class="label block">{c.context}</span>
+            <span class="mt-2 block font-serif text-[1.6rem] sm:text-[1.85rem] leading-snug text-ink">{c.title}</span>
+            <span class="mt-3 inline-flex items-center gap-2 text-[0.9375rem] text-accent"><span class="group-open:hidden">Read the case</span><span class="hidden group-open:inline">Close the case</span><span aria-hidden="true" class="transition-transform duration-200 group-open:rotate-180">↓</span></span>
+          </summary>
+          <p class="mt-4 reading"><em class="text-ink">The situation.</em> {c.dilemma}</p>
+          <p class="mt-3 reading"><em class="text-ink">Underneath.</em> {c.issue}</p>
+          <p class="mt-3 reading"><em class="text-ink">What changed.</em> {c.resolution}</p>
+        </details>
+      </article>
     ))}
   </Chapter>
 
-  <!-- 6 · Research: the book cover sits in the margin on desktop -->
+  <!-- 6 · Research, short -->
   <Chapter id="research" note="Research" heading="Why do some leaders excel at seeing possibilities but struggle with the systems needed to scale them?">
     <figure slot="margin" class="hidden lg:block mt-6 max-w-[11rem]">
       <Image src={bookCover} alt="The Non-Linear Operating System by Dr. Sven Mulfinger" widths={[176, 264, 352, 528]} sizes="176px" format="webp" quality={85} loading="lazy" decoding="async" class="block w-full h-auto shadow-md" />
     </figure>
     <div class="mt-8 space-y-5 max-w-[38rem]">
-      <p class="reading">Many founders have spiky cognitive profiles: ADHD, giftedness, dyslexia, autism or a combination that never received a label. The same wiring that lets them see around corners shapes how they delegate, decide and handle conflict once the company grows.</p>
-      <p class="reading"><cite class="text-ink">The Non-Linear Operating System</cite> is a forthcoming work developed in collaboration with Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School), grounded in research and field analysis across more than 50 serial entrepreneurs and CEOs operating with a non-linear mind.</p>
-      <p class="reading">I do not ask every leader to see themselves this way. Understanding how a leader actually operates is simply more useful than asking them to fit a standard model of leadership.</p>
+      <p class="settle reading">Many founders have spiky cognitive profiles. The same wiring that lets them see around corners shapes how they delegate, decide and handle conflict as the company grows.</p>
+      <p class="settle reading"><cite class="text-ink">The Non-Linear Operating System</cite>, developed with Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School), draws on field analysis of more than 50 serial entrepreneurs and CEOs.</p>
     </div>
     <p class="mt-8 text-[0.9375rem]"><a href={site.links.neurodisruptors} target="_blank" rel="noopener noreferrer" class="link">Explore the research at neurodisruptors.com<span class="sr-only"> (opens in a new tab)</span></a></p>
   </Chapter>
