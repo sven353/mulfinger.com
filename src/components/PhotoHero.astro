@@ -26,12 +26,12 @@ const { src, alt, headingId, title, body, tag, pos = 'object-center', side = 'le
         />
       </div>
       <div class:list={['hero-panel relative mx-3 sm:mx-6 -mt-20 sm:-mt-28 lg:m-0 lg:absolute lg:bottom-[-5.5rem] lg:w-[26rem] xl:w-[27rem] rounded-xl bg-paper px-6 py-8 sm:px-10 sm:py-10 lg:px-10 lg:py-10 shadow-[0_24px_60px_-34px_rgba(22,23,26,0.55)]', side === 'left' ? 'lg:left-8 xl:left-10' : 'lg:right-8 xl:right-10']}>
-        <p class="rise label"><span class="text-ink">Dr. Sven Mulfinger</span> · {tag}</p>
+        <p class="rise label">{tag}</p>
         <h1 id={headingId} class="rise rise-2 mt-4 display text-[2.4rem] sm:text-[3rem] lg:text-[2.75rem] xl:text-[3rem] leading-[1.05] text-ink max-w-[15ch]">{title}</h1>
         <p class="rise rise-3 mt-5 reading text-[1.125rem]! sm:text-[1.15rem]! leading-[1.55]!">{body}</p>
         <div class="rise rise-4 mt-6 flex flex-col items-stretch sm:items-start gap-3">
-          <a href="/contact" class="inline-flex justify-center items-center gap-2 whitespace-nowrap bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-          <span class="label">Confidential. Direct. No obligation to continue.</span>
+          <a href="/contact" class="inline-flex justify-center items-center gap-2 whitespace-nowrap bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Start a confidential conversation <span aria-hidden="true">→</span></a>
+          <span class="label">I read every message myself. No obligation to continue.</span>
         </div>
       </div>
     </div>
