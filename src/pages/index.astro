@@ -66,14 +66,14 @@ const pattern = {
 <Layout>
   <!-- 1 · Opening: the photograph as a full-width strip, a clean paper panel over its lower right corner -->
   <section aria-labelledby="hero-heading" class="relative pb-6 lg:pb-24">
-    <div class="unveil relative w-full h-[58svh] min-h-[22rem] sm:h-[66svh] lg:h-[clamp(34rem,82svh,50rem)] overflow-hidden bg-mist">
+    <div class="unveil relative w-full max-w-[90rem] mx-auto h-[58svh] min-h-[22rem] sm:h-[66svh] lg:h-auto lg:aspect-[2/1] lg:min-h-[35rem] lg:max-h-[46rem] overflow-hidden bg-mist">
       <Image
         src={conversation}
         alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives"
         widths={[640, 960, 1264]}
-        sizes="100vw"
+        sizes="(min-width: 1440px) 1440px, 100vw"
         format="webp"
-        quality={82}
+        quality={92}
         loading="eager"
         fetchpriority="high"
         decoding="async"
