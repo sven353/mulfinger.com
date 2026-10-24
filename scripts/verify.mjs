@@ -231,7 +231,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const main = (f) => readFileSync(f, 'utf8').match(/<main[\s\S]*?<\/main>/)?.[0] ?? '';
   const pages = ['index.html', 'about/index.html', 'advisory/index.html', 'contact/index.html'].map((p) => join(DIST, p));
   check('no gradient backgrounds on main pages', !pages.some((f) => /bg-linear|bg-gradient/.test(main(f))));
-  check('no rounded cards on main pages (the opening photograph and its panel excepted)', !pages.some((f) => /rounded-(xl|2xl|\[)/.test(main(f).replace(/<section aria-labelledby="[^"]+"[^>]*>\s*<div class="container-x">\s*<div class="relative w-full">[\s\S]*?<\/section>/, ''))));
+  check('no rounded cards on main pages (opening photo excepted; images may have 2px corners)', !pages.some((f) => /rounded-(xl|2xl|\[(?!2px\]))/.test(main(f).replace(/<section aria-labelledby="[^"]+"[^>]*>\s*<div class="container-x">\s*<div class="relative w-full">[\s\S]*?<\/section>/, ''))));
   check('no uppercase tracked labels on main pages', !pages.some((f) => /\buppercase\b/.test(main(f))));
   const flat = css.replace(/\s/g, '');
   check('motion: everything behind prefers-reduced-motion', flat.includes('@media(prefers-reduced-motion:no-preference){.rise{') && !/\.(settle|draw|wipe|drift)\{animation/.test(flat.split('@media(prefers-reduced-motion:no-preference)')[0]));
