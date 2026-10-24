@@ -130,7 +130,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
   check('home: no full-width photo strip mid-page', !home.includes('id="room-quote"'));
-  check('home: all three field cases folded, title and one-line summary visible', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && (sec('cases').match(/<span class="mt-3 block reading">/g) ?? []).length === 3);
+  check('home: all three field cases folded, title and one-line summary visible', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && (sec('cases').match(/<span class="mt-3 block reading/g) ?? []).length === 3);
   check('home: background narrative', home.includes('I have carried the responsibility too.'));
   check('home: final invitation', home.includes('Bring the problem you have not been able to solve.'));
   const order = ['situations-heading', 'thinking-heading', 'background-heading', 'cases-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
@@ -254,7 +254,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
   const sec = home.match(/aria-labelledby="cases-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('field notes: 3 cases', (sec.match(/<article/g) ?? []).length === 3);
-  check('field notes: each case has situation, underneath and what changed', ['The situation.', 'Underneath.', 'What changed.'].every((t) => (sec.split(`<em class="text-ink">${t}</em>`).length - 1) === 3));
+  check('field notes: each case opens into three numbered steps', (sec.match(/<ol class="mt-6 grid/g) ?? []).length === 3 && ['The situation', 'What lay beneath', 'What changed'].every((t) => (sec.split(`· ${t}</p>`).length - 1) === 3));
   check('100+ scope clarified on home', home.includes('across confidential 1:1 advisory, executive peer councils and board-level interventions'));
   check('100+ scope clarified in llms.txt', readFileSync(join(DIST, 'llms.txt'), 'utf8').includes('executive peer councils'));
 }
