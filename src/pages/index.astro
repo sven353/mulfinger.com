@@ -7,7 +7,7 @@ import Invite from '../components/Invite.astro';
 import Faq from '../components/Faq.astro';
 import PhotoHero from '../components/PhotoHero.astro';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
-import heroPhoto from '../assets/images/hero-conversation.jpg';
+import heroPhoto from '../assets/images/hero-office.jpg';
 import { site } from '../data/site';
 
 // Three situations that bring founders and CEOs to a first conversation. Each has a small line icon.
@@ -72,7 +72,7 @@ const pattern = {
 ---
 <Layout>
   <!-- 1 · Opening: shared photo hero (see PhotoHero.astro) -->
-  <PhotoHero src={heroPhoto} alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives" headingId="hero-heading" tag="Executive advisory for founders and CEOs" title="A thinking partner for the decisions you cannot delegate." body="I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership." />
+  <PhotoHero src={heroPhoto} alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives in a Barcelona office" pos="object-[56%_center] lg:object-left" headingId="hero-heading" tag="Executive advisory for founders and CEOs" title="A thinking partner for the decisions you cannot delegate." body="I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership." />
 
   <!-- 2 · Situations: why founders and CEOs get in touch -->
   <Chapter id="situations" note="Why leaders get in touch" heading="When the usual answers stop working." wide>

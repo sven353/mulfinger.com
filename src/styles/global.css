@@ -134,12 +134,7 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   }
 }
 
-@keyframes unveil { from { clip-path: inset(0 100% 0 0 round 1rem); } to { clip-path: inset(0 0 0 0 round 1rem); } }
-@keyframes zoomout { from { transform: scale(1.08); } to { transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
-  /* The opening photograph is uncovered from the left once the page loads */
-  .unveil { animation: unveil 1300ms cubic-bezier(0.65, 0, 0.35, 1) 200ms both; }
-  .unveil img { animation: zoomout 1800ms cubic-bezier(0.2, 0.7, 0.2, 1) 200ms both; }
   @supports (animation-timeline: view()) {
     /* Figures arrive one after another */
     .settle.s2 { animation-range: entry 12% cover 32%; }
