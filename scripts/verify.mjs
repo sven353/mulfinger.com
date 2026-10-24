@@ -126,7 +126,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   const sec = (id) => home.match(new RegExp(`aria-labelledby="${id}-heading"[\\s\\S]*?<\\/section>`))?.[0] ?? '';
   check('home: situations as one framed panel of three, each with an icon', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle[^"]*">\s*<svg/g) ?? []).length === 3 && !sec('situations').includes('of three'));
-  check('home: hero photograph is a full-width strip with the headline panel over it', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="unveil relative w-full/.test(home));
+  check('home: hero photograph is a strip with the headline panel over it, retina-ready', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="relative w-full max-w-\[90rem\] mx-auto">\s*<div class="unveil /.test(home) && /srcset="[^"]*2528w/.test(heroImg));
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
   check('home: no full-width photo strip mid-page', !home.includes('id="room-quote"'));
