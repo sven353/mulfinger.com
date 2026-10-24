@@ -117,10 +117,10 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
   const homeImgs = home.match(/<img [^>]*>/g) ?? [];
-  check(`home: hero, Berlin strip, three path thumbnails and the book cover (found ${homeImgs.length})`, homeImgs.length === 6 && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session', 'leadership team working session'].every((k) => homeImgs.some((t) => t.includes(k))));
+  check(`home: hero, three path thumbnails and the book cover (found ${homeImgs.length})`, homeImgs.length === 5 && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session'].every((k) => homeImgs.some((t) => t.includes(k))));
   const paths = home.match(/aria-labelledby="paths-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('home: each way of working has a small photograph beside it', (paths.match(/<li[\s\S]*?<img[\s\S]*?<h3/g) ?? []).length === 3);
-  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|leadership team working session/.test(t)));
+  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|Berlin/.test(t)));
   check('photographs have square corners (no rounded frames)', !/<figure[\s\S]{0,200}rounded/.test(home));
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
@@ -129,11 +129,11 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('home: hero photograph is a full-width strip with the headline panel over it', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="unveil relative w-full/.test(home));
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
-  check('home: full-width Berlin strip with its pull quote', home.includes('id="room-quote"') && home.includes('The best moment comes when we step back'));
+  check('home: no full-width photo strip mid-page', !home.includes('id="room-quote"'));
   check('home: all three field cases folded, title and one-line summary visible', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && (sec('cases').match(/<span class="mt-3 block reading">/g) ?? []).length === 3);
   check('home: background narrative', home.includes('I have carried the responsibility too.') && ['The operator.', 'The scientist.', 'The advisor.'].every((t) => sec('background').includes(t)));
   check('home: final invitation', home.includes('Bring the problem you have not been able to solve.'));
-  const order = ['situations-heading', 'thinking-heading', 'room-quote', 'background-heading', 'cases-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
+  const order = ['situations-heading', 'thinking-heading', 'background-heading', 'cases-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
   check('home: chapter order', order.every((x, i) => x > 0 && (i === 0 || x > order[i - 1])), order.join(','));
   for (const host of ['https://kuma.partners', 'https://offsite.kuma.partners', 'https://neurodisruptors.com']) {
     const a = [...home.matchAll(new RegExp(`<a [^>]*href="${host.replace(/\./g, '\\.')}"[^>]*>`, 'g'))].map((m) => m[0]);
@@ -237,7 +237,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('motion: everything behind prefers-reduced-motion', flat.includes('@media(prefers-reduced-motion:no-preference){.rise{') && !/\.(settle|draw|wipe|drift)\{animation/.test(flat.split('@media(prefers-reduced-motion:no-preference)')[0]));
   check('motion: scroll-linked parts behind @supports, nothing hidden without it', flat.includes('@supports(animation-timeline:view())') && !/\.(settle|wipe|draw)\{[^}]*(opacity:0|display:none)/.test(flat.split('@supports(animation-timeline:view())')[0]));
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  check('motion: hero rises on arrival, chapters draw and settle, photos drift', /<h1[^>]*class="rise rise-2 /.test(home) && (home.match(/class="draw /g) ?? []).length >= 6 && (home.match(/\bsettle\b/g) ?? []).length >= 10 && (home.match(/class="drift /g) ?? []).length === 1 && (home.match(/<blockquote[^>]*class="wipe /g) ?? []).length === 2 && home.includes('class="unveil '));
+  check('motion: hero rises on arrival, chapters draw and settle, photos drift', /<h1[^>]*class="rise rise-2 /.test(home) && (home.match(/class="draw /g) ?? []).length >= 6 && (home.match(/\bsettle\b/g) ?? []).length >= 10 && (home.match(/<blockquote[^>]*class="wipe /g) ?? []).length === 1 && home.includes('class="unveil '));
   check('motion: scroll timelines survive minification (never folded into the animation shorthand)', ['draw', 'settle', 'wipe', 'drift', 'progress'].every((c) => new RegExp(`\\.${c}\\{[^}]*animation-timeline:var\\(--tl-`).test(flat)) && !/animation:[^;}]*(view|scroll)\(/.test(flat));
   check('motion: reading-progress line on every page', htmlFiles.filter((f) => !f.endsWith('404.html')).every((f) => readFileSync(f, 'utf8').includes('<div class="progress" aria-hidden="true"></div>')));
   check('single accent colour defined', /--color-accent:\s*#1f4e5a/i.test(css));

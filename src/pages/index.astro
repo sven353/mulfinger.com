@@ -5,7 +5,6 @@ import Chapter from '../components/Chapter.astro';
 import Paths from '../components/Paths.astro';
 import Invite from '../components/Invite.astro';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
-import offsiteSession from '../assets/images/kuma-offsite-session.jpg';
 import conversation from '../assets/images/advisory-conversation.jpg';
 import { site } from '../data/site';
 
@@ -117,31 +116,6 @@ const pattern = {
       <p class="settle mt-4 reading text-ink">{pattern.shift}</p>
     </article>
   </Chapter>
-
-  <!-- A breather: the working room, full width, with the line that explains it -->
-  <section aria-labelledby="room-quote">
-    <figure>
-      <div class="relative w-full h-[58svh] min-h-[20rem] max-h-[42rem] overflow-hidden bg-mist">
-        <Image
-          src={offsiteSession}
-          alt="Dr. Sven Mulfinger and Vincent Azé facilitating an executive leadership team offsite in Berlin"
-          widths={[640, 960, 1200]}
-          sizes="100vw"
-          format="webp"
-          quality={80}
-          loading="lazy"
-          decoding="async"
-          class="drift absolute inset-0 size-full object-cover object-[center_40%]"
-        />
-      </div>
-      <div class="container-x">
-        <div class="pt-10 pb-6 lg:pt-14 lg:grid lg:grid-cols-12 lg:gap-x-10">
-          <blockquote id="room-quote" class="wipe lg:col-start-4 lg:col-span-8 display text-[1.85rem] sm:text-[2.6rem] lg:text-[3rem] leading-[1.1] text-ink max-w-[24ch]">“The best moment comes when we step back and the team holds the difficult conversation itself.”</blockquote>
-          <figcaption class="mt-5 label lg:col-start-4 lg:col-span-8 max-w-[38rem]">Leadership team offsite in Berlin, with Vincent Azé. Our work is to orchestrate everything that leads up to that moment.</figcaption>
-        </div>
-      </div>
-    </figure>
-  </section>
 
   <!-- 4 · Background: figures first, then three sentences -->
   <Chapter id="background" note="Background" heading="I have carried the responsibility too.">
