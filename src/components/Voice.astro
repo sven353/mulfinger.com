@@ -1,0 +1,17 @@
+---
+// One client quote: a small greyscale portrait, the words, then who said them.
+import { Image } from 'astro:assets';
+import type { Testimonial } from '../data/testimonials';
+interface Props { t: Testimonial; large?: boolean }
+const { t, large = false } = Astro.props;
+---
+<figure class="voice settle flex flex-col">
+  <Image src={t.photo} alt={`Portrait of ${t.name}`} widths={[56, 112, 168]} sizes="56px" format="webp" quality={85} loading="lazy" decoding="async" class="block size-14 rounded-full object-cover grayscale" />
+  <blockquote class:list={['mt-5 font-serif text-ink leading-snug text-pretty', large ? 'text-[1.5rem] sm:text-[1.75rem]' : 'text-[1.1875rem] sm:text-[1.25rem]']}>
+    <p>“{t.quote}”</p>
+  </blockquote>
+  <figcaption class="mt-auto pt-5 text-[0.9375rem] leading-snug">
+    <span class="block font-medium text-ink">{t.name}</span>
+    <span class="block text-muted">{t.role}, {t.company}</span>
+  </figcaption>
+</figure>

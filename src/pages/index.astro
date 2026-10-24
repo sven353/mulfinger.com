@@ -9,6 +9,8 @@ import bookCover from '../assets/images/book-cover-nonlinear.png';
 import heroPhoto from '../assets/images/hero-office.jpg';
 import { site } from '../data/site';
 import { cases } from '../data/cases';
+import { testimonials, linkedinRecommendations } from '../data/testimonials';
+import Voice from '../components/Voice.astro';
 
 // Three situations that bring founders and CEOs to a first conversation. Each has a small line icon.
 const situations = [
@@ -127,6 +129,14 @@ const pattern = {
       </article>
     ))}
     </div>
+  </Chapter>
+
+  <!-- 5b · Client voices: who says so, straight after what changed -->
+  <Chapter id="voices" note="In their words" heading="What clients say." wide rule={false}>
+    <div class="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
+      {testimonials.map((t) => <Voice t={t} />)}
+    </div>
+    <p class="mt-10 text-[0.9375rem]"><a href={linkedinRecommendations} target="_blank" rel="noopener noreferrer" class="link">All recommendations on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a></p>
   </Chapter>
 
   <!-- 6 · Research, short -->

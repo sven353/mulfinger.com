@@ -117,10 +117,10 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
   const homeImgs = home.match(/<img [^>]*>/g) ?? [];
-  check(`home: hero, three path thumbnails and the book cover (found ${homeImgs.length})`, homeImgs.length === 5 && homeImgs.every((t) => /alt="[^"]+"/.test(t)) && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session'].every((k) => homeImgs.some((t) => t.includes(k))));
+  check(`home: hero, three path thumbnails and the book cover, plus three client portraits (found ${homeImgs.length})`, homeImgs.length === 8 && homeImgs.filter((t) => t.includes('Portrait of')).length === 3 && homeImgs.every((t) => /alt="[^"]+"/.test(t)) && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session'].every((k) => homeImgs.some((t) => t.includes(k))));
   const paths = home.match(/aria-labelledby="paths-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('home: each way of working has a small photograph beside it', (paths.match(/<li[\s\S]*?<img[\s\S]*?<h3/g) ?? []).length === 3);
-  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|Berlin/.test(t)));
+  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|Berlin|Portrait of Wilhelm Taht/.test(t)));
   check('photographs have square corners (no rounded frames)', !/<figure[\s\S]{0,200}rounded/.test(home));
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
@@ -133,7 +133,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('home: all three field cases folded, title and one-line summary visible', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && (sec('cases').match(/<span class="mt-3 block reading/g) ?? []).length === 3);
   check('home: background narrative', home.includes('I have carried the responsibility too.'));
   check('home: final invitation', home.includes('Bring the problem you have not been able to solve.'));
-  const order = ['situations-heading', 'thinking-heading', 'background-heading', 'cases-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
+  const order = ['situations-heading', 'thinking-heading', 'background-heading', 'cases-heading', 'voices-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
   check('home: chapter order', order.every((x, i) => x > 0 && (i === 0 || x > order[i - 1])), order.join(','));
   for (const host of ['https://kuma.partners', 'https://offsite.kuma.partners', 'https://neurodisruptors.com']) {
     const a = [...home.matchAll(new RegExp(`<a [^>]*href="${host.replace(/\./g, '\\.')}"[^>]*>`, 'g'))].map((m) => m[0]);
@@ -221,6 +221,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const full = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
   check('llms-full.txt: engagement model and entity relationships', full.includes('## The advisory engagement model') && full.includes('## Entity relationships and disambiguation'));
   check('llms-full.txt: three case studies with outcomes, generated from the same data as the homepage', (full.match(/^### .+ \(.+\)$/gm) ?? []).length === 3 && full.includes('Outcome: One year of independent sparring.'));
+  check('client voices: three on home with greyscale portraits, one on /advisory, quotes in llms-full', (readFileSync(join(DIST, 'index.html'), 'utf8').match(/<figure class="voice/g) ?? []).length === 3 && (readFileSync(join(DIST, 'index.html'), 'utf8').match(/rounded-full object-cover grayscale/g) ?? []).length === 3 && (readFileSync(join(DIST, 'advisory/index.html'), 'utf8').match(/<figure class="voice/g) ?? []).length === 1 && ['Wilhelm Taht', 'Albrecht von der Recke', 'Sergi Estragues'].every((n) => full.includes(n)));
   check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
   const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
   const ids = new Set(homeGraph.map((n) => n['@id']));

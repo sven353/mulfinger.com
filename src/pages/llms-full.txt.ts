@@ -2,6 +2,7 @@
 import type { APIRoute } from 'astro';
 import { faq, toPlain } from '../data/faq';
 import { cases } from '../data/cases';
+import { testimonials, linkedinRecommendations } from '../data/testimonials';
 
 const intro = `# Sven Mulfinger: full profile
 
@@ -126,7 +127,11 @@ export const GET: APIRoute = () => {
   const cs = cases
     .map((c) => `\n### ${c.title} (${c.context})\n\nOutcome: ${c.proof}.\n\n- Situation: ${c.dilemma}\n- What lay beneath: ${c.issue}\n- What changed: ${c.resolution}\n`)
     .join('');
-  return new Response(intro + cs + '\n## Frequently asked questions (1:1 advisory)\n' + qa + outro, {
+  const vo = testimonials
+    .map((t) => `\n> "${t.quote}"\n> ${t.name}, ${t.role}, ${t.company}\n`)
+    .join('');
+  const voices = `\n## What clients say (verbatim excerpts from public LinkedIn recommendations)\n${vo}\nAll recommendations: ${linkedinRecommendations}\n`;
+  return new Response(intro + cs + voices + '\n## Frequently asked questions (1:1 advisory)\n' + qa + outro, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   });
 };
