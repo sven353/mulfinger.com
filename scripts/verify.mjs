@@ -126,7 +126,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   const sec = (id) => home.match(new RegExp(`aria-labelledby="${id}-heading"[\\s\\S]*?<\\/section>`))?.[0] ?? '';
   check('home: situations as one framed panel of three, each with an icon', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle[^"]*">\s*<svg/g) ?? []).length === 3 && !sec('situations').includes('of three'));
-  check('home: hero photograph is a strip with the headline panel over it, retina-ready', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="relative w-full max-w-\[90rem\] mx-auto">\s*<div class="unveil /.test(home) && /srcset="[^"]*2528w/.test(heroImg));
+  check('home: hero photograph with rounded corners, headline panel over it, retina-ready', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="container-x">\s*<div class="relative w-full">\s*<div class="unveil [^"]*rounded-xl/.test(home) && /srcset="[^"]*2528w/.test(heroImg));
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
   check('home: no full-width photo strip mid-page', !home.includes('id="room-quote"'));
@@ -231,7 +231,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const main = (f) => readFileSync(f, 'utf8').match(/<main[\s\S]*?<\/main>/)?.[0] ?? '';
   const pages = ['index.html', 'about/index.html', 'advisory/index.html', 'contact/index.html'].map((p) => join(DIST, p));
   check('no gradient backgrounds on main pages', !pages.some((f) => /bg-linear|bg-gradient/.test(main(f))));
-  check('no rounded cards on main pages', !pages.some((f) => /rounded-(xl|2xl|\[)/.test(main(f))));
+  check('no rounded cards on main pages (the opening photograph and its panel excepted)', !pages.some((f) => /rounded-(xl|2xl|\[)/.test(main(f).replace(/<section aria-labelledby="hero-heading"[\s\S]*?<\/section>/, ''))));
   check('no uppercase tracked labels on main pages', !pages.some((f) => /\buppercase\b/.test(main(f))));
   const flat = css.replace(/\s/g, '');
   check('motion: everything behind prefers-reduced-motion', flat.includes('@media(prefers-reduced-motion:no-preference){.rise{') && !/\.(settle|draw|wipe|drift)\{animation/.test(flat.split('@media(prefers-reduced-motion:no-preference)')[0]));
@@ -241,7 +241,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('motion: scroll timelines survive minification (never folded into the animation shorthand)', ['draw', 'settle', 'wipe', 'drift', 'progress'].every((c) => new RegExp(`\\.${c}\\{[^}]*animation-timeline:var\\(--tl-`).test(flat)) && !/animation:[^;}]*(view|scroll)\(/.test(flat));
   check('motion: reading-progress line on every page', htmlFiles.filter((f) => !f.endsWith('404.html')).every((f) => readFileSync(f, 'utf8').includes('<div class="progress" aria-hidden="true"></div>')));
   check('single accent colour defined', /--color-accent:\s*#1f4e5a/i.test(css));
-  check('warm hairlines replace slate', /--color-line:\s*#ddd6ca/i.test(css) && !/--color-line:\s*#e2e8f0/i.test(css));
+  check('warm hairlines replace slate', /--color-line:\s*#e5dfd5/i.test(css) && !/--color-line:\s*#e2e8f0/i.test(css));
   const noCredits = htmlFiles.filter((f) => !(readFileSync(f, 'utf8').match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '').includes('IESE and IE Business School')).map((f) => relative(DIST, f));
   check('credentials line in the footer on every page', noCredits.length === 0, noCredits.join(', '));
 }

@@ -21,8 +21,8 @@
   --color-ink-hover: #2c2e33;
   --color-steel: #3e3a34;      /* reading text: warm dark grey */
   --color-muted: #6f685e;      /* margin notes, captions */
-  --color-line: #ddd6ca;       /* warm hairlines */
-  --color-line-strong: #bdb3a3;/* rules that carry structure */
+  --color-line: #e5dfd5;       /* warm hairlines, kept light so 1px reads as a hairline */
+  --color-line-strong: #d4cbbd;/* rules that carry structure */
   --color-accent: #1f4e5a;     /* petrol: links and the one button */
   --color-accent-hover: #163a43;
 
@@ -133,7 +133,7 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   }
 }
 
-@keyframes unveil { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes unveil { from { clip-path: inset(0 100% 0 0 round 1rem); } to { clip-path: inset(0 0 0 0 round 1rem); } }
 @keyframes zoomout { from { transform: scale(1.08); } to { transform: none; } }
 @media (prefers-reduced-motion: no-preference) {
   /* The opening photograph is uncovered from the right once the headline has arrived */
@@ -158,6 +158,23 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   .case { interpolate-size: allow-keywords; }
   .case::details-content { block-size: 0; overflow: clip; transition: block-size 260ms ease, content-visibility 260ms allow-discrete; }
   .case[open]::details-content { block-size: auto; }
+}
+
+/* Hairlines. Every line is 1 CSS pixel, which a retina screen draws two device pixels thick.
+   On those screens, draw lines at a single device pixel instead. */
+@media (min-resolution: 2dppx) {
+  .border { border-width: 0.5px; }
+  .border-t { border-top-width: 0.5px; }
+  .border-b { border-bottom-width: 0.5px; }
+  .border-l { border-left-width: 0.5px; }
+  .border-t-0 { border-top-width: 0; }
+  .h-px { height: 0.5px; }
+  .divide-y > :not(:last-child) { border-top-width: 0; border-bottom-width: 0.5px; }
+  @media (width >= 64rem) {
+    .lg\:border-b-0 { border-bottom-width: 0; }
+    .lg\:divide-y-0 > :not(:last-child) { border-bottom-width: 0; }
+    .lg\:divide-x > :not(:last-child) { border-left-width: 0; border-right-width: 0.5px; }
+  }
 }
 
 /* Below lg: balanced headings and no horizontal page overflow */
