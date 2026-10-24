@@ -113,7 +113,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('home: reassurance note next to the primary button', home.includes('Confidential. Direct. No obligation to continue.'));
   const hero = home.match(/<section aria-labelledby="hero-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   const heroImg = hero.match(/<img[^>]*>/)?.[0] ?? '';
-  check('home: hero photograph loads eagerly with high priority, after the headline in reading order', heroImg.includes('loading="eager"') && heroImg.includes('fetchpriority="high"') && hero.indexOf('<h1') < hero.indexOf('<img'));
+  check('home: hero photograph loads eagerly with high priority', heroImg.includes('loading="eager"') && heroImg.includes('fetchpriority="high"') && hero.includes('<h1'));
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
   const homeImgs = home.match(/<img [^>]*>/g) ?? [];
@@ -125,7 +125,8 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   const sec = (id) => home.match(new RegExp(`aria-labelledby="${id}-heading"[\\s\\S]*?<\\/section>`))?.[0] ?? '';
-  check('home: situations as three stacking cards', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="stack-card"/g) ?? []).length === 3);
+  check('home: situations as one framed panel of three', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle/g) ?? []).length === 3);
+  check('home: hero photograph is a full-width strip with the headline panel over it', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="unveil relative w-full/.test(home));
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
   check('home: full-width Berlin strip with its pull quote', home.includes('id="room-quote"') && home.includes('The best moment comes when we step back'));

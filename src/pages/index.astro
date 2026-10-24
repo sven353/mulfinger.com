@@ -65,45 +65,43 @@ const pattern = {
 };
 ---
 <Layout>
-  <!-- 1 · Opening: headline on paper, the photograph bleeding off the right edge (below on mobile) -->
-  <section aria-labelledby="hero-heading" class="overflow-x-clip">
-    <div class="container-x">
-      <div class="lg:grid lg:grid-cols-12 lg:gap-x-10 lg:min-h-[min(44rem,calc(100svh-5rem))]">
-        <div class="lg:col-span-7 pt-10 lg:pt-20 pb-10 lg:pb-16 lg:pr-4">
-          <p class="rise label"><span class="text-ink">Dr. Sven Mulfinger</span> · Executive advisory for founders and CEOs · Barcelona, Madrid, online</p>
-          <h1 id="hero-heading" class="rise rise-2 mt-6 lg:mt-10 display text-[2.75rem] sm:text-[3.75rem] lg:text-[4.35rem] leading-[1.02] text-ink max-w-[13ch]">A thinking partner for the decisions you cannot delegate.</h1>
-          <p class="rise rise-3 mt-7 lg:mt-9 reading text-[1.2rem]! sm:text-[1.3rem]! leading-[1.5]! max-w-[32rem]">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
-          <div class="rise rise-4 mt-8 lg:mt-10 flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-3">
-            <a href="/contact" class="inline-flex justify-center items-center gap-2 bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-            <span class="label">Confidential. Direct. No obligation to continue.</span>
-          </div>
+  <!-- 1 · Opening: the photograph as a full-width strip, a clean paper panel over its lower right corner -->
+  <section aria-labelledby="hero-heading" class="relative pb-6 lg:pb-24">
+    <div class="unveil relative w-full h-[58svh] min-h-[22rem] sm:h-[66svh] lg:h-[clamp(34rem,82svh,50rem)] overflow-hidden bg-mist">
+      <Image
+        src={conversation}
+        alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives"
+        widths={[640, 960, 1264]}
+        sizes="100vw"
+        format="webp"
+        quality={82}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="absolute inset-0 size-full object-cover object-[46%_30%]"
+      />
+    </div>
+    <div class="container-x relative">
+      <div class="relative -mt-20 sm:-mt-28 lg:mt-0 lg:absolute lg:right-10 lg:bottom-[-4rem] lg:w-[35rem] bg-paper px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12 shadow-[0_24px_60px_-34px_rgba(22,23,26,0.55)]">
+        <p class="rise label"><span class="text-ink">Dr. Sven Mulfinger</span> · Executive advisory for founders and CEOs</p>
+        <h1 id="hero-heading" class="rise rise-2 mt-5 display text-[2.5rem] sm:text-[3.2rem] lg:text-[3.5rem] leading-[1.03] text-ink max-w-[13ch]">A thinking partner for the decisions you cannot delegate.</h1>
+        <p class="rise rise-3 mt-6 reading text-[1.125rem]! sm:text-[1.2rem]! leading-[1.55]!">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
+        <div class="rise rise-4 mt-7 flex flex-col items-stretch sm:items-start gap-3">
+          <a href="/contact" class="inline-flex justify-center items-center gap-2 whitespace-nowrap bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+          <span class="label">Confidential. Direct. No obligation to continue.</span>
         </div>
-        <figure class="unveil relative -mx-5 md:-mx-10 lg:mx-0 lg:col-span-5 lg:mr-[calc(min(0px,(76rem-100vw)/2)-2.5rem)] aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto overflow-hidden bg-mist">
-          <Image
-            src={conversation}
-            alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives"
-            widths={[480, 800, 1264]}
-            sizes="(min-width: 1024px) 45vw, 100vw"
-            format="webp"
-            quality={82}
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            class="absolute inset-0 size-full object-cover object-[47%_35%]"
-          />
-        </figure>
       </div>
     </div>
   </section>
 
-  <!-- 2 · Situations: three cards that stack as you scroll -->
-  <Chapter id="situations" note="Where the work starts" heading="When the usual answers stop working.">
-    <div class="mt-10 pb-[16svh]">
+  <!-- 2 · Situations: one framed panel, three columns that fill in one after another -->
+  <Chapter id="situations" note="Where the work starts" heading="When the usual answers stop working." wide>
+    <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 border border-line-strong divide-y lg:divide-y-0 lg:divide-x divide-line-strong">
       {situations.map((s, i) => (
-        <article class="stack-card" style={`--i:${i}`}>
+        <article class:list={['situation settle', `s${i + 1}`, 'p-7 lg:p-9']}>
           <p class="label">{['One', 'Two', 'Three'][i]} of three</p>
-          <h3 class="mt-4 text-[1.75rem] sm:text-[2.25rem] leading-[1.12] text-ink max-w-[20ch]">{s.title}.</h3>
-          <p class="mt-4 reading max-w-[30rem]">{s.body}</p>
+          <h3 class="mt-4 text-[1.55rem] sm:text-[1.7rem] leading-[1.15] text-ink">{s.title}.</h3>
+          <p class="mt-4 reading">{s.body}</p>
         </article>
       ))}
     </div>

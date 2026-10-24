@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-24: build clean, 166/166 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
+Status on 2026-10-24: build clean, 167/167 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
 
 ## Deployment pipeline
 
@@ -197,6 +197,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 - 2026-10-24 (v31): Advisory FAQ folded: each item shows only the question; opening it shows the one-line answer, with the longer context one more click away. First five questions visible, the rest behind "Show more questions". Six questions added for GEO (who Sven is, locations and languages, coaching vs consulting vs therapy, confidentiality, fees, neurodivergent founders), all built from facts already confirmed on the site. FAQPage schema and llms-full.txt now carry 12 questions.
 - 2026-10-24 (v32): All three field cases folded on the homepage: context, title and a one-line summary visible; the full situation, underneath and what changed open with "Read the case".
 - 2026-10-24 (v33): "Three ways to work together" shows a small photograph beside each way of working (1:1, The Round, leadership teams) on the homepage and /advisory; the large Round photo moved into its row. New leadership-teams image (path-teams.jpg). The 1:1 thumbnail (path-advisory.jpg) is a copy of the hero photograph until Sven supplies its own.
+- 2026-10-24 (v34): Opening rebuilt as a full-width photograph strip with a paper panel (name, headline, subtitle, button) over its lower right corner; on phones the panel overlaps the bottom of the photo. The three situations are now one framed panel of three columns that fill in from left to right while scrolling, replacing the stacking cards and their empty space.
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.
