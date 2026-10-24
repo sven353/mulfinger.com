@@ -7,21 +7,23 @@
 // FAQPage JSON-LD is emitted in <head> by Seo.astro via the `faq` prop on Layout.
 import { faq, segments } from '../data/faq';
 
-interface Props { heading?: string; intro?: string; visible?: number }
+interface Props { heading?: string; intro?: string; visible?: number; short?: boolean }
 const {
   heading = 'Questions leaders ask first.',
   intro = 'Open any question for the short answer.',
   visible = 5,
+  short = false,
 } = Astro.props;
+// short: homepage version, first questions only plus a link to the full list on /advisory
 const first = faq.slice(0, visible);
-const rest = faq.slice(visible);
+const rest = short ? [] : faq.slice(visible);
 ---
 <section id="faq" aria-labelledby="faq-heading" class="scroll-mt-20">
   <div class="container-x">
     <div class="relative py-14 lg:py-20 lg:grid lg:grid-cols-12 lg:gap-x-10">
       <span aria-hidden="true" class="draw absolute inset-x-0 top-0 h-px bg-line-strong"></span>
       <div class="lg:col-span-3">
-        <p class="label lg:pt-2 lg:sticky lg:top-10">{faq.length} questions</p>
+        <p class="label lg:pt-2 lg:sticky lg:top-10">{short ? 'Before you get in touch' : `${faq.length} questions`}</p>
       </div>
       <div class="mt-3 lg:mt-0 lg:col-span-8 xl:col-span-7">
         <h2 id="faq-heading" class="settle text-[2rem] sm:text-[2.5rem] leading-[1.1] tracking-[-0.012em] text-ink text-balance">{heading}</h2>
@@ -73,6 +75,7 @@ const rest = faq.slice(visible);
             </details>
           );
         })}
+        {short && <p class="mt-6 text-[0.9375rem]"><a href="/advisory#faq" class="link">All {faq.length} questions on the Advisory page</a></p>}
       </div>
     </div>
   </div>

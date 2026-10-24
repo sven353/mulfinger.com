@@ -4,16 +4,22 @@ import Layout from '../layouts/Layout.astro';
 import Chapter from '../components/Chapter.astro';
 import Paths from '../components/Paths.astro';
 import Invite from '../components/Invite.astro';
+import Faq from '../components/Faq.astro';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
 import conversation from '../assets/images/advisory-conversation.jpg';
 import { site } from '../data/site';
 
-// Three situations, one sentence each. They stack as cards while you scroll.
+// Three situations that bring founders and CEOs to a first conversation. Each has a small line icon.
 const situations = [
-  { title: 'The decisions that keep coming back', body: 'Everyone understands the problem, yet the decision keeps getting postponed, diluted or reversed.' },
-  { title: 'When the leadership team becomes the bottleneck', body: 'Capable people and overlapping responsibilities, with too many decisions still landing back on the CEO.' },
-  { title: 'When the business outgrows the founder', body: 'The company scaled, but the way decisions are made and shared did not change with it.' },
+  { icon: 'loop', title: 'A decision that keeps coming back', body: 'Everyone understands the problem, yet the decision keeps getting postponed, diluted or reversed.' },
+  { icon: 'funnel', title: 'A leadership team that has become the bottleneck', body: 'Capable people and overlapping responsibilities, with too many decisions still landing back on your desk.' },
+  { icon: 'steps', title: 'A company that has outgrown the way you lead it', body: 'The business scaled, but the way decisions are made and shared did not change with it.' },
 ];
+const icons: Record<string, string> = {
+  loop: 'M20 12a8 8 0 1 1-2.34-5.66M20 4v4.5h-4.5',
+  funnel: 'M3.5 5h17l-6.5 8v5.5l-4 1.5v-7z',
+  steps: 'M3.5 18.5l6-6 4 4 7-7M14.5 9.5h6v6',
+};
 
 // Figures stated by Sven (20 years: 2026-10-24; 100+ scope and languages: 2026-10-15/16).
 const figures = [
@@ -93,17 +99,19 @@ const pattern = {
     </div>
   </section>
 
-  <!-- 2 · Situations: one framed panel, three columns that fill in one after another -->
-  <Chapter id="situations" note="Where the work starts" heading="When the usual answers stop working." wide>
+  <!-- 2 · Situations: why founders and CEOs get in touch -->
+  <Chapter id="situations" note="Why leaders get in touch" heading="When the usual answers stop working." wide>
+    <p class="mt-6 reading max-w-[38rem]">Most founders and CEOs who contact me for advisory or a sparring partner arrive with one of these three situations.</p>
     <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 border border-line-strong divide-y lg:divide-y-0 lg:divide-x divide-line-strong">
       {situations.map((s, i) => (
         <article class:list={['situation settle', `s${i + 1}`, 'p-7 lg:p-9']}>
-          <p class="label">{['One', 'Two', 'Three'][i]} of three</p>
-          <h3 class="mt-4 text-[1.55rem] sm:text-[1.7rem] leading-[1.15] text-ink">{s.title}.</h3>
+          <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d={icons[s.icon]} /></svg>
+          <h3 class="mt-5 text-[1.55rem] sm:text-[1.7rem] leading-[1.15] text-ink">{s.title}.</h3>
           <p class="mt-4 reading">{s.body}</p>
         </article>
       ))}
     </div>
+    <p class="mt-8 text-[0.9375rem]"><a href="/contact" class="link">Recognise one of these? Start with a confidential first conversation</a></p>
   </Chapter>
 
   <!-- 3 · How I think: one worked pattern -->
@@ -179,6 +187,9 @@ const pattern = {
     <Paths />
   </Chapter>
 
-  <!-- 8 · One invitation -->
+  <!-- 8 · Short FAQ: the five questions leaders ask first, folded; all twelve live on /advisory -->
+  <Faq short heading="Questions leaders ask first." intro="Open any question for the short answer." />
+
+  <!-- 9 · One invitation -->
   <Invite />
 </Layout>

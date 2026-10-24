@@ -125,7 +125,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   const sec = (id) => home.match(new RegExp(`aria-labelledby="${id}-heading"[\\s\\S]*?<\\/section>`))?.[0] ?? '';
-  check('home: situations as one framed panel of three', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle/g) ?? []).length === 3);
+  check('home: situations as one framed panel of three, each with an icon', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle[^"]*">\s*<svg/g) ?? []).length === 3 && !sec('situations').includes('of three'));
   check('home: hero photograph is a full-width strip with the headline panel over it', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="unveil relative w-full/.test(home));
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
@@ -185,7 +185,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
   const homeText = home.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ');
   check('home: new hero headline', homeText.includes('A thinking partner for the decisions you cannot delegate.'));
-  check('home: no FAQ block', !home.includes('id="faq"'));
+  check('home: short folded FAQ before the invitation, linking to all questions', home.includes('id="faq"') && (home.match(/<section id="faq"[\s\S]*?<\/section>/)?.[0].match(/<li/g) ?? []).length === 5 && home.includes('href="/advisory#faq"') && home.indexOf('id="faq"') < home.indexOf('id="invite-heading"'));
     check('home: no product labels (Mode/Format/Rhythm/Led by)', !/\b(Mode 0\d|Format|Rhythm|Led by)\b/.test(homeText));
   const slogan = htmlFiles.reduce((n, f) => n + (readFileSync(f, 'utf8').replace(/<[^>]+>/g, ' ').match(/Slow down to speed up/gi) ?? []).length, 0);
   check(`"Slow down to speed up" not repeated as a banner (found ${slogan})`, slogan <= 1);
