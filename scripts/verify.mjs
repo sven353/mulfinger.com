@@ -76,7 +76,7 @@ for (const page of ['index.html', 'advisory/index.html', 'about/index.html']) {
   if (page !== 'advisory/index.html') {
     check(`no FAQPage on ${page}`, !faqNode);
   } else {
-    check(`FAQPage on ${page} (${faqNode?.mainEntity?.length ?? 0} questions)`, faqNode?.mainEntity?.length === 6);
+    check(`FAQPage on ${page} (${faqNode?.mainEntity?.length ?? 0} questions)`, faqNode?.mainEntity?.length === 12);
     const faqTexts = (faqNode?.mainEntity ?? []).map((q) => q.acceptedAnswer?.text ?? '');
     check(`FAQPage answers are plain text on ${page}`, faqTexts.length > 0 && faqTexts.every((t) => t.length > 80 && !/[<>\[\]]/.test(t)));
   }
@@ -88,22 +88,24 @@ for (const page of ['advisory/index.html']) {
   const html = readFileSync(join(DIST, page), 'utf8');
   const section = html.match(/<section id="faq"[\s\S]*?<\/section>/)?.[0] ?? '';
   const items = section.match(/<li[\s\S]*?<\/li>/g) ?? [];
-  check(`FAQ on ${page} renders 6 items`, items.length === 6);
+  check(`FAQ on ${page} renders 12 items`, items.length === 12);
+  check(`FAQ on ${page}: first five visible, the rest folded behind Show more`, (section.split('<details class="faq-more')[0].match(/<li/g) ?? []).length === 5 && /Show 7 more questions/.test(section));
+  check(`FAQ on ${page}: every question folded, answer only after opening`, items.every((li) => li.indexOf('<summary') < li.indexOf('<h3') && li.indexOf('</summary>') < li.indexOf('class="reading')));
   check(`every FAQ item has a <details> toggle on ${page}`, items.length > 0 && items.every((li) => li.includes('<details') && li.includes('<summary')));
   // outbound links must sit inside <details>, never in the visible question or verdict
   const leaked = items.filter((li) => /href="https?:\/\//.test(li.split('<details')[0]));
   check(`no outbound links outside expanded context on ${page}`, leaked.length === 0);
   const outbound = [...section.matchAll(/<a [^>]*href="https?:\/\/[^"]+"[^>]*>/g)].map((m) => m[0]);
   const bad = outbound.filter((a) => !a.includes('target="_blank"') || !a.includes('rel="noopener noreferrer"'));
-  check(`${outbound.length} FAQ outbound links use target=_blank + noopener noreferrer on ${page}`, outbound.length === 3 && bad.length === 0, bad.join(' '));
-  for (const host of ['kuma.partners', 'offsite.kuma.partners', 'theround.kuma.partners']) {
+  check(`${outbound.length} FAQ outbound links use target=_blank + noopener noreferrer on ${page}`, outbound.length === 4 && bad.length === 0, bad.join(' '));
+  for (const host of ['kuma.partners', 'offsite.kuma.partners', 'theround.kuma.partners', 'neurodisruptors.com']) {
     check(`FAQ on ${page} links to ${host}`, outbound.some((a) => a.includes(`https://${host}`)));
   }
 }
 
 // 4c. llms-full.txt carries all FAQ answers
 const llmsFull = readFileSync(join(DIST, 'llms-full.txt'), 'utf8');
-check('llms-full.txt contains 6 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 6);
+check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) ?? []).length === 12);
 
 // 4d. Home structure: "the working paper" (v26, October 2026)
 {

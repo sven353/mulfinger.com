@@ -1,4 +1,5 @@
-// Advisory FAQ: six questions on direct advisory qualification only.
+// Advisory FAQ: twelve questions. The first five show by default; the rest sit behind "Show more questions".
+// Questions 7 to 12 (added 2026-10-24 for GEO) use only facts Sven has confirmed elsewhere on the site.
 // Used by Faq.astro on /advisory, the FAQPage JSON-LD in Seo.astro and /llms-full.txt.
 //
 // Each item: q = question, verdict = one visible line, body = expanded context.
@@ -12,9 +13,10 @@
 
 export type FaqItem = { q: string; verdict: string; body: string };
 
-const KUMA = 'https://www.kuma.partners';
+const KUMA = 'https://kuma.partners';
 const OFFSITE = 'https://offsite.kuma.partners';
 const ROUND = 'https://theround.kuma.partners';
+const NEURO = 'https://neurodisruptors.com';
 
 export const faq: FaqItem[] = [
   {
@@ -38,7 +40,7 @@ export const faq: FaqItem[] = [
     body: `When the issue sits with you, your judgement, your role or a decision only you can take, 1:1 is the right room. When the friction sits between executives, the work moves to my institutional practice, [Kuma Partners](${KUMA}): team diagnostics, alignment sprints and [strategic offsites](${OFFSITE}), run with partners who have led companies themselves.`,
   },
   {
-    q: "What is the criteria and format for 'The Round'?",
+    q: "What are the criteria and format for 'The Round'?",
     verdict: 'A small, confidential peer group of founders and CEOs in Barcelona, joined by application or nomination.',
     body: `Members meet monthly to work on live issues with peers who carry comparable weight, with individual sparring sessions with me in between, a one-day, one-night immersion and an annual offsite. Members are selected so the group is balanced in scale and ambition and free of conflicts of interest. There is no commercial pitching in the room. More at [The Round by Kuma Partners](${ROUND}).`,
   },
@@ -46,6 +48,36 @@ export const faq: FaqItem[] = [
     q: 'What happens after I get in touch?',
     verdict: 'I read your message myself, reply within 24 to 48 hours and suggest a first conversation if there is a fit.',
     body: 'That first conversation is confidential and is about whether we should work together at all: chemistry, the size of the challenge and whether I am the right person. If we both see a fit, we map the main friction points in a short Strategic Friction Diagnostic and agree the outcomes we are aiming for before an advisory agreement is signed. If I am not the right person, I will say so.',
+  },
+  {
+    q: 'Who is Dr. Sven Mulfinger?',
+    verdict: 'An executive advisor based in Barcelona who has built start-ups for 20 years, served as CEO in the corporate world and leads Kuma Partners.',
+    body: 'He trained in molecular genetics and chemical engineering and holds a doctorate. He has guided more than 100 founders, managing directors and C-suite leaders across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe. With Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School) he researches how founders with non-linear minds lead and govern.',
+  },
+  {
+    q: 'Where do sessions take place, and in which languages?',
+    verdict: 'In person in Barcelona or Madrid, or online from anywhere, in English, Spanish, German or French.',
+    body: 'Most clients combine the two: in person when a decision needs a longer, quieter conversation, online when time matters more than the room. I grew up between languages and institutions in Brussels and work in all four languages myself, which matters when a leadership team spans several countries.',
+  },
+  {
+    q: 'Is this coaching, consulting or therapy?',
+    verdict: 'The closest description is confidential thought partnership on the decisions in front of you.',
+    body: 'A consultant typically delivers a report; here we work on your live decisions together over six or twelve months. Therapy looks at the person; this work stays on your role, your company and the people around you. Coaching skills are part of the craft, but the conversations sit closer to a sparring partner who has carried similar responsibility.',
+  },
+  {
+    q: 'How confidential is the work?',
+    verdict: 'Nothing you share reaches your board, investors or team unless you decide it should.',
+    body: 'Confidentiality is total. I do not take on work where my interests and yours could pull apart, and I say so when something is outside my competence.',
+  },
+  {
+    q: 'How are fees set?',
+    verdict: 'Fees are shared after the first conversation, once the scope is clear.',
+    body: 'The retainer depends on the term you choose, six or twelve months, and on the scope we agree in the Strategic Friction Diagnostic. You see the full terms in an advisory agreement before any work starts. The first conversation is exploratory and carries no obligation.',
+  },
+  {
+    q: 'Do you work with neurodivergent founders and CEOs?',
+    verdict: 'Yes, and it is a focus of my research.',
+    body: `With Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School) I study how founders with spiky cognitive profiles, such as ADHD, giftedness or dyslexia, lead, delegate and govern. That lens informs the work whether or not a leader identifies with a label. The research is published at [neurodisruptors.com](${NEURO}).`,
   },
 ];
 

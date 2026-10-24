@@ -1,15 +1,20 @@
 ---
-// Advisory FAQ (only on /advisory). Each item shows the question and a one-line verdict.
-// The deeper context sits in a native <details> (accessible, works without JS).
+// Advisory FAQ (only on /advisory). Folded: each item shows only the question.
+// Opening it shows the one-line answer; the longer context sits one more click away.
+// Only the first five questions are visible; the rest open with "Show more questions".
+// Everything is native <details> (accessible, works without JavaScript, readable by crawlers).
 // Outbound links appear only inside the expanded context.
 // FAQPage JSON-LD is emitted in <head> by Seo.astro via the `faq` prop on Layout.
 import { faq, segments } from '../data/faq';
 
-interface Props { heading?: string; intro?: string }
+interface Props { heading?: string; intro?: string; visible?: number }
 const {
   heading = 'Questions leaders ask first.',
-  intro = 'Short answers first. Open any item for the full context.',
+  intro = 'Open any question for the short answer.',
+  visible = 5,
 } = Astro.props;
+const first = faq.slice(0, visible);
+const rest = faq.slice(visible);
 ---
 <section id="faq" aria-labelledby="faq-heading" class="scroll-mt-20">
   <div class="container-x">
@@ -21,48 +26,70 @@ const {
       <div class="mt-3 lg:mt-0 lg:col-span-8 xl:col-span-7">
         <h2 id="faq-heading" class="settle text-[2rem] sm:text-[2.5rem] leading-[1.1] tracking-[-0.012em] text-ink text-balance">{heading}</h2>
         <p class="mt-6 reading max-w-[38rem]">{intro}</p>
-        <ol class="mt-8 border-t border-line">
-          {faq.map((item, i) => {
-            const id = `faq-${i + 1}`;
-            return (
-              <li class="settle py-7 border-b border-line">
-                <h3 id={id} class="text-[1.4rem] sm:text-[1.6rem] leading-snug text-ink">{item.q}</h3>
-                <p class="mt-3 reading">{item.verdict}</p>
-                <details class="faq-details group mt-4">
-                  <summary class="inline-flex cursor-pointer list-none items-center gap-2 text-[0.9375rem] text-accent hover:text-accent-hover [&::-webkit-details-marker]:hidden" aria-describedby={id}>
-                    <span class="group-open:hidden">Read the context</span>
-                    <span class="hidden group-open:inline">Hide the context</span>
-                    <span aria-hidden="true" class="transition-transform duration-200 group-open:rotate-180">↓</span>
-                  </summary>
-                  <p class="faq-body mt-4 border-l border-line-strong pl-5 reading">
-                    {segments(item.body).map((s) =>
-                      s.href
-                        ? <a href={s.href} target="_blank" rel="noopener noreferrer" class="link">{s.text}<span class="sr-only"> (opens in a new tab)</span></a>
-                        : s.text
-                    )}
-                  </p>
-                </details>
-              </li>
-            );
-          })}
-        </ol>
+
+        {[first, rest].map((group, g) => {
+          const list = (
+            <ol class:list={['border-t border-line', g === 0 ? 'mt-8' : 'mt-0 border-t-0']} start={g === 0 ? 1 : visible + 1}>
+              {group.map((item, j) => {
+                const i = g === 0 ? j : visible + j;
+                const id = `faq-${i + 1}`;
+                return (
+                  <li class="border-b border-line">
+                    <details class="faq group">
+                      <summary class="flex cursor-pointer list-none items-start justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+                        <h3 id={id} class="text-[1.25rem] sm:text-[1.4rem] leading-snug text-ink group-hover:text-accent transition-colors">{item.q}</h3>
+                        <span aria-hidden="true" class="mt-1 shrink-0 font-sans text-xl leading-none text-accent transition-transform duration-200 group-open:rotate-45">+</span>
+                      </summary>
+                      <div class="pb-6 pr-10">
+                        <p class="reading text-ink!">{item.verdict}</p>
+                        <details class="faq-ctx group/ctx mt-3">
+                          <summary class="inline-flex cursor-pointer list-none items-center gap-2 text-[0.9375rem] text-accent hover:text-accent-hover [&::-webkit-details-marker]:hidden" aria-describedby={id}>
+                            <span class="group-open/ctx:hidden">More context</span>
+                            <span class="hidden group-open/ctx:inline">Less context</span>
+                          </summary>
+                          <p class="mt-3 border-l border-line-strong pl-5 reading">
+                            {segments(item.body).map((s) =>
+                              s.href
+                                ? <a href={s.href} target="_blank" rel="noopener noreferrer" class="link">{s.text}<span class="sr-only"> (opens in a new tab)</span></a>
+                                : s.text
+                            )}
+                          </p>
+                        </details>
+                      </div>
+                    </details>
+                  </li>
+                );
+              })}
+            </ol>
+          );
+          return g === 0 ? list : rest.length > 0 && (
+            <details class="faq-more group/more">
+              <summary class="mt-6 inline-flex cursor-pointer list-none items-center gap-2 text-[0.9375rem] text-accent hover:text-accent-hover [&::-webkit-details-marker]:hidden">
+                <span class="group-open/more:hidden">Show {rest.length} more questions</span>
+                <span class="hidden group-open/more:inline">Show fewer questions</span>
+                <span aria-hidden="true" class="transition-transform duration-200 group-open/more:rotate-180">↓</span>
+              </summary>
+              {list}
+            </details>
+          );
+        })}
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Smooth height expansion where the browser supports it (Chromium 131+); instant elsewhere. */
+  /* Smooth height where the browser supports it (Chromium 131+); instant elsewhere. */
   @supports selector(::details-content) {
-    .faq-details { interpolate-size: allow-keywords; }
-    .faq-details::details-content {
+    .faq, .faq-ctx, .faq-more { interpolate-size: allow-keywords; }
+    .faq::details-content, .faq-ctx::details-content, .faq-more::details-content {
       block-size: 0;
       overflow: clip;
-      transition: block-size 220ms ease, content-visibility 220ms allow-discrete;
+      transition: block-size 240ms ease, content-visibility 240ms allow-discrete;
     }
-    .faq-details[open]::details-content { block-size: auto; }
+    .faq[open]::details-content, .faq-ctx[open]::details-content, .faq-more[open]::details-content { block-size: auto; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .faq-details::details-content { transition: none; }
+    .faq::details-content, .faq-ctx::details-content, .faq-more::details-content { transition: none; }
   }
 </style>
