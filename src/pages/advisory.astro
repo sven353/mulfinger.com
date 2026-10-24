@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Faq from '../components/Faq.astro';
 import { faq } from '../data/faq';
+import { site } from '../data/site';
 import Chapter from '../components/Chapter.astro';
-import Paths from '../components/Paths.astro';
 import Invite from '../components/Invite.astro';
 import PhotoHero from '../components/PhotoHero.astro';
 import heroPhoto from '../assets/images/hero-office.jpg';
@@ -25,6 +25,14 @@ const workOn = [
   'Your own role changing as the company grows',
 ];
 
+// Deliberately out of scope (from the site's existing copy and FAQ Q1)
+const outOfScope = [
+  'Entry-level business coaching or generic career advice',
+  'Therapy',
+  'A consulting report or a strategy deck',
+  'Work with the whole leadership team, which runs through Kuma Partners',
+];
+
 const terms = [
   ['Term', '6-month or 12-month retainer'],
   ['Sessions', 'Two working sessions of 60 to 90 minutes a month, fortnightly'],
@@ -35,10 +43,10 @@ const terms = [
 ];
 
 const steps = [
-  { n: '01', t: 'First conversation', b: 'Confidential and exploratory. We look at the situation and decide together whether working together makes sense.' },
-  { n: '02', t: 'Strategic Friction Diagnostic', b: 'If it does, we map what is really driving the situation and agree the outcomes we are aiming for.' },
-  { n: '03', t: 'Working sessions', b: 'Fortnightly sessions on the live decisions, with direct access in between.' },
-  { n: '04', t: 'Review', b: 'We review against the outcomes we set and decide together whether to continue, change course or stop.' },
+  { when: 'Before anything is agreed', t: 'First conversation', b: 'Confidential and exploratory. We look at the situation and decide together whether working together makes sense.' },
+  { when: 'Before the agreement is signed', t: 'Strategic Friction Diagnostic', b: 'If it does, we map what is really driving the situation and agree the outcomes we are aiming for.' },
+  { when: 'Six or twelve months', t: 'Working sessions', b: 'Two sessions a month on the live decisions, with direct access in between when something cannot wait.' },
+  { when: 'At the end of the term', t: 'Review', b: 'We review against the outcomes we set and decide together whether to continue, change course or stop.' },
 ];
 
 const expectations = [
@@ -58,27 +66,29 @@ const expectations = [
         <a href="#who" class="text-muted hover:text-ink">Who this is for</a>
         <a href="#how" class="text-muted hover:text-ink">How it works</a>
         <a href="#expect" class="text-muted hover:text-ink">What to expect</a>
-        <a href="#the-round" class="text-muted hover:text-ink">Ways to work together</a>
+        <a href="#the-round" class="text-muted hover:text-ink">Other ways to work together</a>
         <a href="#faq" class="text-muted hover:text-ink">FAQ</a>
       </div>
     </div>
   </nav>
 
 
-  <Chapter id="who" note="Fit" heading="Who this is for, and what we work on.">
+  <Chapter id="who" note="Fit" heading="Who this is for, and where I draw the line." wide>
     <p class="mt-6 reading max-w-[38rem]">Typically you already execute well. What has changed is the scale, the stakes or the people around you.</p>
-    <div class="mt-10 grid sm:grid-cols-2 gap-10 sm:gap-12">
+    <ul class="mt-8 max-w-[38rem] hair-t">
+      {forWhom.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]!">{f}</li>)}
+    </ul>
+    <div class="mt-12 grid sm:grid-cols-2 gap-10 sm:gap-12">
       <div>
-        <h3 class="text-[1.45rem] text-ink">Who this is for</h3>
-        <ul class="mt-4 hair-t ">
-          {forWhom.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]!">{f}</li>)}
+        <h3 class="text-[1.45rem] text-ink">In scope</h3>
+        <ul class="mt-4 hair-t">
+          {workOn.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]!">{f}</li>)}
         </ul>
-        <p class="mt-4 label">Probably not a fit if you are looking for entry-level business coaching, therapy or a consulting report.</p>
       </div>
       <div>
-        <h3 class="text-[1.45rem] text-ink">What we work on</h3>
-        <ul class="mt-4 hair-t ">
-          {workOn.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]!">{f}</li>)}
+        <h3 class="text-[1.45rem] text-ink">Deliberately out of scope</h3>
+        <ul class="mt-4 hair-t">
+          {outOfScope.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]! text-muted!">{f}</li>)}
         </ul>
       </div>
     </div>
@@ -99,7 +109,8 @@ const expectations = [
         <li class="py-5 grid grid-cols-[2rem_1fr] gap-x-3 hair-b ">
           <span class="font-serif text-[1.35rem] leading-snug text-muted">{i + 1}.</span>
           <div>
-            <p class="font-serif text-[1.35rem] leading-snug text-ink">{s.t}</p>
+            <p class="label">{s.when}</p>
+            <p class="mt-1 font-serif text-[1.35rem] leading-snug text-ink">{s.t}</p>
             <p class="mt-1.5 reading">{s.b}</p>
           </div>
         </li>
@@ -114,22 +125,33 @@ const expectations = [
   </Chapter>
 
   <!-- A pattern I see often (moved from the homepage). DRAFT: Sven to confirm or replace. -->
-  <Chapter id="thinking" note="How I think" heading="A request I hear often.">
+  <Chapter id="thinking" note="How I think" heading="A request I hear often, and the question I ask first.">
     <p slot="margin" class="label mt-3 hidden lg:block max-w-[14rem]">A composite pattern from practice, not an individual client.</p>
-    <article class="mt-8 max-w-[38rem]">
-      <blockquote class="wipe display text-[1.8rem] sm:text-[2.3rem] leading-[1.15] text-ink">“We need to hire a COO.”</blockquote>
+    <article class="mt-8 max-w-[40rem] bg-mist hair-all hair-strong px-6 py-8 sm:px-10 sm:py-10">
+      <p class="label">Field memo · The COO request</p>
+      <blockquote class="mt-4 wipe display text-[1.8rem] sm:text-[2.3rem] leading-[1.15] text-ink">“We need to hire a COO.”</blockquote>
       <p class="settle mt-6 reading">The obvious response is to start a search.</p>
       <p class="settle mt-4 reading">Before that, I want to know which decisions the CEO actually wants to stop making, and which ones they will still quietly take back. A senior hire is often a container for decisions the founder has not yet decided to release.</p>
       <p class="settle mt-4 reading text-ink">If that stays unresolved, the new COO inherits the title without the authority. Sometimes the answer is still a COO, and it is a far better hire once the decisions the role owns are clear.</p>
     </article>
   </Chapter>
 
-  <Chapter id="the-round" headingId="paths-heading" note="Ways to work together" heading="Three ways I work with leaders and leadership teams.">
-    <p class="mt-6 reading max-w-[38rem]">1:1 advisory for the leader carrying the final call, The Round for founders and CEOs who want peers of the same weight, and Kuma Partners when the work sits with the whole executive team. We choose together, depending on where the tension sits.</p>
-    <Paths />
-  </Chapter>
+  <!-- Quiet routing: the full three-way overview lives on the homepage -->
+  <section id="the-round" aria-labelledby="paths-heading" class="scroll-mt-20">
+    <div class="container-x">
+      <div class="relative py-10 lg:py-12 lg:grid lg:grid-cols-12 lg:gap-x-10">
+        <span aria-hidden="true" class="draw absolute inset-x-0 top-0 h-px hair-t hair-strong"></span>
+        <p class="label lg:col-span-3 lg:pt-1">Other ways to work together</p>
+        <div class="mt-2 lg:mt-0 lg:col-span-8 xl:col-span-7 space-y-2">
+          <h2 id="paths-heading" class="sr-only">Other ways to work together</h2>
+          <p class="reading">Looking for a leadership team offsite or work with the whole executive team? <a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="link">Kuma Partners<span class="sr-only"> (opens in a new tab)</span></a> and <a href={site.links.offsite} target="_blank" rel="noopener noreferrer" class="link">Offsites<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+          <p class="reading">Looking for a confidential peer group of founders and CEOs in Barcelona? <a href={site.links.round} target="_blank" rel="noopener noreferrer" class="link">The Round<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <Faq heading="Before you get in touch." intro="The questions leaders ask before a first conversation. Open any one for the short answer." />
 
-  <Invite />
+  <Invite heading="Start with a first conversation." body="Confidential and exploratory. If there is a fit, we map the situation in a short Strategic Friction Diagnostic before anything is signed. If I am not the right person for what you describe, I will say so." />
 </Layout>

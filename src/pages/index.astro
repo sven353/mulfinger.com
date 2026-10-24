@@ -4,7 +4,6 @@ import Layout from '../layouts/Layout.astro';
 import Chapter from '../components/Chapter.astro';
 import Paths from '../components/Paths.astro';
 import Invite from '../components/Invite.astro';
-import Faq from '../components/Faq.astro';
 import PhotoHero from '../components/PhotoHero.astro';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
 import heroPhoto from '../assets/images/hero-office.jpg';
@@ -163,8 +162,16 @@ const pattern = {
     <Paths />
   </Chapter>
 
-  <!-- 8 · Short FAQ: the five questions leaders ask first, folded; all twelve live on /advisory -->
-  <Faq short heading="Questions leaders ask first." intro="Open any question for the short answer." />
+  <!-- 8 · Bridge to /advisory (the FAQ lives there only) -->
+  <section aria-label="How 1:1 advisory works">
+    <div class="container-x">
+      <div class="relative py-10 lg:py-12 lg:grid lg:grid-cols-12 lg:gap-x-10">
+        <span aria-hidden="true" class="draw absolute inset-x-0 top-0 h-px hair-t hair-strong"></span>
+        <p class="label lg:col-span-3 lg:pt-1">Considering an engagement?</p>
+        <p class="mt-2 lg:mt-0 lg:col-span-9 reading text-ink!">See how 1:1 advisory works, from the first conversation to the terms, and the twelve questions leaders ask before getting in touch. <a href="/advisory" class="link whitespace-nowrap">How 1:1 advisory works →</a></p>
+      </div>
+    </div>
+  </section>
 
   <!-- 9 · One invitation -->
   <Invite />

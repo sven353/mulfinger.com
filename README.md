@@ -89,7 +89,7 @@ Netlify Forms only work on Netlify. Locally, the form validates but submission w
 - every page starts with `<!doctype html>` (catches a broken frontmatter fence)
 - no em dashes anywhere in pages or llms files; IE Business School appears only with Prof. Deuschel as confirmed; Kluetter spelled Thomas
 
-Status on 2026-10-24: build clean, 170/170 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
+Status on 2026-10-24: build clean, 171/171 checks passed. No horizontal overflow and nothing left half-faded on any main page from 390 to 2560 px wide.
 
 ## Deployment pipeline
 
@@ -209,6 +209,7 @@ Editorial rules from the October 2026 audit, enforced by `npm run verify`:
 - 2026-10-24 (v43): Shared PhotoHero component: /advisory now opens with the same rounded photo strip and headline panel as the homepage; "On this page" links moved below it. Panel headline slightly smaller so longer titles stay inside the photo at every width.
 - 2026-10-24 (v44): True hairlines site-wide. Chrome rounds borders, thin heights and text underlines up to a full CSS pixel (two or three device pixels on retina), so every line is now drawn as an inset shadow at 1/device-pixel-ratio: section rules, boxes, list rows, FAQ, header, footer, form fields and link underlines all measure one device pixel at densities 1, 1.5, 2 and 3. New hair-* utilities in global.css; verify.mjs fails if a border, divide or underline utility reappears.
 - 2026-10-24 (v45): New opening photograph (hero-office.jpg, 1,584 px) on home and /advisory, shown without any reveal or zoom animation so it stays sharp. Panel moved to the left and narrowed so all three people stay visible; it stays inside the photo at every desktop width. hero-conversation.jpg deleted.
+- 2026-10-24 (v46): Homepage and /advisory split so nothing is said twice. Home: FAQ removed, replaced by a one-line bridge to /advisory. Advisory: "In scope" vs "Deliberately out of scope", the four steps labelled with when they happen, the COO pattern set as a field memo, the three path rows replaced by a two-line note to Kuma Partners and The Round, and its own closing invitation ("Start with a first conversation."). No new facts added.
 - 2026-10-16 (v19): Favicon Direction A: Newsreader capital M (wght 650, opsz 24, outlined from the site font) in a squircle tile, inverting in dark browser chrome.
 - 2026-10-16 (v18): /advisory and /about aligned with the homepage: diagonal paper gradient heroes (not animated), serif headings, hairline grids, scroll reveal with stagger, rounded path cards on /advisory, rounded hover rows in the FAQ, warm closing panel on /about. FAQ stays at six questions.
 - 2026-10-16 (v17): The Round session photo (`src/assets/images/the-round-session.jpg`) in The Round card, 16:9 crop at 35% height, rounded-2xl, caption. Site now carries two photographs.

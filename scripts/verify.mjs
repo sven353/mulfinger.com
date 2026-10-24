@@ -185,7 +185,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
   const homeText = home.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ');
   check('home: new hero headline', homeText.includes('A thinking partner for the decisions you cannot delegate.'));
-  check('home: short folded FAQ before the invitation, linking to all questions', home.includes('id="faq"') && (home.match(/<section id="faq"[\s\S]*?<\/section>/)?.[0].match(/<li/g) ?? []).length === 5 && home.includes('href="/advisory#faq"') && home.indexOf('id="faq"') < home.indexOf('id="invite-heading"'));
+  check('home: no FAQ (it lives on /advisory only), one-line bridge to /advisory', !home.includes('id="faq"') && home.includes('Considering an engagement?'));
     check('home: no product labels (Mode/Format/Rhythm/Led by)', !/\b(Mode 0\d|Format|Rhythm|Led by)\b/.test(homeText));
   const slogan = htmlFiles.reduce((n, f) => n + (readFileSync(f, 'utf8').replace(/<[^>]+>/g, ' ').match(/Slow down to speed up/gi) ?? []).length, 0);
   check(`"Slow down to speed up" not repeated as a banner (found ${slogan})`, slogan <= 1);
@@ -269,8 +269,9 @@ for (const page of ['about/index.html', 'advisory/index.html', 'contact/index.ht
 }
 {
   const adv = readFileSync(join(DIST, 'advisory/index.html'), 'utf8');
-  check('advisory: who / what-we-work-on', adv.includes('Who this is for') && adv.includes('What we work on'));
-  check('advisory: three paths as a list, linked anchors work', (adv.match(/id="paths-heading"[\s\S]*?<\/ul>/)?.[0].match(/<li/g) ?? []).length === 3 && adv.includes('id="the-round"'));
+  check('advisory: in scope and deliberately out of scope', adv.includes('In scope') && adv.includes('Deliberately out of scope'));
+  check('advisory: quiet routing to Kuma and The Round, no duplicate path cards', adv.includes('id="the-round"') && !adv.includes('1:1 advisory session') && ['kuma.partners', 'theround.kuma.partners', 'offsite.kuma.partners'].every((h) => adv.includes(`href="https://${h}"`)));
+  check('advisory: its own closing invitation', adv.includes('Start with a first conversation.') && !adv.includes('Bring the problem you have not been able to solve.'));
   const about = readFileSync(join(DIST, 'about/index.html'), 'utf8');
   check('about: three sources of judgement and closing invitation', about.includes('Three sources of judgement.') && about.includes('id="invite-heading"'));
 }
