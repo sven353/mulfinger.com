@@ -1,0 +1,38 @@
+---
+// Shared opening: the photograph as a rounded strip flush under the header line, uncovered from the left,
+// with a paper panel (eyebrow, headline, subtitle, button) over its right edge, clear of the face.
+// Used by the homepage and /advisory.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { src: ImageMetadata; alt: string; headingId: string; title: string; body: string; tag: string; pos?: string }
+const { src, alt, headingId, title, body, tag, pos = 'object-[40%_30%]' } = Astro.props;
+---
+<section aria-labelledby={headingId} class="relative pb-6 lg:pb-24">
+  <div class="container-x">
+    <div class="relative w-full">
+      <div class="unveil relative w-full h-[54svh] min-h-[20rem] sm:h-[62svh] lg:h-auto lg:aspect-[2/1] lg:min-h-[34rem] lg:max-h-[42rem] overflow-hidden rounded-xl lg:rounded-2xl bg-mist">
+        <Image
+          src={src}
+          alt={alt}
+          widths={[640, 960, 1440, 1920, 2528]}
+          sizes="(min-width: 1216px) 1136px, 100vw"
+          format="webp"
+          quality={90}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class:list={['absolute inset-0 size-full object-cover', pos]}
+        />
+      </div>
+      <div class="relative mx-3 sm:mx-6 -mt-20 sm:-mt-28 lg:m-0 lg:absolute lg:right-8 xl:right-10 lg:bottom-[-4rem] lg:w-[30rem] rounded-xl bg-paper px-6 py-8 sm:px-10 sm:py-10 lg:px-10 lg:py-10 shadow-[0_24px_60px_-34px_rgba(22,23,26,0.55)]">
+        <p class="rise label"><span class="text-ink">Dr. Sven Mulfinger</span> · {tag}</p>
+        <h1 id={headingId} class="rise rise-2 mt-4 display text-[2.4rem] sm:text-[3rem] lg:text-[2.75rem] xl:text-[3rem] leading-[1.05] text-ink max-w-[15ch]">{title}</h1>
+        <p class="rise rise-3 mt-5 reading text-[1.125rem]! sm:text-[1.15rem]! leading-[1.55]!">{body}</p>
+        <div class="rise rise-4 mt-6 flex flex-col items-stretch sm:items-start gap-3">
+          <a href="/contact" class="inline-flex justify-center items-center gap-2 whitespace-nowrap bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
+          <span class="label">Confidential. Direct. No obligation to continue.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

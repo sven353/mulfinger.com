@@ -5,6 +5,7 @@ import Chapter from '../components/Chapter.astro';
 import Paths from '../components/Paths.astro';
 import Invite from '../components/Invite.astro';
 import Faq from '../components/Faq.astro';
+import PhotoHero from '../components/PhotoHero.astro';
 import bookCover from '../assets/images/book-cover-nonlinear.png';
 import heroPhoto from '../assets/images/hero-conversation.jpg';
 import { site } from '../data/site';
@@ -70,36 +71,8 @@ const pattern = {
 };
 ---
 <Layout>
-  <!-- 1 · Opening: the photograph as a strip (max 1,440 px), a paper panel over its right edge, clear of the face -->
-  <section aria-labelledby="hero-heading" class="relative pb-6 lg:pb-24">
-    <div class="container-x">
-    <div class="relative w-full">
-      <div class="unveil relative w-full h-[54svh] min-h-[20rem] sm:h-[62svh] lg:h-auto lg:aspect-[2/1] lg:min-h-[34rem] lg:max-h-[42rem] overflow-hidden rounded-xl lg:rounded-2xl bg-mist">
-        <Image
-          src={heroPhoto}
-          alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives"
-          widths={[640, 960, 1440, 1920, 2528]}
-          sizes="(min-width: 1216px) 1136px, 100vw"
-          format="webp"
-          quality={90}
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          class="absolute inset-0 size-full object-cover object-[40%_30%]"
-        />
-      </div>
-      <div class="relative mx-3 sm:mx-6 -mt-20 sm:-mt-28 lg:m-0 lg:absolute lg:right-8 xl:right-10 lg:bottom-[-4rem] lg:w-[30rem] rounded-xl bg-paper px-6 py-8 sm:px-10 sm:py-10 lg:px-11 lg:py-11 shadow-[0_24px_60px_-34px_rgba(22,23,26,0.55)]">
-        <p class="rise label"><span class="text-ink">Dr. Sven Mulfinger</span> · Executive advisory for founders and CEOs</p>
-        <h1 id="hero-heading" class="rise rise-2 mt-5 display text-[2.5rem] sm:text-[3.1rem] lg:text-[3.15rem] leading-[1.04] text-ink max-w-[13ch]">A thinking partner for the decisions you cannot delegate.</h1>
-        <p class="rise rise-3 mt-6 reading text-[1.125rem]! sm:text-[1.15rem]! leading-[1.55]!">I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership.</p>
-        <div class="rise rise-4 mt-7 flex flex-col items-stretch sm:items-start gap-3">
-          <a href="/contact" class="inline-flex justify-center items-center gap-2 whitespace-nowrap bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-          <span class="label">Confidential. Direct. No obligation to continue.</span>
-        </div>
-      </div>
-    </div>
-    </div>
-  </section>
+  <!-- 1 · Opening: shared photo hero (see PhotoHero.astro) -->
+  <PhotoHero src={heroPhoto} alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives" headingId="hero-heading" tag="Executive advisory for founders and CEOs" title="A thinking partner for the decisions you cannot delegate." body="I work with founders and CEOs when decisions get harder, leadership dynamics become more complicated or the business demands a different kind of leadership." />
 
   <!-- 2 · Situations: why founders and CEOs get in touch -->
   <Chapter id="situations" note="Why leaders get in touch" heading="When the usual answers stop working." wide>

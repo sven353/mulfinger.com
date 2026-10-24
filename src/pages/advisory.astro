@@ -5,6 +5,8 @@ import { faq } from '../data/faq';
 import Chapter from '../components/Chapter.astro';
 import Paths from '../components/Paths.astro';
 import Invite from '../components/Invite.astro';
+import PhotoHero from '../components/PhotoHero.astro';
+import heroPhoto from '../assets/images/hero-conversation.jpg';
 
 const forWhom = [
   'Founders whose company has outgrown the way they lead it',
@@ -46,29 +48,22 @@ const expectations = [
 ];
 ---
 <Layout faq={faq} title="Advisory | Sven Mulfinger" description="How 1:1 executive advisory with Sven Mulfinger works: who it is for, what we work on, retainer and session cadence, what to expect, The Round and Kuma Partners, and a short FAQ.">
-  <!-- Opening: typographic, never animated -->
-  <section aria-labelledby="advisory-heading">
-    <div class="container-x pt-12 lg:pt-24 pb-12 lg:pb-16 lg:grid lg:grid-cols-12 lg:gap-x-10">
-      <div class="lg:col-span-3 lg:pt-4">
-        <p class="label">1:1 Executive Advisory</p>
-        <nav aria-label="On this page" class="mt-6 hidden lg:flex flex-col gap-1.5 text-[0.875rem]">
-          <a href="#who" class="text-muted hover:text-ink">Who this is for</a>
-          <a href="#how" class="text-muted hover:text-ink">How it works</a>
-          <a href="#expect" class="text-muted hover:text-ink">What to expect</a>
-          <a href="#the-round" class="text-muted hover:text-ink">Ways to work together</a>
-          <a href="#faq" class="text-muted hover:text-ink">FAQ</a>
-        </nav>
-      </div>
-      <div class="mt-6 lg:mt-0 lg:col-span-9">
-        <h1 id="advisory-heading" class="rise rise-2 display text-[2.85rem] sm:text-[4rem] lg:text-[4.75rem] leading-[1.02] text-ink max-w-[16ch]">Confidential counsel for the decisions that carry consequences.</h1>
-        <p class="rise rise-3 mt-7 lg:mt-9 reading text-[1.25rem]! sm:text-[1.375rem]! leading-[1.5]! max-w-[38rem]">We work together over six or twelve months. Twice a month we sit down for 60 to 90 minutes on the decisions in front of you, in Barcelona, Madrid or online. In between, you can reach me directly when something cannot wait for the next session.</p>
-        <div class="mt-8 lg:mt-10 flex flex-col sm:flex-row sm:items-center gap-x-6 gap-y-3">
-          <a href="/contact" class="inline-flex justify-center items-center gap-2 bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Discuss a leadership challenge <span aria-hidden="true">→</span></a>
-          <span class="label">Confidential. Direct. No obligation to continue.</span>
-        </div>
+  <!-- Opening: same photo hero as the homepage -->
+  <PhotoHero src={heroPhoto} alt="Dr. Sven Mulfinger in a 1:1 advisory conversation with two executives" headingId="advisory-heading" tag="1:1 Executive Advisory" title="Confidential counsel for the decisions that carry consequences." body="We work together over six or twelve months. Twice a month we sit down for 60 to 90 minutes on the decisions in front of you, in Barcelona, Madrid or online, with direct access in between." />
+
+  <nav aria-label="On this page" class="container-x mt-2 lg:mt-0 pb-2">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-x-10">
+      <p class="label lg:col-span-3">On this page</p>
+      <div class="mt-2 lg:mt-0 lg:col-span-9 flex flex-wrap gap-x-6 gap-y-2 text-[0.875rem]">
+        <a href="#who" class="text-muted hover:text-ink">Who this is for</a>
+        <a href="#how" class="text-muted hover:text-ink">How it works</a>
+        <a href="#expect" class="text-muted hover:text-ink">What to expect</a>
+        <a href="#the-round" class="text-muted hover:text-ink">Ways to work together</a>
+        <a href="#faq" class="text-muted hover:text-ink">FAQ</a>
       </div>
     </div>
-  </section>
+  </nav>
+
 
   <Chapter id="who" note="Fit" heading="Who this is for, and what we work on.">
     <p class="mt-6 reading max-w-[38rem]">Typically you already execute well. What has changed is the scale, the stakes or the people around you.</p>
