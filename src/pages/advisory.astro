@@ -5,6 +5,7 @@ import { faq } from '../data/faq';
 import { site } from '../data/site';
 import Chapter from '../components/Chapter.astro';
 import Invite from '../components/Invite.astro';
+import Icon from '../components/Icon.astro';
 import PhotoHero from '../components/PhotoHero.astro';
 import heroPhoto from '../assets/images/hero-office.jpg';
 
@@ -34,12 +35,12 @@ const outOfScope = [
 ];
 
 const terms = [
-  ['Term', '6-month or 12-month retainer'],
-  ['Sessions', 'Two working sessions of 60 to 90 minutes a month, fortnightly'],
-  ['Where', 'Online, or in person in Barcelona or Madrid'],
-  ['Between sessions', 'Direct priority access by voice or message when a decision cannot wait'],
-  ['Also included', 'Periodic review of your key strategic documents'],
-  ['Fees', 'Shared after the first conversation, once scope is clear'],
+  ['calendar', 'Term', '6-month or 12-month retainer'],
+  ['clock', 'Sessions', 'Two working sessions of 60 to 90 minutes a month, fortnightly'],
+  ['pin', 'Where', 'Online, or in person in Barcelona or Madrid'],
+  ['message', 'Between sessions', 'Direct priority access by voice or message when a decision cannot wait'],
+  ['document', 'Also included', 'Periodic review of your key strategic documents'],
+  ['coin', 'Fees', 'Shared after the first conversation, once scope is clear'],
 ];
 
 const steps = [
@@ -82,24 +83,25 @@ const expectations = [
       <div>
         <h3 class="text-[1.45rem] text-ink">In scope</h3>
         <ul class="mt-4 hair-t">
-          {workOn.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]!">{f}</li>)}
+          {workOn.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]! flex gap-3"><Icon name="check" size={20} class="mt-1 text-accent" /><span>{f}</span></li>)}
         </ul>
       </div>
       <div>
         <h3 class="text-[1.45rem] text-ink">Deliberately out of scope</h3>
         <ul class="mt-4 hair-t">
-          {outOfScope.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]! text-muted!">{f}</li>)}
+          {outOfScope.map((f) => <li class="py-3 hair-b reading text-[1.0625rem]! text-muted! flex gap-3"><Icon name="cross" size={20} class="mt-1 text-muted" /><span>{f}</span></li>)}
         </ul>
       </div>
     </div>
   </Chapter>
 
-  <Chapter id="how" note="Engagement" heading="How an engagement works.">
-    <dl class="mt-8 hair-t ">
-      {terms.map(([k, v]) => (
-        <div class="py-4 sm:grid sm:grid-cols-[12rem_1fr] sm:gap-8 hair-b ">
-          <dt class="label sm:pt-1">{k}</dt>
-          <dd class="mt-1 sm:mt-0 reading text-ink!">{v}</dd>
+  <Chapter id="how" note="Engagement" heading="How an engagement works." tone="sand" wide>
+    <dl class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+      {terms.map(([icon, k, v], i) => (
+        <div class:list={['settle surface hair-all p-6', `s${(i % 3) + 1}`]}>
+          <Icon name={icon} />
+          <dt class="mt-4 label">{k}</dt>
+          <dd class="mt-1 font-serif text-[1.15rem] leading-snug text-ink">{v}</dd>
         </div>
       ))}
     </dl>
@@ -118,14 +120,20 @@ const expectations = [
     </ol>
   </Chapter>
 
-  <Chapter id="expect" note="Expectations" heading="What to expect.">
-    <div class="mt-8 space-y-6 max-w-[38rem]">
-      {expectations.map((e) => <p class="settle reading"><em class="text-ink">{e.t}.</em> {e.b}</p>)}
+  <Chapter id="expect" note="Expectations" heading="What to expect." wide rule={false}>
+    <div class="mt-10 grid lg:grid-cols-3 gap-3 lg:gap-4">
+      {expectations.map((e, i) => (
+        <div class:list={['situation settle surface hair-all p-7', `s${i + 1}`]}>
+          <Icon name={['candour', 'prepare', 'lock'][i]} size={30} />
+          <h3 class="mt-5 text-[1.45rem] leading-snug text-ink">{e.t}</h3>
+          <p class="mt-3 reading text-[1.0625rem]!">{e.b}</p>
+        </div>
+      ))}
     </div>
   </Chapter>
 
   <!-- A pattern I see often (moved from the homepage). DRAFT: Sven to confirm or replace. -->
-  <Chapter id="thinking" note="How I think" heading="A request I hear often, and the question I ask first.">
+  <Chapter id="thinking" note="How I think" heading="A request I hear often, and the question I ask first." tone="dark">
     <p slot="margin" class="label mt-3 hidden lg:block max-w-[14rem]">A composite pattern from practice, not an individual client.</p>
     <article class="mt-8 max-w-[40rem] bg-mist hair-all hair-strong px-6 py-8 sm:px-10 sm:py-10">
       <p class="label">Field memo · The COO request</p>
