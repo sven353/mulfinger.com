@@ -1,14 +1,15 @@
 ---
 // One section of the working paper: a quiet note in the left margin, the text in a reading column.
 // On small screens the note sits above the heading.
-interface Props { id?: string; note: string; heading?: string; headingId?: string; rule?: boolean; wide?: boolean; class?: string }
-const { id, note, heading, headingId, rule = true, wide = false, class: extra } = Astro.props;
+interface Props { id?: string; note: string; heading?: string; headingId?: string; rule?: boolean; wide?: boolean; tone?: 'paper' | 'sand' | 'dark'; class?: string }
+const { id, note, heading, headingId, rule = true, wide = false, tone = 'paper', class: extra } = Astro.props;
+// sand and dark are full-width bands; they carry their own edge, so no rule is drawn on them.
 const hid = headingId ?? (id ? `${id}-heading` : undefined);
 ---
-<section id={id} aria-labelledby={heading ? hid : undefined} class:list={['scroll-mt-20', extra]}>
+<section id={id} aria-labelledby={heading ? hid : undefined} class:list={['scroll-mt-20', tone !== 'paper' && `tone-${tone}`, extra]}>
   <div class="container-x">
-    <div class="relative py-14 lg:py-20 lg:grid lg:grid-cols-12 lg:gap-x-10">
-      {rule && <span aria-hidden="true" class="draw absolute inset-x-0 top-0 h-px hair-t hair-strong"></span>}
+    <div class:list={['relative lg:grid lg:grid-cols-12 lg:gap-x-10', tone === 'paper' ? 'py-14 lg:py-20' : 'py-16 lg:py-24']} >
+      {rule && tone === 'paper' && <span aria-hidden="true" class="draw absolute inset-x-0 top-0 h-px hair-t hair-strong"></span>}
       <div class="lg:col-span-3">
         <!-- The margin note stays beside the text while you read the chapter -->
         <div class="lg:sticky lg:top-10">

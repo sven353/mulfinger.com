@@ -131,7 +131,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
   check('home: no full-width photo strip mid-page', !home.includes('id="room-quote"'));
   check('home: all three field cases folded, title and one-line summary visible', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && (sec('cases').match(/<span class="mt-3 block reading">/g) ?? []).length === 3);
-  check('home: background narrative', home.includes('I have carried the responsibility too.') && ['The operator.', 'The scientist.', 'The advisor.'].every((t) => sec('background').includes(t)));
+  check('home: background narrative', home.includes('I have carried the responsibility too.'));
   check('home: final invitation', home.includes('Bring the problem you have not been able to solve.'));
   const order = ['situations-heading', 'thinking-heading', 'background-heading', 'cases-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
   check('home: chapter order', order.every((x, i) => x > 0 && (i === 0 || x > order[i - 1])), order.join(','));
@@ -237,7 +237,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('motion: everything behind prefers-reduced-motion', flat.includes('@media(prefers-reduced-motion:no-preference){.rise{') && !/\.(settle|draw|wipe|drift)\{animation/.test(flat.split('@media(prefers-reduced-motion:no-preference)')[0]));
   check('motion: scroll-linked parts behind @supports, nothing hidden without it', flat.includes('@supports(animation-timeline:view())') && !/\.(settle|wipe|draw)\{[^}]*(opacity:0|display:none)/.test(flat.split('@supports(animation-timeline:view())')[0]));
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  check('motion: hero rises on arrival, chapters draw and settle, photos drift', /<h1[^>]*class="rise rise-2 /.test(home) && (home.match(/class="draw /g) ?? []).length >= 6 && (home.match(/\bsettle\b/g) ?? []).length >= 10 && (home.match(/<blockquote[^>]*class="wipe /g) ?? []).length === 1);
+  check('motion: hero rises on arrival, chapters draw and settle, photos drift', /<h1[^>]*class="rise rise-2 /.test(home) && (home.match(/class="draw /g) ?? []).length >= 4 && (home.match(/\bsettle\b/g) ?? []).length >= 10 && (home.match(/<blockquote[^>]*class="wipe /g) ?? []).length === 1);
   check('motion: scroll timelines survive minification (never folded into the animation shorthand)', ['draw', 'settle', 'wipe', 'drift', 'progress'].every((c) => new RegExp(`\\.${c}\\{[^}]*animation-timeline:var\\(--tl-`).test(flat)) && !/animation:[^;}]*(view|scroll)\(/.test(flat));
   check('motion: reading-progress line on every page', htmlFiles.filter((f) => !f.endsWith('404.html')).every((f) => readFileSync(f, 'utf8').includes('<div class="progress" aria-hidden="true"></div>')));
   check('hairlines: every line drawn as a one-device-pixel inset shadow', flat.includes('[class*=hair-]{box-shadow:var(--sh-t),var(--sh-b),var(--sh-l),var(--sh-r)}') && /@media\((min-resolution:2dppx|resolution>=2x)\)\{:root\{--hair:\.5px\}\}/.test(flat));
@@ -288,7 +288,9 @@ for (const page of ['about/index.html', 'advisory/index.html', 'contact/index.ht
 // 4m. Reading rhythm: one background, serif reading text
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  check('home: one background (no tinted section bands)', !/<section[^>]*class="[^"]*bg-(mist|white)/.test(home));
+  check('home: three surfaces only, one dark band (field notes) and one sand band (research)', (home.match(/class="[^"]*tone-dark/g) ?? []).length === 1 && (home.match(/class="[^"]*tone-sand/g) ?? []).length === 1 && /id="cases"[^>]*tone-dark|tone-dark[^>]*id="cases"/.test(home.match(/<section[^>]*id="cases"[^>]*>/)?.[0] ?? '') );
+  check('home: situations on raised white cards with bold openings', (home.match(/situation settle surface/g) ?? []).length === 3);
+  check('home: background as four short blocks', ['The operator', 'The scientist', 'The advisor', 'The researcher'].every((t) => home.includes(`>${t}</h3>`)));
   check('home: reading text set in the serif', (home.match(/class="[^"]*\breading\b/g) ?? []).length >= 15);
 }
 

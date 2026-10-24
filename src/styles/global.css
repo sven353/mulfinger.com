@@ -175,6 +175,8 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
 @property --sh-r { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
 @property --hc { syntax: '*'; inherits: false; initial-value: #e5dfd5; }
 [class*="hair-"] { box-shadow: var(--sh-t), var(--sh-b), var(--sh-l), var(--sh-r); }
+/* Default line colour follows the section tone; hair-strong / hair-ink etc. override it */
+@layer base { [class*="hair-"] { --hc: var(--color-line); } }
 @utility hair-t { --sh-t: inset 0 var(--hair) 0 var(--hc); }
 @utility hair-b { --sh-b: inset 0 calc(-1 * var(--hair)) 0 var(--hc); }
 @utility hair-l { --sh-l: inset var(--hair) 0 0 var(--hc); }
@@ -188,6 +190,31 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
 @utility hair-accent { --hc: var(--color-accent); }
 @utility hair-red { --hc: #b91c1c; }
 @utility hair-u { --sh-b: inset 0 calc(-1 * var(--hair)) 0 currentColor; padding-bottom: 0.1em; }
+
+/* ---------- Section tones (v47) ----------
+   Three surfaces only: paper (default), one sand band for the research feature and one dark band
+   for the field notes. Tones re-map the colour tokens, so every component adapts without changes. */
+.tone-sand {
+  background: #efe9df;
+  --color-line: #ddd4c6;
+  --color-line-strong: #cfc4b3;
+  --color-mist: #e6dfd3;
+}
+.tone-dark {
+  background: #16171a;
+  color: #faf9f6;
+  --color-ink: #faf9f6;
+  --color-steel: #cdc6ba;
+  --color-muted: #9c958a;
+  --color-line: #33353a;
+  --color-line-strong: #46484e;
+  --color-accent: #9fcbd4;
+  --color-accent-hover: #c4e1e7;
+  --color-mist: #1f2125;
+}
+.tone-dark ::selection { background: #faf9f6; color: #16171a; }
+/* Raised card surface on paper */
+.surface { background: #ffffff; }
 
 /* Below lg: balanced headings and no horizontal page overflow */
 @media (max-width: 1023.98px) {

@@ -11,9 +11,9 @@ import { site } from '../data/site';
 
 // Three situations that bring founders and CEOs to a first conversation. Each has a small line icon.
 const situations = [
-  { icon: 'loop', title: 'A decision that keeps coming back', body: 'Everyone understands the problem, yet the decision keeps getting postponed, diluted or reversed.' },
-  { icon: 'funnel', title: 'A leadership team that has become the bottleneck', body: 'Capable people and overlapping responsibilities, with too many decisions still landing back on your desk.' },
-  { icon: 'steps', title: 'A company that has outgrown the way you lead it', body: 'The business scaled, but the way decisions are made and shared did not change with it.' },
+  { icon: 'loop', title: 'A decision that keeps coming back', lead: 'Everyone understands the problem,', body: 'yet the decision keeps getting postponed, diluted or reversed.' },
+  { icon: 'funnel', title: 'A leadership team that has become the bottleneck', lead: 'Capable people, overlapping responsibilities,', body: 'and too many decisions still landing back on your desk.' },
+  { icon: 'steps', title: 'A company that has outgrown the way you lead it', lead: 'The business scaled,', body: 'but the way decisions are made and shared did not change with it.' },
 ];
 const icons: Record<string, string> = {
   loop: 'M20 12a8 8 0 1 1-2.34-5.66M20 4v4.5h-4.5',
@@ -34,6 +34,7 @@ const cases = [
   {
     n: '01',
     title: 'The founder bottleneck',
+    proof: '15 hours a week back, execution pace doubled',
     summary: 'Every decision bounced back to the founder. Clear boundaries for team decisions gave back 15 hours a week and doubled execution pace.',
     context: 'Scale-up CEO · Series B',
     dilemma: "Strategic execution was stalling. Every decision bounced back to the founder's desk, creating operational gridlock and executive burnout.",
@@ -43,6 +44,7 @@ const cases = [
   {
     n: '02',
     title: 'Artificial alignment',
+    proof: 'An explicit agreement on margin versus volume',
     summary: 'A team that agreed on Monday and split by Thursday. The cause was structural, and an explicit agreement on margin versus volume resolved it.',
     context: 'Industrial B2B · €80M ARR',
     dilemma: 'The executive team agreed unanimously in Monday meetings, yet commercial and operations were executing conflicting priorities by Thursday.',
@@ -52,6 +54,7 @@ const cases = [
   {
     n: '03',
     title: 'The lonely decision',
+    proof: 'Six months of independent sparring',
     summary: 'A founder facing a multi-market transition with nobody inside to challenge them. Six months of independent sparring shaped a transition that protected culture and shareholder value.',
     context: 'Founder and chairman · International',
     dilemma: 'Facing a complex multi-market transition, the founder had nobody inside the organisation who could challenge their logic without an agenda of their own.',
@@ -76,12 +79,12 @@ const pattern = {
   <!-- 2 · Situations: why founders and CEOs get in touch -->
   <Chapter id="situations" note="Why leaders get in touch" heading="When the usual answers stop working." wide>
     <p class="mt-6 reading max-w-[38rem]">Most founders and CEOs who contact me for advisory or a sparring partner arrive with one of these three situations.</p>
-    <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 hair-all hair-strong">
+    <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
       {situations.map((s, i) => (
-        <article class:list={['situation settle', `s${i + 1}`, 'p-7 lg:p-9', i > 0 && 'hair-t hair-strong lg:hair-t-0 lg:hair-l']}>
+        <article class:list={['situation settle surface hair-all', `s${i + 1}`, 'p-7 lg:p-9']}>
           <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d={icons[s.icon]} /></svg>
           <h3 class="mt-5 text-[1.55rem] sm:text-[1.7rem] leading-[1.15] text-ink">{s.title}.</h3>
-          <p class="mt-4 reading">{s.body}</p>
+          <p class="mt-4 reading"><strong class="font-semibold text-ink">{s.lead}</strong> {s.body}</p>
         </article>
       ))}
     </div>
@@ -110,23 +113,31 @@ const pattern = {
         </div>
       ))}
     </dl>
-    <div class="mt-10 space-y-5 max-w-[38rem]">
-      <p class="settle reading"><em class="text-ink">The operator.</em> Twenty years building start-ups and serving as CEO in the corporate world, then founding Kuma Partners. I know what it is to carry the whole company, including the parts that never reach the pitch deck.</p>
-      <p class="settle reading"><em class="text-ink">The scientist.</em> Molecular genetics, chemical engineering and a doctorate taught me to look for the mechanism underneath the symptom.</p>
-      <p class="settle reading"><em class="text-ink">The advisor.</em> More than 100 founders, managing directors and C-suite leaders guided across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe.</p>
-      <p class="settle reading"><em class="text-ink">The researcher.</em> My recent research focuses on cognitive preferences, within and beyond the neurodivergent spectrum, and how they shape the way people lead.</p>
+    <div class="mt-10 grid sm:grid-cols-2 gap-x-10 gap-y-8">
+      {[
+        ['The operator', 'Twenty years building start-ups and serving as CEO in the corporate world, then founding Kuma Partners. I know what it is to carry the whole company.'],
+        ['The scientist', 'Molecular genetics, chemical engineering and a doctorate taught me to look for the mechanism underneath the symptom.'],
+        ['The advisor', 'More than 100 founders, managing directors and C-suite leaders guided across confidential 1:1 advisory, executive peer councils and board-level interventions.'],
+        ['The researcher', 'Recent research on cognitive preferences, within and beyond the neurodivergent spectrum, and how they shape the way people lead.'],
+      ].map(([t, b], i) => (
+        <div class:list={['settle', `s${i + 1}`, 'pt-5 hair-t']}>
+          <h3 class="text-[1.35rem] leading-snug text-ink">{t}</h3>
+          <p class="mt-2 reading text-[1.0625rem]!">{b}</p>
+        </div>
+      ))}
     </div>
     <p class="mt-8 text-[0.9375rem]"><a href="/about" class="link">More about my background</a></p>
   </Chapter>
 
   <!-- 5 · Field notes: one case open, two a click away -->
-  <Chapter id="cases" note="Field notes" heading="What changed.">
+  <Chapter id="cases" note="Field notes" heading="What changed." tone="dark">
     <p class="mt-6 reading max-w-[38rem]">Three real engagements, anonymised. Confidentiality prevents names, not the substance.</p>
     {cases.map((c) => (
       <article class="settle mt-8 pt-7 hair-t max-w-[38rem] first-of-type:mt-10">
         <details class="case group">
           <summary class="list-none cursor-pointer [&::-webkit-details-marker]:hidden">
             <span class="label block">{c.context}</span>
+            <span class="mt-2 block font-sans text-[0.9375rem] font-medium text-accent">{c.proof}</span>
             <span class="mt-2 flex items-start justify-between gap-6">
               <span class="font-serif text-[1.6rem] sm:text-[1.85rem] leading-snug text-ink group-hover:text-accent transition-colors">{c.title}</span>
               <span aria-hidden="true" class="mt-2 shrink-0 font-sans text-xl leading-none text-accent transition-transform duration-200 group-open:rotate-45">+</span>
@@ -145,7 +156,7 @@ const pattern = {
   </Chapter>
 
   <!-- 6 · Research, short -->
-  <Chapter id="research" note="Research" heading="Why do some leaders excel at seeing possibilities but struggle with the systems needed to scale them?">
+  <Chapter id="research" tone="sand" note="Research" heading="Why do some leaders excel at seeing possibilities but struggle with the systems needed to scale them?">
     <figure slot="margin" class="mt-5 mb-6 lg:mb-0 lg:mt-6 max-w-[9.5rem] lg:max-w-[15rem]">
       <Image src={bookCover} alt="The Non-Linear Operating System by Dr. Sven Mulfinger" widths={[160, 240, 360, 480, 720]} sizes="(min-width: 1024px) 240px, 152px" format="webp" quality={85} loading="lazy" decoding="async" class="settle block w-full h-auto shadow-lg" />
     </figure>
@@ -157,7 +168,7 @@ const pattern = {
   </Chapter>
 
   <!-- 7 · Three ways to work together -->
-  <Chapter id="paths" note="Ways to work together" heading="Three ways to work together.">
+  <Chapter id="paths" note="Ways to work together" heading="Three ways to work together." rule={false}>
     <p class="mt-6 reading max-w-[38rem]">1:1 advisory is the core of my work. The other two exist for when the tension sits elsewhere: between peers, or inside the executive team.</p>
     <Paths />
   </Chapter>
