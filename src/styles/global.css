@@ -164,6 +164,13 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   }
 }
 
+/* Folded field cases open smoothly where supported */
+@supports selector(::details-content) {
+  .case { interpolate-size: allow-keywords; }
+  .case::details-content { block-size: 0; overflow: clip; transition: block-size 260ms ease, content-visibility 260ms allow-discrete; }
+  .case[open]::details-content { block-size: auto; }
+}
+
 /* Below lg: balanced headings and no horizontal page overflow */
 @media (max-width: 1023.98px) {
   h1, h2, h3 { text-wrap: balance; }

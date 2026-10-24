@@ -126,7 +126,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
   check('home: full-width Berlin strip with its pull quote', home.includes('id="room-quote"') && home.includes('The best moment comes when we step back'));
-  check('home: two field cases folded behind Read the case', (sec('cases').match(/<details class="case/g) ?? []).length === 2);
+  check('home: all three field cases folded, title and one-line summary visible', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && (sec('cases').match(/<span class="mt-3 block reading">/g) ?? []).length === 3);
   check('home: background narrative', home.includes('I have carried the responsibility too.') && ['The operator.', 'The scientist.', 'The advisor.'].every((t) => sec('background').includes(t)));
   check('home: final invitation', home.includes('Bring the problem you have not been able to solve.'));
   const order = ['situations-heading', 'thinking-heading', 'room-quote', 'background-heading', 'cases-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
