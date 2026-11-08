@@ -8,7 +8,7 @@ type Page = {
   tag: string; h1: string; lead: string; cta: string; note: string; alt: string;
   who: { note: string; heading: string; paras: string[]; figures: [string, string][] };
   when: { note: string; heading: string; intro: string; items: { t: string; b: string }[] };
-  how: { note: string; heading: string; rows: [string, string][]; sequence: string };
+  how: { note: string; heading: string; rows: [string, string][]; sequence: string; kuma: [string, string] };
   voices: { note: string; heading: string; intro: string; all: string };
   more: { note: string; heading: string; links: [string, string][] };
   invite: { heading: string; body: string };
@@ -16,52 +16,54 @@ type Page = {
 
 export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
   es: {
-    title: 'Dr. Sven Mulfinger | Asesor estratégico para fundadores y CEOs en Barcelona y Madrid',
-    description: 'Asesoramiento confidencial 1:1 para fundadores y CEOs: un interlocutor para las decisiones que no se pueden delegar. En Barcelona, Madrid y online, en español, inglés, alemán y francés.',
-    tag: 'Dr. Sven Mulfinger · Asesoramiento confidencial para fundadores y CEOs',
-    h1: 'Un interlocutor para las decisiones que no puede delegar.',
-    lead: 'Para los momentos de más peso: un punto de inflexión en la empresa, fricción en el comité de dirección o una decisión que solo usted puede tomar.',
-    cta: 'Iniciar una conversación confidencial',
-    note: 'Leo personalmente cada mensaje. Sin compromiso.',
+    title: 'Dr. Sven Mulfinger | Asesor independiente para fundadores y CEOs en Barcelona y Madrid',
+    description: 'Asesoramiento individual y confidencial para fundadores y CEOs: un criterio independiente para las decisiones que no se pueden delegar. En Barcelona, Madrid y online.',
+    tag: 'Dr. Sven Mulfinger · Asesoramiento independiente para fundadores y CEOs',
+    h1: 'Un criterio independiente para las decisiones que no puede delegar.',
+    lead: 'Cuando la empresa llega a un punto de inflexión, el equipo directivo no consigue ponerse de acuerdo o hay una decisión importante que nadie puede tomar por usted.',
+    cta: 'Hablemos de su situación',
+    note: 'Leo personalmente cada mensaje. Confidencial y sin compromiso.',
     alt: 'Una conversación de asesoramiento 1:1 junto a la ventana, en una oficina con vistas a la ciudad',
     who: {
       note: 'Quién soy',
-      heading: 'He ocupado ese mismo asiento.',
+      heading: 'He estado al otro lado de la mesa.',
       paras: [
-        'Soy asesor ejecutivo independiente en Barcelona y Founding Partner de Kuma Partners. Trabajo con fundadores, CEOs y sus equipos directivos en decisiones de gran calado, fricciones en el comité de dirección y momentos de cambio en la empresa.',
-        'Llevo veinte años creando empresas, como fundador y como CEO dentro de un grupo corporativo. Cofundé trnd en el sur de Europa, en la que Gruner + Jahr (Bertelsmann) tomó una participación en 2014 y la mayoría del capital en 2016; después dirigí TERRITORY Influence para Europa occidental y del sur y cofundé Dana, una plataforma digital de salud mental para mujeres.',
-        'Soy doctor ingeniero (Dr.-Ing.) por la Technische Universität München y ponente invitado en IESE Business School desde 2014. Trabajo en persona en Barcelona, Madrid, Múnich y Bruselas y online en todo el mundo.',
+        'Soy asesor independiente de fundadores y CEOs, con base en Barcelona, y socio fundador de Kuma Partners. Llevo veinte años creando y dirigiendo empresas, como emprendedor y como CEO dentro de un gran grupo, y sé lo que supone decidir cuando la responsabilidad final recae sobre uno mismo.',
+        'Cofundé trnd en el sur de Europa y, tras la entrada de Gruner + Jahr (Bertelsmann) en su capital, dirigí TERRITORY Influence en Europa occidental y meridional. También cofundé Dana, una plataforma digital de salud mental para mujeres.',
+        'Soy doctor ingeniero (Dr.-Ing.) por la Universidad Técnica de Múnich (TUM) y ponente invitado en IESE Business School desde 2014. Trabajo en persona en Barcelona, Madrid, Múnich y Bruselas, y online con clientes de otros países.',
+        'No llego con una respuesta preparada. Le ayudo a cuestionar las opciones, entender qué está bloqueando la decisión y encontrar una salida que pueda llevar a la práctica.',
       ],
-      figures: [['20', 'años creando empresas'], ['100+', 'fundadores, directores generales y altos directivos acompañados'], ['4', 'idiomas de trabajo']],
+      figures: [['20', 'años creando y dirigiendo empresas'], ['100+', 'fundadores, directores generales y altos directivos acompañados'], ['4', 'idiomas de trabajo']],
     },
     when: {
       note: 'Cuándo me llaman',
-      heading: 'Cuando las respuestas habituales dejan de funcionar.',
-      intro: 'La mayoría de los fundadores y CEOs que me contactan llegan con una de estas tres situaciones.',
+      heading: 'Cuando las decisiones empiezan a atascarse.',
+      intro: 'No siempre hace falta una gran crisis para buscar una mirada externa. A veces el problema lleva meses sobre la mesa y nadie consigue resolverlo.',
       items: [
-        { t: 'Una decisión que siempre vuelve', b: 'Todos entienden el problema, pero la decisión se aplaza, se diluye o se revierte.' },
-        { t: 'Un equipo directivo que se ha convertido en el cuello de botella', b: 'Personas capaces, responsabilidades solapadas y demasiadas decisiones que siguen volviendo a su mesa.' },
-        { t: 'Una empresa que ha superado su forma de dirigirla', b: 'El negocio ha crecido, pero la manera de tomar y compartir decisiones no ha cambiado con él.' },
+        { t: 'Una decisión que nunca acaba de tomarse', b: 'El problema está claro y se ha discutido varias veces, pero la decisión se pospone. O se toma y, poco después, vuelve a ponerse en cuestión.' },
+        { t: 'Un equipo directivo que no consigue avanzar', b: 'Hay buenos profesionales, pero las responsabilidades se solapan y demasiadas decisiones acaban otra vez en su mesa.' },
+        { t: 'Una empresa que ha crecido más rápido que su forma de organizarse', b: 'La empresa ya no es la de hace tres años, pero muchas decisiones se siguen tomando como entonces.' },
       ],
     },
     how: {
-      note: 'Cómo funciona',
-      heading: 'Asesoramiento ejecutivo 1:1.',
+      note: 'Cómo trabajo',
+      heading: 'Asesoramiento individual para fundadores y CEOs.',
       rows: [
-        ['Duración', '6 o 12 meses'],
-        ['Sesiones', 'Dos sesiones de trabajo de 60 a 90 minutos al mes'],
+        ['Duración', 'Seis o doce meses'],
+        ['Sesiones', 'Dos sesiones al mes, de 60 a 90 minutos'],
         ['Dónde', 'Online, o en persona en Barcelona o Madrid'],
-        ['Entre sesiones', 'Acceso directo y prioritario por voz o mensaje cuando una decisión no puede esperar'],
-        ['Honorarios', 'Se comparten tras la primera conversación, una vez claro el alcance'],
+        ['Entre sesiones', 'Contacto directo conmigo cuando surge una decisión que no puede esperar'],
+        ['Honorarios', 'Se concretan tras la primera conversación, cuando sepamos qué necesita'],
       ],
-      sequence: 'Empezamos con una conversación confidencial. Si tiene sentido, analizamos la situación en un breve Strategic Friction Diagnostic antes de firmar nada; después siguen las sesiones y, al final del periodo, una revisión conjunta de los resultados.',
+      sequence: 'Empezamos con una conversación para entender qué está ocurriendo. Si veo que puedo ayudarle, analizamos dónde se están atascando las decisiones y acordamos qué queremos conseguir; al final del periodo revisamos juntos los resultados.',
+      kuma: ['Trabajo personalmente con fundadores y CEOs. Cuando el reto requiere intervenir con todo el equipo directivo, lo abordamos desde ', '.'],
     },
-    voices: { note: 'Lo que dicen los clientes', heading: 'En sus propias palabras.', intro: 'Extractos de recomendaciones en LinkedIn, en inglés, tal como las escribieron.', all: 'Las catorce recomendaciones (en inglés)' },
+    voices: { note: 'Lo que dicen mis clientes', heading: 'Su experiencia, en sus propias palabras.', intro: 'Recomendaciones publicadas por mis clientes en LinkedIn. Se mantienen en su idioma original.', all: 'Todas las recomendaciones (en inglés)' },
     more: {
       note: 'Más información', heading: 'El resto de la web está en inglés.',
-      links: [['/advisory', 'Cómo funciona el asesoramiento 1:1'], ['/about', 'Trayectoria y perspectiva'], ['/#research', 'Investigación y libro'], ['/recommendations', 'Recomendaciones']],
+      links: [['/advisory', 'Cómo funciona el asesoramiento individual'], ['/about', 'Trayectoria y perspectiva'], ['/#research', 'Investigación y libro'], ['/recommendations', 'Recomendaciones']],
     },
-    invite: { heading: 'Traiga el problema que aún no ha podido resolver.', body: 'Cuénteme qué está pasando, qué ha intentado y qué está en juego. Veremos juntos si trabajar conmigo marcaría la diferencia.' },
+    invite: { heading: 'Cuénteme qué le preocupa.', body: 'Explíqueme brevemente qué está ocurriendo, qué ha intentado hasta ahora y qué necesita resolver. Le responderé personalmente y, si creo que puedo ayudarle, concertaremos una primera conversación confidencial.' },
   },
   de: {
     title: 'Dr. Sven Mulfinger | Strategischer Sparringspartner für Gründer und CEOs',
@@ -76,7 +78,7 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
       note: 'Wer ich bin',
       heading: 'Ich saß selbst auf diesem Stuhl.',
       paras: [
-        'Ich bin unabhängiger Berater für Geschäftsführer und CEOs mit Sitz in Barcelona und Founding Partner von Kuma Partners. Ich arbeite mit Gründern, CEOs und ihren Führungsteams an folgenreichen Entscheidungen, an Reibung im Führungsteam und an Wendepunkten für das Unternehmen.',
+        'Ich bin unabhängiger Berater für Geschäftsführer und CEOs mit Sitz in Barcelona und Gründungspartner von Kuma Partners. Ich arbeite mit Gründern, CEOs und ihren Führungsteams an folgenreichen Entscheidungen, an Reibung im Führungsteam und an Wendepunkten für das Unternehmen.',
         'Seit zwanzig Jahren baue ich Unternehmen auf, als Gründer und als CEO innerhalb eines Konzerns. Ich habe trnd in Südeuropa mitgegründet, an dem Gruner + Jahr (Bertelsmann) 2014 eine Beteiligung und 2016 die Mehrheit übernahm, danach TERRITORY Influence für West- und Südeuropa geleitet und Dana mitgegründet, eine digitale Plattform für die psychische Gesundheit von Frauen.',
         'Ich bin promovierter Ingenieur (Dr.-Ing.) der Technischen Universität München und seit 2014 Gastreferent an der IESE Business School. Persönlich arbeite ich in Barcelona, Madrid, München und Brüssel, online weltweit.',
       ],
@@ -102,7 +104,8 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
         ['Zwischen den Sitzungen', 'Direkter, priorisierter Zugang per Telefon oder Nachricht, wenn eine Entscheidung nicht warten kann'],
         ['Honorar', 'Nach dem ersten Gespräch, sobald der Umfang klar ist'],
       ],
-      sequence: 'Wir beginnen mit einem vertraulichen Gespräch. Wenn es passt, analysieren wir die Lage in einer kurzen Strategic Friction Diagnostic, bevor etwas unterschrieben wird; danach folgen die Arbeitssitzungen und am Ende der Laufzeit eine gemeinsame Bilanz.',
+      sequence: 'Wir beginnen mit einem vertraulichen Gespräch. Wenn ich helfen kann, klären wir zuerst, wo Entscheidungen hängen bleiben und was wir erreichen wollen; am Ende der Laufzeit ziehen wir gemeinsam Bilanz.',
+      kuma: ['Ich arbeite persönlich mit Gründern und CEOs. Wenn die Aufgabe das ganze Führungsteam betrifft, übernehmen wir sie über ', '.'],
     },
     voices: { note: 'Was Klienten sagen', heading: 'In ihren eigenen Worten.', intro: 'Auszüge aus LinkedIn-Empfehlungen, auf Englisch, so wie sie geschrieben wurden.', all: 'Alle vierzehn Empfehlungen (auf Englisch)' },
     more: {
@@ -124,7 +127,7 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
       note: 'Qui je suis',
       heading: 'J’ai occupé ce siège moi-même.',
       paras: [
-        'Je suis conseiller indépendant de dirigeants, basé à Barcelone, et Founding Partner de Kuma Partners. Je travaille avec des fondateurs, des CEO et leurs équipes de direction sur des décisions lourdes de conséquences, les frictions au sein du comité de direction et les tournants de l’entreprise.',
+        'Je suis conseiller indépendant de dirigeants, basé à Barcelone, et associé fondateur de Kuma Partners. Je travaille avec des fondateurs, des CEO et leurs équipes de direction sur des décisions lourdes de conséquences, les frictions au sein du comité de direction et les tournants de l’entreprise.',
         'Depuis vingt ans, je crée des entreprises, comme fondateur et comme CEO au sein d’un groupe. J’ai cofondé trnd en Europe du Sud, dont Gruner + Jahr (Bertelsmann) a pris une participation en 2014 puis la majorité en 2016, avant de diriger TERRITORY Influence pour l’Europe de l’Ouest et du Sud et de cofonder Dana, une plateforme numérique de santé mentale pour les femmes.',
         'Je suis docteur ingénieur (Dr.-Ing.) de l’Université technique de Munich (TUM) et intervenant invité à l’IESE Business School depuis 2014. Je travaille en personne à Barcelone, Madrid, Munich et Bruxelles, et en ligne partout dans le monde.',
       ],
@@ -150,7 +153,8 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
         ['Entre les séances', 'Un accès direct et prioritaire par téléphone ou message quand une décision ne peut pas attendre'],
         ['Honoraires', 'Communiqués après la première conversation, une fois le périmètre clarifié'],
       ],
-      sequence: 'Nous commençons par une conversation confidentielle. Si cela a du sens, nous analysons la situation lors d’un court Strategic Friction Diagnostic avant toute signature ; viennent ensuite les séances de travail et, en fin de période, un bilan commun.',
+      sequence: 'Nous commençons par une conversation confidentielle. Si je peux vous aider, nous analysons d’abord où les décisions se bloquent et ce que nous voulons obtenir ; en fin de période, nous faisons le bilan ensemble.',
+      kuma: ['Je travaille personnellement avec les fondateurs et les CEO. Quand l’enjeu concerne toute l’équipe de direction, nous l’abordons avec ', '.'],
     },
     voices: { note: 'Ce que disent les clients', heading: 'Dans leurs propres mots.', intro: 'Extraits de recommandations LinkedIn, en anglais, telles qu’elles ont été écrites.', all: 'Les quatorze recommandations (en anglais)' },
     more: {

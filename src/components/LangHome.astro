@@ -9,6 +9,7 @@ import Invite from './Invite.astro';
 import heroImg from '../assets/images/hero-office.jpg';
 import { langPages } from '../data/langPages';
 import { testimonials } from '../data/testimonials';
+import { site } from '../data/site';
 import type { Lang } from '../data/i18n';
 interface Props { lang: Exclude<Lang, 'en'> }
 const { lang } = Astro.props;
@@ -55,6 +56,7 @@ const p = langPages[lang];
       ))}
     </dl>
     <p class="mt-8 reading max-w-[38rem]">{p.how.sequence}</p>
+    <p class="mt-5 reading max-w-[38rem]">{p.how.kuma[0]}<a href={site.links.kuma} target="_blank" rel="noopener noreferrer" class="link">Kuma Partners<span class="sr-only"> (opens in a new tab)</span></a>{p.how.kuma[1]}</p>
   </Chapter>
 
   <Chapter id="voices" num="04" note={p.voices.note} heading={p.voices.heading} wide>

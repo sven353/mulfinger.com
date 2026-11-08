@@ -50,7 +50,7 @@ export const formText: Record<Lang, FormText> = {
     dp: 'Información básica sobre protección de datos',
     dpRows: [
       ['Responsable', '{owner}'],
-      ['Finalidad', 'Responder a su mensaje y valorar si deberíamos trabajar juntos.'],
+      ['Finalidad', 'Responder a su mensaje y ver si puedo ayudarle.'],
       ['Legitimación', 'Su consentimiento y la aplicación de medidas precontractuales a petición suya.'],
       ['Destinatarios', 'No se ceden datos a terceros, salvo a encargados del tratamiento como Netlify (alojamiento, con cláusulas contractuales tipo).'],
       ['Derechos', 'Acceso, rectificación, supresión, limitación, oposición y portabilidad. Escriba a {email}.'],
@@ -58,10 +58,10 @@ export const formText: Record<Lang, FormText> = {
     dpMoreLabel: 'Más', dpMorePre: 'Consulte la ', dpMoreLink: 'Política de privacidad', dpMorePost: ' completa (en inglés).',
     consentPre: 'He leído la ', consentLink: 'Política de privacidad', consentPost: ' y consiento el tratamiento de mis datos para responder a este mensaje.', consentErr: 'Acepte la Política de privacidad para enviar su mensaje.',
     note: 'Leo personalmente cada mensaje. Sin compromiso.',
-    submit: 'Iniciar una conversación confidencial', sending: 'Enviando…', failure: 'No se ha podido enviar su mensaje. Inténtelo de nuevo en unos momentos.',
+    submit: 'Solicitar una conversación confidencial', sending: 'Enviando…', failure: 'No se ha podido enviar su mensaje. Inténtelo de nuevo en unos momentos.',
     okLabel: 'Mensaje recibido', okTitle: 'Gracias. Lo leeré personalmente.', okBody: 'Recibirá mi respuesta en un plazo de 24 a 48 horas. Si tiene sentido, concertaremos una primera conversación confidencial.',
     okLinks: [['/advisory', 'Cómo funciona el asesoramiento (en inglés)'], ['/#research', 'Sobre la investigación (en inglés)']],
-    band: 'Una primera conversación',
+    band: '¿Hablamos?',
     more: ['¿Necesita más espacio? Use el ', 'formulario completo', ' (en inglés); puede escribir en español.'],
   },
   de: {

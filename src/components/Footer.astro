@@ -3,7 +3,11 @@
 import { site } from '../data/site';
 const year = new Date().getFullYear();
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
-import { langs, type Lang } from '../data/i18n';
+import { langs, chrome, type Lang } from '../data/i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const c = chrome[lang];
+const en = lang === 'en' ? {} : { hreflang: 'en' };
 const here = Astro.url.pathname.replace(/\/?$/, '/');
 ---
 <footer class="mt-auto">
@@ -11,21 +15,22 @@ const here = Astro.url.pathname.replace(/\/?$/, '/');
     <div class="hair-t hair-strong pt-12 pb-10 lg:grid lg:grid-cols-12 lg:gap-x-10">
       <div class="lg:col-span-3">
         <p class="font-display font-semibold text-[1.125rem] text-ink">Sven Mulfinger</p>
-        <p class="mt-2 label">Executive advisory for founders and CEOs. Based in Barcelona.</p>
+        <p class="mt-2 label">{c.brand}</p>
       </div>
       <div class="mt-8 lg:mt-0 lg:col-span-5">
         <p class="reading text-[1.0625rem]! leading-relaxed">
-          Serial entrepreneur and CEO<span class="text-line-strong" aria-hidden="true"> · </span>More than 100 founders, managing directors and C-suite leaders guided<span class="text-line-strong" aria-hidden="true"> · </span>Research collaborator with IESE and IE Business School
+          {c.cred[0]}<span class="text-line-strong" aria-hidden="true"> · </span>{c.cred[1]}<span class="text-line-strong" aria-hidden="true"> · </span>{c.cred[2]}
         </p>
-        <p class="mt-2 label">In person in Barcelona, Madrid, Munich and Brussels, online across the world, in English, Spanish, German and French.</p>
+        <p class="mt-2 label">{c.loc}</p>
+        {c.enNote && <p class="mt-2 label">{c.enNote}</p>}
       </div>
       <nav aria-label="Footer" class="mt-8 lg:mt-0 lg:col-span-2 text-[0.875rem] max-lg:inline-block max-lg:w-[48%] max-lg:align-top">
         <ul class="space-y-2">
-          <li><a class="text-steel hover:text-ink" href="/about">About</a></li>
-          <li><a class="text-steel hover:text-ink" href="/advisory">Advisory</a></li>
-          <li><a class="text-steel hover:text-ink" href="/#research">Research</a></li>
-          <li><a class="text-steel hover:text-ink" href="/recommendations">Recommendations</a></li>
-          <li><a class="text-steel hover:text-ink" href="/contact">Contact</a></li>
+          <li><a class="text-steel hover:text-ink" href="/about" {...en}>{c.nav['/about']}</a></li>
+          <li><a class="text-steel hover:text-ink" href="/advisory" {...en}>{c.nav['/advisory']}</a></li>
+          <li><a class="text-steel hover:text-ink" href="/#research" {...en}>{c.nav['/#research']}</a></li>
+          <li><a class="text-steel hover:text-ink" href="/recommendations" {...en}>{c.nav['/recommendations']}</a></li>
+          <li><a class="text-steel hover:text-ink" href={lang === 'en' ? '/contact' : '#contact'}>{c.nav['/contact']}</a></li>
         </ul>
       </nav>
       <div class="mt-8 lg:mt-0 lg:col-span-2 text-[0.875rem] max-lg:inline-block max-lg:w-[48%] max-lg:align-top">
@@ -45,8 +50,8 @@ const here = Astro.url.pathname.replace(/\/?$/, '/');
         ))}
       </nav>
       <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-2 sm:order-3">
-        <a class="hover:text-ink hover:hair-u" href="/privacy">Privacy Policy</a>
-        <a class="hover:text-ink hover:hair-u" href="/legal">Legal Notice</a>
+        <a class="hover:text-ink hover:hair-u" href="/privacy" {...en}>{c.privacy}</a>
+        <a class="hover:text-ink hover:hair-u" href="/legal" {...en}>{c.legal}</a>
       </nav>
     </div>
   </div>
