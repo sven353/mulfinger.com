@@ -212,6 +212,19 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   --color-accent-hover: #c4e1e7;
   --color-mist: #1f2125;
 }
+.tone-petrol {
+  background: #1f4e5a;
+  color: #faf9f6;
+  --color-ink: #faf9f6;
+  --color-steel: #d7e3e5;
+  --color-muted: #b3cbd0;
+  --color-line: #3b6874;
+  --color-line-strong: #4f7c87;
+  --color-accent: #ffffff;
+  --color-accent-hover: #d7e3e5;
+  --color-mist: #1a4550;
+}
+.tone-petrol ::selection { background: #faf9f6; color: #1f4e5a; }
 .tone-dark ::selection { background: #faf9f6; color: #16171a; }
 /* Raised card surface on paper */
 .surface { background: #ffffff; }

@@ -90,7 +90,7 @@ const jsonLd = {
       knowsLanguage: site.languages,
       address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
       worksFor: { '@id': `${site.url}/#kuma` },
-      // Research collaborations confirmed by Sven (IESE since 2015; IE Business School confirmed 2026-10-15). No alumniOf by Sven's choice.
+      // IESE: guest speaker since 2014 and protagonist of Prof. Klueter's teaching case (his recommendation and posts, checked 2026-11-08). IE Business School confirmed 2026-10-15. No alumniOf by Sven's choice.
       affiliation: [
         { '@type': 'CollegeOrUniversity', name: 'IESE Business School', url: 'https://www.iese.edu' },
         { '@type': 'CollegeOrUniversity', name: 'IE Business School', url: 'https://www.ie.edu' },
@@ -118,7 +118,7 @@ const jsonLd = {
       description: 'Forthcoming book on how founders and CEOs with non-linear cognitive profiles (ADHD, giftedness, dyslexia, autism) think, lead, decide and scale, based on field research with more than 50 serial entrepreneurs and CEOs.',
       author: { '@id': `${site.url}/#sven-mulfinger` },
       contributor: [
-        { '@type': 'Person', name: 'Prof. Dr. Thomas Kluetter', affiliation: { '@type': 'CollegeOrUniversity', name: 'IESE Business School' } },
+        { '@type': 'Person', name: 'Thomas Maximilian Klueter', honorificPrefix: 'Prof. Dr.', sameAs: 'https://www.iese.edu/faculty-research/faculty/thomas-maximilian-klueter/', affiliation: { '@type': 'CollegeOrUniversity', name: 'IESE Business School' } },
         { '@type': 'Person', name: 'Prof. Dr. Nicolas Deuschel', affiliation: { '@type': 'CollegeOrUniversity', name: 'IE Business School' } },
       ],
       url: site.links.neurodisruptors,

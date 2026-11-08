@@ -4,48 +4,58 @@
 // With JavaScript: /form.js submits via fetch and shows the in-place confirmation below.
 // Without JavaScript: the browser posts normally and Netlify redirects to /thanks.
 // Submissions: Netlify > Project > Forms > executive-diagnostic.
-const field = 'peer w-full bg-white hair-all focus:hair-accent px-4 py-3.5 text-base outline-none transition-shadow placeholder:text-steel/60 aria-[invalid=true]:hair-red';
-const lbl = 'block mb-2 text-sm font-medium text-ink';
-const err = 'mt-2 text-sm text-red-700 hidden';
+// compact: the short version inside the petrol invite band (name, email, message), posted as "first-conversation".
 import { legal as L } from '../data/legal';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const formName = compact ? 'first-conversation' : 'executive-diagnostic';
+const id = (k: string) => (compact ? `fc-${k}` : k);
+const field = compact
+  ? 'peer w-full bg-white text-[#16171a] px-4 py-3.5 text-base outline-none placeholder:text-[#6f685e] focus:outline-2 focus:outline-offset-2 focus:outline-white aria-[invalid=true]:outline-2 aria-[invalid=true]:outline-[#ffb4a6]'
+  : 'peer w-full bg-white hair-all focus:hair-accent px-4 py-3.5 text-base outline-none transition-shadow placeholder:text-steel/60 aria-[invalid=true]:hair-red';
+const lbl = 'block mb-2 text-sm font-medium text-ink';
+const err = compact ? 'mt-2 text-sm text-[#ffd2c7] hidden' : 'mt-2 text-sm text-red-700 hidden';
+const submitLabel = compact ? 'Start a confidential conversation' : 'Send';
+const btn = compact ? 'bg-[#faf9f6] text-[#1f4e5a] hover:bg-white' : 'bg-accent text-paper hover:bg-accent-hover';
 ---
 <div data-form-root>
   <form
-    name="executive-diagnostic"
+    name={formName}
     method="POST"
     action="/thanks"
     data-netlify="true"
     netlify-honeypot="bot-field"
     novalidate
     class="grid gap-6"
-    aria-describedby="form-note"
+    aria-describedby={id("form-note")}
+    data-submit-text={submitLabel}
   >
-    <input type="hidden" name="form-name" value="executive-diagnostic" />
+    <input type="hidden" name="form-name" value={formName} />
     <p class="hidden" aria-hidden="true">
       <label>Do not fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
     </p>
 
     <div class="grid sm:grid-cols-2 gap-6">
       <div>
-        <label for="full_name" class={lbl}>Full name <span class="sr-only">(required)</span></label>
-        <input id="full_name" name="full_name" type="text" required minlength="2" maxlength="120" autocomplete="name" aria-describedby="full_name-error" class={field} />
-        <p id="full_name-error" class={err} data-error>Please enter your full name.</p>
+        <label for={id("full_name")} class={lbl}>Full name <span class="sr-only">(required)</span></label>
+        <input id={id("full_name")} name="full_name" type="text" required minlength="2" maxlength="120" autocomplete="name" aria-describedby={id("full_name-error")} class={field} />
+        <p id={id("full_name-error")} class={err} data-error>Please enter your full name.</p>
       </div>
       <div>
-        <label for="email" class={lbl}>Professional or direct email <span class="sr-only">(required)</span></label>
-        <input id="email" name="email" type="email" required maxlength="160" autocomplete="email" inputmode="email" aria-describedby="email-error" class={field} />
-        <p id="email-error" class={err} data-error>Please enter a valid email address.</p>
+        <label for={id("email")} class={lbl}>{compact ? 'Email' : 'Professional or direct email'} <span class="sr-only">(required)</span></label>
+        <input id={id("email")} name="email" type="email" required maxlength="160" autocomplete="email" inputmode="email" aria-describedby={id("email-error")} class={field} />
+        <p id={id("email-error")} class={err} data-error>Please enter a valid email address.</p>
       </div>
     </div>
+    {!compact && (<div>
+      <label for={id("role")} class={lbl}>Role and organisation <span class="sr-only">(required)</span></label>
+      <input id={id("role")} name="role_organisation" type="text" required minlength="2" maxlength="200" autocomplete="organization-title" placeholder="CEO, Acme Robotics" aria-describedby={id("role-error")} class={field} />
+      <p id={id("role-error")} class={err} data-error>Please tell me your role and organisation.</p>
+    </div>)}
     <div>
-      <label for="role" class={lbl}>Role and organisation <span class="sr-only">(required)</span></label>
-      <input id="role" name="role_organisation" type="text" required minlength="2" maxlength="200" autocomplete="organization-title" placeholder="CEO, Acme Robotics" aria-describedby="role-error" class={field} />
-      <p id="role-error" class={err} data-error>Please tell me your role and organisation.</p>
-    </div>
-    <div>
-      <label for="challenge" class={lbl}>The decision or challenge occupying your attention <span class="sr-only">(required)</span></label>
-      <textarea id="challenge" name="decision_challenge" rows="6" required minlength="20" maxlength="4000" placeholder="A few sentences is enough." aria-describedby="challenge-error" class={field + ' resize-y'}></textarea>
-      <p id="challenge-error" class={err} data-error>Please describe it in a sentence or two.</p>
+      <label for={id("challenge")} class={lbl}>{compact ? 'What is happening' : 'The decision or challenge occupying your attention'} <span class="sr-only">(required)</span></label>
+      <textarea id={id("challenge")} name="decision_challenge" rows={compact ? 4 : 6} required minlength="20" maxlength="4000" placeholder={compact ? 'What you have tried and what is at stake. A few sentences is enough.' : 'A few sentences is enough.'} aria-describedby={id("challenge-error")} class={field + ' resize-y'}></textarea>
+      <p id={id("challenge-error")} class={err} data-error>Please describe it in a sentence or two.</p>
     </div>
 
     <!-- First-layer data protection information (GDPR Art. 13, AEPD layered model) -->
@@ -63,19 +73,19 @@ import { legal as L } from '../data/legal';
 
     <div>
       <label class="flex items-start gap-3 text-sm text-steel leading-relaxed cursor-pointer">
-        <input id="privacy_consent" name="privacy_consent" type="checkbox" value="accepted" required aria-describedby="privacy_consent-error" class="mt-0.5 size-4 shrink-0 accent-[var(--color-ink)] aria-[invalid=true]:outline aria-[invalid=true]:outline-red-700" />
+        <input id={id("privacy_consent")} name="privacy_consent" type="checkbox" value="accepted" required aria-describedby={id("privacy_consent-error")} class="mt-0.5 size-4 shrink-0 accent-[var(--color-ink)] aria-[invalid=true]:outline aria-[invalid=true]:outline-red-700" />
         <span>I have read the <a href="/privacy" class="hair-u text-ink">Privacy Policy</a> and consent to my data being processed to answer this message. <span class="sr-only">(required)</span></span>
       </label>
-      <p id="privacy_consent-error" class={err} data-error>Please accept the Privacy Policy to send your message.</p>
+      <p id={id("privacy_consent-error")} class={err} data-error>Please accept the Privacy Policy to send your message.</p>
     </div>
 
-    <div class="flex flex-col sm:flex-row sm:items-center gap-6 justify-between pt-2">
-      <p id="form-note" class="text-xs text-steel max-w-sm leading-relaxed">Read by Sven personally and treated as confidential.</p>
-      <button type="submit" data-submit class="shrink-0 whitespace-nowrap bg-accent text-paper px-8 py-4 text-[0.9375rem] hover:bg-accent-hover disabled:opacity-60 disabled:cursor-wait transition-colors inline-flex items-center justify-center gap-3">
-        <span data-submit-label>Send</span> <span aria-hidden="true">→</span>
+    <div class={compact ? "flex flex-col-reverse items-stretch sm:items-start gap-4 pt-2" : "flex flex-col sm:flex-row sm:items-center gap-6 justify-between pt-2"}>
+      <p id={id("form-note")} class="text-xs text-steel max-w-sm leading-relaxed">{compact ? 'I read every message myself. No obligation to continue.' : 'Read by Sven personally and treated as confidential.'}</p>
+      <button type="submit" data-submit class={`shrink-0 sm:whitespace-nowrap ${btn} px-8 py-4 text-[0.9375rem] disabled:opacity-60 disabled:cursor-wait transition-colors inline-flex items-center justify-center gap-3`}>
+        <span data-submit-label>{submitLabel}</span> <span aria-hidden="true">→</span>
       </button>
     </div>
-    <p data-form-error role="alert" class="hidden hair-all hair-red px-4 py-3 text-sm text-red-700">Your message could not be sent. Please try again in a moment.</p>
+    <p data-form-error role="alert" class={compact ? 'hidden bg-white px-4 py-3 text-sm text-red-700' : 'hidden hair-all hair-red px-4 py-3 text-sm text-red-700'}>Your message could not be sent. Please try again in a moment.</p>
   </form>
 
   <div data-form-success hidden tabindex="-1" role="status" aria-live="polite" class="outline-none">

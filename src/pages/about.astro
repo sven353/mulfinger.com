@@ -18,7 +18,7 @@ const pillars = [
   {
     n: '03',
     title: 'Academic research and governance',
-    body: 'Research with IESE Business School since a 2015 case study with Prof. Iñigo Gallo. Today, with Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School), I study how founders with non-linear minds lead and govern. My recent work focuses on cognitive preferences, within and beyond the neurodivergent spectrum, and their effect on leadership.',
+    body: 'At IESE Business School since 2014. Prof. Thomas Klueter and I built a teaching case on the choices I faced before founding trnd, and every year I join the MBA and Executive MBA classes that discuss it. Prof. Iñigo Gallo’s IESE case on the Royco Minute Soup campaign, a project I led at trnd, is distributed through Harvard Business Publishing. Today, with Prof. Klueter and Prof. Dr. Nicolas Deuschel (IE Business School), I study how founders with non-linear minds lead and govern. My recent work focuses on cognitive preferences, within and beyond the neurodivergent spectrum, and their effect on leadership.',
   },
 ];
 
@@ -26,7 +26,7 @@ const lineage = [
   { stage: 'Science', text: 'Molecular genetics, then chemical engineering and a doctorate. Genetics taught me that the visible trait is rarely where the cause sits; engineering added process thinking: flows, feedback loops, bottlenecks and failure modes.' },
   { stage: 'European institutions', text: 'Both my parents worked for the EU institutions and I went to the European School in Brussels. I learned early that most conflict between capable people comes from different operating assumptions rather than bad intent.' },
   { stage: 'Operator', text: "Twenty years building start-ups and serving as CEO in the corporate world, including four years on MaterFly, which became Dana, a venture in women's mental health. I know both seats from the inside." },
-  { stage: 'IESE and IE Business School', text: 'Research and teaching since a 2015 case study with Prof. Iñigo Gallo. Today I research neurodivergent founders and CEOs with Prof. Thomas Kluetter (IESE) and Prof. Nicolas Deuschel (IE Business School).' },
+  { stage: 'IESE and IE Business School', text: 'Guest speaker since 2014. With Prof. Thomas Klueter I built a teaching case on the choices I faced before founding trnd. Every year I join the MBA and Executive MBA sessions as its protagonist, including the Munich Executive MBA cohort. Today I research neurodivergent founders and CEOs with Prof. Thomas Klueter (IESE) and Prof. Nicolas Deuschel (IE Business School).' },
   { stage: 'Executive advisory', text: 'Lead Partner at Kuma Partners. Over 100 founders, managing directors and C-suite leaders guided across 1:1 advisory, executive peer councils and board-level interventions, in four working languages.' },
 ];
 
@@ -35,6 +35,14 @@ const foundations = [
   { t: 'Courage', b: 'I will say what others in the room cannot or will not. That includes the part of the problem that sits with you.' },
   { t: 'Principled tension', b: 'Some tensions should not be resolved quickly. I hold them open long enough for a better decision to emerge.' },
   { t: 'Absolute integrity', b: 'Confidentiality is total. I do not take work where my interests and yours could pull apart, and I say so when something is outside my competence.' },
+];
+// IESE in the classroom: dated, checkable sources (posts read 2026-11-08; dates from the posts).
+const ieseSources = [
+  { when: 'October 2026', text: 'Two IESE MBA cohorts discuss the case. My wife joins me on stage to tell the side that never makes it into a case study.', label: 'LinkedIn post: “Who pays the bill when a founder decides to be bold?”', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7515675449616670720/' },
+  { when: 'September 2025', text: 'The Executive MBA cohort from Munich works through the case with Prof. Klueter and me.', label: 'LinkedIn post on the Executive MBA session', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7377291193908350976/' },
+  { when: 'October 2024', text: 'Two IESE MBA classes analyse my entrepreneurial path, including the decision to sell a start-up for one euro.', label: 'LinkedIn post on the MBA sessions, with Prof. Klueter’s comment', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7255632213247950848/' },
+  { when: 'September 2023', text: 'MBA and Executive MBA classes on the choices I faced before founding trnd: entrepreneurship or a corporate career, and what it means for a family.', label: 'LinkedIn post on the case and how it began', href: 'https://www.linkedin.com/feed/update/urn:li:activity:7113540496374870016/' },
+  { when: '2014', text: 'Prof. Iñigo Gallo’s IESE case on the Royco Minute Soup word-of-mouth campaign, a project I led at trnd.', label: 'Harvard Business Publishing listing (IES325)', href: 'https://store.hbr.org/product/repositioning-royco-minute-soup-evaluating-a-word-of-mouth-campaign/IES325' },
 ];
 ---
 <Layout title="About | Sven Mulfinger" type="profile" description="From molecular genetics and chemical engineering to founding companies and international executive advisory. Sven Mulfinger's background, research with IESE and IE Business School and the foundations of his work.">
@@ -61,6 +69,21 @@ const foundations = [
         <li class="settle py-6 sm:grid sm:grid-cols-[12rem_1fr] sm:gap-8 hair-b ">
           <h3 class="text-[1.35rem] leading-snug text-ink">{l.stage}</h3>
           <p class="mt-2 sm:mt-0 reading">{l.text}</p>
+        </li>
+      ))}
+    </ol>
+  </Chapter>
+
+  <Chapter id="iese" note="At IESE" heading="In the classroom at IESE.">
+    <p class="mt-8 reading max-w-[38rem]">I first spoke at IESE Business School at an entrepreneurship panel in 2014. <a href="https://www.iese.edu/faculty-research/faculty/thomas-maximilian-klueter/" target="_blank" rel="noopener noreferrer" class="link">Prof. Thomas Klueter<span class="sr-only"> (opens in a new tab)</span></a> and I then built a teaching case on the choices I faced before founding trnd. It has been taught every year since in the MBA and Executive MBA. I sit at the back of the room while the class debates my decisions, then step forward as the protagonist.</p>
+    <ol class="mt-8 hair-t">
+      {ieseSources.map((x) => (
+        <li class="settle py-6 sm:grid sm:grid-cols-[12rem_1fr] sm:gap-8 hair-b">
+          <p class="label sm:pt-1.5">{x.when}</p>
+          <div class="mt-2 sm:mt-0">
+            <p class="reading">{x.text}</p>
+            <p class="mt-2 text-[0.9375rem]"><a href={x.href} target="_blank" rel="noopener noreferrer" class="link">{x.label}<span class="sr-only"> (opens in a new tab)</span></a></p>
+          </div>
         </li>
       ))}
     </ol>

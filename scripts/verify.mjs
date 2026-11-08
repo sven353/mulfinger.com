@@ -62,7 +62,7 @@ for (const n of ['full_name', 'email', 'role_organisation', 'decision_challenge'
   check(`required field ${n}`, new RegExp(`name="${n}"[^>]*required|required[^>]*name="${n}"`).test(contact));
 }
 check('in-place success state present', contact.includes('data-form-success'));
-check('only one Netlify form site-wide', htmlFiles.filter((f) => readFileSync(f, 'utf8').includes('data-netlify="true"')).length === 1);
+check('two Netlify form names site-wide (executive-diagnostic on /contact, first-conversation in the invite band), one form per page', new Set(htmlFiles.flatMap((f) => [...readFileSync(f, 'utf8').matchAll(/<form[^>]*name="([^"]+)"[^>]*data-netlify="true"|<form[^>]*data-netlify="true"[^>]*name="([^"]+)"/g)].map((m) => m[1] ?? m[2]))).size === 2 && htmlFiles.every((f) => (readFileSync(f, 'utf8').match(/data-netlify="true"/g) ?? []).length <= 1));
 
 // 4. JSON-LD
 for (const page of ['index.html', 'advisory/index.html', 'about/index.html']) {
@@ -110,7 +110,12 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
 // 4d. Home structure: "the working paper" (v26, October 2026)
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  check('home: reassurance note next to the primary button', home.includes('Confidential. Direct. No obligation to continue.'));
+  check('home: reassurance note next to the primary button', home.includes('I read every message myself. No obligation to continue.') && !home.includes('Confidential. Direct. No obligation'));
+  {
+    const band = home.match(/<section id="contact"[^>]*tone-petrol[\s\S]*?<\/section>/)?.[0] ?? '';
+    check('invite: petrol band with the short Netlify form (name, email, message, consent), full form linked', band.includes('name="first-conversation"') && band.includes('data-netlify="true"') && band.includes('name="form-name" value="first-conversation"') && ['full_name', 'email', 'decision_challenge', 'privacy_consent'].every((n) => band.includes(`name="${n}"`)) && !band.includes('role_organisation') && band.includes('href="/contact"'));
+    check('invite band on home, about and advisory; full form only on /contact', ['index.html', 'about/index.html', 'advisory/index.html'].every((f) => readFileSync(join(DIST, f), 'utf8').includes('tone-petrol')) && !readFileSync(join(DIST, 'contact/index.html'), 'utf8').includes('first-conversation'));
+  }
   const hero = home.match(/<section aria-labelledby="hero-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   const heroImg = hero.match(/<img[^>]*>/)?.[0] ?? '';
   check('home: hero photograph loads eagerly with high priority', heroImg.includes('loading="eager"') && heroImg.includes('fetchpriority="high"') && hero.includes('<h1'));
@@ -222,6 +227,12 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('llms-full.txt: engagement model and entity relationships', full.includes('## The advisory engagement model') && full.includes('## Entity relationships and disambiguation'));
   check('llms-full.txt: three case studies with outcomes, generated from the same data as the homepage', (full.match(/^### .+ \(.+\)$/gm) ?? []).length === 3 && full.includes('Outcome: One year of independent sparring.'));
   check('client voices: three on home with greyscale portraits, one on /advisory, quotes in llms-full', (readFileSync(join(DIST, 'index.html'), 'utf8').match(/<figure class="voice/g) ?? []).length === 3 && (readFileSync(join(DIST, 'index.html'), 'utf8').match(/rounded-full object-cover grayscale/g) ?? []).length === 3 && (readFileSync(join(DIST, 'advisory/index.html'), 'utf8').match(/<figure class="voice/g) ?? []).length === 1 && ['Wilhelm Taht', 'Albrecht von der Recke', 'Sergi Estragues'].every((n) => full.includes(n)));
+  {
+    const about = readFileSync(join(DIST, 'about/index.html'), 'utf8');
+    const all = ['index.html', 'about/index.html', 'advisory/index.html', 'llms.txt', 'llms-full.txt'].map((f) => readFileSync(join(DIST, f), 'utf8')).join('\n');
+    check('IESE: no 2015 co-author claim, Klueter spelt as on his IESE page, dated sources on /about', !/2015 case study|co-authored with Prof\. Iñigo|Kluetter/.test(all) && all.includes('since 2014') && (about.match(/id="iese"/g) ?? []).length === 1 && ['7515675449616670720', '7377291193908350976', '7255632213247950848', '7113540496374870016', 'IES325'].every((k) => about.includes(k)));
+    check('llms-full.txt is generated (no stale copy in public/)', !existsSync(new URL('../public/llms-full.txt', import.meta.url)) && full.includes('What clients say'));
+  }
   check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
   const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
   const ids = new Set(homeGraph.map((n) => n['@id']));
@@ -323,7 +334,7 @@ const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014'))
 check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));
 const ie = visible.filter((f) => /\bIE Business School\b/.test(readFileSync(f, 'utf8').replace(/IESE Business School/g, ''))).map((f) => relative(DIST, f));
 check('IE Business School named with Prof. Deuschel (confirmed 2026-10-15)', readFileSync(join(DIST, 'index.html'), 'utf8').includes('Nicolas Deuschel (IE Business School)'));
-check('Kluetter spelled Thomas everywhere', !visible.some((f) => readFileSync(f, 'utf8').includes('Tomas Kluetter')));
+check('Klueter spelled Thomas everywhere', !visible.some((f) => readFileSync(f, 'utf8').includes('Tomas Klueter')));
 check('old 20+ case-study figure retired', !visible.some((f) => /more than 20 case studies/.test(readFileSync(f, 'utf8'))));
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');

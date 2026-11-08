@@ -1,18 +1,20 @@
 // Executive diagnostic form: client-side validation and in-place confirmation.
 // External file so the CSP can stay script-src 'self'.
 (function () {
-  var root = document.querySelector('[data-form-root]');
-  if (!root || !window.fetch) return;
+  if (!window.fetch) return;
+  document.querySelectorAll('[data-form-root]').forEach(setup);
+  function setup(root) {
   var form = root.querySelector('form');
   var success = root.querySelector('[data-form-success]');
   var failure = root.querySelector('[data-form-error]');
   var button = root.querySelector('[data-submit]');
   var label = root.querySelector('[data-submit-label]');
   if (!form || !success) return;
+  var original = form.getAttribute('data-submit-text') || 'Send';
 
   function setError(input, on) {
     input.setAttribute('aria-invalid', on ? 'true' : 'false');
-    var msg = document.getElementById(input.id + '-error');
+    var msg = root.querySelector('#' + input.id + '-error');
     if (msg) msg.classList.toggle('hidden', !on);
   }
 
@@ -61,7 +63,8 @@
       .catch(function () {
         if (failure) failure.classList.remove('hidden');
         button.disabled = false;
-        if (label) label.textContent = 'Send';
+        if (label) label.textContent = original;
       });
   });
+  }
 })();

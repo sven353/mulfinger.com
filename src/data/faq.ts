@@ -52,7 +52,7 @@ export const faq: FaqItem[] = [
   {
     q: 'Who is Dr. Sven Mulfinger?',
     verdict: 'An executive advisor based in Barcelona who has built start-ups for 20 years, served as CEO in the corporate world and leads Kuma Partners.',
-    body: 'He trained in molecular genetics and chemical engineering and holds a doctorate. He has guided more than 100 founders, managing directors and C-suite leaders across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe. With Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School) he researches how founders with non-linear minds lead and govern.',
+    body: 'He trained in molecular genetics and chemical engineering and holds a doctorate. He has guided more than 100 founders, managing directors and C-suite leaders across confidential 1:1 advisory, executive peer councils and board-level interventions throughout Europe. With Prof. Dr. Thomas Klueter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School) he researches how founders with non-linear minds lead and govern.',
   },
   {
     q: 'Where do sessions take place, and in which languages?',
@@ -77,7 +77,7 @@ export const faq: FaqItem[] = [
   {
     q: 'Do you work with neurodivergent founders and CEOs?',
     verdict: 'Yes, and it is a focus of my research.',
-    body: `With Prof. Dr. Thomas Kluetter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School) I study how founders with spiky cognitive profiles, such as ADHD, giftedness or dyslexia, lead, delegate and govern. That lens informs the work whether or not a leader identifies with a label. The research is published at [neurodisruptors.com](${NEURO}).`,
+    body: `With Prof. Dr. Thomas Klueter (IESE Business School) and Prof. Dr. Nicolas Deuschel (IE Business School) I study how founders with spiky cognitive profiles, such as ADHD, giftedness or dyslexia, lead, delegate and govern. That lens informs the work whether or not a leader identifies with a label. The research is published at [neurodisruptors.com](${NEURO}).`,
   },
 ];
 
