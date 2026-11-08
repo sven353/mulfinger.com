@@ -1,5 +1,5 @@
 ---
-import { site } from '../data/site';
+import { site, book } from '../data/site';
 import { toPlain, type FaqItem } from '../data/faq';
 
 interface Props {
@@ -115,13 +115,18 @@ const jsonLd = {
       '@type': 'Book',
       '@id': `${site.url}/#book`,
       name: 'The Non-Linear Operating System',
-      description: 'Forthcoming book on how founders and CEOs with non-linear cognitive profiles (ADHD, giftedness, dyslexia, autism) think, lead, decide and scale, based on field research with more than 50 serial entrepreneurs and CEOs.',
-      author: { '@id': `${site.url}/#sven-mulfinger` },
-      contributor: [
-        { '@type': 'Person', name: 'Thomas Maximilian Klueter', honorificPrefix: 'Prof. Dr.', sameAs: 'https://www.iese.edu/faculty-research/faculty/thomas-maximilian-klueter/', affiliation: { '@type': 'CollegeOrUniversity', name: 'IESE Business School' } },
-        { '@type': 'Person', name: 'Prof. Dr. Nicolas Deuschel', affiliation: { '@type': 'CollegeOrUniversity', name: 'IE Business School' } },
-      ],
-      url: site.links.neurodisruptors,
+      alternateName: `${book.title}: ${book.subtitle}`,
+      description: 'Book on how founders and CEOs with non-linear cognitive profiles (ADHD, giftedness, dyslexia, autism) think, lead, decide and scale, based on field research with more than 50 serial entrepreneurs and CEOs.',
+      // Authors exactly as on the Amazon listing. Klueter and Deuschel are research collaborators, so not listed here.
+      author: [{ '@id': `${site.url}/#sven-mulfinger` }, { '@type': 'Organization', name: 'Neurodisruptors Research Team' }],
+      isbn: book.isbn,
+      datePublished: book.published,
+      numberOfPages: book.pages,
+      bookFormat: 'https://schema.org/Paperback',
+      isPartOf: { '@type': 'BookSeries', name: book.series },
+      url: book.paperback,
+      sameAs: [book.paperback, site.links.neurodisruptors],
+      workExample: { '@type': 'Book', bookFormat: 'https://schema.org/EBook', url: book.kindle, inLanguage: 'en' },
       inLanguage: 'en',
     },
     {
@@ -181,9 +186,6 @@ const jsonLd = {
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content="Dr. Sven Mulfinger" />
 <meta property="og:locale" content={site.locale} />
-<meta property="og:locale:alternate" content="es_ES" />
-<meta property="og:locale:alternate" content="de_DE" />
-<meta property="og:locale:alternate" content="fr_FR" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />

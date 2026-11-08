@@ -20,6 +20,21 @@ export const site = {
   languages: ['English', 'Spanish', 'German', 'French'],
 };
 
+// The book, as listed on Amazon (checked 2026-11-08). Klueter and Deuschel are research collaborators, not authors.
+export const book = {
+  title: 'The Non-Linear Operating System',
+  subtitle: 'How Exceptional Leaders Think, Decide and Build Differently',
+  series: 'The Non-Linear Mind',
+  authors: 'Dr. Sven Mulfinger and the Neurodisruptors Research Team',
+  published: '2026-05-25',
+  publishedLabel: '25 May 2026',
+  publisher: 'Independently published',
+  pages: 323,
+  isbn: '979-8198302129',
+  paperback: 'https://www.amazon.es/dp/B0H2XQMBV2',
+  kindle: 'https://www.amazon.es/dp/B0H2SY36MG',
+};
+
 // Confirmed by Sven on 2026-10-15. IE Business School collaboration (Prof. Deuschel) confirmed later the same day.
 // Commercial terms confirmed the same day live in src/data/faq.ts (Q5, Q6, Q8, Q12).
 export const badges = [

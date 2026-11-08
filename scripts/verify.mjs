@@ -237,7 +237,11 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
   const ids = new Set(homeGraph.map((n) => n['@id']));
   const refs = [...JSON.stringify(homeGraph).matchAll(/"@id":"([^"]+)"/g)].map((m) => m[1]);
-  check('JSON-LD: Book node for The Non-Linear Operating System, no dangling @id references', homeGraph.some((n) => n['@type'] === 'Book' && n.author?.['@id'] === 'https://mulfinger.com/#sven-mulfinger') && refs.every((r) => ids.has(r)));
+  check('JSON-LD: Book node as on Amazon (authors Sven and the research team, ISBN, date, no contributors), no dangling @id references', homeGraph.some((n) => n['@type'] === 'Book' && [n.author].flat().some((x) => x['@id'] === 'https://mulfinger.com/#sven-mulfinger') && n.isbn === '979-8198302129' && n.datePublished === '2026-05-25' && !n.contributor) && refs.every((r) => ids.has(r)));
+  {
+    const all = ['index.html', 'about/index.html', 'advisory/index.html', 'llms.txt', 'llms-full.txt'].map((f) => readFileSync(join(DIST, f), 'utf8')).join('\n');
+    check('Phase 2 facts: Dr.-Ing. TUM, practice since 2017, Founding Partner, Dana, book published; no MaterFly, Lead Partner, chemical engineering, forthcoming or locale alternates', ['Dr.-Ing.', 'Technische Universität München', 'since 2017', 'Founding Partner', 'Dana', '979-8198302129', 'Outcomes as reported by the clients'].every((k) => all.includes(k)) && !/MaterFly|Lead Partner|chemical engineering|forthcoming|og:locale:alternate/i.test(all));
+  }
   check('sitemap carries lastmod dates', /<lastmod>\d{4}-\d{2}-\d{2}/.test(readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8')));
   const frankfurt = visible.filter((f) => readFileSync(f, 'utf8').includes('Frankfurt')).map((f) => relative(DIST, f));
   check('Frankfurt not claimed (not confirmed)', frankfurt.length === 0, frankfurt.join(', '));
