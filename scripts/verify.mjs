@@ -347,7 +347,7 @@ check('Klueter spelled Thomas everywhere', !visible.some((f) => readFileSync(f, 
 check('old 20+ case-study figure retired', !visible.some((f) => /more than 20 case studies/.test(readFileSync(f, 'utf8'))));
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  const cover = home.match(/<img[^>]*alt="The Non-Linear Operating System by Dr\. Sven Mulfinger"[^>]*>/)?.[0] ?? '';
+  const cover = home.match(/<img[^>]*alt="Kindle cover of The Non-Linear Operating System by Dr\. Sven Mulfinger"[^>]*>/)?.[0] ?? '';
   check('book cover rendered as optimised image with srcset', cover.includes('srcset=') && cover.includes('.webp'));
 }
 

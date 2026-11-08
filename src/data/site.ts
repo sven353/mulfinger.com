@@ -42,7 +42,7 @@ export const book = {
   pages: 323,
   isbn: '979-8198302129',
   paperback: 'https://www.amazon.es/dp/B0H2XQMBV2',
-  kindle: 'https://www.amazon.es/dp/B0H2SY36MG',
+  kindle: 'https://www.amazon.es/dp/B0H2SY36MG', // neon cover, shown on the site; the paperback has a red cover
 };
 
 // Confirmed by Sven on 2026-10-15. IE Business School collaboration (Prof. Deuschel) confirmed later the same day.
