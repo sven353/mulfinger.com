@@ -4,7 +4,7 @@
 import type { Lang } from './i18n';
 
 type Page = {
-  title: string; description: string;
+  title: string; description: string; ogAlt: string;
   tag: string; h1: string; lead: string; cta: string; note: string; alt: string;
   who: { note: string; heading: string; paras: string[]; figures: [string, string][] };
   when: { note: string; heading: string; intro: string; items: { t: string; b: string }[] };
@@ -16,8 +16,9 @@ type Page = {
 
 export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
   es: {
-    title: 'Dr. Sven Mulfinger | Asesor independiente para fundadores y CEOs en Barcelona y Madrid',
-    description: 'Asesoramiento individual y confidencial para fundadores y CEOs: un criterio independiente para las decisiones que no se pueden delegar. En Barcelona, Madrid y online.',
+    title: 'Dr. Sven Mulfinger | Asesor de fundadores y CEOs',
+    description: 'Asesoramiento individual y confidencial para fundadores y CEOs: un criterio independiente para las decisiones que no se delegan. Barcelona y Madrid.',
+    ogAlt: 'Dr. Sven Mulfinger, asesor independiente para fundadores y CEOs',
     tag: 'Dr. Sven Mulfinger · Asesoramiento independiente para fundadores y CEOs',
     h1: 'Un criterio independiente para las decisiones que no puede delegar.',
     lead: 'Cuando la empresa llega a un punto de inflexión, el equipo directivo no consigue ponerse de acuerdo o hay una decisión importante que nadie puede tomar por usted.',
@@ -66,8 +67,9 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
     invite: { heading: 'Cuénteme qué le preocupa.', body: 'Explíqueme brevemente qué está ocurriendo, qué ha intentado hasta ahora y qué necesita resolver. Le responderé personalmente y, si creo que puedo ayudarle, concertaremos una primera conversación confidencial.' },
   },
   de: {
-    title: 'Dr. Sven Mulfinger | Unabhängiger Sparringspartner für Gründer und CEOs',
-    description: 'Vertrauliches Sparring für Gründer, Geschäftsführer und CEOs, für Entscheidungen, die nur Sie treffen können. Persönlich in Barcelona, Madrid, München und Brüssel, online weltweit.',
+    title: 'Dr. Sven Mulfinger | Sparringspartner für Gründer und CEOs',
+    description: 'Vertrauliches Sparring für Gründer, Geschäftsführer und CEOs, für Entscheidungen, die nur Sie treffen können. Barcelona, Madrid, München, Brüssel, online.',
+    ogAlt: 'Dr. Sven Mulfinger, unabhängiger Sparringspartner für Gründer und CEOs',
     tag: 'Dr. Sven Mulfinger · Unabhängiger Sparringspartner für Gründer und CEOs',
     h1: 'Ein Sparringspartner für Entscheidungen, die nur Sie treffen können.',
     lead: 'Wenn Ihr Unternehmen vor einem Wendepunkt steht, sich Ihr Führungsteam nicht einig wird oder eine Entscheidung ansteht, bei der Sie eine unabhängige Perspektive brauchen.',
@@ -117,8 +119,9 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
     invite: { heading: 'Was beschäftigt Sie gerade?', body: 'Vielleicht steht eine Entscheidung an, bei der Sie eine zweite Perspektive brauchen, oder Sie kommen mit Ihrem Führungsteam nicht weiter. Schreiben Sie mir kurz, worum es geht. Ich antworte Ihnen persönlich, und gemeinsam finden wir heraus, ob und wie ich Sie unterstützen kann.' },
   },
   fr: {
-    title: 'Dr. Sven Mulfinger | Conseil indépendant pour fondateurs et dirigeants',
-    description: 'Un accompagnement personnel et confidentiel pour fondateurs et dirigeants : un regard indépendant sur les décisions que vous seul pouvez prendre. À Barcelone, Madrid, Munich et Bruxelles, et à distance.',
+    title: 'Dr. Sven Mulfinger | Conseil pour fondateurs et dirigeants',
+    description: 'Un accompagnement personnel et confidentiel pour fondateurs et dirigeants : un regard indépendant sur les décisions que vous seul pouvez prendre.',
+    ogAlt: 'Dr. Sven Mulfinger, conseiller indépendant pour fondateurs et dirigeants',
     tag: 'Dr. Sven Mulfinger · Conseil indépendant pour fondateurs et dirigeants',
     h1: 'Un regard indépendant sur les décisions que vous seul pouvez prendre.',
     lead: 'Quand votre entreprise aborde une nouvelle étape, que votre équipe de direction peine à s’accorder ou qu’une décision importante exige un regard extérieur.',

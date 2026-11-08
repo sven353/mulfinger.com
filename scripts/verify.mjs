@@ -209,7 +209,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
     check(`${page}: JSON-LD graph sits in <head>`, graph.length > 0);
     const person = graph.find((n) => n['@type'] === 'Person');
     check(`${page}: Person #sven-mulfinger`, person?.['@id'] === 'https://mulfinger.com/#sven-mulfinger');
-    check(`${page}: jobTitle set`, person?.jobTitle === 'Executive Advisor & Strategic Thought Partner');
+    check(`${page}: jobTitle set`, JSON.stringify(person?.jobTitle) === JSON.stringify(['Independent executive advisor', 'Founding Partner, Kuma Partners']));
     check(`${page}: sameAs LinkedIn, Kuma, Neurodisruptors`, ['linkedin.com/in/svenmulfinger', 'kuma.partners', 'neurodisruptors.com'].every((u) => (person?.sameAs ?? []).some((x) => x.includes(u))));
     check(`${page}: worksFor Kuma Partners`, graph.some((n) => n['@id'] === person?.worksFor?.['@id'] && n.name === 'Kuma Partners'));
     check(`${page}: no alumniOf (by choice)`, !person?.alumniOf);
@@ -251,6 +251,15 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
     check('language pages: /es, /de, /fr with html lang, og:locale, self canonical, the same hreflang set as the homepage', alts(home) === set && pages.every(([l, tag, h]) => h.includes(`<html lang="${tag}"`) && h.includes(`<meta property="og:locale" content="${tag.replace('-', '_')}"`) && h.includes(`<link rel="canonical" href="https://mulfinger.com/${l}/"`) && alts(h) === set));
     check('language pages: short form in the page language with page_language field, quotes kept in English, links back to English pages', pages.every(([l, , h]) => h.includes(`name="page_language" value="${l}"`) && h.includes('<div class="mt-10 grid gap-10 md:grid-cols-3 md:gap-8" lang="en">') && h.includes('hreflang="en"')) && pages[0][2].includes('Solicitar una conversación confidencial') && pages[0][2].includes('Hablemos de su situación') && pages.every(([, , h]) => !h.includes('Strategic Friction Diagnostic')) && pages[0][2].includes('>Sobre mí</a>') && pages[1][2].includes('>Impressum</a>') && pages[2][2].includes('>Mentions légales</a>') && pages[1][2].includes('Ein vertrauliches Gespräch vereinbaren') && pages[2][2].includes('Échanger en toute confidentialité'));
     check('language pages linked: footer on every page, /contact, llms.txt, sitemap alternates', htmlFiles.every((f) => /aria-label="Languages"[\s\S]*?href="\/es\/"[\s\S]*?href="\/de\/"[\s\S]*?href="\/fr\/"/.test(readFileSync(f, 'utf8')) || !readFileSync(f, 'utf8').includes('<footer')) && readFileSync(join(DIST, 'contact/index.html'), 'utf8').includes('Prefer Spanish, German or French?') && llms.includes('https://mulfinger.com/es/') && (readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8').match(/xhtml:link/g) ?? []).length === 16);
+  }
+  {
+    const indexable = htmlFiles.filter((f) => !/name="robots" content="noindex/.test(readFileSync(f, 'utf8')));
+    const long = indexable.flatMap((f) => { const h = readFileSync(f, 'utf8'); const t = (h.match(/<title>(.*?)<\/title>/)?.[1] ?? '').replace(/&amp;/g, '&').replace(/&#39;/g, "'"); const d = (h.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '').replace(/&amp;/g, '&').replace(/&#39;/g, "'"); return [t.length > 60 && `${relative(DIST, f)} title ${t.length}`, (d.length > 160 || d.length < 70) && `${relative(DIST, f)} description ${d.length}`].filter(Boolean); });
+    check('search snippets: titles up to 60 and descriptions 70 to 160 characters on every indexable page', long.length === 0, long.join(', '));
+    const g = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
+    const person = g.find((n) => n['@type'] === 'Person');
+    check('person data: confirmed titles and name variants for disambiguation', JSON.stringify(person.jobTitle).includes('Founding Partner, Kuma Partners') && person.alternateName?.includes('Dr. Sven Mulfinger'));
+    check('share image description in the page language on /es, /de and /fr', ['es', 'de', 'fr'].every((l) => !/<meta property="og:image:alt" content="Dr\. Sven Mulfinger, independent/.test(readFileSync(join(DIST, `${l}/index.html`), 'utf8'))));
   }
   check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
   const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];

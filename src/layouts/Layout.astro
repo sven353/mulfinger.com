@@ -17,8 +17,10 @@ interface Props {
   lang?: Lang;
   /** True on the homepage and the language pages, which point to each other for search engines */
   alternates?: boolean;
+  /** Description of the share image, in the page language */
+  imageAlt?: string;
 }
-const { title, description, noindex, type, faq, robots, lang = 'en', alternates = false } = Astro.props;
+const { title, description, noindex, type, faq, robots, lang = 'en', alternates = false, imageAlt } = Astro.props;
 const self = new URL(Astro.url.pathname, 'https://mulfinger.com').href;
 ---
 <!doctype html>
@@ -33,7 +35,7 @@ const self = new URL(Astro.url.pathname, 'https://mulfinger.com').href;
     {alternates
       ? <>{(Object.keys(langs) as Lang[]).map((l) => <link rel="alternate" hreflang={l} href={`https://mulfinger.com${langs[l].path}`} />)}<link rel="alternate" hreflang="x-default" href="https://mulfinger.com/" /></>
       : <><link rel="alternate" hreflang="en" href={self} /><link rel="alternate" hreflang="x-default" href={self} /></>}
-    <Seo title={title} description={description} noindex={noindex} type={type} faq={faq} robots={robots} lang={lang} />
+    <Seo title={title} description={description} noindex={noindex} type={type} faq={faq} robots={robots} lang={lang} imageAlt={imageAlt} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable summary" />
   </head>
   <body class="min-h-dvh flex flex-col">

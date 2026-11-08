@@ -12,6 +12,7 @@ interface Props {
   faq?: FaqItem[];
   robots?: string;
   lang?: Lang;
+  imageAlt?: string;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   faq,
   robots,
   lang = 'en',
+  imageAlt = site.ogImageAlt,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, site.url).href;
@@ -87,9 +89,10 @@ const jsonLd = {
       honorificPrefix: 'Dr.',
       url: site.url,
       image: imageUrl,
-      jobTitle: 'Executive Advisor & Strategic Thought Partner',
+      jobTitle: ['Independent executive advisor', 'Founding Partner, Kuma Partners'],
+      alternateName: ['Dr. Sven Mulfinger', 'Dr.-Ing. Sven Mulfinger'],
       slogan: 'A thinking partner for the decisions you cannot delegate.',
-      description: site.description,
+      description: site.profile,
       knowsLanguage: site.languages,
       address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
       worksFor: { '@id': `${site.url}/#kuma` },
@@ -145,7 +148,7 @@ const jsonLd = {
       name: 'Sven Mulfinger - Executive Advisory',
       url: site.url,
       serviceType: '1:1 Executive Advisory for Founders and CEOs',
-      description: 'Confidential 1:1 executive advisory for founders and CEOs: 6 or 12-month retainers, two working sessions a month and direct priority access between sessions.',
+      description: 'Confidential 1:1 executive advisory for founders and CEOs: 6 or 12-month retainers, two working sessions a month and direct access between sessions.',
       provider: { '@id': `${site.url}/#sven-mulfinger` },
       founder: { '@id': `${site.url}/#sven-mulfinger` },
       areaServed: ['Barcelona', 'Madrid', 'Munich', 'Brussels', 'Europe', 'Global'],
@@ -198,13 +201,13 @@ const jsonLd = {
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content={site.ogImageAlt} />
+<meta property="og:image:alt" content={imageAlt} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content={canonical} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
-<meta name="twitter:image:alt" content={site.ogImageAlt} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

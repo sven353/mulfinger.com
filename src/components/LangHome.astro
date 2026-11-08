@@ -15,7 +15,7 @@ interface Props { lang: Exclude<Lang, 'en'> }
 const { lang } = Astro.props;
 const p = langPages[lang];
 ---
-<Layout lang={lang} alternates title={p.title} description={p.description}>
+<Layout lang={lang} alternates title={p.title} description={p.description} imageAlt={p.ogAlt}>
   <PhotoHero src={heroImg} alt={p.alt} headingId="hero-heading" title={p.h1} body={p.lead} tag={p.tag} pos="object-[72%_center] lg:object-[62%_center]" cta={p.cta} note={p.note} href="#contact" />
 
   <Chapter id="who" num="01" note={p.who.note} heading={p.who.heading}>

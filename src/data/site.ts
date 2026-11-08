@@ -3,8 +3,10 @@
 
 export const site = {
   name: 'Sven Mulfinger',
-  title: 'Dr. Sven Mulfinger | A thinking partner for founders and CEOs',
-  description:
+  title: 'Dr. Sven Mulfinger | Executive advisor for founders and CEOs',
+  // Search snippet: kept under 160 characters (v71). The longer profile below feeds the person data.
+  description: 'Independent counsel for founders and CEOs on consequential decisions and turning points. Serial entrepreneur and CEO, based in Barcelona, working across Europe.',
+  profile:
     'Independent counsel for founders and CEOs facing consequential decisions, friction in the executive team and turning points for the company. Serial entrepreneur and CEO, based in Barcelona, working in Barcelona, Madrid, Munich and Brussels and online worldwide, in English, Spanish, German and French.',
   url: 'https://mulfinger.com',
   locale: 'en_GB',
