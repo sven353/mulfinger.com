@@ -1,0 +1,48 @@
+---
+// All published LinkedIn recommendations, full text in the page source (native details, no JavaScript).
+import Layout from '../layouts/Layout.astro';
+import Chapter from '../components/Chapter.astro';
+import Invite from '../components/Invite.astro';
+import { recommendations, recommendationGroups } from '../data/recommendations';
+import { linkedinRecommendations } from '../data/testimonials';
+const ext = { target: '_blank', rel: 'noopener noreferrer' };
+---
+<Layout title="Recommendations | Sven Mulfinger" description="Fourteen LinkedIn recommendations for Dr. Sven Mulfinger, published in full and unedited: CEOs and general managers he has advised, teams he has facilitated, colleagues from trnd and Dana, and IESE Business School faculty.">
+  <section aria-labelledby="recs-heading">
+    <div class="container-x pt-12 lg:pt-24 pb-6 lg:pb-10 lg:grid lg:grid-cols-12 lg:gap-x-10">
+      <div class="lg:col-span-3 lg:pt-4"><p class="label">Recommendations</p></div>
+      <div class="mt-6 lg:mt-0 lg:col-span-8 xl:col-span-7">
+        <h1 id="recs-heading" class="rise rise-2 display text-[2.85rem] sm:text-[4rem] lg:text-[4.5rem] leading-[1.02] text-ink max-w-[14ch]">In their own words.</h1>
+        <p class="rise rise-3 mt-7 reading max-w-[38rem]">Fourteen recommendations from LinkedIn, published in full as their authors wrote them. Titles are each author’s LinkedIn headline in November 2026. Several mention Vistage: I chaired a Vistage CEO peer group in Barcelona until 2026.</p>
+        <p class="rise rise-3 mt-5 text-[0.9375rem]"><a href={linkedinRecommendations} {...ext} class="link">The originals on my LinkedIn profile<span class="sr-only"> (opens in a new tab)</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  {recommendationGroups.map((g) => (
+    <Chapter id={`recs-${g.key}`} note={g.note} heading={g.heading}>
+      <div class="mt-8 hair-t">
+        {recommendations.filter((r) => r.group === g.key).map((r) => (
+          <article id={r.id} class="settle scroll-mt-20 py-8 hair-b">
+            <blockquote cite={linkedinRecommendations} class="font-serif text-[1.25rem] sm:text-[1.375rem] leading-snug text-ink text-pretty">
+              <p>“{r.pull}”</p>
+            </blockquote>
+            <p class="mt-4 text-[0.9375rem] leading-snug">
+              <span class="block font-medium text-ink">{r.name}</span>
+              <span class="block text-muted">{r.role}</span>
+              <span class="block mt-1 text-muted"><time datetime={r.date}>{r.dateLabel}</time> · LinkedIn: {r.relationship}</span>
+            </p>
+            <details class="mt-4 group">
+              <summary class="link cursor-pointer text-[0.9375rem] w-fit">Read the full recommendation</summary>
+              <blockquote cite={linkedinRecommendations} class="mt-4 space-y-4 reading">
+                {r.paras.map((p) => <p>{p}</p>)}
+              </blockquote>
+            </details>
+          </article>
+        ))}
+      </div>
+    </Chapter>
+  ))}
+
+  <Invite />
+</Layout>

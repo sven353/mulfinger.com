@@ -4,6 +4,7 @@ import { faq, toPlain } from '../data/faq';
 import { cases } from '../data/cases';
 import { whoIs, training, profileUpdated } from '../data/site';
 import { testimonials, linkedinRecommendations } from '../data/testimonials';
+import { recommendations, recommendationGroups } from '../data/recommendations';
 
 const intro = `# Sven Mulfinger: full profile
 
@@ -150,7 +151,11 @@ export const GET: APIRoute = () => {
     .map((t) => `\n> "${t.quote}"\n> ${t.name}, ${t.role}, ${t.company}\n`)
     .join('');
   const voices = `\n## What clients say (verbatim excerpts from public LinkedIn recommendations)\n${vo}\nAll recommendations: ${linkedinRecommendations}\n`;
-  return new Response(intro + cs + voices + '\n## Frequently asked questions (1:1 advisory)\n' + qa + outro, {
+  const recs = recommendationGroups
+    .map((g) => `\n### ${g.note}\n` + recommendations.filter((r) => r.group === g.key).map((r) => `\n#### ${r.name}, ${r.role} (${r.dateLabel}; LinkedIn: ${r.relationship})\n\n${r.paras.join('\n\n')}\n`).join(''))
+    .join('');
+  const recSection = `\n## LinkedIn recommendations, full text (https://mulfinger.com/recommendations)\n\nPublished unedited, as the authors wrote them. Originals: ${linkedinRecommendations}. Several mention Vistage: Sven chaired a Vistage CEO peer group in Barcelona until 2026.\n${recs}`;
+  return new Response(intro + cs + voices + recSection + '\n## Frequently asked questions (1:1 advisory)\n' + qa + outro, {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   });
 };

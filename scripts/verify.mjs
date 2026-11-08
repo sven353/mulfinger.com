@@ -238,6 +238,10 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
     const g = JSON.parse(about.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
     check('/about: who-is answer first, training line, last-updated date, ProfilePage with mainEntity', about.indexOf('Dr. Sven Mulfinger is an executive advisor') < about.indexOf('I trained as a scientist in molecular genetics and engineering') && about.includes('Coaching training through Vistage and AQai') && /Last updated <time datetime="\d{4}-\d{2}-\d{2}"/.test(about) && g.some((n) => n['@type'] === 'ProfilePage' && n.mainEntity?.['@id'] === 'https://mulfinger.com/#sven-mulfinger' && n.dateModified) && full.includes('## Who is Dr. Sven Mulfinger?'));
   }
+  {
+    const rp = readFileSync(join(DIST, 'recommendations/index.html'), 'utf8');
+    check('/recommendations: 14 entries, full text inside native details, blockquote cite, no Review schema, linked from home, footer and llms files', (rp.match(/<article id=/g) ?? []).length === 14 && (rp.match(/<details class="mt-4 group"/g) ?? []).length === 14 && rp.includes('<blockquote cite="https://www.linkedin.com/in/svenmulfinger/details/recommendations/"') && rp.includes('jointly develop a teaching case (TRND AG)') && !/"@type":"(Review|AggregateRating)"/.test(rp) && readFileSync(join(DIST, 'index.html'), 'utf8').includes('href="/recommendations"') && rp.includes('href="/recommendations"') && llms.includes('/recommendations') && full.includes('## LinkedIn recommendations, full text') && readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8').includes('/recommendations'));
+  }
   check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
   const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
   const ids = new Set(homeGraph.map((n) => n['@id']));
@@ -339,8 +343,10 @@ for (const page of ['about/index.html', 'advisory/index.html', 'contact/index.ht
 }
 
 // 5. Copy rules
-const emDash = visible.filter((f) => readFileSync(f, 'utf8').includes('\u2014')).map((f) => relative(DIST, f));
-check('no em dashes in pages or llms files', emDash.length === 0, emDash.join(', '));
+// Verbatim recommendation text is the author's own and is never edited; only that exact passage may carry one.
+const verbatimDash = ['I gained a lot\u2014new perspectives'];
+const emDash = visible.filter((f) => verbatimDash.reduce((t, v) => t.split(v).join(''), readFileSync(f, 'utf8')).includes('\u2014')).map((f) => relative(DIST, f));
+check('no em dashes in pages or llms files (verbatim recommendations excepted)', emDash.length === 0, emDash.join(', '));
 const ie = visible.filter((f) => /\bIE Business School\b/.test(readFileSync(f, 'utf8').replace(/IESE Business School/g, ''))).map((f) => relative(DIST, f));
 check('IE Business School named with Prof. Deuschel (confirmed 2026-10-15)', readFileSync(join(DIST, 'index.html'), 'utf8').includes('Nicolas Deuschel (IE Business School)'));
 check('Klueter spelled Thomas everywhere', !visible.some((f) => readFileSync(f, 'utf8').includes('Tomas Klueter')));
