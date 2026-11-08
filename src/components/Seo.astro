@@ -1,5 +1,5 @@
 ---
-import { site, book } from '../data/site';
+import { site, book, profileUpdated } from '../data/site';
 import { toPlain, type FaqItem } from '../data/faq';
 
 interface Props {
@@ -164,8 +164,9 @@ const jsonLd = {
       publisher: { '@id': `${site.url}/#sven-mulfinger` },
     },
     {
-      '@type': 'WebPage',
+      '@type': type === 'profile' ? 'ProfilePage' : 'WebPage',
       '@id': `${canonical}#webpage`,
+      ...(type === 'profile' ? { mainEntity: { '@id': `${site.url}/#sven-mulfinger` }, dateModified: profileUpdated.iso } : {}),
       url: canonical,
       name: title,
       description,

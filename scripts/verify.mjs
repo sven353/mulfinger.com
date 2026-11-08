@@ -233,6 +233,11 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
     check('IESE: no 2015 co-author claim, Klueter spelt as on his IESE page, dated sources on /about', !/2015 case study|co-authored with Prof\. Iñigo|Kluetter/.test(all) && all.includes('since 2014') && (about.match(/id="iese"/g) ?? []).length === 1 && ['7515675449616670720', '7377291193908350976', '7255632213247950848', '7113540496374870016', 'IES325'].every((k) => about.includes(k)));
     check('llms-full.txt is generated (no stale copy in public/)', !existsSync(new URL('../public/llms-full.txt', import.meta.url)) && full.includes('What clients say'));
   }
+  {
+    const about = readFileSync(join(DIST, 'about/index.html'), 'utf8');
+    const g = JSON.parse(about.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
+    check('/about: who-is answer first, training line, last-updated date, ProfilePage with mainEntity', about.indexOf('Dr. Sven Mulfinger is an executive advisor') < about.indexOf('I trained as a scientist in molecular genetics and engineering') && about.includes('Coaching training through Vistage and AQai') && /Last updated <time datetime="\d{4}-\d{2}-\d{2}"/.test(about) && g.some((n) => n['@type'] === 'ProfilePage' && n.mainEntity?.['@id'] === 'https://mulfinger.com/#sven-mulfinger' && n.dateModified) && full.includes('## Who is Dr. Sven Mulfinger?'));
+  }
   check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
   const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
   const ids = new Set(homeGraph.map((n) => n['@id']));

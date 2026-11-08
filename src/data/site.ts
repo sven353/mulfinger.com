@@ -20,6 +20,16 @@ export const site = {
   languages: ['English', 'Spanish', 'German', 'French'],
 };
 
+// Plain answer to "Who is Dr. Sven Mulfinger?", used on /about and in /llms-full.txt.
+export const whoIs = 'Dr. Sven Mulfinger is an executive advisor based in Barcelona and Founding Partner of Kuma Partners. He works with founders, CEOs and their leadership teams on consequential decisions, friction in the executive team and turning points for the company, drawing on twenty years as a serial entrepreneur and corporate CEO, a doctorate in engineering from the Technische Universität München and research with IESE and IE Business School.';
+
+// Coaching training as Sven states it (2026-11-08): formal training through Vistage and AQai; ExO as a further training.
+// DISC, Insight and Leadership Circle are tools he uses without certification.
+export const training = 'Coaching training through Vistage and AQai (Adaptability), plus Exponential Organizations. I work with DISC, Insight and Leadership Circle as tools.';
+
+// Shown on /about and used as dateModified for the profile page. Update when the profile facts change.
+export const profileUpdated = { iso: '2026-11-08', label: '8 November 2026' };
+
 // The book, as listed on Amazon (checked 2026-11-08). Klueter and Deuschel are research collaborators, not authors.
 export const book = {
   title: 'The Non-Linear Operating System',
