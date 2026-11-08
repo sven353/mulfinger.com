@@ -8,7 +8,7 @@ type Page = {
   tag: string; h1: string; lead: string; cta: string; note: string; alt: string;
   who: { note: string; heading: string; paras: string[]; figures: [string, string][] };
   when: { note: string; heading: string; intro: string; items: { t: string; b: string }[] };
-  how: { note: string; heading: string; rows: [string, string][]; sequence: string; kuma: [string, string] };
+  how: { note: string; heading: string; intro?: string; rows: [string, string][]; sequence: string; kuma: [string, string] };
   voices: { note: string; heading: string; intro: string; all: string };
   more: { note: string; heading: string; links: [string, string][] };
   invite: { heading: string; body: string };
@@ -66,53 +66,55 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
     invite: { heading: 'Cuénteme qué le preocupa.', body: 'Explíqueme brevemente qué está ocurriendo, qué ha intentado hasta ahora y qué necesita resolver. Le responderé personalmente y, si creo que puedo ayudarle, concertaremos una primera conversación confidencial.' },
   },
   de: {
-    title: 'Dr. Sven Mulfinger | Strategischer Sparringspartner für Gründer und CEOs',
-    description: 'Vertrauliche 1:1-Beratung für Gründer und CEOs: ein Sparringspartner für die Entscheidungen, die sich nicht delegieren lassen. Persönlich in Barcelona, Madrid, München und Brüssel und online, auf Deutsch, Englisch, Spanisch und Französisch.',
-    tag: 'Dr. Sven Mulfinger · Vertrauliche Beratung für Gründer und CEOs',
-    h1: 'Ein Sparringspartner für die Entscheidungen, die Sie nicht delegieren können.',
-    lead: 'Für die Momente, die am schwersten wiegen: ein Wendepunkt für das Unternehmen, Reibung im Führungsteam oder eine Entscheidung, die nur Sie treffen können.',
-    cta: 'Ein vertrauliches Gespräch beginnen',
-    note: 'Ich lese jede Nachricht persönlich. Unverbindlich.',
+    title: 'Dr. Sven Mulfinger | Unabhängiger Sparringspartner für Gründer und CEOs',
+    description: 'Vertrauliches Sparring für Gründer, Geschäftsführer und CEOs, für Entscheidungen, die nur Sie treffen können. Persönlich in Barcelona, Madrid, München und Brüssel, online weltweit.',
+    tag: 'Dr. Sven Mulfinger · Unabhängiger Sparringspartner für Gründer und CEOs',
+    h1: 'Ein Sparringspartner für Entscheidungen, die nur Sie treffen können.',
+    lead: 'Wenn Ihr Unternehmen vor einem Wendepunkt steht, sich Ihr Führungsteam nicht einig wird oder eine Entscheidung ansteht, bei der Sie eine unabhängige Perspektive brauchen.',
+    cta: 'Ein vertrauliches Gespräch vereinbaren',
+    note: 'Ich lese jede Anfrage persönlich. Unverbindlich und vertraulich.',
     alt: 'Ein vertrauliches 1:1-Beratungsgespräch am Fenster, in einem Büro mit Blick auf die Stadt',
     who: {
-      note: 'Wer ich bin',
-      heading: 'Ich saß selbst auf diesem Stuhl.',
+      note: 'Über mich',
+      heading: 'Ich weiß, wie es ist, selbst die Verantwortung zu tragen.',
       paras: [
-        'Ich bin unabhängiger Berater für Geschäftsführer und CEOs mit Sitz in Barcelona und Gründungspartner von Kuma Partners. Ich arbeite mit Gründern, CEOs und ihren Führungsteams an folgenreichen Entscheidungen, an Reibung im Führungsteam und an Wendepunkten für das Unternehmen.',
-        'Seit zwanzig Jahren baue ich Unternehmen auf, als Gründer und als CEO innerhalb eines Konzerns. Ich habe trnd in Südeuropa mitgegründet, an dem Gruner + Jahr (Bertelsmann) 2014 eine Beteiligung und 2016 die Mehrheit übernahm, danach TERRITORY Influence für West- und Südeuropa geleitet und Dana mitgegründet, eine digitale Plattform für die psychische Gesundheit von Frauen.',
-        'Ich bin promovierter Ingenieur (Dr.-Ing.) der Technischen Universität München und seit 2014 Gastreferent an der IESE Business School. Persönlich arbeite ich in Barcelona, Madrid, München und Brüssel, online weltweit.',
+        'Seit zwanzig Jahren baue und führe ich Unternehmen, als Gründer und als CEO innerhalb eines internationalen Konzerns. Ich kenne die Entscheidungen, die man nicht einfach weitergeben kann. Und ich weiß, wie hilfreich es ist, jemanden an seiner Seite zu haben, der unabhängig denkt, die richtigen Fragen stellt und auch widerspricht.',
+        'Heute begleite ich von Barcelona aus Gründer, Geschäftsführer und CEOs bei wichtigen unternehmerischen Entscheidungen. Daneben bin ich Gründungspartner von Kuma Partners, wo wir mit ganzen Führungsteams arbeiten.',
+        'Ich habe trnd in Südeuropa mitgegründet. Nach dem Einstieg von Gruner + Jahr (Bertelsmann) habe ich TERRITORY Influence in West- und Südeuropa geführt. Außerdem habe ich Dana mitgegründet, eine digitale Plattform für die psychische Gesundheit von Frauen.',
+        'Ich bin promovierter Ingenieur (Dr.-Ing.) der Technischen Universität München und seit 2014 Gastreferent an der IESE Business School. Persönlich arbeite ich in Barcelona, Madrid, München und Brüssel, online mit Kunden weltweit.',
       ],
-      figures: [['20', 'Jahre Unternehmensaufbau'], ['100+', 'begleitete Gründer, Geschäftsführer und C-Level-Führungskräfte'], ['4', 'Arbeitssprachen']],
+      figures: [['20', 'Jahre Erfahrung im Unternehmensaufbau'], ['100+', 'begleitete Gründer und Führungskräfte'], ['4', 'Sprachen: Deutsch, Englisch, Spanisch, Französisch']],
     },
     when: {
-      note: 'Wann man mich anruft',
+      note: 'Wann eine unabhängige Perspektive hilft',
       heading: 'Wenn die üblichen Antworten nicht mehr greifen.',
-      intro: 'Die meisten Gründer und CEOs, die sich bei mir melden, stecken in einer dieser drei Situationen.',
+      intro: 'Manchmal hilft ein Gespräch mit jemandem, der ähnliche Entscheidungen selbst treffen musste und von außen auf die Sache schaut. Drei Situationen begegnen mir besonders häufig.',
       items: [
-        { t: 'Eine Entscheidung, die immer wiederkommt', b: 'Alle verstehen das Problem, und doch wird die Entscheidung vertagt, verwässert oder zurückgenommen.' },
-        { t: 'Ein Führungsteam, das zum Engpass geworden ist', b: 'Fähige Leute, sich überschneidende Verantwortlichkeiten und zu viele Entscheidungen, die wieder auf Ihrem Tisch landen.' },
-        { t: 'Ein Unternehmen, das Ihrer Art zu führen entwachsen ist', b: 'Das Geschäft ist gewachsen, aber die Art, wie Entscheidungen getroffen und geteilt werden, ist dieselbe geblieben.' },
+        { t: 'Eine Entscheidung, die einfach nicht vom Tisch kommt', b: 'Eigentlich ist klar, was entschieden werden muss. Trotzdem wird die Entscheidung vertagt, erneut diskutiert oder kurz nach der Einigung wieder infrage gestellt.' },
+        { t: 'Ein Führungsteam, das sich selbst ausbremst', b: 'Die richtigen Leute sind da, und doch kommen wichtige Themen nicht voran. Verantwortlichkeiten überschneiden sich, Entscheidungen bleiben liegen, und am Ende landet vieles wieder bei Ihnen.' },
+        { t: 'Ein Unternehmen, das anders geführt werden muss als früher', b: 'Was mit zehn oder zwanzig Mitarbeitern gut funktioniert hat, trägt nicht unbedingt auch bei hundert. Das Unternehmen ist gewachsen, Entscheidungswege und Verantwortlichkeiten haben nicht Schritt gehalten.' },
       ],
     },
     how: {
-      note: 'So funktioniert es',
-      heading: '1:1 Executive Advisory.',
+      note: 'Unsere Zusammenarbeit',
+      heading: 'Vertrauliches Sparring für Gründer und CEOs.',
+      intro: 'Ich arbeite direkt mit Ihnen, ohne wechselnde Ansprechpartner.',
       rows: [
-        ['Laufzeit', '6 oder 12 Monate'],
-        ['Sitzungen', 'Zwei Arbeitssitzungen von 60 bis 90 Minuten pro Monat'],
+        ['Dauer', 'Sechs oder zwölf Monate'],
+        ['Gespräche', 'Zwei Arbeitssitzungen pro Monat, jeweils 60 bis 90 Minuten'],
         ['Ort', 'Online oder persönlich in Barcelona oder Madrid'],
-        ['Zwischen den Sitzungen', 'Direkter, priorisierter Zugang per Telefon oder Nachricht, wenn eine Entscheidung nicht warten kann'],
-        ['Honorar', 'Nach dem ersten Gespräch, sobald der Umfang klar ist'],
+        ['Zwischen den Terminen', 'Wenn eine wichtige Entscheidung nicht warten kann, bin ich direkt erreichbar'],
+        ['Honorar', 'Vereinbaren wir, sobald klar ist, worum es geht'],
       ],
-      sequence: 'Wir beginnen mit einem vertraulichen Gespräch. Wenn ich helfen kann, klären wir zuerst, wo Entscheidungen hängen bleiben und was wir erreichen wollen; am Ende der Laufzeit ziehen wir gemeinsam Bilanz.',
-      kuma: ['Ich arbeite persönlich mit Gründern und CEOs. Wenn die Aufgabe das ganze Führungsteam betrifft, übernehmen wir sie über ', '.'],
+      sequence: 'Am Anfang steht ein vertrauliches Gespräch: was Sie beschäftigt, wo Sie nicht weiterkommen und was Sie bereits versucht haben. Wenn wir beide eine Zusammenarbeit für sinnvoll halten, schauen wir zuerst, wo Entscheidungen ins Stocken geraten, vereinbaren den Rahmen und legen fest, woran wir Fortschritte erkennen. Am Ende der Laufzeit ziehen wir gemeinsam Bilanz.',
+      kuma: ['Als Sparringspartner arbeite ich persönlich mit Gründern und CEOs. Wenn es darum geht, ein ganzes Führungsteam auszurichten oder Veränderungen im Unternehmen umzusetzen, übernehmen wir das über ', '.'],
     },
-    voices: { note: 'Was Klienten sagen', heading: 'In ihren eigenen Worten.', intro: 'Auszüge aus LinkedIn-Empfehlungen, auf Englisch, so wie sie geschrieben wurden.', all: 'Alle vierzehn Empfehlungen (auf Englisch)' },
+    voices: { note: 'Was meine Kunden sagen', heading: 'In ihren eigenen Worten.', intro: 'Die Aussagen stammen aus Empfehlungen auf LinkedIn. Ich habe sie im englischen Original belassen.', all: 'Alle 14 Empfehlungen lesen (auf Englisch)' },
     more: {
-      note: 'Mehr erfahren', heading: 'Der Rest der Website ist auf Englisch.',
-      links: [['/advisory', 'So funktioniert die 1:1-Beratung'], ['/about', 'Werdegang und Perspektive'], ['/#research', 'Forschung und Buch'], ['/recommendations', 'Empfehlungen']],
+      note: 'Mehr über meine Arbeit', heading: 'Die weiteren Seiten sind auf Englisch.',
+      links: [['/advisory', 'Wie ich arbeite'], ['/about', 'Mein Werdegang'], ['/#research', 'Forschung und Buch'], ['/recommendations', 'Empfehlungen meiner Kunden']],
     },
-    invite: { heading: 'Bringen Sie das Problem mit, das Sie noch nicht lösen konnten.', body: 'Erzählen Sie mir, was los ist, was Sie bereits versucht haben und was auf dem Spiel steht. Gemeinsam klären wir, ob eine Zusammenarbeit den Unterschied machen würde.' },
+    invite: { heading: 'Was beschäftigt Sie gerade?', body: 'Vielleicht steht eine Entscheidung an, bei der Sie eine zweite Perspektive brauchen, oder Sie kommen mit Ihrem Führungsteam nicht weiter. Schreiben Sie mir kurz, worum es geht. Ich antworte Ihnen persönlich, und gemeinsam finden wir heraus, ob und wie ich Sie unterstützen kann.' },
   },
   fr: {
     title: 'Dr. Sven Mulfinger | Conseiller stratégique pour fondateurs et dirigeants',

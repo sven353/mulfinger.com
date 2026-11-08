@@ -37,10 +37,10 @@ export const chrome: Record<Lang, Chrome> = {
   },
   de: {
     nav: { '/about': 'Über mich', '/advisory': 'Beratung', '/#research': 'Forschung', '/recommendations': 'Empfehlungen', '/contact': 'Kontakt' },
-    home: 'Start', touch: 'Kontakt', menuCta: 'Ein vertrauliches Gespräch beginnen', openMenu: 'Menü öffnen', closeMenu: 'Menü schließen', menu: 'Menü',
-    brand: 'Unabhängige Beratung für Gründer und CEOs. Mit Sitz in Barcelona.',
-    cred: ['Serienunternehmer und CEO', 'Über 100 begleitete Gründer, Geschäftsführer und C-Level-Führungskräfte', 'Forschungspartner von IESE und IE Business School'],
-    loc: 'Persönlich in Barcelona, Madrid, München und Brüssel, online weltweit, auf Deutsch, Englisch, Spanisch und Französisch.',
+    home: 'Startseite', touch: 'Kontakt', menuCta: 'Ein vertrauliches Gespräch vereinbaren', openMenu: 'Menü öffnen', closeMenu: 'Menü schließen', menu: 'Menü',
+    brand: 'Unabhängiger Sparringspartner für Gründer, Geschäftsführer und CEOs.',
+    cred: ['Seit zwanzig Jahren Unternehmer und CEO', 'Über 100 begleitete Gründer und Führungskräfte', 'Forschungspartner von IESE und IE Business School'],
+    loc: 'Persönlich in Barcelona, Madrid, München und Brüssel, online weltweit. Beratung auf Deutsch, Englisch, Spanisch und Französisch.',
     privacy: 'Datenschutz', legal: 'Impressum', enNote: 'Die übrigen Seiten der Website sind auf Englisch.',
   },
   fr: {

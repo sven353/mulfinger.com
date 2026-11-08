@@ -47,6 +47,7 @@ const p = langPages[lang];
   </Chapter>
 
   <Chapter id="how" num="03" note={p.how.note} heading={p.how.heading} tone="sand" wide>
+    {p.how.intro && <p class="mt-6 reading max-w-[38rem]">{p.how.intro}</p>}
     <dl class="mt-10">
       {p.how.rows.map(([k, v], i) => (
         <div class:list={['settle py-5 hair-t hair-strong sm:grid sm:grid-cols-9 sm:gap-x-6', i === p.how.rows.length - 1 && 'hair-b']}>
