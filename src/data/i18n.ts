@@ -44,11 +44,11 @@ export const chrome: Record<Lang, Chrome> = {
     privacy: 'Datenschutz', legal: 'Impressum', enNote: 'Die übrigen Seiten der Website sind auf Englisch.',
   },
   fr: {
-    nav: { '/about': 'À propos', '/advisory': 'Conseil', '/#research': 'Recherche', '/recommendations': 'Recommandations', '/contact': 'Contact' },
-    home: 'Accueil', touch: 'Contact', menuCta: 'Commencer une conversation confidentielle', openMenu: 'Ouvrir le menu', closeMenu: 'Fermer le menu', menu: 'Menu',
-    brand: 'Conseil indépendant pour fondateurs et CEO. Basé à Barcelone.',
-    cred: ['Entrepreneur en série et CEO', 'Plus de 100 fondateurs, directeurs généraux et dirigeants accompagnés', 'Collaborateur de recherche de l’IESE et de l’IE Business School'],
-    loc: 'En personne à Barcelone, Madrid, Munich et Bruxelles, en ligne partout dans le monde, en français, anglais, allemand et espagnol.',
+    nav: { '/about': 'À propos', '/advisory': 'Accompagnement', '/#research': 'Recherche', '/recommendations': 'Recommandations', '/contact': 'Contact' },
+    home: 'Accueil', touch: 'Contact', menuCta: 'Échanger en toute confidentialité', openMenu: 'Ouvrir le menu', closeMenu: 'Fermer le menu', menu: 'Menu',
+    brand: 'Conseil indépendant auprès des fondateurs et dirigeants d’entreprise. Basé à Barcelone.',
+    cred: ['Entrepreneur et CEO depuis vingt ans', 'Plus de 100 fondateurs et dirigeants accompagnés', 'Collaborateur de recherche de l’IESE et de l’IE Business School'],
+    loc: 'Rendez-vous à Barcelone, Madrid, Munich et Bruxelles, et à distance partout dans le monde, en français, anglais, espagnol et allemand.',
     privacy: 'Politique de confidentialité', legal: 'Mentions légales', enNote: 'Les autres pages du site sont en anglais.',
   },
 };
