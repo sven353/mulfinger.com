@@ -34,13 +34,13 @@ const rows = [
 ---
 <ul class="mt-8 hair-t ">
   {rows.map((r) => (
-    <li class="settle py-7 grid grid-cols-[5.5rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-5 sm:gap-x-8 hair-b ">
-      <div class="relative aspect-[4/5] sm:aspect-[4/3] overflow-hidden rounded-[2px] bg-mist self-start">
-        <Image src={r.img} alt={r.alt} widths={[264, 320, 480, 640]} sizes="(min-width: 640px) 160px, 88px" format="webp" quality={90} loading="lazy" decoding="async" class:list={['absolute inset-0 size-full object-cover', r.pos]} />
+    <li class="settle py-7 grid grid-cols-[3.5rem_1fr] sm:grid-cols-[10rem_1fr] gap-x-4 sm:gap-x-8 hair-b ">
+      <div class="relative aspect-square sm:aspect-[4/3] sm:row-span-2 overflow-hidden rounded-[2px] bg-mist self-center sm:self-start">
+        <Image src={r.img} alt={r.alt} widths={[264, 320, 480, 640]} sizes="(min-width: 640px) 160px, 56px" format="webp" quality={90} loading="lazy" decoding="async" class:list={['absolute inset-0 size-full object-cover', r.pos]} />
       </div>
-      <div>
-        <h3 class="text-[1.4rem] sm:text-2xl leading-snug text-ink">{r.title}</h3>
-        <p class="mt-2 reading">{r.body}</p>
+      <h3 class="self-center sm:self-start text-[1.35rem] sm:text-2xl leading-snug text-ink">{r.title}</h3>
+      <div class="col-span-2 sm:col-span-1 sm:col-start-2 mt-3 sm:mt-0">
+        <p class="sm:mt-2 reading">{r.body}</p>
         <p class="mt-3 text-[0.9375rem] flex flex-wrap gap-x-6 gap-y-2">
           {r.links.map((l) => l.external
             ? <a href={l.href} {...ext} class="link">{l.label}<span class="sr-only"> (opens in a new tab)</span></a>

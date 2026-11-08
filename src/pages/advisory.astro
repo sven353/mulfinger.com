@@ -98,12 +98,12 @@ const expectations = [
   </Chapter>
 
   <Chapter id="how" note="Engagement" heading="How an engagement works." tone="sand" wide>
-    <dl class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+    <dl class="mt-8 sm:mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-0 sm:gap-3 lg:gap-4 max-sm:hair-t max-sm:hair-strong">
       {terms.map(([icon, k, v], i) => (
-        <div class:list={['settle surface hair-all p-6', `s${(i % 3) + 1}`]}>
-          <Icon name={icon} />
-          <dt class="mt-4 label">{k}</dt>
-          <dd class="mt-1 font-serif text-[1.15rem] leading-snug text-ink">{v}</dd>
+        <div class:list={['settle surface hair-all p-6 max-sm:hair-t-0 max-sm:hair-l-0 max-sm:hair-r-0 max-sm:hair-strong max-sm:px-0 max-sm:py-4 max-sm:grid max-sm:grid-cols-[2.25rem_1fr]', `s${(i % 3) + 1}`]}>
+          <span class="max-sm:row-span-2 max-sm:pt-0.5"><Icon name={icon} size={24} /></span>
+          <dt class="mt-4 max-sm:mt-0 label">{k}</dt>
+          <dd class="mt-1 max-sm:col-start-2 font-serif text-[1.15rem] leading-snug text-ink">{v}</dd>
         </div>
       ))}
     </dl>
@@ -123,9 +123,9 @@ const expectations = [
   </Chapter>
 
   <Chapter id="expect" note="Expectations" heading="What to expect." wide rule={false}>
-    <div class="mt-10 grid lg:grid-cols-3 gap-3 lg:gap-4">
+    <div class="mt-8 sm:mt-10 grid lg:grid-cols-3 gap-0 sm:gap-3 lg:gap-4 max-sm:hair-t max-sm:hair-strong">
       {expectations.map((e, i) => (
-        <div class:list={['situation settle surface hair-all p-7', `s${i + 1}`]}>
+        <div class:list={['situation settle surface hair-all p-7 max-sm:hair-t-0 max-sm:hair-l-0 max-sm:hair-r-0 max-sm:hair-strong max-sm:px-0 max-sm:py-6', `s${i + 1}`]}>
           <Icon name={['candour', 'prepare', 'lock'][i]} size={30} />
           <h3 class="mt-5 text-[1.45rem] leading-snug text-ink">{e.t}</h3>
           <p class="mt-3 reading text-[1.0625rem]!">{e.b}</p>

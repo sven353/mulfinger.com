@@ -59,8 +59,8 @@ const btn = compact ? 'bg-[#eceae5] text-[#3e5566] hover:bg-white font-medium' :
     </div>
 
     <!-- First-layer data protection information (GDPR Art. 13, AEPD layered model) -->
-    <details class="hair-all bg-mist text-xs text-steel">
-      <summary class="cursor-pointer px-4 py-3 text-xs font-medium text-steel">Basic data protection information</summary>
+    <details class="hair-all bg-mist text-[0.8125rem] lg:text-xs text-steel">
+      <summary class="cursor-pointer px-4 py-3 text-[0.8125rem] lg:text-xs font-medium text-steel">Basic data protection information</summary>
       <dl class="grid grid-cols-[7rem_1fr] gap-x-4 gap-y-2 px-4 pb-4 leading-relaxed">
         <dt class="font-medium text-ink">Controller</dt><dd>{L.owner}</dd>
         <dt class="font-medium text-ink">Purpose</dt><dd>Answer your message and assess whether we should work together.</dd>
@@ -80,7 +80,7 @@ const btn = compact ? 'bg-[#eceae5] text-[#3e5566] hover:bg-white font-medium' :
     </div>
 
     <div class={compact ? "flex flex-col-reverse items-stretch sm:items-start gap-4 pt-2" : "flex flex-col sm:flex-row sm:items-center gap-6 justify-between pt-2"}>
-      <p id={id("form-note")} class="text-xs text-steel max-w-sm leading-relaxed">{compact ? 'I read every message myself. No obligation to continue.' : 'Read by Sven personally and treated as confidential.'}</p>
+      <p id={id("form-note")} class="text-[0.8125rem] lg:text-xs text-steel max-w-sm leading-relaxed">{compact ? 'I read every message myself. No obligation to continue.' : 'Read by Sven personally and treated as confidential.'}</p>
       <button type="submit" data-submit class={`shrink-0 sm:whitespace-nowrap ${btn} px-8 py-4 text-[0.9375rem] disabled:opacity-60 disabled:cursor-wait transition-colors inline-flex items-center justify-center gap-3`}>
         <span data-submit-label>{submitLabel}</span> <span aria-hidden="true">→</span>
       </button>

@@ -122,7 +122,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   const imgs = htmlFiles.flatMap((f) => readFileSync(f, 'utf8').match(/<img [^>]*>/g) ?? []);
   const photos = imgs.filter((t) => !t.includes('alt="The Non-Linear Operating System by Dr. Sven Mulfinger"'));
   const homeImgs = home.match(/<img [^>]*>/g) ?? [];
-  check(`home: hero, three path thumbnails and the book cover, plus three client portraits (found ${homeImgs.length})`, homeImgs.length === 8 && homeImgs.filter((t) => t.includes('Portrait of')).length === 3 && homeImgs.every((t) => /alt="[^"]+"/.test(t)) && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session'].every((k) => homeImgs.some((t) => t.includes(k))));
+  check(`home: hero, three path thumbnails, the book cover (large on desktop, small on phones) and three client portraits (found ${homeImgs.length})`, homeImgs.length === 9 && homeImgs.filter((t) => t.includes('Portrait of')).length === 3 && homeImgs.every((t) => /alt="[^"]+"/.test(t)) && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session'].every((k) => homeImgs.some((t) => t.includes(k))));
   const paths = home.match(/aria-labelledby="paths-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('home: each way of working has a small photograph beside it', (paths.match(/<li[\s\S]*?<img[\s\S]*?<h3/g) ?? []).length === 3);
   check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|Berlin|Portrait of Wilhelm Taht/.test(t)));

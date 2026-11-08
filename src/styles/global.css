@@ -197,6 +197,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing:
 @utility hair-t-0 { --sh-t: 0 0 #0000; }
 @utility hair-b-0 { --sh-b: 0 0 #0000; }
 @utility hair-l-0 { --sh-l: 0 0 #0000; }
+@utility hair-r-0 { --sh-r: 0 0 #0000; }
 @utility hair-strong { --hc: var(--color-line-strong); }
 @utility hair-ink { --hc: var(--color-ink); }
 @utility hair-accent { --hc: var(--color-accent); }
