@@ -9,7 +9,7 @@ export const site = {
   url: 'https://mulfinger.com',
   locale: 'en_GB',
   ogImage: '/og.png',
-  ogImageAlt: 'Dr. Sven Mulfinger, strategic advisory for founders and CEOs',
+  ogImageAlt: 'Dr. Sven Mulfinger, independent counsel for founders and CEOs: a thinking partner for the decisions you cannot delegate',
   links: {
     kuma: 'https://kuma.partners',
     round: 'https://theround.kuma.partners',
