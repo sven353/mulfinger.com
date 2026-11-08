@@ -24,7 +24,7 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
     lead: 'Cuando la empresa llega a un punto de inflexión, el equipo directivo no consigue ponerse de acuerdo o hay una decisión importante que nadie puede tomar por usted.',
     cta: 'Hablemos de su situación',
     note: 'Leo personalmente cada mensaje. Confidencial y sin compromiso.',
-    alt: 'Una conversación de asesoramiento 1:1 junto a la ventana, en una oficina con vistas a la ciudad',
+    alt: 'Dr. Sven Mulfinger en una conversación de asesoramiento 1:1 junto a la ventana, en una oficina con vistas a la ciudad',
     who: {
       note: 'Quién soy',
       heading: 'He estado al otro lado de la mesa.',
@@ -75,7 +75,7 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
     lead: 'Wenn Ihr Unternehmen vor einem Wendepunkt steht, sich Ihr Führungsteam nicht einig wird oder eine Entscheidung ansteht, bei der Sie eine unabhängige Perspektive brauchen.',
     cta: 'Ein vertrauliches Gespräch vereinbaren',
     note: 'Ich lese jede Anfrage persönlich. Unverbindlich und vertraulich.',
-    alt: 'Ein vertrauliches 1:1-Beratungsgespräch am Fenster, in einem Büro mit Blick auf die Stadt',
+    alt: 'Dr. Sven Mulfinger in einem vertraulichen 1:1-Beratungsgespräch am Fenster, in einem Büro mit Blick auf die Stadt',
     who: {
       note: 'Über mich',
       heading: 'Ich weiß, wie es ist, selbst die Verantwortung zu tragen.',
@@ -127,7 +127,7 @@ export const langPages: Record<Exclude<Lang, 'en'>, Page> = {
     lead: 'Quand votre entreprise aborde une nouvelle étape, que votre équipe de direction peine à s’accorder ou qu’une décision importante exige un regard extérieur.',
     cta: 'Échanger en toute confidentialité',
     note: 'Je lis personnellement chaque message. Sans engagement.',
-    alt: 'Une conversation de conseil 1:1 près de la fenêtre, dans un bureau qui donne sur la ville',
+    alt: 'Dr. Sven Mulfinger lors d’une conversation de conseil 1:1 près de la fenêtre, dans un bureau qui donne sur la ville',
     who: {
       note: 'À propos',
       heading: 'J’ai moi aussi été à votre place.',

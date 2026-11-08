@@ -88,7 +88,8 @@ const jsonLd = {
       name: site.name,
       honorificPrefix: 'Dr.',
       url: site.url,
-      image: imageUrl,
+      // Real portrait, confirmed by Sven 2026-11-08. Stable public URL so search and AI engines can match his face to the name.
+      image: { '@type': 'ImageObject', url: `${site.url}/sven-mulfinger.jpg`, contentUrl: `${site.url}/sven-mulfinger.jpg`, width: 1000, height: 1000, caption: 'Dr. Sven Mulfinger' },
       jobTitle: ['Independent executive advisor', 'Founding Partner, Kuma Partners'],
       alternateName: ['Dr. Sven Mulfinger', 'Dr.-Ing. Sven Mulfinger'],
       slogan: 'A thinking partner for the decisions you cannot delegate.',

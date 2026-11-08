@@ -125,9 +125,9 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check(`home: hero, three path thumbnails, the book cover (large on desktop, small on phones) and three client portraits (found ${homeImgs.length})`, homeImgs.length === 9 && homeImgs.filter((t) => t.includes('Portrait of')).length === 3 && homeImgs.every((t) => /alt="[^"]+"/.test(t)) && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session'].every((k) => homeImgs.some((t) => t.includes(k))));
   const paths = home.match(/aria-labelledby="paths-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('home: each way of working has a small photograph beside it', (paths.match(/<li[\s\S]*?<img[\s\S]*?<h3/g) ?? []).length === 3);
-  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|Berlin|Portrait of |conversación de asesoramiento 1:1|1:1-Beratungsgespräch|conversation de conseil 1:1/.test(t)));
+  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /Dr\. Sven Mulfinger (in|en|lors) |1:1 advisory session|The Round|Berlin|Portrait of |conversación de asesoramiento 1:1|1:1-Beratungsgespräch|conversation de conseil 1:1/.test(t)));
   check('photographs have square corners (no rounded frames)', !/<figure[\s\S]{0,200}rounded/.test(home));
-  const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
+  const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   const sec = (id) => home.match(new RegExp(`aria-labelledby="${id}-heading"[\\s\\S]*?<\\/section>`))?.[0] ?? '';
   check('home: three numbered situations on hairline rules, no cards (direction C)', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle pt-5 hair-t hair-strong[^"]*">\s*<p class="display[^"]*">0[123]<\/p>/g) ?? []).length === 3);
@@ -259,6 +259,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
     const g = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];
     const person = g.find((n) => n['@type'] === 'Person');
     check('person data: confirmed titles and name variants for disambiguation', JSON.stringify(person.jobTitle).includes('Founding Partner, Kuma Partners') && person.alternateName?.includes('Dr. Sven Mulfinger'));
+    check('person data: real portrait at a stable URL, shown on /about, hero alt names Sven in all four languages', person.image?.url === 'https://mulfinger.com/sven-mulfinger.jpg' && existsSync(join(DIST, 'sven-mulfinger.jpg')) && readFileSync(join(DIST, 'about/index.html'), 'utf8').includes('alt="Portrait of Dr. Sven Mulfinger"') && ['', 'es/', 'de/', 'fr/'].every((l) => /<img[^>]*alt="Dr\. Sven Mulfinger (in|en|lors)/.test(readFileSync(join(DIST, `${l}index.html`), 'utf8'))));
     check('share image description in the page language on /es, /de and /fr', ['es', 'de', 'fr'].every((l) => !/<meta property="og:image:alt" content="Dr\. Sven Mulfinger, independent/.test(readFileSync(join(DIST, `${l}/index.html`), 'utf8'))));
   }
   check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
