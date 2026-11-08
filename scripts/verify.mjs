@@ -336,7 +336,7 @@ for (const page of ['about/index.html', 'advisory/index.html', 'contact/index.ht
     const meta = (k) => html.match(new RegExp(`<meta (?:property|name)="${k}" content="([^"]*)"`))?.[1];
     const abs = ['og:url', 'og:image', 'og:image:secure_url', 'twitter:url', 'twitter:image'].every((k) => meta(k)?.startsWith('https://mulfinger.com/'));
     const canon = html.match(/rel="canonical" href="([^"]+)"/)?.[1] ?? '';
-    check(`social: ${page} absolute apex URLs, og.png, large card`, abs && canon.startsWith('https://mulfinger.com/') && meta('og:image') === 'https://mulfinger.com/og.png' && meta('twitter:card') === 'summary_large_image' && meta('og:image:type') === 'image/png' && !!meta('og:image:alt') && !!meta('twitter:image:alt'));
+    check(`social: ${page} absolute apex URLs, og.png, large card`, abs && canon.startsWith('https://mulfinger.com/') && /^https:\/\/mulfinger.com\/og.png\?v=\d{4}-\d{2}-\d{2}$/.test(meta('og:image')) && meta('twitter:card') === 'summary_large_image' && meta('og:image:type') === 'image/png' && !!meta('og:image:alt') && !!meta('twitter:image:alt'));
   }
   const toml = readFileSync('netlify.toml', 'utf8');
   check('og.png cached one day with revalidation', /for = "\/og\.png"\s*\[headers\.values\]\s*Cache-Control = "public, max-age=86400, must-revalidate"/.test(toml));

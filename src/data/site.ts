@@ -8,7 +8,7 @@ export const site = {
     'Independent counsel for founders and CEOs facing consequential decisions, friction in the executive team and turning points for the company. Serial entrepreneur and CEO, based in Barcelona, working in Barcelona, Madrid, Munich and Brussels and online worldwide, in English, Spanish, German and French.',
   url: 'https://mulfinger.com',
   locale: 'en_GB',
-  ogImage: '/og.png',
+  ogImage: '/og.png?v=2026-11-08', // bump the version whenever og.png changes, so every app fetches the new image
   ogImageAlt: 'Dr. Sven Mulfinger, independent counsel for founders and CEOs: a thinking partner for the decisions you cannot delegate',
   links: {
     kuma: 'https://kuma.partners',
