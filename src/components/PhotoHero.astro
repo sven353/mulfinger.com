@@ -4,8 +4,8 @@
 // Used by the homepage and /advisory.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-interface Props { src: ImageMetadata; alt: string; headingId: string; title: string; body: string; tag: string; pos?: string }
-const { src, alt, headingId, title, body, tag, pos = 'object-center' } = Astro.props;
+interface Props { src: ImageMetadata; alt: string; headingId: string; title: string; body: string; tag: string; pos?: string; cta?: string; note?: string; href?: string }
+const { src, alt, headingId, title, body, tag, pos = 'object-center', cta = 'Start a confidential conversation', note = 'I read every message myself. No obligation to continue.', href = '/contact' } = Astro.props;
 // The photograph is shown as it is: no reveal or zoom animation, so it stays sharp.
 ---
 <section aria-labelledby={headingId} class="relative">
@@ -29,8 +29,8 @@ const { src, alt, headingId, title, body, tag, pos = 'object-center' } = Astro.p
       <h1 id={headingId} class="rise rise-2 display lg:col-span-8 text-[2.6rem] sm:text-[3.6rem] lg:text-[4.4rem] xl:text-[5rem] leading-[0.98] text-ink max-w-[16ch]">{title}</h1>
       <div class="mt-7 lg:mt-0 lg:col-start-10 lg:col-span-3 lg:self-end lg:pb-2">
         <p class="rise rise-3 reading">{body}</p>
-        <a href="/contact" class="rise rise-4 mt-7 flex justify-between items-center gap-4 min-h-[3.25rem] bg-ink text-paper px-5 text-[0.9375rem] font-medium hover:bg-ink-hover transition-colors">Start a confidential conversation <span aria-hidden="true">→</span></a>
-        <p class="rise rise-4 mt-3 label">I read every message myself. No obligation to continue.</p>
+        <a href={href} class="rise rise-4 mt-7 flex justify-between items-center gap-4 min-h-[3.25rem] bg-ink text-paper px-5 text-[0.9375rem] font-medium hover:bg-ink-hover transition-colors">{cta} <span aria-hidden="true">→</span></a>
+        <p class="rise rise-4 mt-3 label">{note}</p>
       </div>
     </div>
   </div>

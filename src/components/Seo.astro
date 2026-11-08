@@ -1,5 +1,6 @@
 ---
 import { site, book, profileUpdated } from '../data/site';
+import { langs, type Lang } from '../data/i18n';
 import { toPlain, type FaqItem } from '../data/faq';
 
 interface Props {
@@ -10,6 +11,7 @@ interface Props {
   type?: 'website' | 'profile';
   faq?: FaqItem[];
   robots?: string;
+  lang?: Lang;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   type = 'website',
   faq,
   robots,
+  lang = 'en',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, site.url).href;
@@ -172,7 +175,7 @@ const jsonLd = {
       description,
       isPartOf: { '@id': `${site.url}/#website` },
       about: { '@id': `${site.url}/#sven-mulfinger` },
-      inLanguage: 'en-GB',
+      inLanguage: langs[lang].tag,
     },
     ...(faqLd ? [faqLd] : []),
   ],
@@ -186,7 +189,7 @@ const jsonLd = {
 
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content="Dr. Sven Mulfinger" />
-<meta property="og:locale" content={site.locale} />
+<meta property="og:locale" content={langs[lang].og} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />

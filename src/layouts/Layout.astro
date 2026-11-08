@@ -4,6 +4,7 @@ import Seo from '../components/Seo.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import type { FaqItem } from '../data/faq';
+import { langs, type Lang } from '../data/i18n';
 
 interface Props {
   title?: string;
@@ -12,11 +13,16 @@ interface Props {
   type?: 'website' | 'profile';
   faq?: FaqItem[];
   robots?: string;
+  /** Page language; English unless one of the language pages */
+  lang?: Lang;
+  /** True on the homepage and the language pages, which point to each other for search engines */
+  alternates?: boolean;
 }
-const { title, description, noindex, type, faq, robots } = Astro.props;
+const { title, description, noindex, type, faq, robots, lang = 'en', alternates = false } = Astro.props;
+const self = new URL(Astro.url.pathname, 'https://mulfinger.com').href;
 ---
 <!doctype html>
-<html lang="en-GB">
+<html lang={langs[lang].tag}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,13 +30,14 @@ const { title, description, noindex, type, faq, robots } = Astro.props;
     <meta name="author" content="Sven Mulfinger" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname, 'https://mulfinger.com').href} />
-    <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname, 'https://mulfinger.com').href} />
-    <Seo title={title} description={description} noindex={noindex} type={type} faq={faq} robots={robots} />
+    {alternates
+      ? <>{(Object.keys(langs) as Lang[]).map((l) => <link rel="alternate" hreflang={l} href={`https://mulfinger.com${langs[l].path}`} />)}<link rel="alternate" hreflang="x-default" href="https://mulfinger.com/" /></>
+      : <><link rel="alternate" hreflang="en" href={self} /><link rel="alternate" hreflang="x-default" href={self} /></>}
+    <Seo title={title} description={description} noindex={noindex} type={type} faq={faq} robots={robots} lang={lang} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable summary" />
   </head>
   <body class="min-h-dvh flex flex-col">
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] bg-accent text-paper px-4 py-2">Skip to content</a>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] bg-accent text-paper px-4 py-2">{langs[lang].skip}</a>
     <div class="progress" aria-hidden="true"></div>
     <Header />
     <main id="main" class="flex-1">

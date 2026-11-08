@@ -1,0 +1,77 @@
+---
+// One landing page per language (/es, /de, /fr), built from src/data/langPages.ts (v66).
+// Same design and facts as the English homepage, shorter, with links back to the English pages.
+import Layout from '../layouts/Layout.astro';
+import PhotoHero from './PhotoHero.astro';
+import Chapter from './Chapter.astro';
+import Voice from './Voice.astro';
+import Invite from './Invite.astro';
+import heroImg from '../assets/images/hero-office.jpg';
+import { langPages } from '../data/langPages';
+import { testimonials } from '../data/testimonials';
+import type { Lang } from '../data/i18n';
+interface Props { lang: Exclude<Lang, 'en'> }
+const { lang } = Astro.props;
+const p = langPages[lang];
+---
+<Layout lang={lang} alternates title={p.title} description={p.description}>
+  <PhotoHero src={heroImg} alt={p.alt} headingId="hero-heading" title={p.h1} body={p.lead} tag={p.tag} pos="object-[72%_center] lg:object-[62%_center]" cta={p.cta} note={p.note} href="#contact" />
+
+  <Chapter id="who" num="01" note={p.who.note} heading={p.who.heading}>
+    <div class="mt-6 space-y-5 max-w-[38rem]">
+      {p.who.paras.map((t) => <p class="settle reading">{t}</p>)}
+    </div>
+    <dl class="mt-10 grid grid-cols-3 gap-x-6 hair-t hair-strong">
+      {p.who.figures.map(([n, t]) => (
+        <div class="pt-5">
+          <dt class="sr-only">{t}</dt>
+          <dd class="display text-[2.2rem] sm:text-[3rem] leading-none text-ink">{n}</dd>
+          <dd class="mt-2 label">{t}</dd>
+        </div>
+      ))}
+    </dl>
+  </Chapter>
+
+  <Chapter id="situations" num="02" note={p.when.note} heading={p.when.heading} wide>
+    <p class="mt-6 reading max-w-[38rem]">{p.when.intro}</p>
+    <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-10">
+      {p.when.items.map((s, i) => (
+        <article class:list={['settle pt-5 hair-t hair-strong', `s${i + 1}`]}>
+          <p class="display text-[1.75rem] sm:text-[2.4rem] leading-none text-accent">0{i + 1}</p>
+          <h3 class="mt-3 sm:mt-5 text-[1.45rem] sm:text-[1.6rem] leading-[1.12] text-ink">{s.t}.</h3>
+          <p class="mt-4 reading">{s.b}</p>
+        </article>
+      ))}
+    </div>
+  </Chapter>
+
+  <Chapter id="how" num="03" note={p.how.note} heading={p.how.heading} tone="sand" wide>
+    <dl class="mt-10">
+      {p.how.rows.map(([k, v], i) => (
+        <div class:list={['settle py-5 hair-t hair-strong sm:grid sm:grid-cols-9 sm:gap-x-6', i === p.how.rows.length - 1 && 'hair-b']}>
+          <dt class="label sm:col-span-3 sm:pt-1">{k}</dt>
+          <dd class="mt-1 sm:mt-0 sm:col-span-6 font-serif text-[1.2rem] leading-snug text-ink">{v}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="mt-8 reading max-w-[38rem]">{p.how.sequence}</p>
+  </Chapter>
+
+  <Chapter id="voices" num="04" note={p.voices.note} heading={p.voices.heading} wide>
+    <p class="mt-6 label">{p.voices.intro}</p>
+    <div class="mt-10 grid gap-10 md:grid-cols-3 md:gap-8" lang="en">
+      {testimonials.map((t) => <Voice t={t} />)}
+    </div>
+    <p class="mt-10 text-[0.9375rem]"><a href="/recommendations" class="link">{p.voices.all}</a></p>
+  </Chapter>
+
+  <Chapter id="more" num="05" note={p.more.note} heading={p.more.heading}>
+    <ul class="mt-8 hair-t">
+      {p.more.links.map(([h, l]) => (
+        <li class="hair-b"><a href={h} hreflang="en" class="flex justify-between items-center gap-4 py-4 text-[1.0625rem] text-ink hover:text-accent transition-colors">{l} <span aria-hidden="true" class="text-accent">→</span></a></li>
+      ))}
+    </ul>
+  </Chapter>
+
+  <Invite lang={lang} heading={p.invite.heading} body={p.invite.body} />
+</Layout>

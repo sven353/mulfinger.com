@@ -45,7 +45,7 @@
     if (!validate()) return;
 
     button.disabled = true;
-    if (label) label.textContent = 'Sending…';
+    if (label) label.textContent = form.getAttribute('data-sending-text') || 'Sending…';
 
     var body = new URLSearchParams(new FormData(form)).toString();
     fetch('/', {

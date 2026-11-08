@@ -125,7 +125,7 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   check(`home: hero, three path thumbnails, the book cover (large on desktop, small on phones) and three client portraits (found ${homeImgs.length})`, homeImgs.length === 9 && homeImgs.filter((t) => t.includes('Portrait of')).length === 3 && homeImgs.every((t) => /alt="[^"]+"/.test(t)) && ['1:1 advisory conversation', 'Berlin', 'The Round', '1:1 advisory session'].every((k) => homeImgs.some((t) => t.includes(k))));
   const paths = home.match(/aria-labelledby="paths-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('home: each way of working has a small photograph beside it', (paths.match(/<li[\s\S]*?<img[\s\S]*?<h3/g) ?? []).length === 3);
-  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|Berlin|Portrait of Wilhelm Taht/.test(t)));
+  check(`no other images site-wide (found ${photos.length + 1} on all pages)`, imgs.every((t) => homeImgs.includes(t) || /1:1 advisory session|The Round|Berlin|Portrait of |conversación de asesoramiento 1:1|1:1-Beratungsgespräch|conversation de conseil 1:1/.test(t)));
   check('photographs have square corners (no rounded frames)', !/<figure[\s\S]{0,200}rounded/.test(home));
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
@@ -241,6 +241,16 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   {
     const rp = readFileSync(join(DIST, 'recommendations/index.html'), 'utf8');
     check('/recommendations: 14 entries, full text inside native details, blockquote cite, no Review schema, linked from home, footer and llms files', (rp.match(/<article id=/g) ?? []).length === 14 && (rp.match(/<details class="mt-4 group"/g) ?? []).length === 14 && rp.includes('<blockquote cite="https://www.linkedin.com/in/svenmulfinger/details/recommendations/"') && rp.includes('jointly develop a teaching case (TRND AG)') && !/"@type":"(Review|AggregateRating)"/.test(rp) && readFileSync(join(DIST, 'index.html'), 'utf8').includes('href="/recommendations"') && rp.includes('href="/recommendations"') && llms.includes('/recommendations') && full.includes('## LinkedIn recommendations, full text') && readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8').includes('/recommendations'));
+  }
+  {
+    const L = { es: 'es-ES', de: 'de-DE', fr: 'fr-FR' };
+    const home = readFileSync(join(DIST, 'index.html'), 'utf8');
+    const alts = (h) => [...h.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map((m) => `${m[1]}=${m[2]}`).sort().join(' ');
+    const set = 'de=https://mulfinger.com/de/ en=https://mulfinger.com/ es=https://mulfinger.com/es/ fr=https://mulfinger.com/fr/ x-default=https://mulfinger.com/';
+    const pages = Object.entries(L).map(([l, tag]) => [l, tag, readFileSync(join(DIST, `${l}/index.html`), 'utf8')]);
+    check('language pages: /es, /de, /fr with html lang, og:locale, self canonical, the same hreflang set as the homepage', alts(home) === set && pages.every(([l, tag, h]) => h.includes(`<html lang="${tag}"`) && h.includes(`<meta property="og:locale" content="${tag.replace('-', '_')}"`) && h.includes(`<link rel="canonical" href="https://mulfinger.com/${l}/"`) && alts(h) === set));
+    check('language pages: short form in the page language with page_language field, quotes kept in English, links back to English pages', pages.every(([l, , h]) => h.includes(`name="page_language" value="${l}"`) && h.includes('<div class="mt-10 grid gap-10 md:grid-cols-3 md:gap-8" lang="en">') && h.includes('hreflang="en"')) && pages[0][2].includes('Iniciar una conversación confidencial') && pages[1][2].includes('Ein vertrauliches Gespräch beginnen') && pages[2][2].includes('Commencer une conversation confidentielle'));
+    check('language pages linked: footer on every page, /contact, llms.txt, sitemap alternates', htmlFiles.every((f) => /aria-label="Languages"[\s\S]*?href="\/es\/"[\s\S]*?href="\/de\/"[\s\S]*?href="\/fr\/"/.test(readFileSync(f, 'utf8')) || !readFileSync(f, 'utf8').includes('<footer')) && readFileSync(join(DIST, 'contact/index.html'), 'utf8').includes('Prefer Spanish, German or French?') && llms.includes('https://mulfinger.com/es/') && (readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8').match(/xhtml:link/g) ?? []).length === 16);
   }
   check('llms files: current locations and serial entrepreneur, no retired slogan', [llms, full].every((t) => t.includes('Munich and Brussels') && /serial entrepreneur and CEO/i.test(t)) && !/slow down to speed up/i.test(full));
   const homeGraph = JSON.parse(readFileSync(join(DIST, 'index.html'), 'utf8').match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1])['@graph'];

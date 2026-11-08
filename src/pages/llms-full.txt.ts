@@ -26,7 +26,7 @@ ${whoIs}
 - Base: Barcelona, Spain
 - Locations: in person in Barcelona, Madrid, Munich and Brussels; online worldwide
 - 1:1 advisory sessions in person: Barcelona or Madrid; otherwise online
-- Working languages: English, Spanish, German, French
+- Working languages: English, Spanish, German, French (pages in those languages: https://mulfinger.com/es/, https://mulfinger.com/de/, https://mulfinger.com/fr/)
 - Website: https://mulfinger.com
 - LinkedIn: https://www.linkedin.com/in/svenmulfinger
 

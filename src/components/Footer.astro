@@ -3,6 +3,8 @@
 import { site } from '../data/site';
 const year = new Date().getFullYear();
 const ext = { target: '_blank', rel: 'noopener noreferrer' };
+import { langs, type Lang } from '../data/i18n';
+const here = Astro.url.pathname.replace(/\/?$/, '/');
 ---
 <footer class="mt-auto">
   <div class="container-x">
@@ -36,8 +38,13 @@ const ext = { target: '_blank', rel: 'noopener noreferrer' };
       </div>
     </div>
     <div class="pb-10 pt-5 hair-t flex flex-col sm:flex-row gap-2 justify-between label">
-      <p>© {year} Sven Mulfinger · Barcelona</p>
-      <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-2">
+      <p class="sm:order-1">© {year} Sven Mulfinger · Barcelona</p>
+      <nav aria-label="Languages" class="flex flex-wrap gap-x-4 gap-y-2 sm:order-2">
+        {(Object.keys(langs) as Lang[]).map((l) => (
+          <a href={langs[l].path} hreflang={langs[l].tag} lang={langs[l].tag} aria-current={here === langs[l].path ? 'page' : undefined} class:list={['hover:text-ink hover:hair-u', here === langs[l].path && 'text-ink']}>{langs[l].name}</a>
+        ))}
+      </nav>
+      <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-2 sm:order-3">
         <a class="hover:text-ink hover:hair-u" href="/privacy">Privacy Policy</a>
         <a class="hover:text-ink hover:hair-u" href="/legal">Legal Notice</a>
       </nav>

@@ -2,24 +2,28 @@
 // The one invitation, at the end of every main page: a petrol band with the short form,
 // so a leader can write without a second click. The full form stays on /contact.
 import ContactForm from './ContactForm.astro';
-interface Props { heading?: string; body?: string }
+import { formText } from '../data/formText';
+import type { Lang } from '../data/i18n';
+interface Props { heading?: string; body?: string; lang?: Lang }
 const {
   heading = 'Bring the problem you have not been able to solve.',
   body = 'Tell me what is happening, what you have tried and what is at stake. We will work out together whether working with me would make a difference.',
+  lang = 'en',
 } = Astro.props;
+const t = formText[lang];
 ---
 <section id="contact" aria-labelledby="invite-heading" class="tone-accent scroll-mt-20">
   <div class="container-x">
     <div class="py-16 lg:py-24 lg:grid lg:grid-cols-12 lg:gap-x-10">
-      <div class="lg:col-span-3"><p class="secnum lg:pt-3">A first conversation</p></div>
+      <div class="lg:col-span-3"><p class="secnum lg:pt-3">{t.band}</p></div>
       <div class="mt-3 lg:mt-0 lg:col-span-9 lg:grid lg:grid-cols-9 lg:gap-x-10">
         <div class="lg:col-span-4">
           <h2 id="invite-heading" class="settle display text-[2.4rem] sm:text-[3rem] xl:text-[3.4rem] text-ink text-balance">{heading}</h2>
           <p class="mt-6 reading">{body}</p>
-          <p class="mt-6 text-[0.9375rem] text-steel">Prefer more room to explain? Use the <a href="/contact" class="link">full contact form</a>.</p>
+          <p class="mt-6 text-[0.9375rem] text-steel">{t.more[0]}<a href="/contact" class="link">{t.more[1]}</a>{t.more[2]}</p>
         </div>
         <div class="mt-10 lg:mt-0 lg:col-span-5">
-          <ContactForm compact />
+          <ContactForm compact lang={lang} />
         </div>
       </div>
     </div>
