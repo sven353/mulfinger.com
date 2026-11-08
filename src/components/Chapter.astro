@@ -2,13 +2,15 @@
 // One section of the page (direction C, v62): a graphite rule across the grid, the section number and name
 // in the left column ("02 / How I think"), the heading and text in the right-hand columns.
 // On small screens the name sits above the heading.
+// On a coloured band the rule sits inset from the band's edge, and the heading keeps the same distance
+// below the rule as on paper (v70), so every section has the same rhythm.
 interface Props { id?: string; note: string; num?: string; heading?: string; headingId?: string; rule?: boolean; wide?: boolean; tone?: 'paper' | 'sand' | 'dark'; class?: string }
 const { id, note, num, heading, headingId, rule = true, wide = false, tone = 'paper', class: extra } = Astro.props;
 const hid = headingId ?? (id ? `${id}-heading` : undefined);
 ---
 <section id={id} aria-labelledby={heading ? hid : undefined} class:list={['scroll-mt-20', tone !== 'paper' && `tone-${tone}`, extra]}>
   <div class="container-x">
-    <div class:list={['relative lg:grid lg:grid-cols-12 lg:gap-x-6', tone === 'paper' ? 'py-11 sm:py-14 lg:py-24' : 'py-12 sm:py-16 lg:py-28']}>
+    <div class:list={['relative lg:grid lg:grid-cols-12 lg:gap-x-6', tone === 'paper' ? 'py-11 sm:py-14 lg:py-24' : 'pt-[5.75rem] sm:pt-[7.5rem] lg:pt-[13rem] pb-12 sm:pb-16 lg:pb-28']}>
       {rule && <span aria-hidden="true" class:list={['draw absolute inset-x-0 h-px hair-t hair-ink', tone === 'paper' ? 'top-0' : 'top-12 sm:top-16 lg:top-28']}></span>}
       <div class="lg:col-span-3 pt-4">
         <!-- The section name stays beside the text while you read the chapter -->
