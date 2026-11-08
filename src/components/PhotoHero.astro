@@ -1,38 +1,36 @@
 ---
-// Shared opening: the photograph as a rounded strip flush under the header line,
-// with a paper panel (eyebrow, headline, subtitle, button) over its right edge, clear of the face.
+// Shared opening (direction C, v62): the photograph runs the full width of the window with muted colour,
+// then the headline sits below it on the grid, with the subtitle and the button in the right-hand column.
 // Used by the homepage and /advisory.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-interface Props { src: ImageMetadata; alt: string; headingId: string; title: string; body: string; tag: string; pos?: string; side?: 'left' | 'right' }
-const { src, alt, headingId, title, body, tag, pos = 'object-center', side = 'left' } = Astro.props;
+interface Props { src: ImageMetadata; alt: string; headingId: string; title: string; body: string; tag: string; pos?: string }
+const { src, alt, headingId, title, body, tag, pos = 'object-center' } = Astro.props;
 // The photograph is shown as it is: no reveal or zoom animation, so it stays sharp.
 ---
-<section aria-labelledby={headingId} class="relative pb-6 lg:pb-24">
-  <div class="container-x">
-    <div class="relative w-full">
-      <div class="relative w-full h-[38svh] min-h-[15rem] sm:h-[56svh] lg:h-auto lg:aspect-[2/1] lg:min-h-[34rem] lg:max-h-[42rem] overflow-hidden rounded-xl lg:rounded-2xl bg-mist">
-        <Image
-          src={src}
-          alt={alt}
-          widths={[640, 960, 1280, 1584]}
-          sizes="(min-width: 1216px) 1136px, 100vw"
-          format="webp"
-          quality={92}
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          class:list={['absolute inset-0 size-full object-cover', pos]}
-        />
-      </div>
-      <div class:list={['hero-panel relative mx-3 sm:mx-6 -mt-20 sm:-mt-28 lg:m-0 lg:absolute lg:bottom-[-5.5rem] lg:w-[26rem] xl:w-[27rem] rounded-xl bg-paper px-6 py-8 sm:px-10 sm:py-10 lg:px-10 lg:py-10 shadow-[0_24px_60px_-34px_rgba(22,23,26,0.55)]', side === 'left' ? 'lg:left-8 xl:left-10' : 'lg:right-8 xl:right-10']}>
-        <p class="rise label">{tag}</p>
-        <h1 id={headingId} class="rise rise-2 mt-4 display text-[2.4rem] sm:text-[3rem] lg:text-[2.75rem] xl:text-[3rem] leading-[1.05] text-ink max-w-[15ch]">{title}</h1>
-        <p class="rise rise-3 mt-5 reading text-[1.125rem]! sm:text-[1.15rem]! leading-[1.55]!">{body}</p>
-        <div class="rise rise-4 mt-6 flex flex-col items-stretch sm:items-start gap-3">
-          <a href="/contact" class="inline-flex justify-center items-center gap-2 whitespace-nowrap bg-accent text-paper px-6 py-3.5 text-[0.9375rem] hover:bg-accent-hover transition-colors">Start a confidential conversation <span aria-hidden="true">→</span></a>
-          <span class="label">I read every message myself. No obligation to continue.</span>
-        </div>
+<section aria-labelledby={headingId} class="relative">
+  <div class="relative w-full h-[34svh] min-h-[15rem] sm:h-[48svh] lg:h-[58svh] lg:min-h-[26rem] lg:max-h-[36rem] overflow-hidden bg-mist">
+    <Image
+      src={src}
+      alt={alt}
+      widths={[640, 960, 1280, 1584]}
+      sizes="100vw"
+      format="webp"
+      quality={92}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class:list={['hero-photo absolute inset-0 size-full object-cover', pos]}
+    />
+  </div>
+  <div class="container-x pt-8 sm:pt-10 lg:pt-14 pb-14 lg:pb-24">
+    <p class="rise label"><span class="font-medium text-accent">{tag.split(' · ')[0]}</span>{tag.includes(' · ') && <> · {tag.split(' · ').slice(1).join(' · ')}</>}</p>
+    <div class="mt-5 lg:mt-7 lg:grid lg:grid-cols-12 lg:gap-x-6">
+      <h1 id={headingId} class="rise rise-2 display lg:col-span-8 text-[2.6rem] sm:text-[3.6rem] lg:text-[4.4rem] xl:text-[5rem] leading-[0.98] text-ink max-w-[16ch]">{title}</h1>
+      <div class="mt-7 lg:mt-0 lg:col-start-10 lg:col-span-3 lg:self-end lg:pb-2">
+        <p class="rise rise-3 reading">{body}</p>
+        <a href="/contact" class="rise rise-4 mt-7 flex justify-between items-center gap-4 min-h-[3.25rem] bg-ink text-paper px-5 text-[0.9375rem] font-medium hover:bg-ink-hover transition-colors">Start a confidential conversation <span aria-hidden="true">→</span></a>
+        <p class="rise rise-4 mt-3 label">I read every message myself. No obligation to continue.</p>
       </div>
     </div>
   </div>

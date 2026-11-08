@@ -1,12 +1,14 @@
 // Case studies: real engagements, anonymised. Confirmed accurate by Sven on 2026-10-16; lonely decision is one year (2026-10-24).
 // Used by the homepage and /llms-full.txt so both always say the same thing.
-export type CaseStudy = { n: string; title: string; proof: string; summary: string; context: string; dilemma: string; issue: string; resolution: string };
+// figures and outcome drive the homepage display (v62): figures only where the client gave numbers.
+export type CaseStudy = { n: string; title: string; proof: string; summary: string; context: string; dilemma: string; issue: string; resolution: string; figures?: { n: string; t: string }[]; outcome?: string };
 
 export const cases: CaseStudy[] = [
   {
     n: '01',
     title: 'The founder bottleneck',
     proof: '15 hours a week back, execution pace doubled',
+    figures: [{ n: '15h', t: 'a week back for the founder' }, { n: '2×', t: 'execution pace' }],
     summary: 'Every decision bounced back to the founder. Clear boundaries for team decisions gave back 15 hours a week and doubled execution pace.',
     context: 'Scale-up CEO · Series B',
     dilemma: "Strategic execution was stalling. Every decision bounced back to the founder's desk, creating operational gridlock and executive burnout.",
@@ -17,6 +19,7 @@ export const cases: CaseStudy[] = [
     n: '02',
     title: 'Artificial alignment',
     proof: 'An explicit agreement on margin versus volume',
+    outcome: 'One operating agreement on margin versus volume.',
     summary: 'A team that agreed on Monday and split by Thursday. The cause was structural, and an explicit agreement on margin versus volume resolved it.',
     context: 'Industrial B2B · €80M ARR',
     dilemma: 'The executive team agreed unanimously in Monday meetings, yet commercial and operations were executing conflicting priorities by Thursday.',
@@ -27,6 +30,7 @@ export const cases: CaseStudy[] = [
     n: '03',
     title: 'The lonely decision',
     proof: 'One year of independent sparring',
+    outcome: 'A transition that protected culture and shareholder value.',
     summary: 'A founder facing a multi-market transition with nobody inside to challenge them. A year of independent sparring shaped a transition that protected culture and shareholder value.',
     context: 'Founder and chairman · International',
     dilemma: 'Facing a complex multi-market transition, the founder had nobody inside the organisation who could challenge their logic without an agenda of their own.',

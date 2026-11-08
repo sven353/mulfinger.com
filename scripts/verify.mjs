@@ -112,9 +112,9 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
   check('home: reassurance note next to the primary button', home.includes('I read every message myself. No obligation to continue.') && !home.includes('Confidential. Direct. No obligation'));
   {
-    const band = home.match(/<section id="contact"[^>]*tone-petrol[\s\S]*?<\/section>/)?.[0] ?? '';
+    const band = home.match(/<section id="contact"[^>]*tone-accent[\s\S]*?<\/section>/)?.[0] ?? '';
     check('invite: petrol band with the short Netlify form (name, email, message, consent), full form linked', band.includes('name="first-conversation"') && band.includes('data-netlify="true"') && band.includes('name="form-name" value="first-conversation"') && ['full_name', 'email', 'decision_challenge', 'privacy_consent'].every((n) => band.includes(`name="${n}"`)) && !band.includes('role_organisation') && band.includes('href="/contact"'));
-    check('invite band on home, about and advisory; full form only on /contact', ['index.html', 'about/index.html', 'advisory/index.html'].every((f) => readFileSync(join(DIST, f), 'utf8').includes('tone-petrol')) && !readFileSync(join(DIST, 'contact/index.html'), 'utf8').includes('first-conversation'));
+    check('invite band on home, about and advisory; full form only on /contact', ['index.html', 'about/index.html', 'advisory/index.html'].every((f) => readFileSync(join(DIST, f), 'utf8').includes('tone-accent')) && !readFileSync(join(DIST, 'contact/index.html'), 'utf8').includes('first-conversation'));
   }
   const hero = home.match(/<section aria-labelledby="hero-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   const heroImg = hero.match(/<img[^>]*>/)?.[0] ?? '';
@@ -130,12 +130,12 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
   const stale = htmlFiles.filter((f) => /Portrait to follow|PORTRAIT TO FOLLOW|sven-mulfinger\.jpg/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no portrait placeholders left', stale.length === 0, stale.join(', '));
   const sec = (id) => home.match(new RegExp(`aria-labelledby="${id}-heading"[\\s\\S]*?<\\/section>`))?.[0] ?? '';
-  check('home: situations as one framed panel of three, each with an icon', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle[^"]*">\s*<svg/g) ?? []).length === 3 && !sec('situations').includes('of three'));
-  check('home: hero photograph with rounded corners, headline panel over it, retina-ready', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="container-x">\s*<div class="relative w-full">\s*<div class="relative w-full [^"]*rounded-xl/.test(home) && /srcset="[^"]*1584w/.test(heroImg) && !/unveil|zoomout/.test(hero));
+  check('home: three numbered situations on hairline rules, no cards (direction C)', home.includes('When the usual answers stop working.') && (sec('situations').match(/<article class="situation settle pt-5 hair-t hair-strong[^"]*">\s*<p class="display[^"]*">0[123]<\/p>/g) ?? []).length === 3);
+  check('home: full-width hero photograph with muted colour, headline below on the grid, retina-ready (direction C)', /<section aria-labelledby="hero-heading"[^>]*>\s*<div class="relative w-full [^"]*overflow-hidden/.test(home) && /class="hero-photo /.test(heroImg) && /srcset="[^"]*1584w/.test(heroImg) && /<h1 id="hero-heading" class="[^"]*lg:col-span-8/.test(home) && !/unveil|zoomout/.test(hero));
   check('home: how I think, one worked pattern (the second lives on /advisory)', (sec('thinking').match(/<blockquote/g) ?? []).length === 1 && readFileSync(join(DIST, 'advisory/index.html'), 'utf8').includes('We need to hire a COO.'));
   check('home: four figures in the background chapter', (sec('background').match(/<dd class="display/g) ?? []).length === 4);
   check('home: no full-width photo strip mid-page', !home.includes('id="room-quote"'));
-  check('home: all three field cases folded, title and one-line summary visible', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && (sec('cases').match(/<span class="mt-3 block reading/g) ?? []).length === 3);
+  check('home: three case columns, outcome first (figures only for case 01), title and summary visible, steps folded', (sec('cases').match(/<details class="case/g) ?? []).length === 3 && sec('cases').includes('>15h<') && sec('cases').includes('>2×<') && sec('cases').includes('One operating agreement on margin versus volume.') && (sec('cases').match(/<p class="mt-2 reading text-\[1\.0625rem\]!">/g) ?? []).length >= 3);
   check('home: background narrative', home.includes('I have carried the responsibility too.'));
   check('home: final invitation', home.includes('Bring the problem you have not been able to solve.'));
   const order = ['situations-heading', 'thinking-heading', 'background-heading', 'cases-heading', 'voices-heading', 'research-heading', 'paths-heading', 'invite-heading'].map((id) => home.indexOf(`id="${id}"`));
@@ -147,9 +147,9 @@ check('llms-full.txt contains 12 FAQ entries', (llmsFull.match(/^### \d+\. /gm) 
 }
 {
   const css = files.filter((f) => f.endsWith('.css')).map((f) => readFileSync(f, 'utf8')).join('');
-  check('serif headings: Newsreader bundled and applied to h1-h3', css.includes('Newsreader Variable') && /h1,h2,h3\{font-family:var\(--font-serif\)/.test(css.replace(/\s/g, '')));
+  check('grotesk headings (Schibsted Grotesk) on h1-h3, Newsreader kept for reading', css.includes('Schibsted Grotesk Variable') && css.includes('Newsreader Variable') && /h1,h2,h3\{font-family:var\(--font-display\)/.test(css.replace(/\s/g, '')));
   check('fonts self-hosted: no Google Fonts requests', !files.filter((f) => /\.(html|css)$/.test(f)).some((f) => readFileSync(f, 'utf8').includes('fonts.googleapis.com')));
-  check('warm paper background #FAF9F6', css.toLowerCase().includes('#faf9f6'));
+  check('stone background #EEECE8', css.toLowerCase().includes('#eeece8'));
 }
 
 // 4e. No stray text before the document (catches a broken frontmatter fence)
@@ -275,8 +275,8 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   check('hairlines: every line drawn as a one-device-pixel inset shadow', flat.includes('[class*=hair-]{box-shadow:var(--sh-t),var(--sh-b),var(--sh-l),var(--sh-r)}') && /@media\((min-resolution:2dppx|resolution>=2x)\)\{:root\{--hair:\.5px\}\}/.test(flat));
   const thick = htmlFiles.filter((f) => /class="[^"]*(?<![\w:-])(border|border-[tblrxy]|divide-[xy]|underline)(?![\w-])/.test(readFileSync(f, 'utf8'))).map((f) => relative(DIST, f));
   check('no border, divide or underline utilities left in the markup', thick.length === 0, thick.join(', '));
-  check('single accent colour defined', /--color-accent:\s*#1f4e5a/i.test(css));
-  check('warm hairlines replace slate', /--color-line:\s*#e5dfd5/i.test(css) && !/--color-line:\s*#e2e8f0/i.test(css));
+  check('single accent colour defined (muted blue)', /--color-accent:\s*#4a6274/i.test(css));
+  check('stone hairlines', /--color-line:\s*#d4d0c8/i.test(css) && !/--color-line:\s*#e2e8f0/i.test(css));
   const noCredits = htmlFiles.filter((f) => !(readFileSync(f, 'utf8').match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '').includes('IESE and IE Business School')).map((f) => relative(DIST, f));
   check('credentials line in the footer on every page', noCredits.length === 0, noCredits.join(', '));
 }
@@ -286,7 +286,7 @@ const visible = [...htmlFiles, join(DIST, 'llms.txt'), join(DIST, 'llms-full.txt
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
   const sec = home.match(/aria-labelledby="cases-heading"[\s\S]*?<\/section>/)?.[0] ?? '';
   check('field notes: 3 cases', (sec.match(/<article/g) ?? []).length === 3);
-  check('field notes: each case opens into three numbered steps', (sec.match(/<ol class="mt-6 grid/g) ?? []).length === 3 && ['The situation', 'What lay beneath', 'What changed'].every((t) => (sec.split(`· ${t}</p>`).length - 1) === 3));
+  check('field notes: each case opens into three numbered steps', (sec.match(/<ol class="mt-5 space-y-5"/g) ?? []).length === 3 && ['The situation', 'What lay beneath', 'What changed'].every((t) => (sec.split(`· ${t}</p>`).length - 1) === 3));
   check('100+ scope clarified on home', home.includes('across confidential 1:1 advisory, executive peer councils and board-level interventions'));
   check('100+ scope clarified in llms.txt', readFileSync(join(DIST, 'llms.txt'), 'utf8').includes('executive peer councils'));
 }
@@ -297,7 +297,7 @@ for (const page of ['about/index.html', 'advisory/index.html', 'contact/index.ht
   const main = html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? '';
   check(`${page}: h1 set as serif display type`, /<h1[^>]*class="[^"]*\bdisplay\b/.test(main));
   check(`${page}: margin note column on desktop`, main.includes('lg:col-span-3'));
-  if (page === 'advisory/index.html') check('advisory: opens with the same photo hero as the homepage', /<div class="relative w-full [^"]*rounded-xl/.test(main) && /<h1 id="advisory-heading"/.test(main));
+  if (page === 'advisory/index.html') check('advisory: opens with the same photo hero as the homepage', /class="hero-photo /.test(main) && /<h1 id="advisory-heading"/.test(main));
 }
 {
   const adv = readFileSync(join(DIST, 'advisory/index.html'), 'utf8');
@@ -320,8 +320,8 @@ for (const page of ['about/index.html', 'advisory/index.html', 'contact/index.ht
 // 4m. Reading rhythm: one background, serif reading text
 {
   const home = readFileSync(join(DIST, 'index.html'), 'utf8');
-  check('home: three surfaces only, one dark band (field notes) and one sand band (research)', (home.match(/class="[^"]*tone-dark/g) ?? []).length === 1 && (home.match(/class="[^"]*tone-sand/g) ?? []).length === 1 && /id="cases"[^>]*tone-dark|tone-dark[^>]*id="cases"/.test(home.match(/<section[^>]*id="cases"[^>]*>/)?.[0] ?? '') );
-  check('home: situations on raised white cards with bold openings', (home.match(/situation settle surface/g) ?? []).length === 3);
+  check('home: bands as designed, one graphite band (cases) and two sand bands (How I think, research)', (home.match(/class="[^"]*tone-dark/g) ?? []).length === 1 && (home.match(/class="[^"]*tone-sand/g) ?? []).length === 2 && /id="thinking"[^>]*tone-sand/.test(home) && /id="cases"[^>]*tone-dark|tone-dark[^>]*id="cases"/.test(home.match(/<section[^>]*id="cases"[^>]*>/)?.[0] ?? '') );
+  check('home: How I think as a table, the obvious answer struck through, the question last', /id="thinking"/.test(home) && home.includes('line-through') && home.indexOf('The obvious response') < home.indexOf('What the team has learned') && home.indexOf('What the team has learned') < home.indexOf('The question I ask'));
   check('home: background as four short blocks', ['The operator', 'The scientist', 'The advisor', 'The researcher'].every((t) => home.includes(`>${t}</h3>`)));
   check('home: reading text set in the serif', (home.match(/class="[^"]*\breading\b/g) ?? []).length >= 15);
 }

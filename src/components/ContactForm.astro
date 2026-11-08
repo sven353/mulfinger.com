@@ -11,12 +11,12 @@ const { compact = false } = Astro.props;
 const formName = compact ? 'first-conversation' : 'executive-diagnostic';
 const id = (k: string) => (compact ? `fc-${k}` : k);
 const field = compact
-  ? 'peer w-full bg-white text-[#16171a] px-4 py-3.5 text-base outline-none placeholder:text-[#6f685e] focus:outline-2 focus:outline-offset-2 focus:outline-white aria-[invalid=true]:outline-2 aria-[invalid=true]:outline-[#ffb4a6]'
+  ? 'peer w-full bg-white text-[#23262a] px-4 py-3.5 text-base outline-none placeholder:text-[#5e6266] focus:outline-2 focus:outline-offset-2 focus:outline-white aria-[invalid=true]:outline-2 aria-[invalid=true]:outline-[#ffb4a6]'
   : 'peer w-full bg-white hair-all focus:hair-accent px-4 py-3.5 text-base outline-none transition-shadow placeholder:text-steel/60 aria-[invalid=true]:hair-red';
 const lbl = 'block mb-2 text-sm font-medium text-ink';
 const err = compact ? 'mt-2 text-sm text-[#ffd2c7] hidden' : 'mt-2 text-sm text-red-700 hidden';
 const submitLabel = compact ? 'Start a confidential conversation' : 'Send';
-const btn = compact ? 'bg-[#faf9f6] text-[#1f4e5a] hover:bg-white' : 'bg-accent text-paper hover:bg-accent-hover';
+const btn = compact ? 'bg-[#eceae5] text-[#3e5566] hover:bg-white font-medium' : 'bg-ink text-paper hover:bg-ink-hover font-medium';
 ---
 <div data-form-root>
   <form

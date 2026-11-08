@@ -1,30 +1,33 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* "The working paper" (v26). The site reads like a carefully edited essay:
-   Newsreader for reading, Inter only for small practical things (navigation, notes, forms).
-   One warm background, warm hairlines, one accent. No gradients, no cards, no scroll animation.
+/* Direction C, "graphite and stone" (v62). Architectural and editorial: a strict grid, numbered sections,
+   headings in Schibsted Grotesk, reading text in Newsreader, Inter for small practical things.
+   Stone background, graphite ink, one muted blue accent; a sand band for How I think, a graphite band
+   for the case studies and a blue band for the invitation. No gradients, no cards.
    Fonts are self-hosted (Fontsource): no calls to Google, which keeps GDPR and the CSP simple. */
 @import "@fontsource-variable/inter/index.css";
+@import "@fontsource-variable/schibsted-grotesk/index.css";
 @import "@fontsource-variable/newsreader/opsz.css";
 @import "@fontsource-variable/newsreader/opsz-italic.css";
 
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Newsreader Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-display: "Schibsted Grotesk Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
 
-  /* Warm paper palette */
-  --color-paper: #faf9f6;      /* warm ivory, the only page background */
-  --color-mist: #f1ede5;       /* rare quiet surface: form notes, details */
+  /* Stone and graphite palette. Contrast on stone: ink 13:1, steel 10:1, muted 5.2:1, accent 5.4:1 */
+  --color-paper: #eeece8;      /* stone, the page background */
+  --color-mist: #e4e1db;       /* rare quiet surface: form notes, details */
   --color-white: #ffffff;      /* form fields */
-  --color-ink: #16171a;        /* headlines and primary text */
-  --color-ink-hover: #2c2e33;
-  --color-steel: #3e3a34;      /* reading text: warm dark grey */
-  --color-muted: #6f685e;      /* margin notes, captions */
-  --color-line: #e5dfd5;       /* warm hairlines, kept light so 1px reads as a hairline */
-  --color-line-strong: #d4cbbd;/* rules that carry structure */
-  --color-accent: #1f4e5a;     /* petrol: links and the one button */
-  --color-accent-hover: #163a43;
+  --color-ink: #23262a;        /* graphite: headlines, primary text, the button */
+  --color-ink-hover: #3a3e44;
+  --color-steel: #33363a;      /* reading text */
+  --color-muted: #5e6266;      /* section notes, captions */
+  --color-line: #d4d0c8;       /* hairlines */
+  --color-line-strong: #b6b1a7;/* rules that carry structure */
+  --color-accent: #4a6274;     /* muted blue: links, numbers, section names */
+  --color-accent-hover: #3a4f5e;
 
   /* Kept for the legal pages and older markup */
   --color-ink-2: #1a1d22;
@@ -41,8 +44,8 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Every heading is set in the editorial serif */
-h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400; }
+/* Headings are set in the grotesk, medium weight, tightly tracked; reading text stays in the serif */
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.02em; }
 
 ::selection { background: var(--color-ink); color: var(--color-paper); }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
@@ -64,12 +67,21 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   color: var(--color-muted);
 }
 
-/* Display type: serif, regular weight */
+/* Display type: grotesk, medium weight, tight */
 @utility display {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  line-height: 1.04;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Section number and name, e.g. "02 / How I think" */
+@utility secnum {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-accent);
 }
 
 /* Reading text, set like print */
@@ -173,7 +185,7 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
 @property --sh-b { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
 @property --sh-l { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
 @property --sh-r { syntax: '*'; inherits: false; initial-value: 0 0 #0000; }
-@property --hc { syntax: '*'; inherits: false; initial-value: #e5dfd5; }
+@property --hc { syntax: '*'; inherits: false; initial-value: #d4d0c8; }
 [class*="hair-"] { box-shadow: var(--sh-t), var(--sh-b), var(--sh-l), var(--sh-r); }
 /* Default line colour follows the section tone; hair-strong / hair-ink etc. override it */
 @layer base { [class*="hair-"] { --hc: var(--color-line); } }
@@ -191,43 +203,44 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
 @utility hair-red { --hc: #b91c1c; }
 @utility hair-u { --sh-b: inset 0 calc(-1 * var(--hair)) 0 currentColor; padding-bottom: 0.1em; }
 
-/* ---------- Section tones (v47) ----------
-   Three surfaces only: paper (default), one sand band for the research feature and one dark band
-   for the field notes. Tones re-map the colour tokens, so every component adapts without changes. */
+/* ---------- Section tones (v62) ----------
+   Stone (default), a warm sand band (How I think, research), a graphite band (case studies) and a
+   muted blue band (the invitation). Tones re-map the colour tokens, so every component adapts.
+   Contrast checked: muted on sand 4.6:1, accent on sand 4.8:1; on graphite steel 9.8:1, muted 5.9:1. */
 .tone-sand {
-  background: #efe9df;
-  --color-line: #ddd4c6;
-  --color-line-strong: #cfc4b3;
-  --color-mist: #e6dfd3;
+  background: #e6ded0;
+  --color-line: #d2c8b6;
+  --color-line-strong: #b9ad98;
+  --color-mist: #ddd4c4;
 }
 .tone-dark {
-  background: #16171a;
-  color: #faf9f6;
-  --color-ink: #faf9f6;
-  --color-steel: #cdc6ba;
-  --color-muted: #9c958a;
-  --color-line: #33353a;
-  --color-line-strong: #46484e;
-  --color-accent: #9fcbd4;
-  --color-accent-hover: #c4e1e7;
-  --color-mist: #1f2125;
+  background: #26292d;
+  color: #eceae5;
+  --color-ink: #eceae5;
+  --color-steel: #d6d3cc;
+  --color-muted: #a9a49b;
+  --color-line: #3f4349;
+  --color-line-strong: #5a5f66;
+  --color-accent: #9db3c4;
+  --color-accent-hover: #c3d2dd;
+  --color-mist: #2f3236;
 }
-.tone-petrol {
-  background: #1f4e5a;
-  color: #faf9f6;
-  --color-ink: #faf9f6;
-  --color-steel: #d7e3e5;
-  --color-muted: #b3cbd0;
-  --color-line: #3b6874;
-  --color-line-strong: #4f7c87;
+.tone-accent {
+  background: #3e5566;
+  color: #eceae5;
+  --color-ink: #eceae5;
+  --color-steel: #dde3e8;
+  --color-muted: #c9d6df;
+  --color-line: #566d7e;
+  --color-line-strong: #6f8597;
   --color-accent: #ffffff;
-  --color-accent-hover: #d7e3e5;
-  --color-mist: #1a4550;
+  --color-accent-hover: #dde3e8;
+  --color-mist: #364b5a;
 }
-.tone-petrol ::selection { background: #faf9f6; color: #1f4e5a; }
-.tone-dark ::selection { background: #faf9f6; color: #16171a; }
-/* Raised card surface on paper */
-.surface { background: #ffffff; }
+.tone-accent ::selection { background: #eceae5; color: #3e5566; }
+.tone-dark ::selection { background: #eceae5; color: #26292d; }
+/* Former card surface: in direction C boxes are drawn with hairlines only, no fill */
+.surface { background: transparent; }
 
 /* Touch screens: text links get an invisible tap area of at least ~44px, with no visual change */
 @media (pointer: coarse) {
@@ -243,6 +256,9 @@ h1, h2, h3 { font-family: var(--font-serif); font-optical-sizing: auto; font-wei
   h1, h2, h3 { text-wrap: balance; }
   html, body { overflow-x: clip; }
 }
+
+/* Hero photographs are shown with muted colour, so the page reads as one calm palette */
+.hero-photo { filter: saturate(0.6) contrast(1.04); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

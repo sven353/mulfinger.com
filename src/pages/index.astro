@@ -36,6 +36,10 @@ const figures = [
 // A second pattern (the COO hire) lives on /advisory.
 const pattern = {
   remark: 'My team does not take enough ownership.',
+  // Shorter forms for the table layout (v62)
+  obviousShort: 'Clearer roles, tighter follow-up, perhaps a different person in one of the seats.',
+  learned: "If every important decision eventually comes back to the CEO's desk, escalating is the rational thing to do.",
+  ask: 'What does the CEO have to stop doing for real ownership to become possible?',
   obvious: 'The obvious response is to work on accountability: clearer roles, tighter follow-up, perhaps a different person in one of the seats.',
   question: "The question I ask first is what the team has learned. If every important decision eventually comes back to the CEO's desk, escalating is the rational thing to do.",
   shift: 'The useful question then becomes what the CEO has to stop doing for real ownership to become possible.',
@@ -46,14 +50,14 @@ const pattern = {
   <PhotoHero src={heroPhoto} alt="A 1:1 advisory conversation at a table by the window, in an office overlooking the city" pos="object-[64%_center] lg:object-center" headingId="hero-heading" tag="Dr. Sven Mulfinger · Independent counsel for founders and CEOs" title="A thinking partner for the decisions you cannot delegate." body="For the moments that weigh most: a turning point for the company, friction inside the executive team or a call that only you can make." />
 
   <!-- 2 · Situations: why founders and CEOs get in touch -->
-  <Chapter id="situations" note="Why leaders get in touch" heading="When the usual answers stop working." wide>
+  <Chapter id="situations" num="01" note="Why leaders get in touch" heading="When the usual answers stop working." wide>
     <p class="mt-6 reading max-w-[38rem]">Most founders and CEOs who contact me for advisory or a sparring partner arrive with one of these three situations.</p>
-    <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
+    <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-10">
       {situations.map((s, i) => (
-        <article class:list={['situation settle surface hair-all', `s${i + 1}`, 'p-7 lg:p-9']}>
-          <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d={icons[s.icon]} /></svg>
-          <h3 class="mt-5 text-[1.55rem] sm:text-[1.7rem] leading-[1.15] text-ink">{s.title}.</h3>
-          <p class="mt-4 reading"><strong class="font-semibold text-ink">{s.lead}</strong> {s.body}</p>
+        <article class:list={['situation settle pt-5 hair-t hair-strong', `s${i + 1}`]}>
+          <p class="display text-[2.4rem] leading-none text-accent">0{i + 1}</p>
+          <h3 class="mt-5 text-[1.45rem] sm:text-[1.6rem] leading-[1.12] text-ink">{s.title}.</h3>
+          <p class="mt-4 reading"><span class="text-ink">{s.lead}</span> {s.body}</p>
         </article>
       ))}
     </div>
@@ -61,18 +65,29 @@ const pattern = {
   </Chapter>
 
   <!-- 3 · How I think: one worked pattern -->
-  <Chapter id="thinking" note="How I think" heading="Most problems arrive with a label already on them.">
+  <Chapter id="thinking" num="02" note="How I think" heading="Most problems arrive with a label already on them." tone="sand" wide>
     <p slot="margin" class="label mt-3 hidden lg:block max-w-[14rem]">A composite pattern from practice, not an individual client.</p>
-    <article class="mt-8 max-w-[38rem]">
-      <blockquote class="wipe display text-[1.8rem] sm:text-[2.3rem] leading-[1.15] text-ink">“{pattern.remark}”</blockquote>
-      <p class="settle mt-6 reading">{pattern.obvious}</p>
-      <p class="settle mt-4 reading">{pattern.question}</p>
-      <p class="settle mt-4 reading text-ink">{pattern.shift}</p>
+    <article class="mt-10">
+      <blockquote class="wipe display text-[2rem] sm:text-[2.8rem] lg:text-[3.2rem] leading-[1.02] text-ink max-w-[22ch]">“{pattern.remark}”</blockquote>
+      <dl class="mt-10 lg:mt-12">
+        <div class="settle py-6 hair-t hair-strong sm:grid sm:grid-cols-9 sm:gap-x-6">
+          <dt class="label sm:col-span-3 sm:pt-1">The obvious response</dt>
+          <dd class="mt-2 sm:mt-0 sm:col-span-6 reading text-muted! line-through decoration-[0.06em] decoration-line-strong">{pattern.obviousShort}</dd>
+        </div>
+        <div class="settle s2 py-6 hair-t hair-strong sm:grid sm:grid-cols-9 sm:gap-x-6">
+          <dt class="label sm:col-span-3 sm:pt-1">What the team has learned</dt>
+          <dd class="mt-2 sm:mt-0 sm:col-span-6 reading">{pattern.learned}</dd>
+        </div>
+        <div class="settle s3 py-6 hair-t hair-b hair-strong sm:grid sm:grid-cols-9 sm:gap-x-6">
+          <dt class="secnum sm:col-span-3 sm:pt-1.5">The question I ask</dt>
+          <dd class="mt-2 sm:mt-0 sm:col-span-6 display text-[1.6rem] sm:text-[2rem] leading-[1.12] text-ink">{pattern.ask}</dd>
+        </div>
+      </dl>
     </article>
   </Chapter>
 
   <!-- 4 · Background: figures first, then three sentences -->
-  <Chapter id="background" note="Background" heading="I have carried the responsibility too.">
+  <Chapter id="background" num="03" note="Background" heading="I have carried the responsibility too.">
     <dl class="mt-10 grid grid-cols-2 lg:grid-cols-4 hair-t ">
       {figures.map((f, i) => (
         <div class:list={['settle', `s${i + 1}`, 'pt-5 pb-6 pr-4 hair-b  lg:hair-b-0']}>
@@ -99,28 +114,33 @@ const pattern = {
   </Chapter>
 
   <!-- 5 · Case studies: three real engagements, each folded -->
-  <Chapter id="cases" note="Case studies" heading="Results from the room." tone="dark" wide>
+  <Chapter id="cases" num="04" note="Case studies" heading="Results from the room." tone="dark" wide>
     <p class="mt-6 reading max-w-[38rem]">Three real engagements and what changed for the leaders involved. Confidentiality prevents names, not the substance. Outcomes as reported by the clients.</p>
-    <div class="mt-10 space-y-4">
-    {cases.map((c) => (
-      <article class="settle bg-mist hair-all px-6 py-6 sm:px-8 sm:py-7">
-        <details class="case group">
-          <summary class="list-none cursor-pointer [&::-webkit-details-marker]:hidden">
-            <span class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-6 gap-y-1">
-              <span class="label">{c.context}</span>
-              <span class="font-sans text-[0.9375rem] font-medium text-accent sm:text-right">{c.proof}</span>
-            </span>
-            <span class="mt-3 flex items-start justify-between gap-6">
-              <span class="font-serif text-[1.6rem] sm:text-[1.85rem] leading-snug text-ink group-hover:text-accent transition-colors">{c.title}</span>
-              <span aria-hidden="true" class="mt-2 shrink-0 font-sans text-xl leading-none text-accent transition-transform duration-200 group-open:rotate-45">+</span>
-            </span>
-            <span class="mt-3 block reading max-w-[38rem]">{c.summary}</span>
-            <span class="mt-3 inline-flex text-[0.9375rem] text-accent"><span class="group-open:hidden">Read the case</span><span class="hidden group-open:inline">Close the case</span></span>
+    <div class="mt-12 grid gap-y-12 lg:grid-cols-3 lg:gap-x-6">
+    {cases.map((c, i) => (
+      <article class:list={['settle pt-5 hair-t hair-strong flex flex-col', `s${i + 1}`]}>
+        <p class="label">{c.n} · {c.context}</p>
+        {c.figures ? (
+          <div class="mt-6">
+            <div class="flex items-baseline gap-8">
+              {c.figures.map((f, k) => <p class:list={['display text-[4.2rem] sm:text-[4.8rem] leading-[0.9]', k ? 'text-accent' : 'text-ink']}>{f.n}</p>)}
+            </div>
+            <p class="mt-3 label">{c.figures.map((f) => f.t).join(' · ')}</p>
+          </div>
+        ) : (
+          <p class="mt-6 display text-[1.75rem] sm:text-[2rem] leading-[1.08] text-ink">{c.outcome ?? c.proof}</p>
+        )}
+        <h3 class="mt-7 text-[1.25rem] leading-snug text-ink">{c.title}</h3>
+        <p class="mt-2 reading text-[1.0625rem]!">{c.summary}</p>
+        <details class="case group mt-4">
+          <summary class="list-none cursor-pointer [&::-webkit-details-marker]:hidden inline-flex items-center gap-2 text-[0.9375rem] text-accent">
+            <span class="group-open:hidden">Read the case</span><span class="hidden group-open:inline">Close the case</span>
+            <span aria-hidden="true" class="transition-transform duration-200 group-open:rotate-45">+</span>
           </summary>
-          <ol class="mt-6 grid gap-5 lg:grid-cols-3 lg:gap-8">
-            {[['The situation', c.dilemma], ['What lay beneath', c.issue], ['What changed', c.resolution]].map(([t, b], i) => (
-              <li class="pt-4 hair-t hair-strong">
-                <p class="label"><span class="text-accent font-medium">{i + 1}</span> · {t}</p>
+          <ol class="mt-5 space-y-5">
+            {[['The situation', c.dilemma], ['What lay beneath', c.issue], ['What changed', c.resolution]].map(([t, b], k) => (
+              <li class="pt-4 hair-t">
+                <p class="label"><span class="text-accent font-medium">{k + 1}</span> · {t}</p>
                 <p class="mt-2 reading text-[1.0625rem]!">{b}</p>
               </li>
             ))}
@@ -132,7 +152,7 @@ const pattern = {
   </Chapter>
 
   <!-- 5b · Client voices: who says so, straight after what changed -->
-  <Chapter id="voices" note="In their words" heading="What clients say." wide rule={false}>
+  <Chapter id="voices" num="05" note="In their words" heading="What clients say." wide>
     <div class="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
       {testimonials.map((t) => <Voice t={t} />)}
     </div>
@@ -140,7 +160,7 @@ const pattern = {
   </Chapter>
 
   <!-- 6 · Research, short -->
-  <Chapter id="research" tone="sand" note="Research" heading="Why do some leaders excel at seeing possibilities but struggle with the systems needed to scale them?">
+  <Chapter id="research" num="06" tone="sand" note="Research" heading="Why do some leaders excel at seeing possibilities but struggle with the systems needed to scale them?">
     <figure slot="margin" class="mt-5 mb-6 lg:mb-0 lg:mt-6 w-[11.5rem] lg:w-[min(17rem,calc(100%+1rem))]">
       <Image src={bookCover} alt="Kindle cover of The Non-Linear Operating System by Dr. Sven Mulfinger" widths={[184, 272, 368, 544, 816]} sizes="(min-width: 1024px) 272px, 184px" format="webp" quality={85} loading="lazy" decoding="async" class="settle block w-full h-auto shadow-lg" />
     </figure>
@@ -153,7 +173,7 @@ const pattern = {
   </Chapter>
 
   <!-- 7 · Three ways to work together -->
-  <Chapter id="paths" note="Ways to work together" heading="Three ways to work together." rule={false}>
+  <Chapter id="paths" num="07" note="Ways to work together" heading="Three ways to work together.">
     <p class="mt-6 reading max-w-[38rem]">1:1 advisory is the core of my work. The other two exist for when the tension sits elsewhere: between peers, or inside the executive team.</p>
     <Paths />
   </Chapter>
@@ -163,7 +183,7 @@ const pattern = {
     <div class="container-x">
       <div class="relative py-10 lg:py-12 lg:grid lg:grid-cols-12 lg:gap-x-10">
         <span aria-hidden="true" class="draw absolute inset-x-0 top-0 h-px hair-t hair-strong"></span>
-        <p class="label lg:col-span-3 lg:pt-1">Considering an engagement?</p>
+        <p class="secnum lg:col-span-3 lg:pt-1">Considering an engagement?</p>
         <p class="mt-2 lg:mt-0 lg:col-span-9 reading text-ink!">See how 1:1 advisory works, from the first conversation to the terms, and the twelve questions leaders ask before getting in touch. <a href="/advisory" class="link whitespace-nowrap">How 1:1 advisory works →</a></p>
       </div>
     </div>
